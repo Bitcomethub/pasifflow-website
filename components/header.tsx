@@ -76,32 +76,32 @@ export function Header() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
+              className="text-base font-bold text-foreground/90 hover:text-primary transition-colors relative group py-2"
             >
               {link.name}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+              <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
           {/* New Nav Items */}
           <Link
             href="/neden-amerika"
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
+            className="text-base font-bold text-foreground/90 hover:text-primary transition-colors relative group py-2"
           >
             Neden Amerika?
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+            <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
           </Link>
           <Link
             href="/vergilendirme"
-            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
+            className="text-base font-bold text-foreground/90 hover:text-primary transition-colors relative group py-2"
           >
             Vergi & Hukuk
-            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+            <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
           </Link>
 
           {/* Language Switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground hover:text-primary">
+              <Button variant="ghost" size="sm" className="gap-1.5 text-foreground/90 hover:text-primary font-semibold">
                 <Globe className="h-4 w-4" />
                 <span className="text-sm">{currentLang.flag}</span>
                 <ChevronDown className="h-3 w-3" />
@@ -113,8 +113,8 @@ export function Header() {
                   key={lang.code}
                   onClick={() => switchLocale(lang.code)}
                   className={cn(
-                    "gap-2 cursor-pointer",
-                    currentLocale === lang.code && "bg-accent/10"
+                    "gap-2 cursor-pointer font-medium",
+                    currentLocale === lang.code && "bg-accent/10 text-primary"
                   )}
                 >
                   <span>{lang.flag}</span>
@@ -125,7 +125,7 @@ export function Header() {
           </DropdownMenu>
 
           <Button
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6 shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:scale-105"
             size={isScrolled ? "sm" : "default"}
           >
             Danışmanlık Al
