@@ -107,6 +107,13 @@ export function ValuePropsSection() {
             </motion.div>
           ))}
         </motion.div>
+        import {RoiCalculator} from "@/components/roi-calculator"
+
+        // ... inside the component, before the end
+        {/* Interactive Element: ROI Calculator */}
+        <div className="mt-20 max-w-4xl mx-auto">
+          <RoiCalculator />
+        </div>
       </div>
     </section>
   )

@@ -82,6 +82,21 @@ export function Header() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
+          {/* New Nav Items */}
+          <Link
+            href="/neden-amerika"
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
+          >
+            Neden Amerika?
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+          </Link>
+          <Link
+            href="/vergilendirme"
+            className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
+          >
+            Vergi & Hukuk
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+          </Link>
 
           {/* Language Switcher */}
           <DropdownMenu>
@@ -143,6 +158,21 @@ export function Header() {
                 {link.name}
               </Link>
             ))}
+            {/* Added Links Mobile */}
+            <Link
+              href="/neden-amerika"
+              className="text-2xl font-heading font-medium text-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Neden Amerika?
+            </Link>
+            <Link
+              href="/vergilendirme"
+              className="text-2xl font-heading font-medium text-foreground hover:text-accent transition-colors"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Vergi & Hukuk
+            </Link>
 
             {/* Mobile Language Switcher */}
             <div className="flex gap-3 pt-4">
