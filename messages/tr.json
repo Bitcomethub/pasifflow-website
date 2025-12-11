@@ -199,5 +199,33 @@
     "kvkkPage": {
         "title": "KVKK Aydınlatma Metni",
         "lastUpdated": "Son Güncelleme"
+    },
+    "whyUsa": {
+        "title": "Neden Amerika?",
+        "subtitle": "Global yatırımın güvenli limanında geleceğinizi inşa edin.",
+        "section1Title": "Ekonomik İstikrar ve Güven",
+        "section1Desc": "Amerika Birleşik Devletleri, dünyanın en büyük ve en istikrarlı ekonomisine sahiptir. Gayrimenkul piyasası, yasal düzenlemelerle sıkı bir şekilde korunur ve yatırımcı hakları güvence altındadır. Dolar bazında varlık sahibi olmak, yerel para birimlerindeki enflasyon riskine karşı en güçlü korumadır.",
+        "section2Title": "Döviz Bazlı Kira Geliri",
+        "section2Desc": "Türkiye'deki kira gelirleriniz enflasyon karşısında eriyebilirken, ABD'deki kira gelirleriniz dolar bazındadır. Bu sayede hem mülkünüz değer kazanır hem de elde ettiğiniz gelirle alım gücünüzü korursunuz.",
+        "section3Title": "Şeffaf ve Hızlı Tapu Süreci",
+        "section3Desc": "ABD'de tapu kayıtları halka açıktır ve tüm işlemler 'Title Company' (Tapu Şirketi) güvencesiyle yapılır. Bu kurumlar, parayı ve tapuyu emanette tutarak her iki tarafı da korur. Dolandırıcılık riski neredeyse sıfırdır.",
+        "section4Title": "Section 8 Avantajı",
+        "section4Desc": "Yatırımlarımız ağırlıklı olarak devlet destekli 'Section 8' programı kapsamındadır. Bu sayede kiranızın büyük bir kısmı doğrudan Amerikan hükümeti tarafından ödenir, kiracı riskiniz minimize edilir.",
+        "ctaTitle": "Vergi Avantajlarını Öğrenin",
+        "ctaDesc": "Amerika'da yatırım yapmanın vergi avantajlarını merak ediyor musunuz?",
+        "ctaButton": "Vergilendirme Rehberini Oku"
+    },
+    "taxation": {
+        "title": "Vergilendirme ve Hukuk",
+        "subtitle": "Avantajlı vergi yapısı ve yasal koruma.",
+        "section1Title": "Çifte Vergilendirme Anlaşması",
+        "section1Desc": "Türkiye ve ABD arasındaki vergi anlaşması sayesinde, ABD'de ödediğiniz vergiyi Türkiye'de beyan edip mahsup edebilirsiniz. Böylece aynı gelir için iki kez vergi ödemezsiniz.",
+        "section2Title": "LLC Şirket Avantajları",
+        "section2Desc": "Yatırımınız için kuracağımız LLC (Limited Liability Company), size hem yasal koruma sağlar hem de vergi avantajları sunar. LLC, 'Pass-Through' vergilendirme özelliğine sahiptir, yani şirket seviyesinde vergi ödemezsiniz, gelir doğrudan ortaklara geçer.",
+        "section3Title": "Masraf İndirimi (Deductibles)",
+        "section3Desc": "Emlak vergisi, sigorta, yönetim ücretleri, bakım onarım masrafları ve hatta seyahat masraflarınızın bir kısmını vergi matrahından düşebilirsiniz. Ayrıca 'Mortgage Faizi' ve 'Amortisman' (Depreciation) gibi kalemler de vergi avantajı sağlar.",
+        "ctaTitle": "Hemen Başlayın",
+        "ctaDesc": "Yatırım yolculuğunuza başlamak için profesyonel destek alın.",
+        "ctaButton": "Ücretsiz Danışmanlık Al"
     }
 }

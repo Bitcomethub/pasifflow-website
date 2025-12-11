@@ -199,5 +199,33 @@
     "kvkkPage": {
         "title": "Data Protection Notice",
         "lastUpdated": "Last Updated"
+    },
+    "whyUsa": {
+        "title": "Why Invest in USA?",
+        "subtitle": "Build your future in the safe harbor of global investment.",
+        "section1Title": "Economic Stability and Trust",
+        "section1Desc": "The United States has the world's largest and most stable economy. The real estate market is strictly protected by regulations, and investor rights are safeguarded. Owning assets in dollars is the strongest protection against inflation risks in local currencies.",
+        "section2Title": "Dollar-Based Rental Income",
+        "section2Desc": "While rental income in other currencies may erode against inflation, your rental income in the US is in dollars. This ensures both your property appreciates and your purchasing power is protected.",
+        "section3Title": "Transparent and Fast Title Process",
+        "section3Desc": "In the US, title records are public, and all transactions are secured by a 'Title Company'. These institutions hold the money and deed in escrow, protecting both parties. Fraud risk is virtually zero.",
+        "section4Title": "The Section 8 Advantage",
+        "section4Desc": "Our investments are primarily covered by the government-supported 'Section 8' program. This ensures a large portion of your rent is paid directly by the US government, minimizing tenant risk.",
+        "ctaTitle": "Learn About Tax Advantages",
+        "ctaDesc": "Curious about the tax benefits of investing in the US?",
+        "ctaButton": "Read Taxation Guide"
+    },
+    "taxation": {
+        "title": "Taxation and Legal",
+        "subtitle": "Advantageous tax structure and legal protection.",
+        "section1Title": "Double Taxation Treaty",
+        "section1Desc": "Thanks to the tax treaty between Turkey and either the US or your home country, you can declare and deduct taxes paid in the US. Thus, you do not pay tax twice on the same income.",
+        "section2Title": "LLC Company Benefits",
+        "section2Desc": "The LLC (Limited Liability Company) we establish for your investment provides both legal protection and tax advantages. LLCs have 'Pass-Through' taxation, meaning you don't pay tax at the corporate level; income passes directly to partners.",
+        "section3Title": "Expense Deductions",
+        "section3Desc": "You can deduct property tax, insurance, management fees, maintenance costs, and even some travel expenses from your tax base. Items like 'Mortgage Interest' and 'Depreciation' also provide tax benefits.",
+        "ctaTitle": "Start Now",
+        "ctaDesc": "Get professional support to start your investment journey.",
+        "ctaButton": "Get Free Consultation"
     }
 }
