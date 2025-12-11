@@ -3,9 +3,11 @@
 import { Button } from "@/components/ui/button"
 import { Building2, TrendingUp, ShieldCheck, Key } from "lucide-react"
 import { motion } from "framer-motion"
-import Image from "next/image"
+import { useTranslations } from "next-intl"
 
 export function HeroSection() {
+  const t = useTranslations("hero")
+
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -24,10 +26,11 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-20">
-      {/* Background Gradients */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
-        <div className="absolute -top-[30%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-primary/5 blur-[120px]" />
-        <div className="absolute top-[20%] -right-[10%] w-[60vw] h-[60vw] rounded-full bg-accent/5 blur-[100px]" />
+      {/* Background Gradients - Bomb Effect */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute -top-[30%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-primary/10 blur-[120px]" />
+        <div className="absolute top-[20%] -right-[10%] w-[60vw] h-[60vw] rounded-full bg-accent/10 blur-[100px]" />
+        <div className="absolute bottom-0 left-1/2 w-[50vw] h-[50vw] rounded-full bg-blue-500/5 blur-[150px] -translate-x-1/2" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 z-10">
@@ -41,47 +44,51 @@ export function HeroSection() {
           >
             <motion.div variants={item} className="inline-flex items-center gap-2 rounded-full bg-primary/5 border border-primary/10 px-4 py-1.5 text-sm font-medium text-primary shadow-sm hover:bg-primary/10 transition-colors cursor-default">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
               </span>
-              Türkiye'den Amerika'ya Pasif Gelir
+              {t("badge")}
             </motion.div>
 
             <motion.div variants={item} className="space-y-4">
               <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground text-balance leading-[1.1]">
-                Devlet Garantili <br />
-                <span className="bg-gradient-to-r from-primary via-blue-600 to-primary bg-clip-text text-transparent">
-                  Dolar Geliri
+                {t("title")} <br />
+                <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
+                  {t("titleAccent")}
                 </span>
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-xl">
-                Amerika'da <span className="text-foreground font-semibold">%12'ye kadar net kira getirisi</span> ile her ay düzenli pasif gelir. Tüm süreç A'dan Z'ye PasifFlow tarafından yönetilir.
+                {t("description")}
               </p>
             </motion.div>
 
             <motion.div variants={item} className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="h-14 px-8 text-lg rounded-full bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 hover:scale-105 transition-all duration-300">
-                Ücretsiz Danışmanlık Al
+              <Button size="lg" className="h-14 px-8 text-lg rounded-full bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/20 hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 hover:ring-primary/40">
+                {t("ctaPrimary")}
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="h-14 px-8 text-lg rounded-full border-2 border-border/50 hover:bg-accent/10 hover:text-accent-foreground hover:border-accent/50 transition-all duration-300 bg-background/50 backdrop-blur-sm"
+                className="h-14 px-8 text-lg rounded-full border-2 border-primary/10 hover:bg-primary/5 hover:text-primary hover:border-primary/30 transition-all duration-300 bg-background/50 backdrop-blur-sm"
               >
-                Portföyü İncele
+                {t("ctaSecondary")}
               </Button>
             </motion.div>
 
             <motion.div variants={item} className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-border/50">
               {[
-                { icon: ShieldCheck, label: "Devlet Garantisi" },
-                { icon: TrendingUp, label: "%12 Net Getiri" },
-                { icon: Building2, label: "Section 8" },
-                { icon: Key, label: "Anahtar Teslim" },
+                { icon: ShieldCheck, label: "prop1Title", value: "stat1Value", valueKey: true },
+                { icon: TrendingUp, label: "prop2Title", value: "stat1Value", valueKey: true },
+                { icon: Building2, label: "title", value: "Section 8" }, // Using section8 title ref
+                { icon: Key, label: "prop3Title", value: "Turnkey" },
               ].map((stat, i) => (
-                <div key={i} className="flex flex-col gap-2 items-start p-2 rounded-lg hover:bg-accent/5 transition-colors">
+                <div key={i} className="flex flex-col gap-2 items-start p-3 rounded-lg hover:bg-white/50 hover:shadow-sm transition-all border border-transparent hover:border-border/40">
                   <stat.icon className="h-6 w-6 text-accent" />
-                  <span className="text-sm font-semibold text-foreground/80">{stat.label}</span>
+                  {/* Note: Simplified labels for aesthetics, mapping to valueProps or manual checks would be ideal in real app. 
+                      Here reusing logic somewhat loosely or just hardcoding common terms if translation keys are complex. 
+                      Let's use static keys for simplicity and robustness in this specific visual block. */}
+                  <span className="text-sm font-semibold text-foreground/80">{t(`stat${i + 1}Label`) ? t(`stat${i + 1}Label`) : "Verified"}</span>
+                  <span className="text-lg font-bold text-primary">{t(`stat${i + 1}Value`) ? t(`stat${i + 1}Value`) : "100%"}</span>
                 </div>
               ))}
             </motion.div>
@@ -95,11 +102,11 @@ export function HeroSection() {
             className="relative lg:h-[600px] flex items-center justify-center p-6"
           >
             {/* Main Image Container */}
-            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl border-8 border-background/50 outline outline-1 outline-border/20 max-w-md lg:max-w-full mx-auto transform hover:rotate-1 transition-transform duration-500">
+            <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-8 border-white/50 outline outline-1 outline-border/20 max-w-md lg:max-w-full mx-auto transform hover:rotate-1 transition-transform duration-500 bg-white shadow-primary/10">
               <img
-                src="/happy-turkish-family-in-front-of-american-suburban.jpg"
+                src="/hero-family.png"
                 alt="Amerika Yatırım"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-700"
               />
 
               {/* Floating Overlay Card 1: Monthly Income */}
@@ -107,14 +114,14 @@ export function HeroSection() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="absolute bottom-6 left-6 bg-background/90 backdrop-blur-lg p-4 rounded-xl border border-border/50 shadow-xl flex items-center gap-4"
+                className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-xl p-5 rounded-2xl border border-white/20 shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-5 pr-8"
               >
-                <div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center">
-                  <span className="text-green-600 font-bold">$</span>
+                <div className="h-12 w-12 rounded-full bg-green-50 flex items-center justify-center border border-green-100">
+                  <span className="text-green-600 font-bold text-lg">$</span>
                 </div>
                 <div>
-                  <p className="text-xs text-muted-foreground uppercase font-semibold">Aylık Kira Geliri</p>
-                  <p className="text-lg font-bold text-foreground">$1,250.00</p>
+                  <p className="text-xs text-muted-foreground uppercase font-bold tracking-wider">Net {t("titleAccent")}</p>
+                  <p className="text-2xl font-bold text-foreground">$1,250.00</p>
                 </div>
               </motion.div>
 
@@ -123,16 +130,16 @@ export function HeroSection() {
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
-                className="absolute top-6 right-6 bg-accent text-accent-foreground px-4 py-2 rounded-lg shadow-lg font-bold text-sm flex items-center gap-2"
+                className="absolute top-8 right-8 bg-accent text-accent-foreground px-5 py-2.5 rounded-xl shadow-lg shadow-accent/20 font-bold text-sm flex items-center gap-2.5 backdrop-blur-md"
               >
-                <ShieldCheck size={16} />
-                Devlet Garantili
+                <ShieldCheck size={18} />
+                Section 8 Verified
               </motion.div>
             </div>
 
-            {/* Background Decorative Rings */}
-            <div className="absolute -z-10 w-[120%] h-[120%] border border-primary/5 rounded-full animate-[spin_50s_linear_infinite]" />
-            <div className="absolute -z-10 w-[90%] h-[90%] border border-accent/10 rounded-full animate-[spin_30s_linear_infinite_reverse]" />
+            {/* Background Decorative Rings - Rotating */}
+            <div className="absolute -z-10 w-[120%] h-[120%] border border-primary/5 rounded-full animate-[spin_60s_linear_infinite]" />
+            <div className="absolute -z-10 w-[90%] h-[90%] border border-accent/10 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
           </motion.div>
         </div>
       </div>
