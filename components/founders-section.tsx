@@ -41,7 +41,7 @@ export function FoundersSection() {
             <span className="text-primary">Profesyonel Yönetim</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Pasifflow, Amerika'da uzun yıllardır yaşayan, ABD gayrimenkul piyasasını derinlemesine bilen ve yatırım
+            Pasiflow, Amerika'da uzun yıllardır yaşayan, ABD gayrimenkul piyasasını derinlemesine bilen ve yatırım
             odaklı çalışan profesyoneller tarafından yönetilmektedir.
           </p>
         </div>

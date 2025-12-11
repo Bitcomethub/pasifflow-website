@@ -3,16 +3,16 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 export function FAQSection() {
   const faqs = [
     {
-      q: "Pasifflow tam olarak nedir?",
-      a: "Pasifflow, Amerika'da devlet garantili Section 8 kiracıları olan, anahtar teslim yatırım evleri sunan bir platformdur.",
+      q: "Pasiflow tam olarak nedir?",
+      a: "Pasiflow, Amerika'da devlet garantili Section 8 kiracıları olan, anahtar teslim yatırım evleri sunan bir platformdur.",
     },
     {
       q: "Neden Section 8? Devlet garantisi nasıl işliyor?",
       a: "Section 8, ABD hükümeti tarafından desteklenen bir sosyal konut programıdır. Kira ödemeleri doğrudan devlet tarafından garanti edilir.",
     },
     {
-      q: "Neden Pasifflow diğer turnkey modellerden daha güvenilir?",
-      a: "Pasifflow, uzman bir ekip tarafından yönetilir ve tüm evler Section 8 garantili olarak sunulur. %10-12 net getiri hedefimiz vardır.",
+      q: "Neden Pasiflow diğer turnkey modellerden daha güvenilir?",
+      a: "Pasiflow, uzman bir ekip tarafından yönetilir ve tüm evler Section 8 garantili olarak sunulur. %10-12 net getiri hedefimiz vardır.",
     },
     {
       q: "Evleri nasıl seçiyorsunuz?",

@@ -19,7 +19,7 @@ export function AdvantagesSection() {
                 Yatırım Modelinin Avantajları
               </span>
               <h2 className="text-3xl md:text-5xl font-bold text-primary tracking-tight">
-                Pasifflow ile <span className="text-accent">Yüksek Getiri</span> ve <span className="text-accent">Minimum Risk</span>
+                Pasiflow ile <span className="text-accent">Yüksek Getiri</span> ve <span className="text-accent">Minimum Risk</span>
               </h2>
             </div>
 

@@ -1,26 +1,50 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
+import { useState } from "react"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Globe, ChevronDown } from "lucide-react"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+const languages = [
+  { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+]
 
 export function Header() {
   const { scrollY } = useScroll()
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const router = useRouter()
+
+  const currentLocale = pathname.split('/')[1] || 'tr'
+  const currentLang = languages.find(l => l.code === currentLocale) || languages[0]
 
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 50)
   })
 
+  const switchLocale = (newLocale: string) => {
+    const segments = pathname.split('/')
+    segments[1] = newLocale
+    router.push(segments.join('/') || `/${newLocale}`)
+  }
+
   const navLinks = [
     { name: "Nasıl Çalışır?", href: "#nasil-calisir" },
     { name: "Portföy", href: "#portfoy" },
-    { name: "S.S.S.", href: "#sss" },
+    { name: "S.S.S.", href: "#faq" },
     { name: "İletişim", href: "#iletisim" },
   ]
 
@@ -40,24 +64,14 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 relative z-50">
           <div className={cn("transition-all duration-300", isScrolled ? "scale-90" : "scale-100")}>
-            {/* Using placeholder text acting as logo if image fails or for cleaner look initially */}
             <span className="text-2xl font-bold font-heading text-primary tracking-tighter">
-              Pasif<span className="text-accent">flow</span>
+              Pasi<span className="text-accent">flow</span>
             </span>
-            {/* Image logo can be uncommented when validated */}
-            {/* <Image
-                src="/images/pasifflow-logo.png"
-                alt="Pasifflow"
-                width={140}
-                height={40}
-                className="h-8 w-auto"
-                priority
-              /> */}
           </div>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-6">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -68,6 +82,33 @@ export function Header() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
+
+          {/* Language Switcher */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground hover:text-primary">
+                <Globe className="h-4 w-4" />
+                <span className="text-sm">{currentLang.flag}</span>
+                <ChevronDown className="h-3 w-3" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="min-w-[140px]">
+              {languages.map((lang) => (
+                <DropdownMenuItem
+                  key={lang.code}
+                  onClick={() => switchLocale(lang.code)}
+                  className={cn(
+                    "gap-2 cursor-pointer",
+                    currentLocale === lang.code && "bg-accent/10"
+                  )}
+                >
+                  <span>{lang.flag}</span>
+                  <span>{lang.name}</span>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
           <Button
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-6 shadow-lg shadow-primary/20 hover:shadow-primary/40 transition-all"
             size={isScrolled ? "sm" : "default"}
@@ -102,7 +143,24 @@ export function Header() {
                 {link.name}
               </Link>
             ))}
-            <Button size="lg" className="w-40">
+
+            {/* Mobile Language Switcher */}
+            <div className="flex gap-3 pt-4">
+              {languages.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => { switchLocale(lang.code); setMobileMenuOpen(false); }}
+                  className={cn(
+                    "text-2xl p-2 rounded-lg transition-colors",
+                    currentLocale === lang.code ? "bg-accent/20" : "hover:bg-muted"
+                  )}
+                >
+                  {lang.flag}
+                </button>
+              ))}
+            </div>
+
+            <Button size="lg" className="w-40 mt-4">
               Danışmanlık Al
             </Button>
           </motion.div>

@@ -8,7 +8,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl font-bold">Pasif<span className="text-accent">flow</span></span>
+              <span className="text-2xl font-bold">Pasi<span className="text-accent">flow</span></span>
             </Link>
             <p className="text-primary-foreground/70 text-sm leading-relaxed">
               Amerika'da devlet garantili (Section 8) kira gelirli gayrimenkul yatırımı ile dolar bazında pasif gelir elde etmenin en güvenli yolu.
@@ -41,16 +41,16 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-primary-foreground/70">
               <li><Link href="/gizlilik" className="hover:text-accent transition-colors">Gizlilik Politikası</Link></li>
               <li><Link href="/kullanim-sartlari" className="hover:text-accent transition-colors">Kullanım Şartları</Link></li>
-              <li><Link href="/aydinlatma-metni" className="hover:text-accent transition-colors">KVKK Aydınlatma Metni</Link></li>
+              <li><Link href="/kvkk" className="hover:text-accent transition-colors">KVKK Aydınlatma Metni</Link></li>
             </ul>
           </div>
 
           <div>
             <h4 className="font-bold text-lg mb-6">İletişim</h4>
             <div className="space-y-3 text-sm text-primary-foreground/70">
-              <p>Miami, FL</p>
-              <p>info@pasifflow.com</p>
-              <p>+1 (305) 555-0123</p>
+              <p>İstanbul, Türkiye</p>
+              <p>info@pasiflow.com</p>
+              <p>+90 555 123 45 67</p>
               <p className="pt-4 text-xs text-white/40">
                 *Bu sitede yer alan bilgiler yatırım tavsiyesi değildir.
               </p>
@@ -59,7 +59,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-white/10 text-center text-sm text-primary-foreground/50 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p>&copy; {new Date().getFullYear()} Pasifflow LLC. Tüm hakları saklıdır.</p>
+          <p>&copy; {new Date().getFullYear()} Pasiflow LLC. Tüm hakları saklıdır.</p>
           <p className="text-xs">
             Designed with <span className="text-accent">♥</span> for Global Investors
           </p>

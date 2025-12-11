@@ -13,23 +13,23 @@ import { FinalCTASection } from "@/components/final-cta-section"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
-  return (
-    <div className="min-h-screen">
-      <Header />
-      <main>
-        <HeroSection />
-        <ValuePropsSection />
-        <FoundersSection />
-        <ComparisonSection />
-        <AdvantagesSection />
-        <PortfolioSection />
-        <ProcessSection />
-        <Section8Section />
-        <FAQSection />
-        <MapSection />
-        <FinalCTASection />
-      </main>
-      <Footer />
-    </div>
-  )
+    return (
+        <div className="min-h-screen">
+            <Header />
+            <main>
+                <HeroSection />
+                <ValuePropsSection />
+                <FoundersSection />
+                <ComparisonSection />
+                <AdvantagesSection />
+                <PortfolioSection />
+                <ProcessSection />
+                <Section8Section />
+                <FAQSection />
+                <MapSection />
+                <FinalCTASection />
+            </main>
+            <Footer />
+        </div>
+    )
 }

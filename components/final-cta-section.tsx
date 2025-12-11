@@ -27,7 +27,7 @@ export function FinalCTASection() {
               <span className="text-accent">Bugün Başlayın.</span>
             </h2>
             <p className="text-xl text-blue-100/90 max-w-2xl mx-auto leading-relaxed">
-              Pasifflow ile Amerika'da ev sahibi olmak artık hayal değil.
+              Pasiflow ile Amerika'da ev sahibi olmak artık hayal değil.
               Dolarla kira geliri, devlet garantisi ve değer artışı bir arada.
             </p>
           </motion.div>
