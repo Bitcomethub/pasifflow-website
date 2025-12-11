@@ -56,8 +56,8 @@ export function FoundersSection() {
 
               <div className="flex flex-col items-center gap-6">
                 <div className="relative">
-                  <div className="absolute -inset-1 bg-gradient-to-br from-primary to-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
-                  <Avatar className="h-32 w-32 border-4 border-background relative z-10">
+                  <div className="absolute -inset-1 bg-gradient-to-br from-primary via-accent to-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
+                  <Avatar className="h-32 w-32 border-4 border-background relative z-10 shadow-xl"> {/* Added shadow */}
                     <AvatarImage
                       src={founder.image}
                       alt={founder.name}
