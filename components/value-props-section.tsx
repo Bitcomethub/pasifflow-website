@@ -2,34 +2,37 @@
 
 import { TrendingUp, ShieldCheck, Building2, Key } from "lucide-react"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 export function ValuePropsSection() {
+  const t = useTranslations("valueProps")
+
   const benefits = [
     {
       icon: TrendingUp,
-      title: "%12'ye Kadar Net Getiri",
-      description: "Dolar bazında yüksek getiri potansiyeli ile paranız değer kazansın.",
+      title: t("prop2Title"), // Yüksek Getiri
+      description: t("prop2Desc"),
       gradient: "from-blue-500/20 to-cyan-500/20",
       iconColor: "text-blue-500"
     },
     {
       icon: ShieldCheck,
-      title: "Garantili Kira (Section 8)",
-      description: "ABD devleti tarafından güvence altına alınan düzenli kira ödemeleri.",
+      title: t("prop1Title"), // Devlet Garantili
+      description: t("prop1Desc"),
       gradient: "from-emerald-500/20 to-green-500/20",
       iconColor: "text-emerald-500"
     },
     {
-      icon: Building2,
-      title: "Devlet Destekli Program",
-      description: "Sosyal konut programı (Section 8) ile riskleri minimize edin.",
+      icon: Key,
+      title: t("prop3Title"), // Anahtar Teslim
+      description: t("prop3Desc"),
       gradient: "from-purple-500/20 to-indigo-500/20",
       iconColor: "text-purple-500"
     },
     {
-      icon: Key,
-      title: "Tamamen Anahtar Teslim",
-      description: "Tadilatı yapılmış, kiracısı hazır ve yönetimi profesyonelce yapılan evler.",
+      icon: Building2,
+      title: t("prop4Title"), // Prof Yönetim
+      description: t("prop4Desc"),
       gradient: "from-amber-500/20 to-orange-500/20",
       iconColor: "text-amber-500"
     },
@@ -65,12 +68,11 @@ export function ValuePropsSection() {
             transition={{ duration: 0.5 }}
           >
             <h2 className="text-3xl md:text-5xl font-bold text-primary text-balance mb-4">
-              Pasif Gelire Giden <br />
-              <span className="text-accent underline decoration-4 underline-offset-4 decoration-primary/20">En Güvenli Yol</span>
+              {t("title")}<br />
+              <span className="text-accent underline decoration-4 underline-offset-4 decoration-primary/20">{t("subtitle")}</span>
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              PasifFlow, yatırımcılara hazır kiracılı, tadilatı bitmiş, devlet destekli kira garantili yatırım evleri
-              sunan anahtar teslim bir sistemdir.
+              Pasiflow ile Amerika'da ev sahibi olmak artık hayal değil.
             </p>
           </motion.div>
         </div>

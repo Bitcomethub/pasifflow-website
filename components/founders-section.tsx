@@ -3,28 +3,31 @@
 import { Card } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Linkedin } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export function FoundersSection() {
+  const t = useTranslations("founders")
+
   const founders = [
     {
       initials: "EA",
-      name: "Erman Adanır",
-      title: "Co-Founder & CEO",
-      bio: "10 yılı aşkın süredir Florida'da yaşayan Erman, MiamiLi Real Estate'in kurucusu olarak $100M üzerinde satış başarısına imza attı. ABD emlak piyasasında yatırımcı odaklı stratejiler ve ROI analizi konusunda uzmandır.",
+      name: t("founder1Name"),
+      title: t("founder1Title"),
+      bio: t("founder1Bio"),
       image: "/founders/erman.jpg"
     },
     {
       initials: "TK",
-      name: "Tuğçe Kuran",
-      title: "Co-Founder & COO",
-      bio: "15+ yıllık emlak geçmişi ve 7 yıllık ABD deneyimiyle Tuğçe, doğru ev seçimi, bölge analizi ve Section 8 uyumluluğu konularında operasyonun beynidir. PasifFlow'un saha operasyonlarını yönetir.",
+      name: t("founder2Name"),
+      title: t("founder2Title"),
+      bio: t("founder2Bio"),
       image: "/founders/tugce.jpg"
     },
     {
       initials: "CK",
-      name: "Cem Kuran",
-      title: "Co-Founder & Property Expert",
-      bio: "20 yıla yakın emlak tecrübesi bulunan Cem, tadilat yönetimi, müteahhit ilişkileri ve Section 8 geçiş süreçlerinde teknik liderdir. Yatırımın fiziksel kalitesini garanti eder.",
+      name: t("founder3Name"),
+      title: t("founder3Title"),
+      bio: t("founder3Bio"),
       image: "/founders/cem.jpg"
     },
   ]
@@ -34,11 +37,11 @@ export function FoundersSection() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="text-center space-y-4 mb-16 max-w-3xl mx-auto">
           <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-2">
-            Uzman Kadro
+            Pasiflow Team
           </div>
           <h2 className="text-3xl font-bold text-foreground">
-            Güvenilir Ekip, <br />
-            <span className="text-primary">Profesyonel Yönetim</span>
+            {t("title")}<br />
+            <span className="text-primary">{t("subtitle")}</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed">
             Pasiflow, Amerika'da uzun yıllardır yaşayan, ABD gayrimenkul piyasasını derinlemesine bilen ve yatırım
@@ -56,7 +59,7 @@ export function FoundersSection() {
                   <div className="absolute -inset-1 bg-gradient-to-br from-primary to-accent rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
                   <Avatar className="h-32 w-32 border-4 border-background relative z-10">
                     <AvatarImage
-                      src={founder.image} // Will use placeholder if not found, logic handled by AvatarImage usually or fallback
+                      src={founder.image}
                       alt={founder.name}
                       className="object-cover"
                     />
@@ -64,9 +67,6 @@ export function FoundersSection() {
                       {founder.initials}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="absolute bottom-0 right-0 z-20 bg-[#0077b5] p-1.5 rounded-full text-white cursor-pointer hover:scale-110 transition-transform shadow-md">
-                    <Linkedin size={16} />
-                  </div>
                 </div>
 
                 <div className="text-center space-y-2">
