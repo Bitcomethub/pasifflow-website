@@ -3,6 +3,7 @@
 import { TrendingUp, ShieldCheck, Building2, Key } from "lucide-react"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
+import { RoiCalculator } from "@/components/roi-calculator"
 
 export function ValuePropsSection() {
   const t = useTranslations("valueProps")
@@ -107,9 +108,7 @@ export function ValuePropsSection() {
             </motion.div>
           ))}
         </motion.div>
-        import {RoiCalculator} from "@/components/roi-calculator"
 
-        // ... inside the component, before the end
         {/* Interactive Element: ROI Calculator */}
         <div className="mt-20 max-w-4xl mx-auto">
           <RoiCalculator />
