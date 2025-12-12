@@ -2,8 +2,8 @@
 
 import { Card } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Linkedin } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { TrendingUp, Building2, DollarSign } from "lucide-react"
 
 export function FoundersSection() {
   const t = useTranslations("founders")
@@ -32,6 +32,12 @@ export function FoundersSection() {
     },
   ]
 
+  const stats = [
+    { icon: TrendingUp, value: "20+", label: "Yıl ABD Tecrübesi" },
+    { icon: DollarSign, value: "$250M+", label: "İşlem Hacmi" },
+    { icon: Building2, value: "$100M+", label: "Miami Satışları" },
+  ]
+
   return (
     <section className="py-24 bg-background border-t border-border/50">
       <div className="container mx-auto px-4 md:px-6">
@@ -44,9 +50,19 @@ export function FoundersSection() {
             <span className="text-primary">{t("subtitle")}</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed">
-            Pasiflow, Amerika'da uzun yıllardır yaşayan, ABD gayrimenkul piyasasını derinlemesine bilen ve yatırım
-            odaklı çalışan profesyoneller tarafından yönetilmektedir.
+            {t("description")}
           </p>
+        </div>
+
+        {/* Stats Row */}
+        <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto mb-16">
+          {stats.map((stat, i) => (
+            <div key={i} className="text-center p-4 rounded-xl bg-muted/30 border border-border/30">
+              <stat.icon className="h-6 w-6 text-accent mx-auto mb-2" />
+              <div className="text-2xl md:text-3xl font-bold text-primary">{stat.value}</div>
+              <div className="text-xs md:text-sm text-muted-foreground">{stat.label}</div>
+            </div>
+          ))}
         </div>
 
         <div className="grid gap-8 md:grid-cols-3">
@@ -57,7 +73,7 @@ export function FoundersSection() {
               <div className="flex flex-col items-center gap-6">
                 <div className="relative">
                   <div className="absolute -inset-1 bg-gradient-to-br from-primary via-accent to-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
-                  <Avatar className="h-32 w-32 border-4 border-background relative z-10 shadow-xl"> {/* Added shadow */}
+                  <Avatar className="h-32 w-32 border-4 border-background relative z-10 shadow-xl">
                     <AvatarImage
                       src={founder.image}
                       alt={founder.name}

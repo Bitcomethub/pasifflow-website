@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { Building2, TrendingUp, ShieldCheck, Scale, ArrowRight } from "lucide-react"
+import { TrendingUp, Building2, ShieldCheck, Scale, DollarSign, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -11,9 +11,10 @@ export default function WhyUsaPage() {
 
     const sections = [
         { id: "section1", icon: TrendingUp },
-        { id: "section2", icon: Building2 },
+        { id: "section2", icon: DollarSign },
         { id: "section3", icon: ShieldCheck },
         { id: "section4", icon: Scale },
+        { id: "section5", icon: Building2 },
     ]
 
     return (
@@ -32,10 +33,13 @@ export default function WhyUsaPage() {
                     <p className="text-xl text-muted-foreground leading-relaxed">
                         {t("subtitle")}
                     </p>
+                    <p className="text-lg text-foreground/80 leading-relaxed max-w-2xl mx-auto pt-4">
+                        {t("intro")}
+                    </p>
                 </motion.div>
 
                 {/* Content Sections */}
-                <div className="grid md:grid-cols-2 gap-8 mb-20">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
                     {sections.map((section, index) => (
                         <motion.div
                             key={section.id}
@@ -56,6 +60,23 @@ export default function WhyUsaPage() {
                             </p>
                         </motion.div>
                     ))}
+                </div>
+
+                {/* CTA Buttons Row */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+                        Ücretsiz Danışmanlık Al
+                    </Button>
+                    <Button
+                        size="lg"
+                        variant="outline"
+                        className="font-semibold text-lg h-14 border-2 gap-2 bg-green-500 text-white hover:bg-green-600 border-green-500 hover:border-green-600"
+                        asChild
+                    >
+                        <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer">
+                            WhatsApp'tan Yaz
+                        </a>
+                    </Button>
                 </div>
 
                 {/* "Loop" / Next Step Section */}

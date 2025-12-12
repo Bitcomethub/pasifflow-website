@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { FileText, Landmark, Calculator, ArrowRight, CheckCircle2 } from "lucide-react"
+import { FileText, Landmark, Calculator, ArrowRight, CheckCircle2, Building2, TrendingDown, HeadphonesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
@@ -13,6 +13,16 @@ export default function TaxationPage() {
         { id: "section1", icon: Landmark },
         { id: "section2", icon: FileText },
         { id: "section3", icon: Calculator },
+        { id: "section4", icon: TrendingDown },
+        { id: "section5", icon: HeadphonesIcon },
+    ]
+
+    const lifecycleSteps = [
+        "lifecycle1",
+        "lifecycle2",
+        "lifecycle3",
+        "lifecycle4",
+        "lifecycle5",
     ]
 
     return (
@@ -35,10 +45,13 @@ export default function TaxationPage() {
                     <p className="text-xl text-muted-foreground leading-relaxed">
                         {t("subtitle")}
                     </p>
+                    <p className="text-lg text-foreground/80 leading-relaxed max-w-2xl mx-auto pt-4">
+                        {t("intro")}
+                    </p>
                 </motion.div>
 
                 {/* Content Sections */}
-                <div className="grid gap-12 max-w-4xl mx-auto mb-20">
+                <div className="grid gap-8 max-w-4xl mx-auto mb-16">
                     {sections.map((section, index) => (
                         <motion.div
                             key={section.id}
@@ -63,7 +76,49 @@ export default function TaxationPage() {
                     ))}
                 </div>
 
-                {/* "Loop" / Final CTA Section */}
+                {/* Tax Lifecycle Section */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="max-w-4xl mx-auto mb-16"
+                >
+                    <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-foreground">
+                        {t("lifecycleTitle")}
+                    </h2>
+                    <div className="grid md:grid-cols-5 gap-4">
+                        {lifecycleSteps.map((step, i) => (
+                            <div key={i} className="relative text-center p-4">
+                                <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground font-bold text-lg flex items-center justify-center mx-auto mb-3 shadow-lg shadow-primary/20">
+                                    {i + 1}
+                                </div>
+                                <p className="text-sm text-foreground/80">{t(step)}</p>
+                                {i < lifecycleSteps.length - 1 && (
+                                    <div className="hidden md:block absolute top-6 left-[60%] w-[80%] h-0.5 bg-border" />
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
+
+                {/* CTA Buttons Row */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+                    <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
+                        Ücretsiz Danışmanlık Al
+                    </Button>
+                    <Button
+                        size="lg"
+                        variant="outline"
+                        className="font-semibold text-lg h-14 border-2 gap-2 bg-green-500 text-white hover:bg-green-600 border-green-500 hover:border-green-600"
+                        asChild
+                    >
+                        <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer">
+                            WhatsApp'tan Yaz
+                        </a>
+                    </Button>
+                </div>
+
+                {/* Final CTA Section */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     whileInView={{ opacity: 1, scale: 1 }}

@@ -1,10 +1,15 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { CheckCircle2, ArrowRight } from "lucide-react"
+import { CheckCircle2, ArrowRight, MessageCircle } from "lucide-react"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 export function FinalCTASection() {
+  const t = useTranslations("cta")
+
+  const benefits = ["benefit1", "benefit2", "benefit3"]
+
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Background Gradient */}
@@ -23,12 +28,11 @@ export function FinalCTASection() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-              Geleceğinize Yatırım Yapın. <br />
-              <span className="text-accent">Bugün Başlayın.</span>
+              {t("title")} <br />
+              <span className="text-accent">{t("titleAccent")}</span>
             </h2>
             <p className="text-xl text-blue-100/90 max-w-2xl mx-auto leading-relaxed">
-              Pasiflow ile Amerika'da ev sahibi olmak artık hayal değil.
-              Dolarla kira geliri, devlet garantisi ve değer artışı bir arada.
+              {t("description")}
             </p>
           </motion.div>
 
@@ -39,10 +43,10 @@ export function FinalCTASection() {
             transition={{ delay: 0.2, duration: 0.6 }}
             className="flex flex-wrap justify-center gap-4 md:gap-8 text-white/90"
           >
-            {["Ücretsiz Danışmanlık", "Hukuki Destek", "Tamamen Şeffaf Süreç"].map((item, i) => (
+            {benefits.map((key, i) => (
               <div key={i} className="flex items-center gap-2">
                 <CheckCircle2 className="text-accent" />
-                <span className="font-medium">{item}</span>
+                <span className="font-medium">{t(key)}</span>
               </div>
             ))}
           </motion.div>
@@ -55,16 +59,23 @@ export function FinalCTASection() {
             className="pt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button size="lg" className="h-14 px-8 text-lg bg-accent text-accent-foreground hover:bg-accent/90 shadow-xl shadow-accent/20 w-full sm:w-auto">
-              Ücretsiz Danışmanlık Al
+              {t("ctaPrimary")}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
-            <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-white/20 text-white hover:bg-white/10 bg-transparent w-full sm:w-auto">
-              WhatsApp'tan Yaz
+            <Button
+              size="lg"
+              className="h-14 px-8 text-lg bg-green-500 hover:bg-green-600 text-white w-full sm:w-auto gap-2"
+              asChild
+            >
+              <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer">
+                <MessageCircle className="h-5 w-5" />
+                {t("ctaSecondary")}
+              </a>
             </Button>
           </motion.div>
 
           <p className="text-sm text-white/40 pt-8">
-            *Yatırım tavsiyesi değildir. Geçmiş performans gelecek sonuçları garanti etmez.
+            {t("disclaimer")}
           </p>
         </div>
       </div>

@@ -1,32 +1,34 @@
+"use client"
+
 import { Card } from "@/components/ui/card"
 import { X, Check } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 export function ComparisonSection() {
+  const t = useTranslations("comparison")
+
+  const traditionalItems = ["trad1", "trad2", "trad3", "trad4", "trad5", "trad6"]
+  const pasiflowItems = ["pasif1", "pasif2", "pasif3", "pasif4", "pasif5", "pasif6"]
+
   return (
     <section className="py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary">Neden Pasiflow?</h2>
-          <p className="text-muted-foreground text-lg">Geleneksel yatırımlarla aramızdaki farkı görün.</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-primary">{t("title")}</h2>
+          <p className="text-muted-foreground text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {/* Traditional Way */}
           <Card className="p-8 border-border/50 bg-muted/20 hover:bg-muted/30 transition-colors">
-            <h3 className="text-2xl font-bold text-muted-foreground mb-8 text-center">Klasik Yöntemler</h3>
+            <h3 className="text-2xl font-bold text-muted-foreground mb-8 text-center">{t("traditional")}</h3>
             <ul className="space-y-6">
-              {[
-                "Düşük Kira Çarpanı (20+ Yıl)",
-                "Kiracı Bulma & Tahliye Sorunları",
-                "Yüksek Bakım & Tadilat Masrafları",
-                "Düzenli Olmayan Kira Ödemeleri",
-                "Döviz Kuru Riski (TL Gelir)"
-              ].map((item, i) => (
+              {traditionalItems.map((key, i) => (
                 <li key={i} className="flex items-center gap-4 text-muted-foreground">
                   <div className="h-8 w-8 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0">
                     <X className="h-5 w-5 text-destructive" />
                   </div>
-                  <span>{item}</span>
+                  <span>{t(key)}</span>
                 </li>
               ))}
             </ul>
@@ -35,22 +37,16 @@ export function ComparisonSection() {
           {/* Pasiflow Way */}
           <Card className="relative p-8 border-primary/20 bg-card shadow-2xl shadow-primary/10 overflow-hidden transform md:-translate-y-4 md:scale-105 z-10">
             <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-accent" />
-            <h3 className="text-2xl font-bold text-primary mb-8 text-center">Pasiflow Modeli</h3>
+            <h3 className="text-2xl font-bold text-primary mb-8 text-center">{t("pasifflow")}</h3>
             <div className="absolute -right-12 -top-12 w-40 h-40 bg-accent/10 rounded-full blur-[50px]" />
 
             <ul className="space-y-6 relative">
-              {[
-                "Yüksek Kira Çarpanı (8-10 Yıl)",
-                "Hazır Kiracı & Devlet Garantisi",
-                "Sıfırlanmış Tadilat & Masrafsız",
-                "Her Ayın 1-5'i Arası Düzenli Kira",
-                "Dolar Bazında Kira Geliri"
-              ].map((item, i) => (
+              {pasiflowItems.map((key, i) => (
                 <li key={i} className="flex items-center gap-4">
                   <div className="h-8 w-8 rounded-full bg-accent flex items-center justify-center flex-shrink-0 shadow-sm">
                     <Check className="h-5 w-5 text-accent-foreground stroke-[3px]" />
                   </div>
-                  <span className="font-semibold text-foreground text-lg">{item}</span>
+                  <span className="font-semibold text-foreground text-lg">{t(key)}</span>
                 </li>
               ))}
             </ul>

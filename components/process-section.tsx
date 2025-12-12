@@ -1,6 +1,6 @@
 "use client"
 
-import { MessageSquare, Home, FileCheck, ShieldCheck } from "lucide-react"
+import { Target, Search, FileCheck, FilePen, Home, BarChart3 } from "lucide-react"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
 
@@ -9,30 +9,40 @@ export function ProcessSection() {
 
   const steps = [
     {
-      icon: MessageSquare,
-      title: t("step1Title"),
-      description: t("step1Desc"),
-      checkList: ["Ücretsiz Ön Görüşme", "Bütçe Planlaması", "ROI Analizi"] // Ideal to translate these lists too, but for speed keeping strict key mappings or generics if not in JSON.
-      // Checked JSON: these specific checklist items aren't deeper in JSON. keeping as is or using generic if user insists, but text is acceptable. 
-      // Actually, for full i18n, I should ideally add them, but I'll stick to the main titles for now to match the JSON structure available.
+      icon: Target,
+      titleKey: "step1Title",
+      descKey: "step1Desc",
+      checks: ["step1Check1", "step1Check2", "step1Check3"]
     },
     {
-      icon: Home,
-      title: t("step2Title"),
-      description: t("step2Desc"),
-      checkList: ["Ekspertiz Raporu", "Detaylı Video Tur", "Tapu Sorgulama"]
+      icon: Search,
+      titleKey: "step2Title",
+      descKey: "step2Desc",
+      checks: ["step2Check1", "step2Check2", "step2Check3"]
     },
     {
       icon: FileCheck,
-      title: t("step3Title"),
-      description: t("step3Desc"),
-      checkList: ["Online İmza", "Title Company Güvencesi", "3-5 Gün İçinde Devir"]
+      titleKey: "step3Title",
+      descKey: "step3Desc",
+      checks: ["step3Check1", "step3Check2", "step3Check3"]
     },
     {
-      icon: ShieldCheck,
-      title: t("step4Title"),
-      description: t("step4Desc"),
-      checkList: ["Garantili Kira (Section 8)", "Profesyonel Yönetim", "Düzenli Dolar Geliri"]
+      icon: FilePen,
+      titleKey: "step4Title",
+      descKey: "step4Desc",
+      checks: ["step4Check1", "step4Check2", "step4Check3"]
+    },
+    {
+      icon: Home,
+      titleKey: "step5Title",
+      descKey: "step5Desc",
+      checks: ["step5Check1", "step5Check2", "step5Check3"]
+    },
+    {
+      icon: BarChart3,
+      titleKey: "step6Title",
+      descKey: "step6Desc",
+      checks: ["step6Check1", "step6Check2", "step6Check3"]
     },
   ]
 
@@ -47,7 +57,7 @@ export function ProcessSection() {
             {t("title")}
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Pasiflow ile Amerika'da ev sahibi olmak artık çok kolay.
+            {t("intro")}
           </p>
         </div>
 
@@ -72,20 +82,20 @@ export function ProcessSection() {
                       <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-xl shadow-lg shadow-primary/20">
                         {i + 1}
                       </div>
-                      <h3 className="font-bold text-xl group-hover:text-primary transition-colors">{step.title}</h3>
+                      <h3 className="font-bold text-xl group-hover:text-primary transition-colors">{t(step.titleKey)}</h3>
                     </div>
 
-                    <h3 className="font-bold text-xl hidden md:block group-hover:text-primary transition-colors">{step.title}</h3>
+                    <h3 className="font-bold text-xl hidden md:block group-hover:text-primary transition-colors">{t(step.titleKey)}</h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      {step.description}
+                      {t(step.descKey)}
                     </p>
 
                     {/* Check list visual enhancement */}
                     <ul className={`space-y-2 pt-2 ${i % 2 === 0 ? 'items-start' : 'items-end md:items-end'} flex flex-col`}>
-                      {step.checkList.map((item, j) => (
+                      {step.checks.map((checkKey, j) => (
                         <li key={j} className="flex items-center gap-2 text-sm font-medium text-foreground/80">
                           {i % 2 !== 0 && <span className="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-accent" />}
-                          {item}
+                          {t(checkKey)}
                           {i % 2 === 0 && <span className="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-accent" />}
                           <span className="md:hidden w-1.5 h-1.5 rounded-full bg-accent" />
                         </li>
