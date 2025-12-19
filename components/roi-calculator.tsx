@@ -4,7 +4,7 @@ import { useState, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Slider } from "@/components/ui/slider"
 import { Card } from "@/components/ui/card"
-import { DollarSign, TrendingUp, PieChart, Building2, MapPin, Calculator, Clock } from "lucide-react"
+import { DollarSign, TrendingUp, PieChart, Building2, MapPin, Calculator, Clock, Calendar } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 // City-specific data based on PDF
@@ -16,7 +16,6 @@ const cityData = {
         avgRentRatio: 0.0125, // Monthly rent as % of purchase price
         taxRate: 0.014, // Annual property tax as % of purchase
         insuranceRate: 0.011, // Annual insurance as % of purchase
-        appreciationRate: 0.08, // 5-year appreciation (annual)
         riskLevel: "Orta",
         highlight: "Maksimum Nakit Akışı"
     },
@@ -27,7 +26,6 @@ const cityData = {
         avgRentRatio: 0.012,
         taxRate: 0.010,
         insuranceRate: 0.012,
-        appreciationRate: 0.06,
         riskLevel: "Düşük-Orta",
         highlight: "Dengeli & Güvenli"
     },
@@ -38,7 +36,6 @@ const cityData = {
         avgRentRatio: 0.011,
         taxRate: 0.008, // No state income tax advantage
         insuranceRate: 0.012,
-        appreciationRate: 0.10,
         riskLevel: "Orta",
         highlight: "Vergi Avantajı + Büyüme"
     }
@@ -46,10 +43,14 @@ const cityData = {
 
 const PASIFLOW_SERVICE_FEE = 5000
 const MANAGEMENT_FEE_RATE = 0.10 // 10% of monthly rent
+const YEARLY_APPRECIATION_RATE = 0.07 // Fixed 7% yearly appreciation
+
+const holdingPeriods = [1, 2, 3, 5, 10]
 
 export function RoiCalculator() {
     const [selectedCity, setSelectedCity] = useState<keyof typeof cityData>("detroit")
     const [purchasePrice, setPurchasePrice] = useState(100000)
+    const [holdingPeriod, setHoldingPeriod] = useState(5)
 
     const city = cityData[selectedCity]
 
@@ -79,11 +80,19 @@ export function RoiCalculator() {
         // Payback period (Amortisman süresi)
         const paybackYears = totalInvestment / yearlyNetIncome
 
-        // 5-year appreciation
-        const appreciation5Years = purchasePrice * (Math.pow(1 + city.appreciationRate, 5) - 1)
+        // Property value after holding period (7% yearly appreciation)
+        const futurePropertyValue = purchasePrice * Math.pow(1 + YEARLY_APPRECIATION_RATE, holdingPeriod)
+        const appreciationAmount = futurePropertyValue - purchasePrice
+        const appreciationPercent = (appreciationAmount / purchasePrice) * 100
 
-        // Total 5-year return (income + appreciation)
-        const total5YearReturn = (yearlyNetIncome * 5) + appreciation5Years
+        // Total rental income over holding period
+        const totalRentalIncome = yearlyNetIncome * holdingPeriod
+
+        // Total return (rental income + appreciation)
+        const totalReturn = totalRentalIncome + appreciationAmount
+
+        // Total ROI over holding period
+        const totalRoiPercent = (totalReturn / totalInvestment) * 100
 
         return {
             monthlyRent,
@@ -95,23 +104,27 @@ export function RoiCalculator() {
             totalInvestment,
             netRoi,
             paybackYears,
-            appreciation5Years,
-            total5YearReturn
+            futurePropertyValue,
+            appreciationAmount,
+            appreciationPercent,
+            totalRentalIncome,
+            totalReturn,
+            totalRoiPercent
         }
-    }, [purchasePrice, city])
+    }, [purchasePrice, city, holdingPeriod])
 
     return (
-        <Card className="p-8 bg-gradient-to-br from-card to-secondary/10 border-border/50 shadow-2xl relative overflow-hidden">
+        <Card className="p-6 sm:p-8 bg-gradient-to-br from-card to-secondary/10 border-border/50 shadow-2xl relative overflow-hidden">
             {/* Background blobs for premium feel */}
             <div className="absolute top-0 right-0 -mr-20 -mt-20 w-40 h-40 bg-accent/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
 
-            <h3 className="text-2xl font-bold text-center mb-2 flex items-center justify-center gap-2">
+            <h3 className="text-xl sm:text-2xl font-bold text-center mb-2 flex items-center justify-center gap-2">
                 <Calculator className="text-accent" />
                 Yatırım Getiri Hesaplayıcı
             </h3>
             <p className="text-center text-muted-foreground text-sm mb-6">
-                Gerçek verilerle net ROI hesaplaması ($5,000 Pasiflow ücreti dahil)
+                Gerçek verilerle net ROI hesaplaması • %7 yıllık değer artışı
             </p>
 
             <div className="space-y-6 relative z-10">
@@ -119,7 +132,7 @@ export function RoiCalculator() {
                 <div className="space-y-2">
                     <label className="font-semibold text-sm flex items-center gap-2">
                         <MapPin size={16} className="text-primary" />
-                        Yatırım Şehri Seçin
+                        Yatırım Şehri
                     </label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                         {(Object.keys(cityData) as Array<keyof typeof cityData>).map((cityKey) => (
@@ -127,7 +140,6 @@ export function RoiCalculator() {
                                 key={cityKey}
                                 onClick={() => {
                                     setSelectedCity(cityKey)
-                                    // Reset to city's average budget
                                     const c = cityData[cityKey]
                                     setPurchasePrice(Math.round((c.minBudget + c.maxBudget) / 2))
                                 }}
@@ -168,34 +180,94 @@ export function RoiCalculator() {
                     </div>
                 </div>
 
+                {/* Holding Period Selection */}
+                <div className="space-y-2">
+                    <label className="font-semibold text-sm flex items-center gap-2">
+                        <Calendar size={16} className="text-primary" />
+                        Tutma Süresi (Holding Period)
+                    </label>
+                    <div className="flex flex-wrap gap-2">
+                        {holdingPeriods.map((years) => (
+                            <button
+                                key={years}
+                                onClick={() => setHoldingPeriod(years)}
+                                className={`px-4 py-2 rounded-lg border-2 transition-all text-sm font-bold ${holdingPeriod === years
+                                    ? "border-primary bg-primary text-primary-foreground"
+                                    : "border-border hover:border-primary/50 hover:bg-muted"
+                                    }`}
+                            >
+                                {years} Yıl
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Key Results */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     <div className="bg-background/80 backdrop-blur-sm p-4 rounded-xl border border-border/50 text-center shadow-sm">
                         <div className="text-muted-foreground text-xs font-semibold uppercase mb-1">Aylık Net Gelir</div>
-                        <div className="text-xl font-bold text-green-600 flex items-center justify-center gap-1">
+                        <div className="text-lg sm:text-xl font-bold text-green-600 flex items-center justify-center gap-1">
                             <DollarSign size={16} />
                             {Math.round(calculations.monthlyNetIncome).toLocaleString()}
                         </div>
                     </div>
                     <div className="bg-background/80 backdrop-blur-sm p-4 rounded-xl border border-border/50 text-center shadow-sm">
                         <div className="text-muted-foreground text-xs font-semibold uppercase mb-1">Yıllık Net Gelir</div>
-                        <div className="text-xl font-bold text-green-600 flex items-center justify-center gap-1">
+                        <div className="text-lg sm:text-xl font-bold text-green-600 flex items-center justify-center gap-1">
                             <DollarSign size={16} />
                             {Math.round(calculations.yearlyNetIncome).toLocaleString()}
                         </div>
                     </div>
                     <div className="bg-primary/10 backdrop-blur-sm p-4 rounded-xl border border-primary/30 text-center shadow-sm">
                         <div className="text-primary text-xs font-semibold uppercase mb-1">Net ROI</div>
-                        <div className="text-xl font-bold text-primary flex items-center justify-center gap-1">
+                        <div className="text-lg sm:text-xl font-bold text-primary flex items-center justify-center gap-1">
                             <TrendingUp size={16} />
                             %{calculations.netRoi.toFixed(1)}
                         </div>
                     </div>
                     <div className="bg-accent/10 backdrop-blur-sm p-4 rounded-xl border border-accent/30 text-center shadow-sm">
                         <div className="text-accent-foreground text-xs font-semibold uppercase mb-1">Amortisman</div>
-                        <div className="text-xl font-bold text-accent flex items-center justify-center gap-1">
+                        <div className="text-lg sm:text-xl font-bold text-accent flex items-center justify-center gap-1">
                             <Clock size={16} />
                             {calculations.paybackYears.toFixed(1)} Yıl
+                        </div>
+                    </div>
+                </div>
+
+                {/* Holding Period Results */}
+                <div className="bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 rounded-xl p-4 sm:p-6">
+                    <div className="text-center mb-4">
+                        <div className="text-sm font-semibold text-muted-foreground mb-1">
+                            {holdingPeriod} Yıl Sonunda
+                        </div>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div className="text-center p-3 bg-background/60 rounded-lg">
+                            <div className="text-xs text-muted-foreground mb-1">Mülk Değeri</div>
+                            <div className="text-lg font-bold text-primary">
+                                ${Math.round(calculations.futurePropertyValue).toLocaleString()}
+                            </div>
+                            <div className="text-xs text-green-600">
+                                +${Math.round(calculations.appreciationAmount).toLocaleString()} (+%{calculations.appreciationPercent.toFixed(0)})
+                            </div>
+                        </div>
+                        <div className="text-center p-3 bg-background/60 rounded-lg">
+                            <div className="text-xs text-muted-foreground mb-1">Toplam Kira Geliri</div>
+                            <div className="text-lg font-bold text-green-600">
+                                ${Math.round(calculations.totalRentalIncome).toLocaleString()}
+                            </div>
+                            <div className="text-xs text-muted-foreground">
+                                {holdingPeriod} yıl x ${Math.round(calculations.yearlyNetIncome).toLocaleString()}
+                            </div>
+                        </div>
+                        <div className="text-center p-3 bg-primary/10 rounded-lg border border-primary/30">
+                            <div className="text-xs text-primary font-semibold mb-1">TOPLAM GETİRİ</div>
+                            <div className="text-xl font-bold text-primary">
+                                ${Math.round(calculations.totalReturn).toLocaleString()}
+                            </div>
+                            <div className="text-xs text-primary/80">
+                                %{calculations.totalRoiPercent.toFixed(0)} ROI
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -234,21 +306,8 @@ export function RoiCalculator() {
                     </div>
                 </div>
 
-                {/* 5-Year Projection */}
-                <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-xl p-4">
-                    <div className="text-center">
-                        <div className="text-sm font-semibold text-muted-foreground mb-1">5 Yıllık Toplam Getiri Tahmini</div>
-                        <div className="text-2xl font-bold text-primary">
-                            ${Math.round(calculations.total5YearReturn).toLocaleString()}
-                        </div>
-                        <div className="text-xs text-muted-foreground mt-1">
-                            (Kira geliri + %{(city.appreciationRate * 100).toFixed(0)}/yıl değer artışı)
-                        </div>
-                    </div>
-                </div>
-
                 <p className="text-xs text-center text-muted-foreground">
-                    * Rakamlar {city.name} piyasa ortalamalarına dayalı tahminlerdir. Kesin sonuçlar mülk özelinde değişebilir.
+                    * Yıllık %7 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir.
                 </p>
             </div>
         </Card>
