@@ -121,7 +121,7 @@ export function RoiCalculator() {
                         <MapPin size={16} className="text-primary" />
                         Yatırım Şehri Seçin
                     </label>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                         {(Object.keys(cityData) as Array<keyof typeof cityData>).map((cityKey) => (
                             <button
                                 key={cityKey}
@@ -132,8 +132,8 @@ export function RoiCalculator() {
                                     setPurchasePrice(Math.round((c.minBudget + c.maxBudget) / 2))
                                 }}
                                 className={`p-3 rounded-xl border-2 transition-all text-sm font-medium ${selectedCity === cityKey
-                                        ? "border-primary bg-primary/10 text-primary"
-                                        : "border-border hover:border-primary/50 hover:bg-muted"
+                                    ? "border-primary bg-primary/10 text-primary"
+                                    : "border-border hover:border-primary/50 hover:bg-muted"
                                     }`}
                             >
                                 <div className="font-bold">{cityData[cityKey].name}</div>
@@ -206,7 +206,7 @@ export function RoiCalculator() {
                         <PieChart size={16} className="text-primary" />
                         Maliyet Detayları
                     </div>
-                    <div className="grid grid-cols-2 gap-x-8 gap-y-1 text-sm">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">Mülk Fiyatı:</span>
                             <span className="font-medium">${purchasePrice.toLocaleString()}</span>
