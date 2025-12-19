@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Menu, X, Globe, ChevronDown } from "lucide-react"
+import { Logo } from "@/components/logo"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -64,9 +65,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 relative z-50">
           <div className={cn("transition-all duration-300", isScrolled ? "scale-90" : "scale-100")}>
-            <span className="text-2xl font-bold font-heading text-primary tracking-tighter">
-              Pasi<span className="text-accent">flow</span>
-            </span>
+            <Logo size={isScrolled ? "sm" : "md"} showIcon={true} />
           </div>
         </Link>
 

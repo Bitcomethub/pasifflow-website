@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react"
+import { Logo } from "@/components/logo"
 
 export function Footer() {
   return (
@@ -7,9 +8,7 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
-            <Link href="/" className="flex items-center gap-2">
-              <span className="text-2xl font-bold text-white">Pasi<span className="text-amber-400">flow</span></span>
-            </Link>
+            <Logo size="lg" showIcon={true} linkTo="/" />
             <p className="text-slate-300 text-sm leading-relaxed">
               Amerika'da devlet garantili (Section 8) kira gelirli gayrimenkul yatırımı ile dolar bazında pasif gelir elde etmenin en güvenli yolu.
             </p>
