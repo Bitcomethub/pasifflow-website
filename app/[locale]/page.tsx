@@ -7,6 +7,7 @@ import { AdvantagesSection } from "@/components/advantages-section"
 import { PortfolioSection } from "@/components/portfolio-section"
 import { ProcessSection } from "@/components/process-section"
 import { Section8Section } from "@/components/section8-section"
+import { CityComparisonSection } from "@/components/city-comparison-section"
 import { FAQSection } from "@/components/faq-section"
 import { MapSection } from "@/components/map-section"
 import { FinalCTASection } from "@/components/final-cta-section"
@@ -25,6 +26,7 @@ export default function Home() {
                 <PortfolioSection />
                 <ProcessSection />
                 <Section8Section />
+                <CityComparisonSection />
                 <FAQSection />
                 <MapSection />
                 <FinalCTASection />
