@@ -31,6 +31,7 @@ export function PortfolioSection() {
       netMonthly: "$874",
       netYearly: "$10,488",
       capRate: "%11.65",
+      image: "/properties/cleveland.png",
     },
     {
       city: "Memphis, TN",
@@ -41,6 +42,7 @@ export function PortfolioSection() {
       netMonthly: "$905",
       netYearly: "$10,860",
       capRate: "%11.43",
+      image: "/properties/memphis.png",
     },
     {
       city: "Detroit, MI",
@@ -51,6 +53,7 @@ export function PortfolioSection() {
       netMonthly: "$840",
       netYearly: "$10,080",
       capRate: "%11.86",
+      image: "/properties/detroit.png",
     },
     {
       city: "St. Louis, MO",
@@ -61,6 +64,7 @@ export function PortfolioSection() {
       netMonthly: "$940",
       netYearly: "$11,280",
       capRate: "%11.28",
+      image: "/properties/stlouis.png",
     },
     {
       city: "Birmingham, AL",
@@ -71,6 +75,7 @@ export function PortfolioSection() {
       netMonthly: "$860",
       netYearly: "$10,320",
       capRate: "%11.73",
+      image: "/properties/birmingham.png",
     },
   ]
 
@@ -103,7 +108,7 @@ export function PortfolioSection() {
                   {/* Image Area */}
                   <div className="relative h-64 overflow-hidden">
                     <img
-                      src="/american-house-generic.png"
+                      src={property.image}
                       alt={property.city}
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
