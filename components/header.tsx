@@ -46,7 +46,7 @@ export function Header() {
     { name: "Nasıl Çalışır?", href: "#nasil-calisir" },
     { name: "Portföy", href: "#portfoy" },
     { name: "S.S.S.", href: "#faq" },
-    { name: "İletişim", href: "#iletisim" },
+    { name: "İletişim", href: "/iletisim" },
   ]
 
   return (
