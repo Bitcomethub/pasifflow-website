@@ -56,21 +56,25 @@ export function AppFeaturesSection() {
                         </div>
                     </motion.div>
 
-                    {/* Phone Mockup Placeholder */}
+                    {/* Phone Mockup with App Screenshot */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         className="hidden lg:flex justify-center"
                     >
-                        <div className="relative w-[300px] h-[600px] bg-white/10 backdrop-blur-md rounded-[3rem] border-4 border-white/20 shadow-2xl flex items-center justify-center">
-                            <div className="text-center px-8">
-                                <div className="w-16 h-16 bg-accent rounded-2xl mx-auto mb-4 flex items-center justify-center">
-                                    <Smartphone className="w-8 h-8 text-white" />
-                                </div>
-                                <p className="text-white font-bold text-lg">Pasiflow App</p>
-                                <p className="text-white/60 text-sm mt-2">Yakında iOS & Android</p>
-                            </div>
+                        <div className="relative w-[300px] h-[600px] bg-black rounded-[3rem] border-4 border-gray-800 shadow-2xl overflow-hidden">
+                            {/* Phone notch */}
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-10" />
+
+                            {/* App Screenshot */}
+                            <Image
+                                src="/app-screenshot.png"
+                                alt="Pasiflow App Dashboard"
+                                fill
+                                className="object-cover object-top"
+                                priority
+                            />
                         </div>
                     </motion.div>
                 </div>
