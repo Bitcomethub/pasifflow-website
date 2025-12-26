@@ -22,14 +22,14 @@
         "title": "Devlet Garantili",
         "titleAccent": "Dolar Geliri",
         "description": "Section 8 programı ile ABD hükümeti tarafından desteklenen kira ödemeleri sayesinde, her ay düzenli ve garantili dolar geliri elde edin.",
-        "stat1Label": "Net Yıllık Getiri",
-        "stat1Value": "%10-14",
-        "stat2Label": "Amortisman Süresi",
-        "stat2Value": "6-7 Yıl",
-        "stat3Label": "Minimum Yatırım",
-        "stat3Value": "$75,000",
-        "stat4Label": "Devlet Garantisi",
-        "stat4Value": "Section 8",
+        "stat1Label": "Hedef Net Getiri",
+        "stat1Value": "%10-12",
+        "stat2Label": "Doluluk Oranı",
+        "stat2Value": "%98+",
+        "stat3Label": "Ort. Kiracılık Süresi",
+        "stat3Value": "7+ Yıl",
+        "stat4Label": "Giriş Noktası",
+        "stat4Value": "$85K",
         "ctaPrimary": "Ücretsiz Danışmanlık Al",
         "ctaSecondary": "Portföyü İncele"
     },
@@ -338,5 +338,50 @@
         "ctaTitle": "Hemen Başlayın",
         "ctaDesc": "Amerika'daki vergi sistemi ilk bakışta karmaşık olabilir. Ancak şeffaf süreç, profesyonel destek ve doğru planlamayla yatırımdan maksimum faydayı elde edebilirsiniz.",
         "ctaButton": "Ücretsiz Danışmanlık Al"
+    },
+    "propertyManagement": {
+        "title": "Profesyonel Mülk Yönetimi",
+        "subtitle": "İster yeni yatırım yapın ister mevcut mülklerinizi devredin",
+        "description": "Optimum performans ve tam iç huzuru için profesyonel yönetim hizmetlerimiz.",
+        "service1Title": "Kiracı İlişkileri",
+        "service1Desc": "7/24 kiracı iletişimi, kira sözleşmesi uygulaması, kira tahsilatı ve yenileme müzakereleri.",
+        "service2Title": "Bakım Koordinasyonu",
+        "service2Desc": "Önleyici bakım programları, acil onarımlar ve tedarikçi yönetimi. Lisanslı müteahhit ağımız rekabetçi fiyatlarla kaliteli işçilik sağlar.",
+        "service3Title": "Finansal Raporlama",
+        "service3Desc": "Aylık beyanlar, yıllık vergi belgeleri ve gerçek zamanlı gösterge tablosu erişimi.",
+        "service4Title": "Uyumluluk ve Hukuk",
+        "service4Desc": "HUD denetim hazırlığı, Section 8 yeniden sertifikasyonu, yerel yasalara uyum ve tahliye yönetimi."
+    },
+    "appFeatures": {
+        "title": "Pasiflow Uygulaması",
+        "subtitle": "Yatırım Panonuz - Dünyanın Her Yerinden",
+        "description": "Tüm ABD gayrimenkul portföyünüzü parmaklarınızın ucuna getiriyoruz.",
+        "feature1": "Gerçek Zamanlı Kira Takibi: Ödemelerin ne zaman alındığını görün",
+        "feature2": "Bakım Güncellemeleri: Onarım taleplerini gönderimden tamamlanmaya kadar takip edin",
+        "feature3": "Finansal Panolar: Nakit akışı, giderler ve yatırım getirisi metrikleri",
+        "feature4": "Belge Depolama: Kira sözleşmeleri, denetim raporları ve vergi belgelerine erişin",
+        "feature5": "Doğrudan İletişim: Mülk yöneticinize anında mesaj gönderin",
+        "feature6": "Performans Analitiği: Mülkleri karşılaştırın ve portföy büyümesini izleyin"
+    },
+    "servicePackages": {
+        "title": "İhtiyaçlarınıza Göre Hizmetler",
+        "subtitle": "Her yatırımcının benzersiz hedefleri var",
+        "package1Title": "Yeni Başlayanlar",
+        "package1Desc": "Pazar eğitiminden ilk satın alımınıza kadar eksiksiz rehberlik. ABD'de mülk sahibi olmanın tüm yönlerini anlamanıza yardımcı oluyoruz.",
+        "package2Title": "Profesyonel Yönetim",
+        "package2Desc": "Zaten ABD'de mülkleriniz mi var? Mevcut portföyünüzün yönetimini devralabilir, performansı optimize edebiliriz.",
+        "package3Title": "Portföy Genişletme",
+        "package3Desc": "Büyümek mi istiyorsunuz? Yatırım kriterlerinize uygun ek mülkleri belirlemenize ve satın almanıza yardımcı oluyoruz.",
+        "package4Title": "Çıkış Stratejisi",
+        "package4Desc": "ABD mülkünüzü satmaya hazır mısınız? Getirinizi maksimize etmek için elden çıkarma stratejisi ve pazar analizi sunuyoruz."
+    },
+    "whyWork": {
+        "title": "Neden Bizimle Çalışmalısınız?",
+        "subtitle": "ABD Gayrimenkul Yatırımlarınızda Güvenilir Ortağınız",
+        "reason1": "Yerel Pazar Uzmanlığı: ABD gayrimenkul piyasaları ve Section 8 düzenlemeleri hakkında derin bilgi",
+        "reason2": "Uluslararası Deneyim: Kur farkları ve vergi sonuçları dahil sınır ötesi yatırım karmaşıklıklarını anlama",
+        "reason3": "Teknoloji Odaklı: Sizi bilgilendiren ve kontrolü elinizde tutmanızı sağlayan modern araçlar",
+        "reason4": "Çıkarların Uyumu: Başarımız sizin başarınıza bağlıdır",
+        "reason5": "Hızlı İletişim: Farklı saat dilimlerinde çok dilli ekip üyeleriyle destek"
     }
 }

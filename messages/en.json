@@ -22,14 +22,14 @@
         "title": "Government-Backed",
         "titleAccent": "Dollar Income",
         "description": "Earn regular and guaranteed dollar income every month through rent payments backed by the U.S. government via the Section 8 program.",
-        "stat1Label": "Net Annual Return",
-        "stat1Value": "10-14%",
-        "stat2Label": "Payback Period",
-        "stat2Value": "6-7 Years",
-        "stat3Label": "Minimum Investment",
-        "stat3Value": "$75,000",
-        "stat4Label": "Government Guarantee",
-        "stat4Value": "Section 8",
+        "stat1Label": "Target Net Yield",
+        "stat1Value": "10-12%",
+        "stat2Label": "Occupancy Rate",
+        "stat2Value": "98%+",
+        "stat3Label": "Avg. Tenancy",
+        "stat3Value": "7+ Years",
+        "stat4Label": "Entry Point",
+        "stat4Value": "$85K",
         "ctaPrimary": "Get Free Consultation",
         "ctaSecondary": "View Portfolio"
     },
@@ -338,5 +338,50 @@
         "ctaTitle": "Start Now",
         "ctaDesc": "The tax system in America may seem complex at first. However, with a transparent process, professional support, and proper planning, you can get maximum benefit from your investment.",
         "ctaButton": "Get Free Consultation"
+    },
+    "propertyManagement": {
+        "title": "Professional Property Management",
+        "subtitle": "Whether you're making a new investment or have existing properties",
+        "description": "Our professional management services ensure optimum performance and peace of mind.",
+        "service1Title": "Tenant Relations",
+        "service1Desc": "24/7 tenant communication, lease enforcement, rent collection, and renewal negotiations.",
+        "service2Title": "Maintenance Coordination",
+        "service2Desc": "Preventive maintenance programs, emergency repairs, and vendor management with quality workmanship at competitive prices.",
+        "service3Title": "Financial Reporting",
+        "service3Desc": "Monthly statements, annual tax documents, and real-time dashboard access.",
+        "service4Title": "Compliance and Legal",
+        "service4Desc": "HUD inspection preparation, Section 8 recertification, local law compliance, and eviction management."
+    },
+    "appFeatures": {
+        "title": "Pasiflow App",
+        "subtitle": "Your Investment Dashboard - From Anywhere in the World",
+        "description": "We bring your entire U.S. real estate portfolio to your fingertips.",
+        "feature1": "Real-Time Rent Tracking: See when payments are received",
+        "feature2": "Maintenance Updates: Track repair requests from submission to completion",
+        "feature3": "Financial Dashboards: Cash flow, expenses, and ROI metrics",
+        "feature4": "Document Storage: Access lease agreements, inspection reports, and tax documents",
+        "feature5": "Direct Communication: Message your property manager instantly",
+        "feature6": "Performance Analytics: Compare properties and track portfolio growth"
+    },
+    "servicePackages": {
+        "title": "Services Tailored to Your Needs",
+        "subtitle": "Every investor has unique goals",
+        "package1Title": "New to U.S. Real Estate",
+        "package1Desc": "Complete guidance from market education to your first purchase. We help you understand all aspects of owning property in the U.S.",
+        "package2Title": "Seeking Professional Management",
+        "package2Desc": "Already have properties in the U.S.? We can take over management of your existing portfolio and optimize performance.",
+        "package3Title": "Expanding Your Portfolio",
+        "package3Desc": "Looking to grow? We help you identify and acquire additional properties that meet your investment criteria.",
+        "package4Title": "Exit Strategy",
+        "package4Desc": "Ready to sell your U.S. property? We offer disposal strategy and market analysis to maximize your returns."
+    },
+    "whyWork": {
+        "title": "Why Work With Us?",
+        "subtitle": "Your Trusted Partner in U.S. Real Estate Investments",
+        "reason1": "Local Market Expertise: Deep knowledge of U.S. real estate markets and Section 8 regulations",
+        "reason2": "International Experience: Understanding cross-border investment complexities including currency and tax implications",
+        "reason3": "Technology-Driven: Modern tools that keep you informed and in control",
+        "reason4": "Aligned Interests: Our success is tied to your success",
+        "reason5": "Fast Communication: Support with multilingual team members across time zones"
     }
 }
