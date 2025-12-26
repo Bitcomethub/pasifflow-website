@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" fill="none">
+  <!-- Pasi text in white -->
+  <text x="0" y="45" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="48" font-weight="700" fill="white">Pasi</text>
+  
+  <!-- flow text in cyan -->
+  <text x="98" y="45" font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="48" font-weight="700" fill="#00d4aa">flow</text>
+  
+  <!-- Upward arrow integrated with 'w' -->
+  <path d="M230 10 L245 25 L238 25 L238 45 L232 45 L232 25 L225 25 Z" fill="#00d4aa"/>
+</svg>
