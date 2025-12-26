@@ -50,8 +50,8 @@ export function Footer() {
             <div className="space-y-4 text-sm text-slate-300">
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-amber-400" />
-                <a href="mailto:Erman@pasiflow.com" className="hover:text-amber-400 transition-colors">
-                  Erman@pasiflow.com
+                <a href="mailto:hi@pasiflow.com" className="hover:text-amber-400 transition-colors">
+                  hi@pasiflow.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
