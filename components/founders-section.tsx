@@ -55,7 +55,7 @@ export function FoundersSection() {
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-3 gap-4 md:gap-8 max-w-2xl mx-auto mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-8 max-w-2xl mx-auto mb-16">
           {stats.map((stat, i) => (
             <div key={i} className="text-center p-4 rounded-xl bg-muted/30 border border-border/30">
               <stat.icon className="h-6 w-6 text-accent mx-auto mb-2" />

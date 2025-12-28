@@ -51,7 +51,7 @@ export function HeroSection() {
             </motion.div>
 
             <motion.div variants={item} className="space-y-4">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-foreground text-balance leading-[1.1]">
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground text-balance leading-[1.1]">
                 {t("title")} <br />
                 <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent bg-[length:200%_auto] animate-gradient">
                   {t("titleAccent")}
@@ -80,7 +80,7 @@ export function HeroSection() {
               </Button>
             </motion.div>
 
-            <motion.div variants={item} className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 border-t border-border/50">
+            <motion.div variants={item} className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 pt-6 sm:pt-8 border-t border-border/50">
               {[
                 { icon: ShieldCheck, label: "prop1Title", value: "stat1Value", valueKey: true },
                 { icon: TrendingUp, label: "prop2Title", value: "stat1Value", valueKey: true },

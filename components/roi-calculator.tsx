@@ -172,7 +172,7 @@ export function RoiCalculator() {
                             <button
                                 key={years}
                                 onClick={() => setHoldingPeriod(years)}
-                                className={`px-4 py-2 rounded-lg border-2 transition-all text-sm font-bold ${holdingPeriod === years
+                                className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg border-2 transition-all text-xs sm:text-sm font-bold ${holdingPeriod === years
                                     ? "border-primary bg-primary text-primary-foreground"
                                     : "border-border hover:border-primary/50 hover:bg-muted"
                                     }`}
