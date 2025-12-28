@@ -17,6 +17,17 @@
         "showLess": "Daha Az Göster",
         "whatsapp": "WhatsApp'tan Yaz"
     },
+    "nav": {
+        "whyUSA": "Neden Amerika?",
+        "taxLaw": "Vergi & Hukuk"
+    },
+    "footer": {
+        "description": "Amerika'da devlet garantili (Section 8) kira gelirli gayrimenkul yatırımı ile dolar bazında pasif gelir elde etmenin en güvenli yolu.",
+        "quickLinks": "Hızlı Erişim",
+        "legal": "Yasal",
+        "istanbulOffice": "İstanbul ofisi Mayıs 2026'da açılıyor",
+        "disclaimer": "*Bu sitede yer alan bilgiler yatırım tavsiyesi değildir."
+    },
     "hero": {
         "badge": "Türkiye'den Amerika'ya Güvenli Yatırım",
         "title": "Devlet Garantili",

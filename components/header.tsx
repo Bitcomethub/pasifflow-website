@@ -8,6 +8,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Menu, X, Globe, ChevronDown } from "lucide-react"
 import { Logo } from "@/components/logo"
+import { useTranslations } from "next-intl"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -28,6 +29,8 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
+  const t = useTranslations("common")
+  const tNav = useTranslations("nav")
 
   const currentLocale = pathname.split('/')[1] || 'tr'
   const currentLang = languages.find(l => l.code === currentLocale) || languages[0]
@@ -43,10 +46,15 @@ export function Header() {
   }
 
   const navLinks = [
-    { name: "Nasıl Çalışır?", href: "#nasil-calisir" },
-    { name: "Portföy", href: "#portfoy" },
-    { name: "S.S.S.", href: "#faq" },
-    { name: "İletişim", href: "/iletisim" },
+    { name: t("howItWorks"), href: "#nasil-calisir" },
+    { name: t("portfolio"), href: "#portfoy" },
+    { name: t("faq"), href: "#faq" },
+    { name: t("contact"), href: "/iletisim" },
+  ]
+
+  const extraLinks = [
+    { name: tNav("whyUSA"), href: "/neden-amerika" },
+    { name: tNav("taxLaw"), href: "/vergilendirme" },
   ]
 
   return (
@@ -81,21 +89,17 @@ export function Header() {
               <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
             </Link>
           ))}
-          {/* New Nav Items */}
-          <Link
-            href="/neden-amerika"
-            className="text-base font-bold text-foreground/90 hover:text-primary transition-colors relative group py-2"
-          >
-            Neden Amerika?
-            <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-          </Link>
-          <Link
-            href="/vergilendirme"
-            className="text-base font-bold text-foreground/90 hover:text-primary transition-colors relative group py-2"
-          >
-            Vergi & Hukuk
-            <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-          </Link>
+          {/* Extra Nav Items */}
+          {extraLinks.map((link) => (
+            <Link
+              key={link.name}
+              href={link.href}
+              className="text-base font-bold text-foreground/90 hover:text-primary transition-colors relative group py-2"
+            >
+              {link.name}
+              <span className="absolute -bottom-0 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
+            </Link>
+          ))}
 
           {/* Language Switcher */}
           <DropdownMenu>
@@ -129,7 +133,7 @@ export function Header() {
             asChild
           >
             <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
-              Danışmanlık Al
+              {t("getConsultation")}
             </a>
           </Button>
         </nav>
@@ -148,7 +152,7 @@ export function Header() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="absolute top-0 left-0 w-full h-screen bg-background flex flex-col items-center justify-center space-y-8 md:hidden z-40"
+            className="fixed inset-0 top-0 left-0 bg-background z-40 flex flex-col items-center justify-center gap-8"
           >
             {navLinks.map((link) => (
               <Link
@@ -160,31 +164,29 @@ export function Header() {
                 {link.name}
               </Link>
             ))}
-            {/* Added Links Mobile */}
-            <Link
-              href="/neden-amerika"
-              className="text-2xl font-heading font-medium text-foreground hover:text-accent transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Neden Amerika?
-            </Link>
-            <Link
-              href="/vergilendirme"
-              className="text-2xl font-heading font-medium text-foreground hover:text-accent transition-colors"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Vergi & Hukuk
-            </Link>
+            {extraLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="text-2xl font-heading font-medium text-foreground hover:text-accent transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
 
             {/* Mobile Language Switcher */}
-            <div className="flex gap-3 pt-4">
+            <div className="flex gap-4 mt-4">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
-                  onClick={() => { switchLocale(lang.code); setMobileMenuOpen(false); }}
+                  onClick={() => {
+                    switchLocale(lang.code)
+                    setMobileMenuOpen(false)
+                  }}
                   className={cn(
-                    "text-2xl p-2 rounded-lg transition-colors",
-                    currentLocale === lang.code ? "bg-accent/20" : "hover:bg-muted"
+                    "text-2xl p-2 rounded-full hover:bg-accent/10 transition-colors",
+                    currentLocale === lang.code && "ring-2 ring-accent"
                   )}
                 >
                   {lang.flag}
@@ -192,8 +194,13 @@ export function Header() {
               ))}
             </div>
 
-            <Button size="lg" className="w-40 mt-4">
-              Danışmanlık Al
+            <Button
+              className="mt-4 bg-primary hover:bg-primary/90 text-white font-bold px-8 py-6 text-lg shadow-xl"
+              asChild
+            >
+              <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
+                {t("getConsultation")}
+              </a>
             </Button>
           </motion.div>
         )}
