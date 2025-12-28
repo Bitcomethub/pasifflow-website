@@ -22,7 +22,7 @@ export function PortfolioSection() {
   }, [emblaApi])
 
   // Real listings from OneHome MLS - Updated December 2024
-  // Calculations: Rent=Price×1.25%, Tax=1.4%, Insurance=1.1%, Management=10%
+  // Calculations based on app's Detroit 9.2% rental yield
   const properties = [
     {
       address: "12152 Stout Street",
@@ -30,11 +30,11 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,041",
       price: "$85,900",
-      monthlyRent: "$1,074",
-      netMonthly: "$788",
-      netYearly: "$9,451",
-      capRate: "%10.4",
-      image: "/properties/stout.png",
+      monthlyRent: "$1,100",
+      netMonthly: "$658",  // ($85,900 × 9.2%) ÷ 12
+      netYearly: "$7,903",
+      capRate: "%9.2",
+      image: "/properties/detroit.png",
       status: "Back on Market",
       mls: "20251049787",
     },
@@ -44,11 +44,11 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,383",
       price: "$89,900",
-      monthlyRent: "$1,124",
-      netMonthly: "$824",
-      netYearly: "$9,893",
-      capRate: "%10.4",
-      image: "/properties/griggs.png",
+      monthlyRent: "$1,150",
+      netMonthly: "$689",  // ($89,900 × 9.2%) ÷ 12
+      netYearly: "$8,271",
+      capRate: "%9.2",
+      image: "/properties/detroit.png",
       status: "New Listing",
       mls: "20251060129",
     },
@@ -58,10 +58,10 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,227",
       price: "$87,900",
-      monthlyRent: "$1,099",
-      netMonthly: "$806",
-      netYearly: "$9,672",
-      capRate: "%10.4",
+      monthlyRent: "$1,130",
+      netMonthly: "$674",  // ($87,900 × 9.2%) ÷ 12
+      netYearly: "$8,087",
+      capRate: "%9.2",
       image: "/properties/detroit.png",
       status: "For Sale",
       mls: "20251059784",
@@ -72,10 +72,10 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,150",
       price: "$88,900",
-      monthlyRent: "$1,111",
-      netMonthly: "$815",
-      netYearly: "$9,782",
-      capRate: "%10.4",
+      monthlyRent: "$1,140",
+      netMonthly: "$682",  // ($88,900 × 9.2%) ÷ 12
+      netYearly: "$8,179",
+      capRate: "%9.2",
       image: "/properties/detroit.png",
       status: "For Sale",
       mls: "20251050193",
@@ -86,10 +86,10 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,357",
       price: "$89,000",
-      monthlyRent: "$1,113",
-      netMonthly: "$816",
-      netYearly: "$9,793",
-      capRate: "%10.4",
+      monthlyRent: "$1,145",
+      netMonthly: "$682",  // ($89,000 × 9.2%) ÷ 12
+      netYearly: "$8,188",
+      capRate: "%9.2",
       image: "/properties/detroit.png",
       status: "For Sale",
       mls: "20251040564",
