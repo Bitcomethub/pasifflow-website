@@ -20,7 +20,7 @@ export function Footer() {
               {tFooter("description")}
             </p>
             <div className="flex gap-4">
-              <Link href="https://instagram.com/pasiflow" target="_blank" className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors text-slate-300 hover:text-white">
+              <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors text-slate-300 hover:text-white">
                 <Instagram size={18} />
               </Link>
               <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2 rounded-full bg-slate-800 hover:bg-slate-700 transition-colors text-slate-300 hover:text-white">

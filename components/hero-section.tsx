@@ -63,15 +63,20 @@ export function HeroSection() {
             </motion.div>
 
             <motion.div variants={item} className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="h-14 px-8 text-lg rounded-full bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/20 hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 hover:ring-primary/40">
-                {t("ctaPrimary")}
+              <Button size="lg" className="h-14 px-8 text-lg rounded-full bg-primary hover:bg-primary/90 text-white shadow-xl shadow-primary/20 hover:scale-105 transition-all duration-300 ring-2 ring-primary/20 hover:ring-primary/40" asChild>
+                <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
+                  {t("ctaPrimary")}
+                </a>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="h-14 px-8 text-lg rounded-full border-2 border-primary/10 hover:bg-primary/5 hover:text-primary hover:border-primary/30 transition-all duration-300 bg-background/50 backdrop-blur-sm"
+                asChild
               >
-                {t("ctaSecondary")}
+                <a href="https://wa.me/13056903146?text=Merhaba%2C%20Pasiflow%20ile%20ilgili%20bilgi%20almak%20istiyorum." target="_blank" rel="noopener noreferrer">
+                  {t("ctaSecondary")}
+                </a>
               </Button>
             </motion.div>
 
