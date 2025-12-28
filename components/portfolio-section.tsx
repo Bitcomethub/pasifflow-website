@@ -3,15 +3,40 @@
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import { ChevronLeft, ChevronRight, Check } from "lucide-react"
-import { useCallback } from "react"
+import { ChevronLeft, ChevronRight, Check, Home, Calendar, Maximize, MapPin, X, BedDouble, Bath, Square, TreePine } from "lucide-react"
+import { useCallback, useState } from "react"
 import { useTranslations } from "next-intl"
+
+interface Property {
+  address: string
+  city: string
+  rooms: string
+  bathrooms: string
+  sqft: string
+  price: string
+  monthlyRent: string
+  netMonthly: string
+  netYearly: string
+  capRate: string
+  image: string
+  images: string[]
+  status: string
+  mls: string
+  yearBuilt: string
+  lotSize: string
+  propertyType: string
+  description: string
+  features: string[]
+}
 
 export function PortfolioSection() {
   const t = useTranslations("portfolio")
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true }, [Autoplay({ delay: 4000 }) as any])
+  const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
@@ -21,13 +46,36 @@ export function PortfolioSection() {
     if (emblaApi) emblaApi.scrollNext()
   }, [emblaApi])
 
+  const openPropertyModal = (property: Property) => {
+    setSelectedProperty(property)
+    setCurrentImageIndex(0)
+  }
+
+  const closePropertyModal = () => {
+    setSelectedProperty(null)
+    setCurrentImageIndex(0)
+  }
+
+  const nextImage = () => {
+    if (selectedProperty) {
+      setCurrentImageIndex((prev) => (prev + 1) % selectedProperty.images.length)
+    }
+  }
+
+  const prevImage = () => {
+    if (selectedProperty) {
+      setCurrentImageIndex((prev) => (prev - 1 + selectedProperty.images.length) % selectedProperty.images.length)
+    }
+  }
+
   // Real listings from OneHome MLS - Updated December 2024
   // All data verified from portal.onehome.com
-  const properties = [
+  const properties: Property[] = [
     {
       address: "12152 Stout Street",
       city: "Detroit, MI 48228",
-      rooms: "3+1",
+      rooms: "3",
+      bathrooms: "1",
       sqft: "1,041",
       price: "$85,900",
       monthlyRent: "$1,160",
@@ -35,15 +83,20 @@ export function PortfolioSection() {
       netYearly: "$7,903",
       capRate: "%16.2",
       image: "/properties/stout-hd.jpg",
+      images: ["/properties/stout-hd.jpg", "/properties/stout.jpg"],
       status: "Back on Market",
       mls: "20251049787",
       yearBuilt: "1948",
       lotSize: "0.12 acres",
+      propertyType: "Single Family",
+      description: "Well-maintained single family home in Detroit with Section 8 tenant in place. Features updated kitchen and bathroom, newer roof, and full basement. Excellent investment opportunity with guaranteed rental income.",
+      features: ["Section 8 Approved", "Tenant in Place", "Updated Kitchen", "Full Basement", "Newer Roof", "Hardwood Floors"],
     },
     {
       address: "12290 Griggs Street",
       city: "Detroit, MI 48204",
-      rooms: "3+1",
+      rooms: "3",
+      bathrooms: "1",
       sqft: "1,383",
       price: "$89,900",
       monthlyRent: "$1,100",
@@ -51,15 +104,20 @@ export function PortfolioSection() {
       netYearly: "$8,271",
       capRate: "%14.7",
       image: "/properties/griggs-hd.jpg",
+      images: ["/properties/griggs-hd.jpg", "/properties/griggs.jpg", "/properties/griggs.png"],
       status: "New Listing",
       mls: "20251060129",
       yearBuilt: "1923",
       lotSize: "0.09 acres",
+      propertyType: "Single Family",
+      description: "Spacious 3-bedroom home with original hardwood floors and charming character. Recently renovated with modern amenities while preserving historic details. Great rental history and Section 8 approved.",
+      features: ["Section 8 Approved", "Hardwood Floors", "Recently Renovated", "Large Lot", "Covered Porch", "Updated Electrical"],
     },
     {
       address: "15717 Freeland Street",
       city: "Detroit, MI 48227",
-      rooms: "3+1",
+      rooms: "3",
+      bathrooms: "1",
       sqft: "1,227",
       price: "$87,900",
       monthlyRent: "$1,165",
@@ -67,15 +125,20 @@ export function PortfolioSection() {
       netYearly: "$8,087",
       capRate: "%15.9",
       image: "/properties/freeland-hd.jpg",
+      images: ["/properties/freeland-hd.jpg", "/properties/freeland.jpg"],
       status: "For Sale",
       mls: "20251059784",
       yearBuilt: "1931",
       lotSize: "0.08 acres",
+      propertyType: "Single Family",
+      description: "Move-in ready investment property with excellent cash flow potential. Features include updated plumbing, new water heater, and freshly painted interior. Located in an established neighborhood.",
+      features: ["Section 8 Approved", "Move-in Ready", "Updated Plumbing", "New Water Heater", "Fresh Paint", "Fenced Yard"],
     },
     {
       address: "9977 Evergreen Avenue",
       city: "Detroit, MI 48228",
-      rooms: "3+1",
+      rooms: "3",
+      bathrooms: "1",
       sqft: "1,150",
       price: "$88,900",
       monthlyRent: "$1,354",
@@ -83,15 +146,20 @@ export function PortfolioSection() {
       netYearly: "$8,179",
       capRate: "%18.3",
       image: "/properties/evergreen-hd.jpg",
+      images: ["/properties/evergreen-hd.jpg", "/properties/evergreen.jpg"],
       status: "For Sale",
       mls: "20251050193",
       yearBuilt: "1942",
       lotSize: "0.10 acres",
+      propertyType: "Single Family",
+      description: "Excellent cap rate property on Evergreen Avenue. This well-maintained home offers strong rental income with a reliable Section 8 tenant. Features include a detached garage and spacious backyard.",
+      features: ["Section 8 Approved", "High Cap Rate", "Detached Garage", "Spacious Backyard", "Quiet Street", "Near Schools"],
     },
     {
       address: "12345 Kentucky Street",
       city: "Detroit, MI 48204",
-      rooms: "3+1",
+      rooms: "3",
+      bathrooms: "1",
       sqft: "1,357",
       price: "$89,000",
       monthlyRent: "$1,224",
@@ -99,10 +167,14 @@ export function PortfolioSection() {
       netYearly: "$8,188",
       capRate: "%16.5",
       image: "/properties/kentucky-hd.jpg",
+      images: ["/properties/kentucky-hd.jpg", "/properties/kentucky.jpg"],
       status: "For Sale",
       mls: "20251040564",
       yearBuilt: "1921",
       lotSize: "0.09 acres",
+      propertyType: "Single Family",
+      description: "Classic Detroit bungalow with excellent investment potential. Features original woodwork, updated systems, and a well-maintained exterior. Strong rental demand in this area.",
+      features: ["Section 8 Approved", "Classic Bungalow", "Original Woodwork", "Updated Systems", "Well-Maintained", "Strong Demand"],
     },
   ]
 
@@ -131,7 +203,10 @@ export function PortfolioSection() {
           <div className="flex gap-8">
             {properties.map((property, i) => (
               <div key={i} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0">
-                <Card className="group h-full overflow-hidden border-border/50 bg-card hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 flex flex-col">
+                <Card
+                  className="group h-full overflow-hidden border-border/50 bg-card hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 flex flex-col cursor-pointer"
+                  onClick={() => openPropertyModal(property)}
+                >
                   {/* Image Area */}
                   <div className="relative h-64 overflow-hidden">
                     <img
@@ -210,6 +285,196 @@ export function PortfolioSection() {
           </div>
         </div>
       </div>
+
+      {/* Property Detail Modal */}
+      <Dialog open={!!selectedProperty} onOpenChange={closePropertyModal}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+          {selectedProperty && (
+            <>
+              {/* Image Gallery */}
+              <div className="relative h-72 md:h-96 bg-black">
+                <img
+                  src={selectedProperty.images[currentImageIndex]}
+                  alt={`${selectedProperty.address} - Image ${currentImageIndex + 1}`}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Image Navigation */}
+                {selectedProperty.images.length > 1 && (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
+                      onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                    >
+                      <ChevronLeft className="h-6 w-6" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
+                      onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                    >
+                      <ChevronRight className="h-6 w-6" />
+                    </Button>
+
+                    {/* Image Dots */}
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                      {selectedProperty.images.map((_, idx) => (
+                        <button
+                          key={idx}
+                          className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50'}`}
+                          onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+
+                {/* Badges */}
+                <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
+                  {selectedProperty.capRate} CAP
+                </Badge>
+                {selectedProperty.status === "New Listing" && (
+                  <Badge className="absolute top-4 left-4 bg-green-500 text-white font-bold shadow-lg border-0 px-3 py-1">
+                    NEW
+                  </Badge>
+                )}
+              </div>
+
+              {/* Property Details */}
+              <div className="p-6 space-y-6">
+                {/* Header */}
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <h2 className="text-2xl font-bold text-foreground">{selectedProperty.address}</h2>
+                    <Badge className="bg-accent text-white">
+                      <Check size={12} strokeWidth={4} className="mr-1" />
+                      Section 8
+                    </Badge>
+                  </div>
+                  <p className="text-muted-foreground flex items-center gap-1">
+                    <MapPin size={16} />
+                    {selectedProperty.city}
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-1">MLS# {selectedProperty.mls}</p>
+                </div>
+
+                {/* Property Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/50 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <BedDouble className="text-primary" size={20} />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Bedrooms</p>
+                      <p className="font-bold">{selectedProperty.rooms}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Bath className="text-primary" size={20} />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Bathrooms</p>
+                      <p className="font-bold">{selectedProperty.bathrooms}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Square className="text-primary" size={20} />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Sq Ft</p>
+                      <p className="font-bold">{selectedProperty.sqft}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <TreePine className="text-primary" size={20} />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Lot Size</p>
+                      <p className="font-bold">{selectedProperty.lotSize}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Additional Info */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                  <div className="flex items-center gap-2">
+                    <Home className="text-muted-foreground" size={18} />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Type</p>
+                      <p className="font-medium">{selectedProperty.propertyType}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar className="text-muted-foreground" size={18} />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Year Built</p>
+                      <p className="font-medium">{selectedProperty.yearBuilt}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Maximize className="text-muted-foreground" size={18} />
+                    <div>
+                      <p className="text-xs text-muted-foreground">Status</p>
+                      <p className="font-medium">{selectedProperty.status}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <div>
+                  <h3 className="font-bold text-lg mb-2">Description</h3>
+                  <p className="text-muted-foreground">{selectedProperty.description}</p>
+                </div>
+
+                {/* Features */}
+                <div>
+                  <h3 className="font-bold text-lg mb-2">Features</h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProperty.features.map((feature, idx) => (
+                      <Badge key={idx} variant="secondary" className="text-sm">
+                        <Check size={12} className="mr-1" />
+                        {feature}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Financial Summary */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase font-semibold">Price</p>
+                    <p className="text-xl font-bold text-primary">{selectedProperty.price}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase font-semibold">Monthly Rent</p>
+                    <p className="text-xl font-bold">{selectedProperty.monthlyRent}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase font-semibold">Net Monthly</p>
+                    <p className="text-xl font-bold text-accent">{selectedProperty.netMonthly}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs text-muted-foreground uppercase font-semibold">Net Yearly</p>
+                    <p className="text-xl font-bold text-accent">{selectedProperty.netYearly}</p>
+                  </div>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-4">
+                  <Button className="w-full font-semibold shadow-lg shadow-primary/20 bg-primary text-white hover:bg-primary/90" asChild>
+                    <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
+                      {t("cta")}
+                    </a>
+                  </Button>
+                  <Button variant="outline" className="w-full border-primary/20 text-primary hover:bg-primary/5" asChild>
+                    <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
+                      WhatsApp
+                    </a>
+                  </Button>
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   )
 }
