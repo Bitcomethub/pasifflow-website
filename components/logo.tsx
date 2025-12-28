@@ -13,10 +13,10 @@ interface LogoProps {
 }
 
 const sizeStyles = {
-    sm: { width: 120, height: 36 },
-    md: { width: 160, height: 48 },
-    lg: { width: 200, height: 60 },
-    xl: { width: 240, height: 72 },
+    sm: { width: 140, height: 42 },
+    md: { width: 180, height: 54 },
+    lg: { width: 220, height: 66 },
+    xl: { width: 260, height: 78 },
 }
 
 export function Logo({
@@ -27,11 +27,9 @@ export function Logo({
 }: LogoProps) {
     const styles = sizeStyles[size]
 
-    // Use transparent logo for dark backgrounds (white text), 
-    // growth logo for light backgrounds (dark text with arrow)
-    const logoSrc = theme === "dark"
-        ? "/logo-transparent.png"  // White logo for dark backgrounds
-        : "/logo-growth.png"       // Dark logo for light backgrounds
+    // Always use the growth logo with transparent background
+    // The image has transparent background so it works on any background color
+    const logoSrc = "/logo-growth.png"
 
     const content = (
         <div className={cn("flex items-center", className)}>
@@ -40,7 +38,11 @@ export function Logo({
                 alt="Pasiflow Logo"
                 width={styles.width}
                 height={styles.height}
-                className="object-contain"
+                className={cn(
+                    "object-contain",
+                    // Invert for dark backgrounds if needed
+                    theme === "dark" && "brightness-0 invert"
+                )}
                 priority
             />
         </div>
