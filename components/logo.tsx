@@ -13,10 +13,10 @@ interface LogoProps {
 }
 
 const sizeStyles = {
-    sm: { width: 140, height: 42 },
-    md: { width: 180, height: 54 },
-    lg: { width: 220, height: 66 },
-    xl: { width: 260, height: 78 },
+    sm: { width: 140, height: 50 },
+    md: { width: 180, height: 65 },
+    lg: { width: 220, height: 80 },
+    xl: { width: 280, height: 100 },
 }
 
 export function Logo({
@@ -27,21 +27,14 @@ export function Logo({
 }: LogoProps) {
     const styles = sizeStyles[size]
 
-    // Use the cropped logo from the app
-    const logoSrc = "/pasiflow-logo-cropped.png"
-
     const content = (
         <div className={cn("flex items-center", className)}>
             <Image
-                src={logoSrc}
-                alt="Pasiflow Logo"
+                src="/logo.png"
+                alt="Pasiflow"
                 width={styles.width}
                 height={styles.height}
-                className={cn(
-                    "object-contain",
-                    // For light backgrounds, invert the colors so dark text shows
-                    theme === "light" && "invert"
-                )}
+                className="object-contain"
                 priority
             />
         </div>
