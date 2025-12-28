@@ -181,11 +181,15 @@ export function PortfolioSection() {
                     </div>
 
                     <div className="pt-4 grid gap-3">
-                      <Button className="w-full font-semibold shadow-lg shadow-primary/20 bg-primary text-white hover:bg-primary/90">
-                        {t("netMonthly")} {/* Reusing label or standard CTA */}
+                      <Button className="w-full font-semibold shadow-lg shadow-primary/20 bg-primary text-white hover:bg-primary/90" asChild>
+                        <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
+                          {t("cta")}
+                        </a>
                       </Button>
-                      <Button variant="outline" className="w-full border-primary/20 text-primary hover:bg-primary/5">
-                        WhatsApp
+                      <Button variant="outline" className="w-full border-primary/20 text-primary hover:bg-primary/5" asChild>
+                        <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(property.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
+                          WhatsApp
+                        </a>
                       </Button>
                     </div>
                   </div>

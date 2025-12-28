@@ -73,7 +73,7 @@ export function Section8Section() {
                 <p className="text-primary-foreground/70 text-sm">Ödeme Günleri</p>
               </div>
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
-                <div className="text-3xl font-bold text-accent mb-2">%95+</div>
+                <div className="text-3xl font-bold text-accent mb-2">%100</div>
                 <p className="text-primary-foreground/70 text-sm">Garantili Ödeme</p>
               </div>
             </motion.div>

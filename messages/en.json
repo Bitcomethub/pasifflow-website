@@ -85,7 +85,8 @@
         "netMonthly": "Net Monthly Income",
         "netYearly": "Net Yearly Income",
         "capRate": "CAP Rate",
-        "section8Badge": "Section 8 Approved"
+        "section8Badge": "Section 8 Approved",
+        "cta": "Get Details"
     },
     "process": {
         "title": "How It Works",

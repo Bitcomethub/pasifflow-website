@@ -85,7 +85,8 @@
         "netMonthly": "Чистый месячный доход",
         "netYearly": "Чистый годовой доход",
         "capRate": "Ставка капитализации",
-        "section8Badge": "Одобрено Section 8"
+        "section8Badge": "Одобрено Section 8",
+        "cta": "Узнать подробности"
     },
     "process": {
         "title": "Как это работает?",

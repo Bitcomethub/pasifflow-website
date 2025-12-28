@@ -85,7 +85,8 @@
         "netMonthly": "Net Aylık Gelir",
         "netYearly": "Net Yıllık Gelir",
         "capRate": "CAP Oranı",
-        "section8Badge": "Section 8 Onaylı"
+        "section8Badge": "Section 8 Onaylı",
+        "cta": "Detaylı Bilgi Al"
     },
     "process": {
         "title": "Nasıl Çalışır?",

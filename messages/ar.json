@@ -85,7 +85,8 @@
         "netMonthly": "صافي الدخل الشهري",
         "netYearly": "صافي الدخل السنوي",
         "capRate": "معدل العائد",
-        "section8Badge": "معتمد Section 8"
+        "section8Badge": "معتمد Section 8",
+        "cta": "احصل على التفاصيل"
     },
     "process": {
         "title": "كيف يعمل؟",
