@@ -61,7 +61,7 @@ export function AppFeaturesSection() {
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="hidden lg:flex justify-center"
+                        className="hidden lg:flex flex-col items-center"
                     >
                         <div className="relative w-[300px] h-[600px] bg-black rounded-[3rem] border-4 border-gray-800 shadow-2xl overflow-hidden">
                             {/* Phone notch */}
@@ -76,6 +76,35 @@ export function AppFeaturesSection() {
                                 priority
                             />
                         </div>
+
+                        {/* App Store Badges */}
+                        <div className="flex flex-col sm:flex-row gap-4 mt-8">
+                            <a
+                                href="https://apps.apple.com/app/pasiflow"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transition-transform hover:scale-105"
+                            >
+                                <img
+                                    src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg"
+                                    alt="Download on App Store"
+                                    className="h-12"
+                                />
+                            </a>
+                            <a
+                                href="https://play.google.com/store/apps/details?id=com.pasiflow.app"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="transition-transform hover:scale-105"
+                            >
+                                <img
+                                    src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+                                    alt="Get it on Google Play"
+                                    className="h-12"
+                                />
+                            </a>
+                        </div>
+                        <p className="text-white/60 text-sm mt-4">Yakında iOS & Android'de</p>
                     </motion.div>
                 </div>
             </div>

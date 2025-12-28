@@ -126,8 +126,11 @@ export function Header() {
           <Button
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6 shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:scale-105"
             size={isScrolled ? "sm" : "default"}
+            asChild
           >
-            Danışmanlık Al
+            <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
+              Danışmanlık Al
+            </a>
           </Button>
         </nav>
 
