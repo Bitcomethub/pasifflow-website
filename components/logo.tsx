@@ -19,51 +19,6 @@ const sizeStyles = {
     xl: { width: 240, height: 72 },
 }
 
-// Inline SVG Logo Component - matches the app screenshot logo
-function PasiflowLogo({ theme = "dark", className }: { theme?: "light" | "dark", className?: string }) {
-    const pasiColor = theme === "dark" ? "#ffffff" : "#0e3a5c"
-    const flowColor = "#00d4aa"
-
-    return (
-        <svg
-            viewBox="0 0 200 50"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className={cn("h-auto", className)}
-        >
-            {/* Pasi text */}
-            <text
-                x="0"
-                y="38"
-                fontFamily="system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
-                fontSize="40"
-                fontWeight="700"
-                fill={pasiColor}
-            >
-                Pasi
-            </text>
-
-            {/* flow text */}
-            <text
-                x="82"
-                y="38"
-                fontFamily="system-ui, -apple-system, BlinkMacSystemFont, sans-serif"
-                fontSize="40"
-                fontWeight="700"
-                fill={flowColor}
-            >
-                flow
-            </text>
-
-            {/* Upward arrow */}
-            <path
-                d="M188 8 L198 20 L193 20 L193 38 L183 38 L183 20 L178 20 Z"
-                fill={flowColor}
-            />
-        </svg>
-    )
-}
-
 export function Logo({
     size = "md",
     className,
@@ -72,12 +27,22 @@ export function Logo({
 }: LogoProps) {
     const styles = sizeStyles[size]
 
+    // Use transparent logo for dark backgrounds (white text), 
+    // growth logo for light backgrounds (dark text with arrow)
+    const logoSrc = theme === "dark"
+        ? "/logo-transparent.png"  // White logo for dark backgrounds
+        : "/logo-growth.png"       // Dark logo for light backgrounds
+
     const content = (
-        <div
-            className={cn("flex items-center", className)}
-            style={{ width: styles.width, height: styles.height }}
-        >
-            <PasiflowLogo theme={theme} className="w-full h-full" />
+        <div className={cn("flex items-center", className)}>
+            <Image
+                src={logoSrc}
+                alt="Pasiflow Logo"
+                width={styles.width}
+                height={styles.height}
+                className="object-contain"
+                priority
+            />
         </div>
     )
 
@@ -101,6 +66,3 @@ export function PasiflowText({ className }: { className?: string }) {
         </span>
     )
 }
-
-// Export the SVG component for special uses
-export { PasiflowLogo }
