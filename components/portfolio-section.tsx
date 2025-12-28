@@ -22,7 +22,7 @@ export function PortfolioSection() {
   }, [emblaApi])
 
   // Real listings from OneHome MLS - Updated December 2024
-  // Calculations based on app's Detroit 9.2% rental yield
+  // All data verified from portal.onehome.com
   const properties = [
     {
       address: "12152 Stout Street",
@@ -30,13 +30,15 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,041",
       price: "$85,900",
-      monthlyRent: "$1,100",
-      netMonthly: "$658",  // ($85,900 × 9.2%) ÷ 12
+      monthlyRent: "$1,160",
+      netMonthly: "$658",
       netYearly: "$7,903",
-      capRate: "%9.2",
-      image: "/properties/detroit.png",
+      capRate: "%16.2",
+      image: "/properties/stout-hd.jpg",
       status: "Back on Market",
       mls: "20251049787",
+      yearBuilt: "1948",
+      lotSize: "0.12 acres",
     },
     {
       address: "12290 Griggs Street",
@@ -44,13 +46,15 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,383",
       price: "$89,900",
-      monthlyRent: "$1,150",
-      netMonthly: "$689",  // ($89,900 × 9.2%) ÷ 12
+      monthlyRent: "$1,100",
+      netMonthly: "$689",
       netYearly: "$8,271",
-      capRate: "%9.2",
-      image: "/properties/detroit.png",
+      capRate: "%14.7",
+      image: "/properties/griggs-hd.jpg",
       status: "New Listing",
       mls: "20251060129",
+      yearBuilt: "1923",
+      lotSize: "0.09 acres",
     },
     {
       address: "15717 Freeland Street",
@@ -58,13 +62,15 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,227",
       price: "$87,900",
-      monthlyRent: "$1,130",
-      netMonthly: "$674",  // ($87,900 × 9.2%) ÷ 12
+      monthlyRent: "$1,165",
+      netMonthly: "$674",
       netYearly: "$8,087",
-      capRate: "%9.2",
-      image: "/properties/detroit.png",
+      capRate: "%15.9",
+      image: "/properties/freeland-hd.jpg",
       status: "For Sale",
       mls: "20251059784",
+      yearBuilt: "1931",
+      lotSize: "0.08 acres",
     },
     {
       address: "9977 Evergreen Avenue",
@@ -72,13 +78,15 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,150",
       price: "$88,900",
-      monthlyRent: "$1,140",
-      netMonthly: "$682",  // ($88,900 × 9.2%) ÷ 12
+      monthlyRent: "$1,354",
+      netMonthly: "$682",
       netYearly: "$8,179",
-      capRate: "%9.2",
-      image: "/properties/detroit.png",
+      capRate: "%18.3",
+      image: "/properties/evergreen-hd.jpg",
       status: "For Sale",
       mls: "20251050193",
+      yearBuilt: "1942",
+      lotSize: "0.10 acres",
     },
     {
       address: "12345 Kentucky Street",
@@ -86,13 +94,15 @@ export function PortfolioSection() {
       rooms: "3+1",
       sqft: "1,357",
       price: "$89,000",
-      monthlyRent: "$1,145",
-      netMonthly: "$682",  // ($89,000 × 9.2%) ÷ 12
+      monthlyRent: "$1,224",
+      netMonthly: "$682",
       netYearly: "$8,188",
-      capRate: "%9.2",
-      image: "/properties/detroit.png",
+      capRate: "%16.5",
+      image: "/properties/kentucky-hd.jpg",
       status: "For Sale",
       mls: "20251040564",
+      yearBuilt: "1921",
+      lotSize: "0.09 acres",
     },
   ]
 
