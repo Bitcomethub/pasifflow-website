@@ -27,9 +27,8 @@ export function Logo({
 }: LogoProps) {
     const styles = sizeStyles[size]
 
-    // Always use the growth logo with transparent background
-    // The image has transparent background so it works on any background color
-    const logoSrc = "/logo-growth.png"
+    // Use the cropped logo from the app
+    const logoSrc = "/pasiflow-logo-cropped.png"
 
     const content = (
         <div className={cn("flex items-center", className)}>
@@ -40,8 +39,8 @@ export function Logo({
                 height={styles.height}
                 className={cn(
                     "object-contain",
-                    // Invert for dark backgrounds if needed
-                    theme === "dark" && "brightness-0 invert"
+                    // For light backgrounds, invert the colors so dark text shows
+                    theme === "light" && "invert"
                 )}
                 priority
             />
