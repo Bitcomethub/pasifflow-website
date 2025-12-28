@@ -176,7 +176,7 @@ export default function ContactPage() {
                                 </a>
 
                                 <a
-                                    href="https://wa.me/13056903146"
+                                    href="https://wa.me/13056903146?text=Merhaba%2C%20Pasiflow%20ile%20ilgili%20bilgi%20almak%20istiyorum."
                                     target="_blank"
                                     className="flex items-center gap-4 bg-green-600/80 backdrop-blur-sm rounded-xl p-5 hover:bg-green-600 transition-colors group"
                                 >
@@ -186,6 +186,21 @@ export default function ContactPage() {
                                     <div>
                                         <p className="text-white/80 text-sm mb-1">WhatsApp</p>
                                         <p className="text-xl font-bold">Hemen Yazın</p>
+                                    </div>
+                                </a>
+
+                                {/* Calendly Appointment */}
+                                <a
+                                    href="https://calendly.com/pasiflow/danismanlik"
+                                    target="_blank"
+                                    className="flex items-center gap-4 bg-amber-500/90 backdrop-blur-sm rounded-xl p-5 hover:bg-amber-500 transition-colors group"
+                                >
+                                    <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                        <Clock className="h-6 w-6 text-white" />
+                                    </div>
+                                    <div>
+                                        <p className="text-white/80 text-sm mb-1">Online Randevu</p>
+                                        <p className="text-xl font-bold">Görüşme Planla</p>
                                     </div>
                                 </a>
                             </div>
