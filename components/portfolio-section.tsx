@@ -21,61 +21,77 @@ export function PortfolioSection() {
     if (emblaApi) emblaApi.scrollNext()
   }, [emblaApi])
 
+  // Real listings from OneHome MLS - Updated December 2024
   const properties = [
     {
-      city: "Cleveland, OH",
+      address: "12152 Stout Street",
+      city: "Detroit, MI 48228",
       rooms: "3+1",
-      sqft: "1,150",
-      price: "$90,000",
-      monthlyRent: "$1,300",
-      netMonthly: "$874",
-      netYearly: "$10,488",
-      capRate: "%11.65",
-      image: "/properties/cleveland.png",
-    },
-    {
-      city: "Memphis, TN",
-      rooms: "3+1",
-      sqft: "1,150",
-      price: "$95,000",
-      monthlyRent: "$1,350",
-      netMonthly: "$905",
-      netYearly: "$10,860",
-      capRate: "%11.43",
-      image: "/properties/memphis.png",
-    },
-    {
-      city: "Detroit, MI",
-      rooms: "3+1",
-      sqft: "1,150",
-      price: "$85,000",
-      monthlyRent: "$1,250",
-      netMonthly: "$840",
-      netYearly: "$10,080",
-      capRate: "%11.86",
+      sqft: "1,041",
+      price: "$85,900",
+      monthlyRent: "$1,100",
+      netMonthly: "$715",
+      netYearly: "$8,580",
+      capRate: "%10.0",
       image: "/properties/detroit.png",
+      status: "Back on Market",
+      mls: "20251049787",
     },
     {
-      city: "St. Louis, MO",
-      rooms: "4+1",
-      sqft: "1,350",
-      price: "$100,000",
-      monthlyRent: "$1,400",
-      netMonthly: "$940",
-      netYearly: "$11,280",
-      capRate: "%11.28",
-      image: "/properties/stlouis.png",
-    },
-    {
-      city: "Birmingham, AL",
+      address: "12290 Griggs Street",
+      city: "Detroit, MI 48204",
       rooms: "3+1",
-      sqft: "1,200",
-      price: "$88,000",
-      monthlyRent: "$1,280",
-      netMonthly: "$860",
-      netYearly: "$10,320",
-      capRate: "%11.73",
-      image: "/properties/birmingham.png",
+      sqft: "1,383",
+      price: "$89,900",
+      monthlyRent: "$1,150",
+      netMonthly: "$748",
+      netYearly: "$8,970",
+      capRate: "%10.0",
+      image: "/properties/detroit.png",
+      status: "New Listing",
+      mls: "20251060129",
+    },
+    {
+      address: "15717 Freeland Street",
+      city: "Detroit, MI 48227",
+      rooms: "3+1",
+      sqft: "1,227",
+      price: "$87,900",
+      monthlyRent: "$1,130",
+      netMonthly: "$735",
+      netYearly: "$8,815",
+      capRate: "%10.0",
+      image: "/properties/detroit.png",
+      status: "For Sale",
+      mls: "20251059784",
+    },
+    {
+      address: "9977 Evergreen Avenue",
+      city: "Detroit, MI 48228",
+      rooms: "3+1",
+      sqft: "1,150",
+      price: "$88,900",
+      monthlyRent: "$1,140",
+      netMonthly: "$741",
+      netYearly: "$8,892",
+      capRate: "%10.0",
+      image: "/properties/detroit.png",
+      status: "For Sale",
+      mls: "20251050193",
+    },
+    {
+      address: "12345 Kentucky Street",
+      city: "Detroit, MI 48204",
+      rooms: "3+1",
+      sqft: "1,357",
+      price: "$89,000",
+      monthlyRent: "$1,145",
+      netMonthly: "$744",
+      netYearly: "$8,930",
+      capRate: "%10.0",
+      image: "/properties/detroit.png",
+      status: "For Sale",
+      mls: "20251040564",
     },
   ]
 
@@ -126,11 +142,19 @@ export function PortfolioSection() {
 
                   <div className="p-6 flex flex-col flex-grow space-y-4">
                     <div>
-                      <h3 className="text-xl font-bold text-foreground mb-1">
-                        {property.city}
-                      </h3>
+                      <div className="flex items-center gap-2 mb-1">
+                        <h3 className="text-lg font-bold text-foreground">
+                          {property.address}
+                        </h3>
+                        {property.status === "New Listing" && (
+                          <Badge className="bg-green-500 text-white text-xs px-2 py-0.5">NEW</Badge>
+                        )}
+                      </div>
                       <p className="text-sm text-muted-foreground">
-                        {property.rooms} {t("rooms")} • {property.sqft} {t("sqft")}
+                        {property.city}
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {property.rooms} {t("rooms")} • {property.sqft} {t("sqft")} • MLS# {property.mls}
                       </p>
                     </div>
 
