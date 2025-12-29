@@ -15,6 +15,7 @@ import { CityComparisonSection } from "@/components/city-comparison-section"
 import { FAQSection } from "@/components/faq-section"
 import { MapSection } from "@/components/map-section"
 import { FinalCTASection } from "@/components/final-cta-section"
+import { AboutSection } from "@/components/about-section"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
             <Header />
             <main>
                 <HeroSection />
+                <AboutSection />
                 <ValuePropsSection />
                 <FoundersSection />
                 <ComparisonSection />

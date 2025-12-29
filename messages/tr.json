@@ -28,6 +28,22 @@
         "istanbulOffice": "İstanbul ofisi Mayıs 2026'da açılıyor",
         "disclaimer": "*Bu sitede yer alan bilgiler yatırım tavsiyesi değildir."
     },
+    "about": {
+        "badge": "Pasiflow Hakkında",
+        "title": "Yeni Nesil Gayrimenkul Yatırım Platformu",
+        "description1": "Pasiflow, teknoloji odaklı, yeni nesil bir gayrimenkul yatırım şirketidir. Amacımız, riski minimumda tutarak nesiller boyu sürecek pasif nakit akışı oluşturmanızı sağlamaktır.",
+        "description2": "Pasiflow sadece bir emlak şirketi değil, teknoloji destekli bir yatırım platformudur.",
+        "transparencyTitle": "En temel ilkemiz tam şeffaflıktır.",
+        "transparencyDesc": "Her şey açık, net ve ölçülebilirdir. Yatırım sürecinin her aşamasında yanınızda olur, yatırım stratejinizi sizinle birlikte planlar ve uygularız.",
+        "principle1Title": "Teknoloji Odaklı",
+        "principle1Desc": "Modern teknoloji ile desteklenen yatırım süreçleri ve gerçek zamanlı takip imkanı.",
+        "principle2Title": "Pasif Gelir Odaklı",
+        "principle2Desc": "Nesiller boyu sürecek, minimum riskli düzenli nakit akışı oluşturma hedefi.",
+        "principle3Title": "Tam Şeffaflık",
+        "principle3Desc": "Her aşamada açık, net ve ölçülebilir bilgi paylaşımı.",
+        "principle4Title": "Birlikte Planlama",
+        "principle4Desc": "Yatırım stratejinizi sizinle birlikte planlayıp uyguluyoruz."
+    },
     "hero": {
         "badge": "Türkiye'den Amerika'ya Güvenli Yatırım",
         "title": "%100 Devlet Garantili",

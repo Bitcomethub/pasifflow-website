@@ -28,6 +28,22 @@
         "istanbulOffice": "Istanbul office opening May 2026",
         "disclaimer": "*Information on this site is not investment advice."
     },
+    "about": {
+        "badge": "About Pasiflow",
+        "title": "Next-Generation Real Estate Investment Platform",
+        "description1": "Pasiflow is a technology-focused, next-generation real estate investment company. Our goal is to help you create passive cash flow that lasts for generations while minimizing risk.",
+        "description2": "Pasiflow is not just a real estate company, but a technology-powered investment platform.",
+        "transparencyTitle": "Our core principle is complete transparency.",
+        "transparencyDesc": "Everything is open, clear, and measurable. We are by your side at every stage of the investment process, planning and implementing your investment strategy together with you.",
+        "principle1Title": "Technology-Focused",
+        "principle1Desc": "Investment processes supported by modern technology with real-time tracking.",
+        "principle2Title": "Passive Income Focused",
+        "principle2Desc": "Goal of creating regular cash flow with minimum risk that lasts for generations.",
+        "principle3Title": "Full Transparency",
+        "principle3Desc": "Open, clear, and measurable information sharing at every stage.",
+        "principle4Title": "Collaborative Planning",
+        "principle4Desc": "We plan and implement your investment strategy together with you."
+    },
     "hero": {
         "badge": "Secure Investment from Turkey to USA",
         "title": "100% Government-Backed",
