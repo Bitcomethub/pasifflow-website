@@ -334,11 +334,11 @@ export function PortfolioSection() {
 
                 {/* Badges */}
                 <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
-                  {selectedProperty.capRate} CAP
+                  {selectedProperty.capRate} {t("capRate")}
                 </Badge>
                 {selectedProperty.status === "New Listing" && (
                   <Badge className="absolute top-4 left-4 bg-green-500 text-white font-bold shadow-lg border-0 px-3 py-1">
-                    NEW
+                    {t("new")}
                   </Badge>
                 )}
               </div>
@@ -351,7 +351,7 @@ export function PortfolioSection() {
                     <h2 className="text-2xl font-bold text-foreground">{selectedProperty.address}</h2>
                     <Badge className="bg-accent text-white">
                       <Check size={12} strokeWidth={4} className="mr-1" />
-                      Section 8
+                      {t("section8Badge")}
                     </Badge>
                   </div>
                   <p className="text-muted-foreground flex items-center gap-1">
@@ -366,28 +366,28 @@ export function PortfolioSection() {
                   <div className="flex items-center gap-2">
                     <BedDouble className="text-primary" size={20} />
                     <div>
-                      <p className="text-xs text-muted-foreground">Bedrooms</p>
+                      <p className="text-xs text-muted-foreground">{t("rooms")}</p>
                       <p className="font-bold">{selectedProperty.rooms}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Bath className="text-primary" size={20} />
                     <div>
-                      <p className="text-xs text-muted-foreground">Bathrooms</p>
+                      <p className="text-xs text-muted-foreground">{t("bathrooms")}</p>
                       <p className="font-bold">{selectedProperty.bathrooms}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Square className="text-primary" size={20} />
                     <div>
-                      <p className="text-xs text-muted-foreground">Sq Ft</p>
+                      <p className="text-xs text-muted-foreground">{t("sqft")}</p>
                       <p className="font-bold">{selectedProperty.sqft}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <TreePine className="text-primary" size={20} />
                     <div>
-                      <p className="text-xs text-muted-foreground">Lot Size</p>
+                      <p className="text-xs text-muted-foreground">{t("lotSize")}</p>
                       <p className="font-bold">{selectedProperty.lotSize}</p>
                     </div>
                   </div>
@@ -398,21 +398,21 @@ export function PortfolioSection() {
                   <div className="flex items-center gap-2">
                     <Home className="text-muted-foreground" size={18} />
                     <div>
-                      <p className="text-xs text-muted-foreground">Type</p>
+                      <p className="text-xs text-muted-foreground">{t("type")}</p>
                       <p className="font-medium">{selectedProperty.propertyType}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="text-muted-foreground" size={18} />
                     <div>
-                      <p className="text-xs text-muted-foreground">Year Built</p>
+                      <p className="text-xs text-muted-foreground">{t("yearBuilt")}</p>
                       <p className="font-medium">{selectedProperty.yearBuilt}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Maximize className="text-muted-foreground" size={18} />
                     <div>
-                      <p className="text-xs text-muted-foreground">Status</p>
+                      <p className="text-xs text-muted-foreground">{t("status")}</p>
                       <p className="font-medium">{selectedProperty.status}</p>
                     </div>
                   </div>
@@ -420,13 +420,13 @@ export function PortfolioSection() {
 
                 {/* Description */}
                 <div>
-                  <h3 className="font-bold text-lg mb-2">Description</h3>
+                  <h3 className="font-bold text-lg mb-2">{t("description")}</h3>
                   <p className="text-muted-foreground">{selectedProperty.description}</p>
                 </div>
 
                 {/* Features */}
                 <div>
-                  <h3 className="font-bold text-lg mb-2">Features</h3>
+                  <h3 className="font-bold text-lg mb-2">{t("features")}</h3>
                   <div className="flex flex-wrap gap-2">
                     {selectedProperty.features.map((feature, idx) => (
                       <Badge key={idx} variant="secondary" className="text-sm">
@@ -440,19 +440,19 @@ export function PortfolioSection() {
                 {/* Financial Summary */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-primary/5 rounded-lg border border-primary/20">
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase font-semibold">Price</p>
+                    <p className="text-xs text-muted-foreground uppercase font-semibold">{t("price")}</p>
                     <p className="text-xl font-bold text-primary">{selectedProperty.price}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase font-semibold">Monthly Rent</p>
+                    <p className="text-xs text-muted-foreground uppercase font-semibold">{t("rent")}</p>
                     <p className="text-xl font-bold">{selectedProperty.monthlyRent}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase font-semibold">Net Monthly</p>
+                    <p className="text-xs text-muted-foreground uppercase font-semibold">{t("netMonthly")}</p>
                     <p className="text-xl font-bold text-accent">{selectedProperty.netMonthly}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase font-semibold">Net Yearly</p>
+                    <p className="text-xs text-muted-foreground uppercase font-semibold">{t("netYearly")}</p>
                     <p className="text-xl font-bold text-accent">{selectedProperty.netYearly}</p>
                   </div>
                 </div>

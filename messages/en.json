@@ -95,6 +95,7 @@
         "subtitle": "Turnkey, tenant-ready properties",
         "city": "City",
         "rooms": "Beds",
+        "bathrooms": "Baths",
         "sqft": "sq ft",
         "price": "Price",
         "rent": "Monthly Rent",
@@ -102,7 +103,14 @@
         "netYearly": "Net Yearly Income",
         "capRate": "CAP Rate",
         "section8Badge": "Section 8 Approved",
-        "cta": "Get Details"
+        "cta": "Get Details",
+        "new": "NEW",
+        "lotSize": "Lot Size",
+        "type": "Type",
+        "yearBuilt": "Year Built",
+        "status": "Status",
+        "description": "Description",
+        "features": "Features"
     },
     "process": {
         "title": "How It Works",

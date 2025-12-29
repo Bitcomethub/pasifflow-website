@@ -95,6 +95,7 @@
         "subtitle": "Anahtar teslim, kiracısı hazır evler",
         "city": "Şehir",
         "rooms": "Oda",
+        "bathrooms": "Banyo",
         "sqft": "m²",
         "price": "Fiyat",
         "rent": "Aylık Kira",
@@ -102,7 +103,14 @@
         "netYearly": "Net Yıllık Gelir",
         "capRate": "CAP Oranı",
         "section8Badge": "Section 8 Onaylı",
-        "cta": "Detaylı Bilgi Al"
+        "cta": "Detaylı Bilgi Al",
+        "new": "YENİ",
+        "lotSize": "Arsa",
+        "type": "Tip",
+        "yearBuilt": "Yapım Yılı",
+        "status": "Durum",
+        "description": "Açıklama",
+        "features": "Özellikler"
     },
     "process": {
         "title": "Nasıl Çalışır?",
