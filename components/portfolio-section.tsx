@@ -79,9 +79,9 @@ export function PortfolioSection() {
       sqft: "1,041",
       price: "$85,900",
       monthlyRent: "$1,160",
-      netMonthly: "$658",
-      netYearly: "$7,903",
-      capRate: "%16.2",
+      netMonthly: "$765",
+      netYearly: "$9,181",
+      capRate: "%9.8",
       image: "/properties/stout-hd.jpg",
       images: ["/properties/stout-hd.jpg", "/properties/stout.jpg"],
       status: "Back on Market",
@@ -100,9 +100,9 @@ export function PortfolioSection() {
       sqft: "1,383",
       price: "$89,900",
       monthlyRent: "$1,100",
-      netMonthly: "$689",
-      netYearly: "$8,271",
-      capRate: "%14.7",
+      netMonthly: "$703",
+      netYearly: "$8,433",
+      capRate: "%8.6",
       image: "/properties/griggs-hd.jpg",
       images: ["/properties/griggs-hd.jpg", "/properties/griggs.jpg", "/properties/griggs.png"],
       status: "New Listing",
@@ -121,9 +121,9 @@ export function PortfolioSection() {
       sqft: "1,227",
       price: "$87,900",
       monthlyRent: "$1,165",
-      netMonthly: "$674",
-      netYearly: "$8,087",
-      capRate: "%15.9",
+      netMonthly: "$765",
+      netYearly: "$9,185",
+      capRate: "%9.6",
       image: "/properties/freeland-hd.jpg",
       images: ["/properties/freeland-hd.jpg", "/properties/freeland.jpg"],
       status: "For Sale",
@@ -142,9 +142,9 @@ export function PortfolioSection() {
       sqft: "1,150",
       price: "$88,900",
       monthlyRent: "$1,354",
-      netMonthly: "$682",
-      netYearly: "$8,179",
-      capRate: "%18.3",
+      netMonthly: "$933",
+      netYearly: "$11,201",
+      capRate: "%11.6",
       image: "/properties/evergreen-hd.jpg",
       images: ["/properties/evergreen-hd.jpg", "/properties/evergreen.jpg"],
       status: "For Sale",
@@ -163,9 +163,9 @@ export function PortfolioSection() {
       sqft: "1,357",
       price: "$89,000",
       monthlyRent: "$1,224",
-      netMonthly: "$682",
-      netYearly: "$8,188",
-      capRate: "%16.5",
+      netMonthly: "$813",
+      netYearly: "$9,754",
+      capRate: "%10.1",
       image: "/properties/kentucky-hd.jpg",
       images: ["/properties/kentucky-hd.jpg", "/properties/kentucky.jpg"],
       status: "For Sale",
@@ -268,7 +268,7 @@ export function PortfolioSection() {
 
                     <div className="pt-4 grid gap-3">
                       <Button className="w-full font-semibold shadow-lg shadow-primary/20 bg-primary text-white hover:bg-primary/90" asChild>
-                        <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
+                        <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
                           {t("cta")}
                         </a>
                       </Button>
@@ -460,7 +460,7 @@ export function PortfolioSection() {
                 {/* CTA Buttons */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-4">
                   <Button className="w-full font-semibold shadow-lg shadow-primary/20 bg-primary text-white hover:bg-primary/90" asChild>
-                    <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
+                    <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
                       {t("cta")}
                     </a>
                   </Button>

@@ -26,7 +26,9 @@
         "quickLinks": "Quick Links",
         "legal": "Legal",
         "istanbulOffice": "Istanbul office opening May 2026",
-        "disclaimer": "*Information on this site is not investment advice."
+        "disclaimer": "*Information on this site is not investment advice.",
+        "contact": "Contact",
+        "designedWith": "Designed with ♥ for Global Investors"
     },
     "about": {
         "badge": "About Pasiflow",
@@ -54,9 +56,9 @@
         "stat2Label": "Occupancy Rate",
         "stat2Value": "98%+",
         "stat3Label": "Avg. Tenancy",
-        "stat3Value": "7+ Years",
+        "stat3Value": "Avg 7 Years",
         "stat4Label": "Entry Point",
-        "stat4Value": "$85K",
+        "stat4Value": "$80K",
         "ctaPrimary": "Get Free Consultation",
         "ctaSecondary": "View Portfolio"
     },
@@ -143,10 +145,119 @@
         "feature_maintained": "Well-Maintained",
         "feature_demand": "Strong Demand"
     },
+    "roiCalculator": {
+        "title": "Investment ROI Calculator",
+        "subtitle": "Net ROI calculation with real data • 7% annual appreciation",
+        "cityLabel": "Investment City",
+        "city_detroit_highlight": "Maximum Cash Flow",
+        "city_cleveland_highlight": "Balanced & Secure",
+        "city_memphis_highlight": "Tax Advantage + Growth",
+        "city_detroit_name": "Detroit, MI",
+        "city_cleveland_name": "Cleveland, OH",
+        "city_memphis_name": "Memphis, TN",
+        "grossIncome": "Monthly Gross Income",
+        "expensesHeader": "Monthly Expenses",
+        "closingCosts": "Closing / LLC Setup",
+        "maintenanceReserve": "Maintenance Reserve",
+        "totalCapital": "Total Capital In",
+        "purchasePrice": "Purchase Price",
+        "holdingPeriod": "Holding Period",
+        "years": "Years",
+        "netMonthly": "Net Monthly Income (USD)",
+        "netYearly": "Net Yearly Income (USD)",
+        "roiYearly": "Net ROI (Yearly)",
+        "payback": "Payback Period",
+        "projectedReturnTitle": "Projected Return After {years} Years",
+        "appreciationAssumption": "(Assuming 7% annual appreciation)",
+        "propertyValue": "Property Value",
+        "appreciation": "appreciation",
+        "totalRentalIncome": "Total Rental Income",
+        "totalReturn": "TOTAL RETURN",
+        "totalRoi": "total ROI",
+        "annualizedRoi": "Annualized average",
+        "costBreakdown": "Cost Breakdown",
+        "propertyPrice": "Property Price",
+        "serviceFee": "Pasiflow Fee",
+        "annualTax": "Annual Property Tax",
+        "annualInsurance": "Annual Insurance",
+        "managementFee": "Management (10%)",
+        "perYear": "/year",
+        "totalInvestment": "Total Investment",
+        "disclaimer": "* 7% annual appreciation assumption is used. Actual results may vary depending on market conditions."
+    },
+    "section8": {
+        "badge": "State Guarantee",
+        "title": "With Section 8",
+        "titleHighlight": "Eliminate Risks",
+        "description": "Section 8, the largest social housing program in the US, guarantees rental payments directly from the government. The government pays your rent even if the tenant is not working.",
+        "benefit1": "Regular Government Payments",
+        "benefit2": "Low Tenant Turnover",
+        "benefit3": "Minimum Vacancy Risk",
+        "stat1Value": "4–7 Years",
+        "stat1Label": "Average Tenant Stay",
+        "stat2Value": "Every Month 1-5",
+        "stat2Label": "Payment Days",
+        "stat3Value": "100%",
+        "stat3Label": "Guaranteed Payment"
+    },
+    "cityComparison": {
+        "badge": "PASIFLOW Market Comparison",
+        "title": "Which City is Right for You?",
+        "description": "PASIFLOW focuses on three major markets in the US where the Section 8 system is strongest. Each city appeals to a different investor profile.",
+        "budget": "Budget",
+        "risk": "Risk",
+        "bestFor": "Best for:",
+        "cashFlow": "Cash Flow",
+        "security": "Security",
+        "appreciation": "Appreciation",
+        "section8Demand": "Section 8 Demand",
+        "footer": "PASIFLOW does not direct every investor to the same city. The right city is matched with the right investor profile.",
+        "cities": {
+            "detroit": {
+                "name": "Detroit, MI",
+                "budget": "$75K – $110K",
+                "risk": "Medium",
+                "highlight": "Maximum Cash Flow",
+                "bestFor": "Those targeting maximum monthly cash flow and quick returns",
+                "features": {
+                    "1": "Low acquisition costs",
+                    "2": "Very strong Section 8 demand",
+                    "3": "Very high rent-to-price ratio",
+                    "4": "Highest cash flow potential"
+                }
+            },
+            "cleveland": {
+                "name": "Cleveland, OH",
+                "budget": "$85K – $120K",
+                "risk": "Low-Medium",
+                "highlight": "Balanced & Secure",
+                "bestFor": "Those wanting less stress and more stability",
+                "features": {
+                    "1": "More stable economy",
+                    "2": "More homogeneous neighborhood quality",
+                    "3": "Very regular Section 8 payments",
+                    "4": "Less maintenance and surprise expenses"
+                }
+            },
+            "memphis": {
+                "name": "Memphis, TN",
+                "budget": "$90K – $130K",
+                "risk": "Medium",
+                "highlight": "Tax Advantage + Growth",
+                "bestFor": "Those wanting tax advantages and long-term growth",
+                "features": {
+                    "1": "NO state income tax",
+                    "2": "Strong logistics and population growth",
+                    "3": "Section 8 system works fast",
+                    "4": "Long-term appreciation potential"
+                }
+            }
+        }
+    },
     "process": {
         "title": "How It Works",
         "subtitle": "Your Investment Journey with PASIFLOW",
-        "intro": "We don't leave you alone throughout the process — we move forward with you at every step.",
+        "intro": "How it works? From our first meeting until the sale of your property, a single dedicated account manager works with you. All steps are tracked on your behalf; the process is simple, transparent, and managed to leave you with minimal operational burden.",
         "step1Title": "Strategy & Initial Consultation",
         "step1Desc": "We determine your financial goals together, clarify your risk tolerance and budget.",
         "step1Check1": "Free consultation",
@@ -166,7 +277,7 @@
         "step4Desc": "All documents are professionally prepared, property officially transfers to your name.",
         "step4Check1": "Easy online signing",
         "step4Check2": "Title Company security",
-        "step4Check3": "Transfer in 3-5 days",
+        "step4Check3": "Transfer in 14-20 days",
         "step5Title": "Management & Rental Process",
         "step5Desc": "Tenant communication, rent collection, and maintenance processes are handled on your behalf.",
         "step5Check1": "Real-time panel tracking",
@@ -331,14 +442,6 @@
         "ctaPrimary": "Get Free Consultation",
         "ctaSecondary": "Write on WhatsApp Now",
         "disclaimer": "*This is not investment advice. Past performance does not guarantee future results."
-    },
-    "footer": {
-        "description": "The safest way to earn passive dollar income through government-guaranteed (Section 8) rental property investment in America.",
-        "quickLinks": "Quick Links",
-        "legal": "Legal",
-        "contact": "Contact",
-        "disclaimer": "*Information on this site is not investment advice.",
-        "designedWith": "Designed with ♥ for Global Investors"
     },
     "contact": {
         "title": "Contact Us",

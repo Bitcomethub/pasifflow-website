@@ -26,7 +26,9 @@
         "quickLinks": "Hızlı Erişim",
         "legal": "Yasal",
         "istanbulOffice": "İstanbul ofisi Mayıs 2026'da açılıyor",
-        "disclaimer": "*Bu sitede yer alan bilgiler yatırım tavsiyesi değildir."
+        "disclaimer": "*Bu sitede yer alan bilgiler yatırım tavsiyesi değildir.",
+        "contact": "İletişim",
+        "designedWith": "Designed with ♥ for Global Investors"
     },
     "about": {
         "badge": "Pasiflow Hakkında",
@@ -54,9 +56,9 @@
         "stat2Label": "Doluluk Oranı",
         "stat2Value": "%98+",
         "stat3Label": "Ort. Kiracılık Süresi",
-        "stat3Value": "7+ Yıl",
+        "stat3Value": "Ort. 7 Yıl",
         "stat4Label": "Giriş Noktası",
-        "stat4Value": "$85K",
+        "stat4Value": "$80K",
         "ctaPrimary": "Ücretsiz Danışmanlık Al",
         "ctaSecondary": "Portföyü İncele"
     },
@@ -143,10 +145,119 @@
         "feature_maintained": "Bakımlı",
         "feature_demand": "Güçlü Talep"
     },
+    "roiCalculator": {
+        "title": "Yatırım Getiri Hesaplayıcı",
+        "subtitle": "Gerçek verilerle net ROI hesaplaması • %7 yıllık değer artışı",
+        "cityLabel": "Yatırım Şehri",
+        "city_detroit_highlight": "Maksimum Nakit Akışı",
+        "city_cleveland_highlight": "Dengeli & Güvenli",
+        "city_memphis_highlight": "Vergi Avantajı + Büyüme",
+        "city_detroit_name": "Detroit, MI",
+        "city_cleveland_name": "Cleveland, OH",
+        "city_memphis_name": "Memphis, TN",
+        "grossIncome": "Aylık Brüt Gelir",
+        "expensesHeader": "Aylık Giderler",
+        "closingCosts": "Kapanış / LLC Kurulumu",
+        "maintenanceReserve": "Bakım Rezervi",
+        "totalCapital": "Toplam Sermaye",
+        "purchasePrice": "Satın Alma Fiyatı",
+        "holdingPeriod": "Tutma Süresi (Holding Period)",
+        "years": "Yıl",
+        "netMonthly": "Aylık Net Gelir (USD)",
+        "netYearly": "Yıllık Net Gelir (USD)",
+        "roiYearly": "Net ROI (Yıllık)",
+        "payback": "Amortisman",
+        "projectedReturnTitle": "{years} Yıl Sonunda Tahmini Getiri",
+        "appreciationAssumption": "(Yıllık %7 değer artışı varsayımıyla)",
+        "propertyValue": "Mülk Değeri",
+        "appreciation": "değer artışı",
+        "totalRentalIncome": "Toplam Kira Geliri",
+        "totalReturn": "TOPLAM GETİRİ",
+        "totalRoi": "toplam ROI",
+        "annualizedRoi": "Yıllık ortalama",
+        "costBreakdown": "Maliyet Detayları",
+        "propertyPrice": "Mülk Fiyatı",
+        "serviceFee": "Pasiflow Ücreti",
+        "annualTax": "Yıllık Emlak Vergisi",
+        "annualInsurance": "Yıllık Sigorta",
+        "managementFee": "Yönetim (%10)",
+        "perYear": "/yıl",
+        "totalInvestment": "Toplam Yatırım",
+        "disclaimer": "* Yıllık %7 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir."
+    },
+    "section8": {
+        "badge": "Devlet Garantisi",
+        "title": "Section 8 ile",
+        "titleHighlight": "Riskleri Sıfırlayın",
+        "description": "ABD'nin en büyük sosyal konut programı olan Section 8, kira ödemelerini doğrudan devlet tarafından garanti eder. Kiracı çalışmasa bile devlet kiranızı öder.",
+        "benefit1": "Düzenli Devlet Ödemeleri",
+        "benefit2": "Düşük Kiracı Devir Hızı",
+        "benefit3": "Minimum Boşluk Riski",
+        "stat1Value": "4–7 Yıl",
+        "stat1Label": "Ortalama Kiracı Kalış Süresi",
+        "stat2Value": "Her Ay 1-5",
+        "stat2Label": "Ödeme Günleri",
+        "stat3Value": "%100",
+        "stat3Label": "Garantili Ödeme"
+    },
+    "cityComparison": {
+        "badge": "PASIFLOW Pazar Karşılaştırması",
+        "title": "Hangi Şehir Size Uygun?",
+        "description": "PASIFLOW, ABD'de Section 8 sisteminin en güçlü olduğu üç ana pazara odaklanır. Her şehir farklı bir yatırımcı profiline hitap eder.",
+        "budget": "Bütçe",
+        "risk": "Risk",
+        "bestFor": "En uygun:",
+        "cashFlow": "Nakit Akışı",
+        "security": "Güvenlik",
+        "appreciation": "Değer Artışı",
+        "section8Demand": "Section 8 Talebi",
+        "footer": "PASIFLOW, her yatırımcıyı aynı şehre yönlendirmez. Doğru şehir, doğru yatırımcı profili ile eşleştirilir.",
+        "cities": {
+            "detroit": {
+                "name": "Detroit, MI",
+                "budget": "$75K – $110K",
+                "risk": "Orta",
+                "highlight": "Maksimum Nakit Akışı",
+                "bestFor": "Aylık maksimum nakit akışı ve hızlı geri dönüş hedefleyenler",
+                "features": {
+                    "1": "Düşük satın alma maliyetleri",
+                    "2": "Çok güçlü Section 8 talebi",
+                    "3": "Kira / ev fiyatı oranı çok yüksek",
+                    "4": "En yüksek cash flow potansiyeli"
+                }
+            },
+            "cleveland": {
+                "name": "Cleveland, OH",
+                "budget": "$85K – $120K",
+                "risk": "Düşük-Orta",
+                "highlight": "Dengeli & Güvenli",
+                "bestFor": "Daha az stres ve daha fazla istikrar isteyenler",
+                "features": {
+                    "1": "Daha istikrarlı ekonomi",
+                    "2": "Mahalle kalitesi daha homojen",
+                    "3": "Section 8 ödemeleri çok düzenli",
+                    "4": "Daha az bakım ve sürpriz masraf"
+                }
+            },
+            "memphis": {
+                "name": "Memphis, TN",
+                "budget": "$90K – $130K",
+                "risk": "Orta",
+                "highlight": "Vergi Avantajı + Büyüme",
+                "bestFor": "Vergi avantajı ve uzun vadeli büyüme isteyenler",
+                "features": {
+                    "1": "Eyalet gelir vergisi YOK",
+                    "2": "Güçlü lojistik ve nüfus artışı",
+                    "3": "Section 8 sistemi hızlı işliyor",
+                    "4": "Uzun vadeli değer artışı potansiyeli"
+                }
+            }
+        }
+    },
     "process": {
         "title": "Nasıl Çalışır?",
         "subtitle": "PASIFLOW ile Adım Adım Yatırımınız",
-        "intro": "Süreç boyunca sizi yalnız bırakmayız — her adımda sizinle birlikte ilerleriz.",
+        "intro": "Nasıl Çalışır? İlk görüşmemizden, yatırım yaptığınız mülkün satışına kadar tüm süreç boyunca tek bir hesap yöneticisi sizinle çalışır. Tüm adımlar sizin adınıza takip edilir; süreç basit, şeffaf ve size minimum operasyonel yük bırakacak şekilde yönetilir.",
         "step1Title": "Strateji & İlk Görüşme",
         "step1Desc": "Finansal hedeflerinizi birlikte belirleriz, risk toleransınızı ve bütçenizi netleştiririz.",
         "step1Check1": "Ücretsiz danışmanlık",
@@ -166,7 +277,7 @@
         "step4Desc": "Tüm evraklar profesyonelce hazırlanır, mülk resmen sizin adınıza geçer.",
         "step4Check1": "Online imza ile kolaylık",
         "step4Check2": "Title Company güvencesi",
-        "step4Check3": "3-5 gün içinde devir",
+        "step4Check3": "14-20 gün içinde devir",
         "step5Title": "Yönetim & Kira Süreci",
         "step5Desc": "Kiracılarla iletişim, kira tahsilatı ve bakım-onarım süreçleri sizin adınıza yürütülür.",
         "step5Check1": "Panel üzerinden anlık takip",
@@ -331,14 +442,6 @@
         "ctaPrimary": "Ücretsiz Danışmanlık Al",
         "ctaSecondary": "WhatsApp'tan Hemen Yaz",
         "disclaimer": "*Yatırım tavsiyesi değildir. Geçmiş performans gelecek sonuçları garanti etmez."
-    },
-    "footer": {
-        "description": "Amerika'da devlet garantili (Section 8) kira gelirli gayrimenkul yatırımı ile dolar bazında pasif gelir elde etmenin en güvenli yolu.",
-        "quickLinks": "Hızlı Erişim",
-        "legal": "Yasal",
-        "contact": "İletişim",
-        "disclaimer": "*Bu sitede yer alan bilgiler yatırım tavsiyesi değildir.",
-        "designedWith": "Designed with ♥ for Global Investors"
     },
     "contact": {
         "title": "Bizimle İletişime Geçin",

@@ -63,7 +63,7 @@ export function FinalCTASection() {
               className="h-14 px-8 text-lg bg-amber-500 text-slate-900 hover:bg-amber-400 shadow-xl shadow-amber-500/20 w-full sm:w-auto font-semibold"
               asChild
             >
-              <a href="https://calendly.com/pasiflow/danismanlik" target="_blank" rel="noopener noreferrer">
+              <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
                 {t("ctaPrimary")}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </a>

@@ -2,8 +2,11 @@
 
 import { Card } from "@/components/ui/card"
 import { motion } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 export function Section8Section() {
+  const t = useTranslations("section8")
+
   return (
     <section className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
       {/* Background Pattern */}
@@ -20,22 +23,21 @@ export function Section8Section() {
             transition={{ duration: 0.6 }}
           >
             <div className="inline-block px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-sm font-medium mb-6 backdrop-blur-sm">
-              Devlet Garantisi
+              {t("badge")}
             </div>
             <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
-              Section 8 ile <br />
-              <span className="text-accent">Riskleri Sıfırlayın</span>
+              {t("title")} <br />
+              <span className="text-accent">{t("titleHighlight")}</span>
             </h2>
             <p className="text-primary-foreground/80 text-lg leading-relaxed mb-8">
-              ABD'nin en büyük sosyal konut programı olan Section 8, kira ödemelerini doğrudan devlet tarafından
-              garanti eder. Kiracı çalışmasa bile devlet kiranızı öder.
+              {t("description")}
             </p>
 
             <ul className="space-y-4">
               {[
-                "Düzenli Devlet Ödemeleri",
-                "Düşük Kiracı Devir Hızı",
-                "Minimum Boşluk Riski"
+                t("benefit1"),
+                t("benefit2"),
+                t("benefit3")
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <div className="h-6 w-6 rounded-full bg-accent flex items-center justify-center text-accent-foreground">
@@ -57,8 +59,8 @@ export function Section8Section() {
               transition={{ delay: 0.2 }}
               className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-colors"
             >
-              <div className="text-5xl font-bold text-accent mb-2">4–7 Yıl</div>
-              <p className="text-primary-foreground/70 font-medium">Ortalama Kiracı Kalış Süresi</p>
+              <div className="text-5xl font-bold text-accent mb-2">{t("stat1Value")}</div>
+              <p className="text-primary-foreground/70 font-medium">{t("stat1Label")}</p>
             </motion.div>
 
             <motion.div
@@ -69,12 +71,12 @@ export function Section8Section() {
               className="grid grid-cols-2 gap-6"
             >
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
-                <div className="text-3xl font-bold text-accent mb-2 text-nowrap">Her Ay 1-5</div>
-                <p className="text-primary-foreground/70 text-sm">Ödeme Günleri</p>
+                <div className="text-3xl font-bold text-accent mb-2 text-nowrap">{t("stat2Value")}</div>
+                <p className="text-primary-foreground/70 text-sm">{t("stat2Label")}</p>
               </div>
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
-                <div className="text-3xl font-bold text-accent mb-2">%100</div>
-                <p className="text-primary-foreground/70 text-sm">Garantili Ödeme</p>
+                <div className="text-3xl font-bold text-accent mb-2">{t("stat3Value")}</div>
+                <p className="text-primary-foreground/70 text-sm">{t("stat3Label")}</p>
               </div>
             </motion.div>
           </div>
