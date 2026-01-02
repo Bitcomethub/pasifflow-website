@@ -590,5 +590,32 @@
         "yearsExperience": "Yıl ABD Tecrübesi",
         "transactionVolume": "Toplam İşlem Hacmi",
         "occupancyRate": "Doluluk Oranı"
+    },
+    "buyback": {
+        "badge": "Likidite Koruması",
+        "title": "Pasiflow",
+        "titleAccent": "Buy-Back Programı",
+        "subtitle": "Pasiflow'da yatırımcı sadece girişe değil, çıkışa da hazırlıklıdır. Buy-Back programımız, bireysel yatırımcılara kurumsal düzeyde likidite koruması sunar.",
+        "corePromiseTitle": "Temel Taahhüt",
+        "corePromiseDesc": "Belirli şartları sağlayan Pasiflow yatırımları için, yatırımcının talebi üzerine Pasiflow, evi bağımsız değerleme bedelinin %90'ına kadar satın alma opsiyonu sunabilir ve 30-45 gün içinde kapanış hedefler.",
+        "appraisalValue": "Değerleme Oranı",
+        "closingDays": "Gün Kapanış",
+        "benefit1": "İlk günden çıkış görünürlüğü",
+        "benefit2": "Buy-back kullanılırsa satış komisyonu yok",
+        "benefit3": "Bağımsız üçüncü taraf değerleme",
+        "benefit4": "Kurumsal düzeyde risk yönetimi",
+        "pricingTitle": "Likidite Koruma Ücreti",
+        "optional": "Opsiyonel",
+        "oneTime": "tek seferlik",
+        "pricingDesc": "Mülk satın alırken buy-back koruması ekleyin. Bu tek seferlik ücret, tüm tutma dönemi boyunca çıkış opsiyonunuzu güvence altına alır.",
+        "ctaButton": "Yatırımıma Ekle",
+        "timeWindowTitle": "Zaman Penceresi",
+        "timeWindowDesc": "Buy-back opsiyonu ilk 12 ay kullanılamaz. 12-36 ay aralığında geçerlidir. 36 aydan sonra Pasiflow'un takdirindedir. Bu kural uzun vadeli yatırımcıyı korur.",
+        "eligibilityTitle": "Uygunluk Şartları",
+        "eligibility1": "Pasiflow üzerinden satın alınmış mülk",
+        "eligibility2": "12 aylık ödeme geçmişi olan aktif Section 8 kiracı",
+        "eligibility3": "Güncel denetim uyumlu, temiz tapu",
+        "quote": "Pasiflow'da yatırımcı sadece girişe değil, çıkışa da hazırlıklıdır.",
+        "disclaimer": "Pasiflow Buy-Back Programı bir yatırım tavsiyesi değildir. Program, belirli şartlara bağlı bir likidite opsiyonudur. Pasiflow, piyasa koşulları ve teknik uygunluk doğrultusunda başvuruları değerlendirme hakkını saklı tutar."
     }
 }

@@ -1,0 +1,149 @@
+Pasiflow Agent Portal :
+
+🔢 TEMEL VARSAYIM (SABİT)
+Ortalama aylık kira (management geliri baz): $1,350
+Sürekli gelir = management gelirinin yüzdesi
+%1 = $13.50 / ay / mülk
+
+✅ PASIFLOW – GÜNCEL AGENT KAZANÇ
+TABLOSU
+
+(Doğru: Aylık Pasif Gelir Bazlı)
+
+🔹 SEVİYE 1 – BAŞLANGIÇ (0–9 SATIŞ)
+Oranlar
+Satış başı: $1,500
+Sürekli gelir: %1 = $13.50 / ay / mülk
+Kalem
+
+Değer
+
+Satış Sayısı
+
+10
+
+Toplam Referral Geliri
+
+$15,000
+
+Aylık Pasif Gelir
+
+10 × $13.50 = $135
+
+Yıllık Pasif Gelir
+
+$1,620
+
+Toplam Kazanç (1. yıl)
+
+$16,620
+
+🔹 SEVİYE 2 – GROWTH (10–49 SATIŞ)
+Oranlar
+Satış başı: $1,750
+Sürekli gelir: %1.5 = $20.25 / ay / mülk
+
+Kalem
+
+Değer
+
+Satış Sayısı
+
+50
+
+Toplam Referral Geliri
+
+$87,500
+
+Aylık Pasif Gelir
+
+50 × $20.25 = $1,012.50
+
+Yıllık Pasif Gelir
+
+$12,150
+
+Toplam Kazanç (1. yıl)
+
+$99,650
+
+🔹 SEVİYE 3 – ELITE (50–99 SATIŞ)
+Oranlar
+Satış başı: $2,000
+Sürekli gelir: %2 = $27.00 / ay / mülk
+Kalem
+
+Değer
+
+Satış Sayısı
+
+100
+
+Toplam Referral Geliri
+
+$200,000
+
+Aylık Pasif Gelir
+
+100 × $27 = $2,700
+
+Yıllık Pasif Gelir
+
+$32,400
+
+Toplam Kazanç (1. yıl)
+
+$232,400
+
+🔹 SEVİYE 4 – MASTER (100+ SATIŞ)
+Oranlar
+Satış başı: $2,500
+Sürekli gelir: %3 = $40.50 / ay / mülk
+
+Kalem
+
+Değer
+
+Satış Sayısı
+
+200
+
+Toplam Referral Geliri
+
+$500,000
+
+Aylık Pasif Gelir
+
+200 × $40.50 = $8,100
+
+Yıllık Pasif Gelir
+
+$97,200
+
+Toplam Kazanç (1. yıl)
+
+$597,200
+
+🧠 AGENT’A NASIL ANLATILMALI? (ÇOK KRİTİK MESAJ)
+Agent’a şu cümle net öğretilmeli:
+“Tek seferlik kazanç güzel ama asıl güç,
+her ay hesabına yatan birikerek büyüyen pasif gelir.”
+Örnek:
+50 satış = her ay $1,012.50
+100 satış = her ay $2,700
+200 satış = her ay $8,100
+Bu maaş değil, gelir hattı.
+
+📊 PORTALDA MUTLAKA GÖRÜNMELİ
+Toplam satış sayısı
+Şimdiye kadar kazanılan toplam referral
+Aylık pasif gelir (live)
+Yıllık pasif gelir
+Bir sonraki seviyeye kalan satış
+
+⚠️ ŞEFFAFLIK / HUKUKİ NOT
+Her tabloda küçük not:
+Pasif gelir, mülk yönetimi devam ettiği sürece geçerlidir.
+Rakamlar örnektir, garanti değildir.
+
+

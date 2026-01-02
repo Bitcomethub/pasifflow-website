@@ -590,5 +590,32 @@
         "yearsExperience": "Years U.S. Experience",
         "transactionVolume": "Total Transaction Volume",
         "occupancyRate": "Occupancy Rate"
+    },
+    "buyback": {
+        "badge": "Liquidity Protection",
+        "title": "Pasiflow",
+        "titleAccent": "Buy-Back Program",
+        "subtitle": "At Pasiflow, investors are prepared not just for entry, but also for exit. Our Buy-Back program offers institutional-style liquidity protection for individual investors.",
+        "corePromiseTitle": "Core Promise",
+        "corePromiseDesc": "For qualifying Pasiflow investments, upon investor request, Pasiflow can offer to purchase the property at up to 90% of independent appraisal value, targeting closing within 30-45 days.",
+        "appraisalValue": "of Appraisal Value",
+        "closingDays": "Days to Close",
+        "benefit1": "Exit visibility from day one",
+        "benefit2": "No sales commission if buy-back is used",
+        "benefit3": "Independent third-party appraisal",
+        "benefit4": "Institutional-grade risk management",
+        "pricingTitle": "Liquidity Protection Fee",
+        "optional": "Optional",
+        "oneTime": "one-time",
+        "pricingDesc": "Add buy-back protection when purchasing your property. This one-time fee secures your exit option for the entire holding period.",
+        "ctaButton": "Add to My Investment",
+        "timeWindowTitle": "Time Window",
+        "timeWindowDesc": "Buy-back option cannot be used in the first 12 months. Valid between 12-36 months. After 36 months, subject to Pasiflow's discretion. This protects long-term investors.",
+        "eligibilityTitle": "Eligibility Requirements",
+        "eligibility1": "Property purchased through Pasiflow",
+        "eligibility2": "Active Section 8 tenant with 12-month payment history",
+        "eligibility3": "Current inspection compliant, clean title",
+        "quote": "With Pasiflow, investors are prepared not just for entry, but also for exit.",
+        "disclaimer": "Pasiflow Buy-Back Program is not investment advice. The program is a liquidity option subject to specific conditions. Pasiflow reserves the right to evaluate applications based on market conditions and technical eligibility."
     }
 }

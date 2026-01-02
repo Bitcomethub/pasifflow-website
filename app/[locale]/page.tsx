@@ -5,6 +5,7 @@ import { FoundersSection } from "@/components/founders-section"
 import { ComparisonSection } from "@/components/comparison-section"
 import { AdvantagesSection } from "@/components/advantages-section"
 import { PortfolioSection } from "@/components/portfolio-section"
+import { BuybackSection } from "@/components/buyback-section"
 import { ProcessSection } from "@/components/process-section"
 import { Section8Section } from "@/components/section8-section"
 import { PropertyManagementSection } from "@/components/property-management-section"
@@ -30,6 +31,7 @@ export default function Home() {
                 <ComparisonSection />
                 <AdvantagesSection />
                 <PortfolioSection />
+                <BuybackSection />
                 <ProcessSection />
                 <Section8Section />
                 <PropertyManagementSection />
