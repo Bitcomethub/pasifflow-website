@@ -128,7 +128,7 @@ export function Header() {
           </DropdownMenu>
 
           <Button
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-6 shadow-xl shadow-primary/20 hover:shadow-primary/40 transition-all hover:scale-105"
+            className="bg-accent hover:bg-accent/90 text-white font-bold px-6 shadow-xl shadow-accent/20 hover:shadow-accent/40 transition-all hover:scale-105"
             size={isScrolled ? "sm" : "default"}
             asChild
           >
@@ -195,7 +195,7 @@ export function Header() {
             </div>
 
             <Button
-              className="mt-4 bg-primary hover:bg-primary/90 text-white font-bold px-8 py-6 text-lg shadow-xl"
+              className="mt-4 bg-accent hover:bg-accent/90 text-white font-bold px-8 py-6 text-lg shadow-xl"
               asChild
             >
               <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">

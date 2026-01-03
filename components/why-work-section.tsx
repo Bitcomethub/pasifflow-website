@@ -11,7 +11,6 @@ export function WhyWorkSection() {
         { icon: MapPin, key: "reason1" },
         { icon: Globe, key: "reason2" },
         { icon: Cpu, key: "reason3" },
-        { icon: Handshake, key: "reason4" },
         { icon: MessageSquare, key: "reason5" },
     ]
 

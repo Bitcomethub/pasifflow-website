@@ -10,7 +10,6 @@ import { ProcessSection } from "@/components/process-section"
 import { Section8Section } from "@/components/section8-section"
 import { PropertyManagementSection } from "@/components/property-management-section"
 import { AppFeaturesSection } from "@/components/app-features-section"
-import { ServicePackagesSection } from "@/components/service-packages-section"
 import { WhyWorkSection } from "@/components/why-work-section"
 import { CityComparisonSection } from "@/components/city-comparison-section"
 import { FAQSection } from "@/components/faq-section"
@@ -36,7 +35,6 @@ export default function Home() {
                 <Section8Section />
                 <PropertyManagementSection />
                 <AppFeaturesSection />
-                <ServicePackagesSection />
                 <WhyWorkSection />
                 <CityComparisonSection />
                 <FAQSection />

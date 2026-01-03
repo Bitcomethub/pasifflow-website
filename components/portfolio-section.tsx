@@ -220,10 +220,16 @@ export function PortfolioSection() {
                     <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
                       {property.capRate} {t("capRate")}
                     </Badge>
-                    <Badge className="absolute top-4 left-4 bg-accent text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
-                      <Check size={12} strokeWidth={4} />
-                      {t("section8Badge")}
-                    </Badge>
+                    <div className="absolute top-4 left-4 flex flex-col gap-2">
+                      <Badge className="bg-accent text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
+                        <Check size={12} strokeWidth={4} />
+                        {t("section8Badge")}
+                      </Badge>
+                      <Badge className="bg-primary text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
+                        <Check size={12} strokeWidth={4} />
+                        Buy-Back
+                      </Badge>
+                    </div>
                   </div>
 
                   <div className="p-6 flex flex-col flex-grow space-y-4">

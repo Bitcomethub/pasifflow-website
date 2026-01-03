@@ -46,7 +46,7 @@ export function AdvantagesSection() {
               {/* Right Column - Devlet Garantisi */}
               <div className="space-y-6">
                 <h3 className="text-2xl font-bold text-foreground flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">2</span>
+                  <span className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold">2</span>
                   {t("col2Title")}
                 </h3>
                 <div>

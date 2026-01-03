@@ -35,7 +35,6 @@ export function FoundersSection() {
   const stats = [
     { icon: TrendingUp, value: "20+", label: "Yıl ABD Tecrübesi" },
     { icon: DollarSign, value: "$250M+", label: "İşlem Hacmi" },
-    { icon: Building2, value: "$100M+", label: "Miami Satışları" },
   ]
 
   return (
