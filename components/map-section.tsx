@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
 
+import Link from "next/link"
+
 export function MapSection() {
   const t = useTranslations("map")
 
@@ -43,30 +45,30 @@ export function MapSection() {
 
             {/* Content Overlay */}
             <div className="absolute inset-0 flex items-center justify-center">
-              {/* Animated Pins/Hotspots */}
-              <div className="absolute top-[35%] right-[25%] flex flex-col items-center group/pin cursor-pointer">
+              {/* Animated Pins/Hotspots - Now linking to Portfolio */}
+              <Link href="#portfoy" className="absolute top-[35%] right-[25%] flex flex-col items-center group/pin cursor-pointer">
                 <span className="relative flex h-5 w-5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-5 w-5 bg-accent border-2 border-white"></span>
                 </span>
                 <span className="mt-2 text-sm font-bold text-white drop-shadow-md opacity-0 group-hover/pin:opacity-100 transition-opacity bg-primary/80 px-2 py-1 rounded backdrop-blur-sm">Cleveland, OH</span>
-              </div>
+              </Link>
 
-              <div className="absolute top-[48%] right-[32%] flex flex-col items-center group/pin cursor-pointer">
+              <Link href="#portfoy" className="absolute top-[48%] right-[32%] flex flex-col items-center group/pin cursor-pointer">
                 <span className="relative flex h-5 w-5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animation-delay-500"></span>
                   <span className="relative inline-flex rounded-full h-5 w-5 bg-accent border-2 border-white"></span>
                 </span>
                 <span className="mt-2 text-sm font-bold text-white drop-shadow-md opacity-0 group-hover/pin:opacity-100 transition-opacity bg-primary/80 px-2 py-1 rounded backdrop-blur-sm">St. Louis, MO</span>
-              </div>
+              </Link>
 
-              <div className="absolute top-[38%] right-[28%] flex flex-col items-center group/pin cursor-pointer">
+              <Link href="#portfoy" className="absolute top-[38%] right-[28%] flex flex-col items-center group/pin cursor-pointer">
                 <span className="relative flex h-5 w-5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75 animation-delay-1000"></span>
                   <span className="relative inline-flex rounded-full h-5 w-5 bg-accent border-2 border-white"></span>
                 </span>
                 <span className="mt-2 text-sm font-bold text-white drop-shadow-md opacity-0 group-hover/pin:opacity-100 transition-opacity bg-primary/80 px-2 py-1 rounded backdrop-blur-sm">Detroit, MI</span>
-              </div>
+              </Link>
             </div>
 
             <div className="relative z-10 text-center space-y-2 pointer-events-none">
@@ -83,11 +85,15 @@ export function MapSection() {
           transition={{ delay: 0.3 }}
           className="mt-12 flex flex-col sm:flex-row justify-center gap-4"
         >
-          <Button variant="secondary" size="lg" className="font-semibold text-primary w-full sm:w-auto shadow-lg hover:scale-105 transition-transform">
-            {t("ctaPrimary")}
+          <Button asChild variant="secondary" size="lg" className="font-semibold text-primary w-full sm:w-auto shadow-lg hover:scale-105 transition-transform cursor-pointer">
+            <Link href="#portfoy">
+              {t("ctaPrimary")}
+            </Link>
           </Button>
-          <Button variant="outline" size="lg" className="border-white/30 hover:bg-white/10 text-white bg-transparent w-full sm:w-auto hover:border-white/50 backdrop-blur-sm">
-            {t("ctaSecondary")}
+          <Button asChild variant="outline" size="lg" className="border-white/30 hover:bg-white/10 text-white bg-transparent w-full sm:w-auto hover:border-white/50 backdrop-blur-sm cursor-pointer">
+            <Link href="https://wa.me/13056903146?text=Merhaba%2C%20Eyalet%20raporlar%C4%B1n%C4%B1%20incelemek%20istiyorum." target="_blank">
+              {t("ctaSecondary")}
+            </Link>
           </Button>
         </motion.div>
       </div>
