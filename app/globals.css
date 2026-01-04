@@ -4,74 +4,74 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Pasiflow Premium Theme - High Contrast & Readable */
+  /* Pasiflow Premium Theme - New Branding */
 
-  /* Background: Clean White */
-  --background: oklch(0.995 0 0);
-  /* Foreground: Deep Slate (Maximum readability) */
-  --foreground: oklch(0.15 0.01 260);
+  /* Background: Light Blue-Gray */
+  --background: #f5f9fc;
+  /* Foreground: Dark Slate */
+  --foreground: #04131e;
 
   /* Card: Pure White */
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.15 0.01 260);
+  --card: #ffffff;
+  --card-foreground: #04131e;
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.15 0.01 260);
+  --popover: #ffffff;
+  --popover-foreground: #04131e;
 
-  /* Primary: Deep Teal Blue (Professional, Readable) */
-  --primary: oklch(0.35 0.10 200);
-  --primary-foreground: oklch(0.98 0 0);
+  /* Primary: Dark Navy Blue */
+  --primary: #001c31;
+  --primary-foreground: #ffffff;
 
   /* Secondary: Light Cool Grey */
-  --secondary: oklch(0.96 0.01 260);
-  --secondary-foreground: oklch(0.30 0.08 200);
+  --secondary: #e8eef3;
+  --secondary-foreground: #001c31;
 
   /* Muted: Soft Grey */
-  --muted: oklch(0.97 0.005 260);
-  --muted-foreground: oklch(0.45 0.02 260);
+  --muted: #f0f4f7;
+  --muted-foreground: #5a6a7a;
 
-  /* Accent: Vibrant Gold (High contrast CTA) */
-  --accent: oklch(0.72 0.17 70);
-  --accent-foreground: oklch(0.12 0.02 70);
+  /* Accent: Vibrant Orange */
+  --accent: #ef7200;
+  --accent-foreground: #ffffff;
 
-  --destructive: oklch(0.55 0.22 25);
-  --destructive-foreground: oklch(0.98 0 0);
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
 
-  --border: oklch(0.90 0.01 260);
-  --input: oklch(0.90 0.01 260);
-  --ring: oklch(0.35 0.10 200);
+  --border: #dce4eb;
+  --input: #dce4eb;
+  --ring: #001c31;
 
   --radius: 1rem;
 }
 
 .dark {
-  --background: oklch(0.14 0.02 260);
-  --foreground: oklch(0.96 0 0);
+  --background: #0a1520;
+  --foreground: #f5f9fc;
 
-  --card: oklch(0.18 0.02 260);
-  --card-foreground: oklch(0.96 0 0);
+  --card: #0f1f2e;
+  --card-foreground: #f5f9fc;
 
-  --popover: oklch(0.18 0.02 260);
-  --popover-foreground: oklch(0.96 0 0);
+  --popover: #0f1f2e;
+  --popover-foreground: #f5f9fc;
 
-  --primary: oklch(0.65 0.12 200);
-  --primary-foreground: oklch(0.14 0.02 260);
+  --primary: #3a8fd9;
+  --primary-foreground: #0a1520;
 
-  --secondary: oklch(0.25 0.05 260);
-  --secondary-foreground: oklch(0.96 0 0);
+  --secondary: #1a2d40;
+  --secondary-foreground: #f5f9fc;
 
-  --muted: oklch(0.25 0.05 260);
-  --muted-foreground: oklch(0.75 0.02 260);
+  --muted: #1a2d40;
+  --muted-foreground: #9ab0c4;
 
-  --accent: oklch(0.78 0.15 70);
-  --accent-foreground: oklch(0.14 0.02 260);
+  --accent: #ff8c1a;
+  --accent-foreground: #0a1520;
 
-  --destructive: oklch(0.45 0.18 25);
-  --destructive-foreground: oklch(0.96 0 0);
+  --destructive: #ef4444;
+  --destructive-foreground: #f5f9fc;
 
-  --border: oklch(0.30 0.03 260);
-  --input: oklch(0.30 0.03 260);
-  --ring: oklch(0.65 0.12 200);
+  --border: #243a50;
+  --input: #243a50;
+  --ring: #3a8fd9;
 }
 
 @theme inline {

@@ -68,15 +68,15 @@ export function Section8Section() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3 }}
-              className="grid grid-cols-2 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6"
             >
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
-                <div className="text-3xl font-bold text-accent mb-2 text-nowrap">{t("stat2Value")}</div>
-                <p className="text-primary-foreground/70 text-sm">{t("stat2Label")}</p>
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 sm:p-6 rounded-2xl hover:bg-white/10 transition-colors">
+                <div className="text-2xl sm:text-3xl font-bold text-accent mb-2 whitespace-normal break-words">{t("stat2Value")}</div>
+                <p className="text-primary-foreground/70 text-xs sm:text-sm">{t("stat2Label")}</p>
               </div>
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors">
-                <div className="text-3xl font-bold text-accent mb-2">{t("stat3Value")}</div>
-                <p className="text-primary-foreground/70 text-sm">{t("stat3Label")}</p>
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-4 sm:p-6 rounded-2xl hover:bg-white/10 transition-colors">
+                <div className="text-2xl sm:text-3xl font-bold text-accent mb-2">{t("stat3Value")}</div>
+                <p className="text-primary-foreground/70 text-xs sm:text-sm">{t("stat3Label")}</p>
               </div>
             </motion.div>
           </div>

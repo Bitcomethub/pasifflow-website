@@ -126,7 +126,7 @@ export function BuybackSection() {
                                     </div>
 
                                     <div className="flex items-baseline gap-2 mb-4">
-                                        <span className="text-5xl font-bold text-accent">$5,000</span>
+                                        <span className="text-5xl font-bold text-accent">$3,500</span>
                                         <span className="text-muted-foreground">{t("oneTime")}</span>
                                     </div>
 

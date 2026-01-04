@@ -147,7 +147,7 @@
     },
     "roiCalculator": {
         "title": "Yatırım Getiri Hesaplayıcı",
-        "subtitle": "Gerçek verilerle net ROI hesaplaması • %7 yıllık değer artışı",
+        "subtitle": "Gerçek verilerle net ROI hesaplaması • %5 yıllık değer artışı",
         "cityLabel": "Yatırım Şehri",
         "city_detroit_highlight": "Maksimum Nakit Akışı",
         "city_cleveland_highlight": "Dengeli & Güvenli",
@@ -168,7 +168,7 @@
         "roiYearly": "Net ROI (Yıllık)",
         "payback": "Amortisman",
         "projectedReturnTitle": "{years} Yıl Sonunda Tahmini Getiri",
-        "appreciationAssumption": "(Yıllık %7 değer artışı varsayımıyla)",
+        "appreciationAssumption": "(Yıllık %5 değer artışı varsayımıyla)",
         "propertyValue": "Mülk Değeri",
         "appreciation": "değer artışı",
         "totalRentalIncome": "Toplam Kira Geliri",
@@ -183,7 +183,7 @@
         "managementFee": "Yönetim (%10)",
         "perYear": "/yıl",
         "totalInvestment": "Toplam Yatırım",
-        "disclaimer": "* Yıllık %7 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir."
+        "disclaimer": "* Yıllık %5 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir."
     },
     "section8": {
         "badge": "Devlet Garantisi",
