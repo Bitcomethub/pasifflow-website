@@ -30,7 +30,7 @@ export function Logo({
     const content = (
         <div className={cn("flex items-center", className)}>
             <Image
-                src="/logo-new.jpg"
+                src="/logo-new.png"
                 alt="Pasiflow"
                 width={styles.width}
                 height={styles.height}
