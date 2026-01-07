@@ -10,6 +10,8 @@ interface LogoProps {
     linkTo?: string
     /** For dark backgrounds, use 'dark'. For light backgrounds, use 'light'. */
     theme?: "light" | "dark"
+    /** Show the motto/tagline under the logo */
+    showMotto?: boolean
 }
 
 const sizeStyles = {
@@ -23,20 +25,31 @@ export function Logo({
     size = "md",
     className,
     linkTo,
-    theme = "light"
+    theme = "light",
+    showMotto = false
 }: LogoProps) {
     const styles = sizeStyles[size]
 
     const content = (
-        <div className={cn("flex items-center", className)}>
-            <Image
-                src="/logo-new.png"
-                alt="Pasiflow"
-                width={styles.width}
-                height={styles.height}
-                className="object-contain"
-                priority
-            />
+        <div className={cn("flex flex-col", className)}>
+            <div className="flex items-center">
+                <Image
+                    src="/logo-new.png"
+                    alt="Pasiflow"
+                    width={styles.width}
+                    height={styles.height}
+                    className="object-contain"
+                    priority
+                />
+            </div>
+            {showMotto && (
+                <span className={cn(
+                    "text-[10px] sm:text-xs font-medium tracking-wide uppercase mt-0.5",
+                    theme === "dark" ? "text-white/80" : "text-muted-foreground"
+                )}>
+                    Teknoloji Destekli Gayrimenkul Yatırım Platformu
+                </span>
+            )}
         </div>
     )
 

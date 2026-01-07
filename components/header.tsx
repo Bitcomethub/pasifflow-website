@@ -73,7 +73,7 @@ export function Header() {
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 relative z-50">
           <div className={cn("transition-all duration-300", isScrolled ? "scale-90" : "scale-100")}>
-            <Logo size={isScrolled ? "sm" : "md"} theme="light" />
+            <Logo size={isScrolled ? "sm" : "md"} theme="light" showMotto={!isScrolled} />
           </div>
         </Link>
 
