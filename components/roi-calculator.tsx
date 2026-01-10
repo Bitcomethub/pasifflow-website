@@ -37,7 +37,7 @@ const MAINTENANCE_RESERVE_MONTHLY = 100
 const MANAGEMENT_FEE_RATE = 0.10 // 10% of monthly rent
 const YEARLY_APPRECIATION_RATE = 0.07 // Fixed 7% yearly appreciation
 
-const holdingPeriods = [1, 2, 3, 5, 10]
+const holdingPeriods = [1, 5, 10, 20, 30]
 
 export function RoiCalculator() {
     const t = useTranslations("roiCalculator")
@@ -88,6 +88,15 @@ export function RoiCalculator() {
 
     // Annualized ROI for holding period
     const annualizedRoi = totalRoiPercent / holdingPeriod
+
+    // Doorvest-style metrics
+    // Cash on Cash = Annual Net Income / Total Cash Invested (down payment + closing)
+    const downPaymentPercent = 30
+    const downPayment = purchasePrice * (downPaymentPercent / 100)
+    const cashOnCash = (yearlyNetIncome / (downPayment + CLOSING_COSTS + PASIFLOW_SERVICE_FEE)) * 100
+
+    // Cap Rate = Annual Net Operating Income / Purchase Price
+    const capRate = (yearlyNetIncome / purchasePrice) * 100
 
     const getCityName = (key: string) => {
         return t(`city_${key}_name`);
@@ -182,35 +191,62 @@ export function RoiCalculator() {
                     </div>
                 </div>
 
-                {/* Key Results - Yıllık Sabit Değerler */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div className="bg-background/80 backdrop-blur-sm p-4 rounded-xl border border-border/50 text-center shadow-sm">
-                        <div className="text-muted-foreground text-xs font-semibold uppercase mb-1">{t("netMonthly")}</div>
-                        <div className="text-lg sm:text-xl font-bold text-green-600 flex items-center justify-center gap-1">
-                            <DollarSign size={16} />
-                            {Math.round(monthlyNetIncome).toLocaleString()}
+                {/* Doorvest-style Investor Highlights */}
+                <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-700">
+                    <div className="text-center mb-4">
+                        <div className="text-lg font-bold text-foreground">
+                            {t("investorHighlights")} - {holdingPeriod}Y
                         </div>
                     </div>
-                    <div className="bg-background/80 backdrop-blur-sm p-4 rounded-xl border border-border/50 text-center shadow-sm">
-                        <div className="text-muted-foreground text-xs font-semibold uppercase mb-1">{t("netYearly")}</div>
-                        <div className="text-lg sm:text-xl font-bold text-green-600 flex items-center justify-center gap-1">
-                            <DollarSign size={16} />
-                            {Math.round(yearlyNetIncome).toLocaleString()}
+                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                        <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <div className="flex items-center justify-center gap-1.5 mb-1.5">
+                                <DollarSign size={16} className="text-primary" />
+                                <span className="text-xs text-muted-foreground font-medium">{t("cashOnCash")}</span>
+                            </div>
+                            <div className="text-xl sm:text-2xl font-bold text-foreground">
+                                {cashOnCash.toFixed(1)}%
+                            </div>
+                        </div>
+                        <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <div className="flex items-center justify-center gap-1.5 mb-1.5">
+                                <PieChart size={16} className="text-accent" />
+                                <span className="text-xs text-muted-foreground font-medium">{t("capRateMetric")}</span>
+                            </div>
+                            <div className="text-xl sm:text-2xl font-bold text-foreground">
+                                {capRate.toFixed(2)}%
+                            </div>
+                        </div>
+                        <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <div className="flex items-center justify-center gap-1.5 mb-1.5">
+                                <TrendingUp size={16} className="text-green-600" />
+                                <span className="text-xs text-muted-foreground font-medium">{t("yoyAppreciation")}</span>
+                            </div>
+                            <div className="text-xl sm:text-2xl font-bold text-green-600">
+                                7%
+                            </div>
+                        </div>
+                        <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                            <div className="flex items-center justify-center gap-1.5 mb-1.5">
+                                <Calendar size={16} className="text-blue-600" />
+                                <span className="text-xs text-muted-foreground font-medium">{t("cashFlowMonth")}</span>
+                            </div>
+                            <div className="text-xl sm:text-2xl font-bold text-blue-600">
+                                ${Math.round(monthlyNetIncome).toLocaleString()}
+                            </div>
                         </div>
                     </div>
-                    <div className="bg-primary/10 backdrop-blur-sm p-4 rounded-xl border border-primary/30 text-center shadow-sm">
-                        <div className="text-primary text-xs font-semibold uppercase mb-1">{t("roiYearly")}</div>
-                        <div className="text-lg sm:text-xl font-bold text-primary flex items-center justify-center gap-1">
-                            <TrendingUp size={16} />
-                            %{netRoi.toFixed(1)}
-                        </div>
+                </div>
+
+                {/* Year ROI Summary - Large Display */}
+                <div className="bg-primary text-primary-foreground rounded-2xl p-6 text-center">
+                    <div className="text-sm opacity-80 mb-2">Year {holdingPeriod} ROI</div>
+                    <div className="text-4xl sm:text-5xl font-bold mb-2">
+                        {totalRoiPercent.toFixed(0)}%
                     </div>
-                    <div className="bg-accent/10 backdrop-blur-sm p-4 rounded-xl border border-accent/30 text-center shadow-sm">
-                        <div className="text-accent-foreground text-xs font-semibold uppercase mb-1">{t("payback")}</div>
-                        <div className="text-lg sm:text-xl font-bold text-accent flex items-center justify-center gap-1">
-                            <Clock size={16} />
-                            {paybackYears.toFixed(1)} {t("years")}
-                        </div>
+                    <div className="flex items-center justify-center gap-1 text-lg">
+                        <TrendingUp size={20} />
+                        <span className="font-semibold">↑ ${Math.round(totalReturn).toLocaleString()}</span>
                     </div>
                 </div>
 

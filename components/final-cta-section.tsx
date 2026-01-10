@@ -26,8 +26,9 @@ export function FinalCTASection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="space-y-6"
           >
-            <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
+            <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight leading-tight">
               {t("title")} <br />
               <span className="text-amber-400">{t("titleAccent")}</span>
             </h2>

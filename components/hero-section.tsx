@@ -135,7 +135,7 @@ export function HeroSection() {
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
-                className="absolute top-8 right-8 bg-accent text-accent-foreground px-5 py-2.5 rounded-xl shadow-lg shadow-accent/20 font-bold text-sm flex items-center gap-2.5 backdrop-blur-md"
+                className="absolute top-8 right-8 bg-teal-600 text-white px-5 py-2.5 rounded-xl shadow-lg shadow-teal-600/30 font-bold text-sm flex items-center gap-2.5 backdrop-blur-md border border-teal-500/50"
               >
                 <ShieldCheck size={18} />
                 Section 8 Verified

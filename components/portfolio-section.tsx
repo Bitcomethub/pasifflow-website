@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import { ChevronLeft, ChevronRight, Check, Home, Calendar, Maximize, MapPin, X, BedDouble, Bath, Square, TreePine } from "lucide-react"
+import { ChevronLeft, ChevronRight, Check, Home, Calendar, Maximize, MapPin, X, BedDouble, Bath, Square, TreePine, Users, Tag, Award } from "lucide-react"
 import { useCallback, useState } from "react"
 import { useTranslations } from "next-intl"
 
@@ -30,6 +30,9 @@ interface Property {
   propertyType: string
   description: string
   features: string[]
+  discount?: string
+  investorsWatching?: number
+  neighborhoodScore?: string
 }
 
 export function PortfolioSection() {
@@ -91,6 +94,9 @@ export function PortfolioSection() {
       propertyType: t("singleFamily"),
       description: t("property1Desc"),
       features: [t("feature_section8"), t("feature_tenant"), t("feature_kitchen"), t("feature_basement"), t("feature_roof"), t("feature_hardwood")],
+      discount: "$4,000 OFF",
+      investorsWatching: 12,
+      neighborhoodScore: "B+",
     },
     {
       address: "12290 Griggs Street",
@@ -217,9 +223,12 @@ export function PortfolioSection() {
                     {/* Removed black gradient overlay for a cleaner, brighter look */}
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
+                    {/* Top Right - Cap Rate */}
                     <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
                       {property.capRate} {t("capRate")}
                     </Badge>
+
+                    {/* Top Left - Section 8 & Buy-Back badges */}
                     <div className="absolute top-4 left-4 flex flex-col gap-2">
                       <Badge className="bg-accent text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
                         <Check size={12} strokeWidth={4} />
@@ -227,9 +236,25 @@ export function PortfolioSection() {
                       </Badge>
                       <Badge className="bg-primary text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
                         <Check size={12} strokeWidth={4} />
-                        Buy-Back
+                        {t("buyBack")}
                       </Badge>
                     </div>
+
+                    {/* Bottom Left - Discount Badge */}
+                    {property.discount && (
+                      <Badge className="absolute bottom-4 left-4 bg-red-500 text-white font-bold shadow-lg border-0 px-3 py-1.5 flex items-center gap-1.5 animate-pulse">
+                        <Tag size={14} />
+                        {property.discount}
+                      </Badge>
+                    )}
+
+                    {/* Bottom Right - Investors Watching */}
+                    {property.investorsWatching && (
+                      <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm">
+                        <Users size={12} />
+                        <span>{property.investorsWatching} {t("investorsWatching")}</span>
+                      </div>
+                    )}
                   </div>
 
                   <div className="p-6 flex flex-col flex-grow space-y-4">
@@ -239,7 +264,7 @@ export function PortfolioSection() {
                           {property.address}
                         </h3>
                         {property.status === "New Listing" && (
-                          <Badge className="bg-green-500 text-white text-xs px-2 py-0.5">NEW</Badge>
+                          <Badge className="bg-green-500 text-white text-xs px-2 py-0.5">{t("new")}</Badge>
                         )}
                       </div>
                       <p className="text-sm text-muted-foreground">

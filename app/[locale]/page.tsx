@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
+import { TrustBadges } from "@/components/trust-badges"
 import { ValuePropsSection } from "@/components/value-props-section"
 import { FoundersSection } from "@/components/founders-section"
 import { ComparisonSection } from "@/components/comparison-section"
@@ -12,6 +13,7 @@ import { PropertyManagementSection } from "@/components/property-management-sect
 import { AppFeaturesSection } from "@/components/app-features-section"
 import { WhyWorkSection } from "@/components/why-work-section"
 import { CityComparisonSection } from "@/components/city-comparison-section"
+import { TestimonialsSection } from "@/components/testimonials-section"
 import { FAQSection } from "@/components/faq-section"
 import { MapSection } from "@/components/map-section"
 import { FinalCTASection } from "@/components/final-cta-section"
@@ -24,6 +26,7 @@ export default function Home() {
             <Header />
             <main>
                 <HeroSection />
+                <TrustBadges />
                 <AboutSection />
                 <ValuePropsSection />
                 <FoundersSection />
@@ -37,6 +40,7 @@ export default function Home() {
                 <AppFeaturesSection />
                 <WhyWorkSection />
                 <CityComparisonSection />
+                <TestimonialsSection />
                 <FAQSection />
                 <MapSection />
                 <FinalCTASection />
@@ -45,4 +49,3 @@ export default function Home() {
         </div>
     )
 }
-
