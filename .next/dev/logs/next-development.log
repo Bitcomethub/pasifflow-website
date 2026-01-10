@@ -1,25 +1,201 @@
-[190:50:58.166] Server  LOG      ✓ Compiled in 140ms
-[190:51:15.462] Server  LOG      ✓ Compiled in 98ms
-[190:51:41.147] Server  LOG      ✓ Compiled in 125ms
-[190:51:41.942] Server  LOG      ✓ Compiled in 66ms
-[190:53:29.284] Server  LOG      ✓ Compiled in 89ms
-[190:53:31.309] Server  LOG      ✓ Compiled in 38ms
-[190:54:47.746] Server  LOG      ✓ Compiled in 209ms
-[190:54:48.398] Server  LOG      ✓ Compiled in 37ms
-[191:01:49.686] Server  LOG      ✓ Compiled in 201ms
-[191:02:12.230] Server  LOG      ✓ Compiled in 159ms
-[191:03:04.511] Server  LOG      ✓ Compiled in 161ms
-[191:03:05.265] Server  LOG      ✓ Compiled in 75ms
-[191:07:10.201] Server  LOG      ✓ Compiled in 162ms
-[191:07:36.567] Server  LOG      ✓ Compiled in 119ms
-[191:08:26.892] Server  LOG      ✓ Compiled in 159ms
-[191:08:27.623] Server  LOG      ✓ Compiled in 44ms
-[193:24:06.620] Server  LOG      ✓ Compiled in 130ms
-[193:24:26.465] Server  LOG      ✓ Compiled in 77ms
-[193:24:31.605] Server  LOG      ✓ Compiled in 69ms
-[193:24:32.502] Server  LOG      ✓ Compiled in 99ms
-[193:26:14.264] Server  LOG      ✓ Compiled in 75ms
-[193:26:34.758] Server  LOG      ✓ Compiled in 66ms
-[193:27:14.286] Server  LOG      ✓ Compiled in 136ms
-[193:27:16.280] Server  LOG      ✓ Compiled in 33ms
-[193:27:52.936] Server  LOG      ✓ Compiled in 459ms
+[00:00:00.717] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:00.837] Server  LOG      ✓ Ready in 611ms
+[00:00:32.567] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:33.112] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:33.112] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:33.112] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
+[00:00:33.112] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3001/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768068594131}
+[00:56:20.463] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:56:20.692] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/tr/affiliate" notFound={<SegmentViewNode>} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/tr/affiliate" tree={[...]} params={{locale:"tr"}} ...>
+                        <SegmentViewNode type="layout" pagePath="/Desktop/p...">
+                          <SegmentTrieNode>
+                          <link>
+                          <script>
+                          <script>
+                          <LocaleLayout>
+                            <html lang="tr" dir="ltr">
+                              <body
++                               className="outfit_cec7806-module__ABRySG__variable plus_jakarta_sans_455e408c-module__..."
+-                               className="outfit_cec7806-module__ABRySG__variable plus_jakarta_sans_455e408c-module__..."
+                              >
+                      ...
+          ...
+
+[00:56:20.693] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:56:20.693] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:56:20.693] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr/affiliate","route":"/[locale]/affiliate"}
+[00:56:20.693] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr/affiliate color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/affiliate","o":"http://localhost:3001/tr/affiliate","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768071941683}
+[00:56:31.305] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:56:31.529] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/tr/signup" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/tr/signup" tree={[...]} params={{locale:"tr"}} ...>
+                        <SegmentViewNode type="layout" pagePath="/Desktop/p...">
+                          <SegmentTrieNode>
+                          <link>
+                          <script>
+                          <script>
+                          <LocaleLayout>
+                            <html lang="tr" dir="ltr">
+                              <body
++                               className="outfit_cec7806-module__ABRySG__variable plus_jakarta_sans_455e408c-module__..."
+-                               className="outfit_cec7806-module__ABRySG__variable plus_jakarta_sans_455e408c-module__..."
+                              >
+                      ...
+          ...
+
+[00:56:31.529] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:56:31.529] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:56:31.529] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr/signup","route":"/[locale]/signup"}
+[00:56:31.529] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr/signup color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/signup","o":"http://localhost:3001/tr/signup","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768071952514}
+[00:56:49.943] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:56:50.166] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/tr/login" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/tr/login" tree={[...]} params={{locale:"tr"}} ...>
+                        <SegmentViewNode type="layout" pagePath="/Desktop/p...">
+                          <SegmentTrieNode>
+                          <link>
+                          <script>
+                          <script>
+                          <LocaleLayout>
+                            <html lang="tr" dir="ltr">
+                              <body
++                               className="outfit_cec7806-module__ABRySG__variable plus_jakarta_sans_455e408c-module__..."
+-                               className="outfit_cec7806-module__ABRySG__variable plus_jakarta_sans_455e408c-module__..."
+                              >
+                      ...
+          ...
+
+[00:56:50.166] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:56:50.166] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:56:50.166] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr/login","route":"/[locale]/login"}
+[00:56:50.166] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr/login color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/login","o":"http://localhost:3001/tr/login","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768071971147}
+[00:59:18.375] Server  LOG      ✓ Compiled in 676ms
+[00:59:48.309] Server  LOG      ✓ Compiled in 248ms
+[01:00:15.065] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:00:15.599] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[01:00:15.599] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:00:15.599] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
+[01:00:15.599] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3001/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768072176597}
+[03:37:46.665] Server  LOG      ✓ Compiled in 540ms
+[03:38:01.275] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:38:01.861] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:38:01.861] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:38:01.861] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
+[03:38:01.861] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3001/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768081642937}
+[03:38:27.552] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:38:28.101] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:38:28.101] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:38:28.101] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
+[03:38:28.101] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3001/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768081669184}
+[03:39:31.345] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:39:31.850] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/tr" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/tr" tree={[...]} params={{locale:"tr"}} cacheNode={{lazyData:null, ...}} ...>
+                        <SegmentViewNode type="layout" pagePath="/Desktop/p...">
+                          <SegmentTrieNode>
+                          <link>
+                          <script>
+                          <script>
+                          <LocaleLayout>
+                            <html lang="tr" dir="ltr">
+                              <body
++                               className="outfit_cec7806-module__ABRySG__variable plus_jakarta_sans_455e408c-module__..."
+-                               className="outfit_cec7806-module__ABRySG__variable plus_jakarta_sans_455e408c-module__..."
+                              >
+                      ...
+          ...
+
+[03:39:31.850] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:39:31.851] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:39:31.851] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
+[03:39:31.851] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3001/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768081732933}
+[03:41:37.740] Server  LOG      ✓ Compiled in 1744ms
+[03:41:49.028] Server  LOG      ✓ Compiled in 368ms
+[03:42:04.001] Server  LOG      ✓ Compiled in 22ms
+[03:42:04.711] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:42:05.204] Browser WARN    Image with src "http://localhost:3001/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[03:42:05.204] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:42:05.204] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
+[03:42:05.204] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3001/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3001/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768081886287}

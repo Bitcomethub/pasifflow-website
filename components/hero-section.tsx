@@ -87,13 +87,13 @@ export function HeroSection() {
                 { icon: Building2, label: "title", value: "Section 8" }, // Using section8 title ref
                 { icon: Key, label: "prop3Title", value: "Turnkey" },
               ].map((stat, i) => (
-                <div key={i} className="flex flex-col gap-2 items-start p-3 rounded-lg hover:bg-white/50 hover:shadow-sm transition-all border border-transparent hover:border-border/40">
-                  <stat.icon className="h-6 w-6 text-accent" />
+                <div key={i} className="flex flex-col gap-1 sm:gap-2 items-start p-2 sm:p-3 rounded-lg hover:bg-white/50 hover:shadow-sm transition-all border border-transparent hover:border-border/40">
+                  <stat.icon className="h-5 w-5 sm:h-6 sm:w-6 text-accent" />
                   {/* Note: Simplified labels for aesthetics, mapping to valueProps or manual checks would be ideal in real app. 
                       Here reusing logic somewhat loosely or just hardcoding common terms if translation keys are complex. 
                       Let's use static keys for simplicity and robustness in this specific visual block. */}
-                  <span className="text-sm font-semibold text-foreground/80">{t(`stat${i + 1}Label`) ? t(`stat${i + 1}Label`) : "Verified"}</span>
-                  <span className="text-lg font-bold text-primary">{t(`stat${i + 1}Value`) ? t(`stat${i + 1}Value`) : "100%"}</span>
+                  <span className="text-xs sm:text-sm font-semibold text-foreground/80 line-clamp-1">{t(`stat${i + 1}Label`) ? t(`stat${i + 1}Label`) : "Verified"}</span>
+                  <span className="text-sm sm:text-lg font-bold text-primary line-clamp-1">{t(`stat${i + 1}Value`) ? t(`stat${i + 1}Value`) : "100%"}</span>
                 </div>
               ))}
             </motion.div>
@@ -114,12 +114,12 @@ export function HeroSection() {
                 className="w-full h-full object-cover scale-105 hover:scale-110 transition-transform duration-700"
               />
 
-              {/* Floating Overlay Card 1: Monthly Income */}
+              {/* Floating Overlay Card 1: Monthly Income - Hidden on mobile */}
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 1, duration: 0.5 }}
-                className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-xl p-5 rounded-2xl border border-white/20 shadow-[0_8px_30px_rgb(0,0,0,0.12)] flex items-center gap-5 pr-8"
+                className="hidden md:flex absolute bottom-8 left-8 bg-white/95 backdrop-blur-xl p-5 rounded-2xl border border-white/20 shadow-[0_8px_30px_rgb(0,0,0,0.12)] items-center gap-5 pr-8"
               >
                 <div className="h-12 w-12 rounded-full bg-green-50 flex items-center justify-center border border-green-100">
                   <span className="text-green-600 font-bold text-lg">$</span>
@@ -130,15 +130,16 @@ export function HeroSection() {
                 </div>
               </motion.div>
 
-              {/* Floating Overlay Card 2: Status */}
+              {/* Floating Overlay Card 2: Status - Responsive sizing */}
               <motion.div
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 1.2, duration: 0.5 }}
-                className="absolute top-8 right-8 bg-teal-600 text-white px-5 py-2.5 rounded-xl shadow-lg shadow-teal-600/30 font-bold text-sm flex items-center gap-2.5 backdrop-blur-md border border-teal-500/50"
+                className="absolute top-4 right-4 md:top-8 md:right-8 bg-teal-600 text-white px-3 py-1.5 md:px-5 md:py-2.5 rounded-lg md:rounded-xl shadow-lg shadow-teal-600/30 font-bold text-xs md:text-sm flex items-center gap-1.5 md:gap-2.5 backdrop-blur-md border border-teal-500/50"
               >
-                <ShieldCheck size={18} />
-                Section 8 Verified
+                <ShieldCheck size={14} className="md:w-[18px] md:h-[18px]" />
+                <span className="hidden sm:inline">Section 8 Verified</span>
+                <span className="sm:hidden">S8 ✓</span>
               </motion.div>
             </div>
 

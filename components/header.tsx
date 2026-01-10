@@ -140,7 +140,7 @@ export function Header() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden z-50 text-foreground"
+          className="md:hidden z-[70] text-foreground"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
@@ -152,7 +152,7 @@ export function Header() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 top-0 left-0 bg-background z-40 flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 top-0 left-0 bg-white z-[60] flex flex-col items-center justify-center gap-8"
           >
             {navLinks.map((link) => (
               <Link
