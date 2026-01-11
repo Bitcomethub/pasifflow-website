@@ -735,5 +735,89 @@
         "testimonial3Name": "Alexander S.",
         "testimonial3Role": "Moskova, Rusya",
         "testimonial3Quote": "Amerika'da mülk sahibi olmak hayalimdi. Pasiflow'un desteğiyle bu hayalimi gerçekleştirdim."
+    },
+    "locations": {
+        "heroTitle": "{city} Section 8 Yatırım Fırsatları",
+        "heroSubtitle": "{state} eyaletinde devlet garantili kira geliri ile pasif gelir elde edin",
+        "ctaSchedule": "Ücretsiz Danışmanlık",
+        "viewProperties": "Mülkleri İncele",
+        "viewAllProperties": "Tüm Mülkleri Gör",
+        "aboutCity": "Bölge Hakkında",
+        "breadcrumb": {
+            "locations": "Lokasyonlar"
+        },
+        "stats": {
+            "medianPrice": "Medyan Ev Fiyatı",
+            "rentYield": "Ort. Kira Getirisi",
+            "section8Rate": "Section 8 Oranı",
+            "capRate": "CAP Oranı"
+        },
+        "benefitsTitle": "Neden {city}?",
+        "benefitsSubtitle": "{city} bölgesinde Section 8 yatırımının avantajlarını keşfedin",
+        "benefits": {
+            "affordability": {
+                "title": "Uygun Fiyatlı Evler",
+                "description": "{city} bölgesinde $100K altında Section 8 onaylı evler mevcut"
+            },
+            "section8": {
+                "title": "Güçlü Section 8 Talebi",
+                "description": "Bölgede Section 8 kiracı talebi çok yüksek, minimum boşluk riski"
+            },
+            "returns": {
+                "title": "Yüksek Kira Getirisi",
+                "description": "Ortalama {capRate} CAP oranı ile güçlü nakit akışı"
+            },
+            "management": {
+                "title": "Profesyonel Yönetim",
+                "description": "Sahada aktif ekiplerimiz ile tam yönetim hizmeti"
+            }
+        },
+        "cities": {
+            "detroit": {
+                "title": "{city} Gayrimenkul Yatırımı",
+                "description": "Detroit, ABD'nin en güçlü Section 8 pazarlarından biridir. Düşük ev fiyatları, yüksek kira getirisi ve güçlü kiracı talebi ile yatırımcılar için mükemmel fırsatlar sunar. Otomotiv sektörünün yeniden canlanması ve şehir merkezindeki gelişmeler ile Detroit, gayrimenkul yatırımı için cazip bir destinasyondur."
+            },
+            "cleveland": {
+                "title": "{city} Gayrimenkul Yatırımı",
+                "description": "Cleveland, Ohio'nun ekonomik merkezi olarak sağlık ve eğitim sektörlerinde güçlüdür. Cleveland Clinic ve Case Western Reserve Üniversitesi gibi kurumlar, bölgeye istikrarlı istihdam sağlar. Section 8 sistemi düzenli çalışır ve yatırımcılara güvenilir kira geliri sunar."
+            },
+            "indianapolis": {
+                "title": "{city} Gayrimenkul Yatırımı",
+                "description": "Indianapolis, ABD'nin lojistik merkezi olarak hızla büyüyen bir şehirdir. Amazon ve FedEx gibi dev şirketlerin dağıtım merkezleri burada bulunur. Nüfus artışı ve ekonomik çeşitlilik, gayrimenkul değer artışı potansiyelini artırır."
+            },
+            "birmingham": {
+                "title": "{city} Gayrimenkul Yatırımı",
+                "description": "Birmingham, Alabama'nın en büyük şehri ve güneyin yükselen yıldızıdır. UAB Tıp Merkezi bölgenin en büyük işverenlerinden biridir. Düşük yaşam maliyeti ve güçlü kira talebi ile yatırımcılar için cazip fırsatlar sunar."
+            },
+            "memphis": {
+                "title": "{city} Gayrimenkul Yatırımı",
+                "description": "Memphis, FedEx'in genel merkezi ve ABD'nin lojistik kalbidir. Tennessee'de eyalet gelir vergisi yoktur, bu da net kira gelirinizi artırır. Güçlü Section 8 sistemi ve istikrarlı kira talebi ile ideal bir yatırım destinasyonudur."
+            }
+        },
+        "highlights": {
+            "affordability": "Düşük satın alma maliyetleri ile yatırıma başlama kolaylığı",
+            "section8": "Güçlü Section 8 kiracı talebi ve minimum boşluk riski",
+            "capRate": "Çift haneli CAP oranları ile yüksek nakit akışı",
+            "growth": "Ekonomik büyüme ve nüfus artışı ile değer artışı potansiyeli",
+            "healthcare": "Sağlık sektörü istihdamı ile istikrarlı kiracı profili",
+            "education": "Üniversiteler ve araştırma merkezleri ile güçlü ekonomi",
+            "affordable": "Uygun fiyatlı evler ile portföy genişletme imkanı",
+            "stable": "İstikrarlı ekonomi ve düzenli Section 8 ödemeleri",
+            "logistics": "Lojistik merkezler ile güçlü istihdam",
+            "diverse": "Çeşitlendirilmiş ekonomi ile düşük risk",
+            "medical": "Tıp merkezleri ve sağlık sektörü istihdamı",
+            "fedex": "FedEx genel merkezi ile lojistik hub",
+            "rental": "Güçlü kira talebi ve düşük boşluk oranları"
+        },
+        "ctaTitle": "{city}'da Yatırıma Başlayın",
+        "ctaDescription": "Ücretsiz danışmanlık alın ve Section 8 yatırım fırsatlarını keşfedin",
+        "indexBadge": "ABD Section 8 Pazarları",
+        "indexTitle": "Yatırım Lokasyonlarımız",
+        "indexSubtitle": "ABD'nin en güçlü Section 8 pazarlarında anahtar teslim yatırım fırsatları",
+        "city": "Şehir",
+        "citiesLabel": "Şehir",
+        "exploreCity": "{city} İncele",
+        "indexCtaTitle": "Hangi Şehir Size Uygun?",
+        "indexCtaDescription": "Yatırım hedeflerinize en uygun bölgeyi birlikte belirleyelim"
     }
 }

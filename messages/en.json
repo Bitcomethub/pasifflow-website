@@ -733,5 +733,89 @@
         "testimonial3Name": "Alexander S.",
         "testimonial3Role": "Moscow, Russia",
         "testimonial3Quote": "Owning property in America was my dream. With Pasiflow's support, I made this dream come true."
+    },
+    "locations": {
+        "heroTitle": "{city} Section 8 Investment Opportunities",
+        "heroSubtitle": "Earn passive income with government-guaranteed rental income in {state}",
+        "ctaSchedule": "Free Consultation",
+        "viewProperties": "View Properties",
+        "viewAllProperties": "View All Properties",
+        "aboutCity": "About the Area",
+        "breadcrumb": {
+            "locations": "Locations"
+        },
+        "stats": {
+            "medianPrice": "Median Home Price",
+            "rentYield": "Avg. Rent Yield",
+            "section8Rate": "Section 8 Rate",
+            "capRate": "CAP Rate"
+        },
+        "benefitsTitle": "Why {city}?",
+        "benefitsSubtitle": "Discover the advantages of Section 8 investing in {city}",
+        "benefits": {
+            "affordability": {
+                "title": "Affordable Properties",
+                "description": "Section 8 approved homes under $100K available in {city}"
+            },
+            "section8": {
+                "title": "Strong Section 8 Demand",
+                "description": "High Section 8 tenant demand in the area, minimum vacancy risk"
+            },
+            "returns": {
+                "title": "High Rental Yield",
+                "description": "Strong cash flow with average {capRate} CAP rate"
+            },
+            "management": {
+                "title": "Professional Management",
+                "description": "Full management service with our active field teams"
+            }
+        },
+        "cities": {
+            "detroit": {
+                "title": "{city} Real Estate Investment",
+                "description": "Detroit is one of the strongest Section 8 markets in the US. It offers excellent opportunities for investors with low home prices, high rental yields, and strong tenant demand. With the revival of the automotive sector and downtown developments, Detroit is an attractive destination for real estate investment."
+            },
+            "cleveland": {
+                "title": "{city} Real Estate Investment",
+                "description": "Cleveland is Ohio's economic center with strength in healthcare and education sectors. Institutions like Cleveland Clinic and Case Western Reserve University provide stable employment to the region. The Section 8 system works regularly and offers reliable rental income to investors."
+            },
+            "indianapolis": {
+                "title": "{city} Real Estate Investment",
+                "description": "Indianapolis is a rapidly growing city as the logistics hub of the US. Distribution centers of giant companies like Amazon and FedEx are located here. Population growth and economic diversity increase real estate appreciation potential."
+            },
+            "birmingham": {
+                "title": "{city} Real Estate Investment",
+                "description": "Birmingham is Alabama's largest city and the rising star of the South. UAB Medical Center is one of the region's largest employers. It offers attractive opportunities for investors with low cost of living and strong rental demand."
+            },
+            "memphis": {
+                "title": "{city} Real Estate Investment",
+                "description": "Memphis is FedEx's headquarters and the logistics heart of the USA. Tennessee has no state income tax, which increases your net rental income. It's an ideal investment destination with a strong Section 8 system and stable rental demand."
+            }
+        },
+        "highlights": {
+            "affordability": "Easy entry to investment with low acquisition costs",
+            "section8": "Strong Section 8 tenant demand and minimum vacancy risk",
+            "capRate": "High cash flow with double-digit CAP rates",
+            "growth": "Value appreciation potential with economic growth and population increase",
+            "healthcare": "Stable tenant profile with healthcare sector employment",
+            "education": "Strong economy with universities and research centers",
+            "affordable": "Portfolio expansion opportunity with affordable homes",
+            "stable": "Stable economy and regular Section 8 payments",
+            "logistics": "Strong employment with logistics centers",
+            "diverse": "Low risk with diversified economy",
+            "medical": "Medical centers and healthcare sector employment",
+            "fedex": "Logistics hub with FedEx headquarters",
+            "rental": "Strong rental demand and low vacancy rates"
+        },
+        "ctaTitle": "Start Investing in {city}",
+        "ctaDescription": "Get free consultation and discover Section 8 investment opportunities",
+        "indexBadge": "US Section 8 Markets",
+        "indexTitle": "Our Investment Locations",
+        "indexSubtitle": "Turnkey investment opportunities in America's strongest Section 8 markets",
+        "city": "City",
+        "citiesLabel": "Cities",
+        "exploreCity": "Explore {city}",
+        "indexCtaTitle": "Which City is Right for You?",
+        "indexCtaDescription": "Let's determine the best region for your investment goals together"
     }
 }
