@@ -42,12 +42,12 @@ export function HeroSection() {
             animate="show"
             className="space-y-8"
           >
-            <motion.div variants={item} className="inline-flex items-center gap-2 rounded-full bg-primary/5 border border-primary/10 px-4 py-1.5 text-sm font-medium text-primary shadow-sm hover:bg-primary/10 transition-colors cursor-default">
-              <span className="relative flex h-2 w-2">
+            <motion.div variants={item} className="flex w-fit max-w-full items-center gap-3 rounded-full bg-primary/5 border border-primary/10 px-3 py-2 sm:px-4 sm:py-1.5 text-xs sm:text-sm font-medium text-primary shadow-sm hover:bg-primary/10 transition-colors cursor-default text-left leading-snug">
+              <span className="relative flex h-2 w-2 flex-shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
               </span>
-              {t("badge")}
+              <span className="break-words">{t("badge")}</span>
             </motion.div>
 
             <motion.div variants={item} className="space-y-4">
