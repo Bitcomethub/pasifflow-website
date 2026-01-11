@@ -13,7 +13,7 @@ import { PropertyManagementSection } from "@/components/property-management-sect
 import { AppFeaturesSection } from "@/components/app-features-section"
 import { WhyWorkSection } from "@/components/why-work-section"
 import { CityComparisonSection } from "@/components/city-comparison-section"
-import { TestimonialsSection } from "@/components/testimonials-section"
+// TestimonialsSection removed per client request
 import { FAQSection } from "@/components/faq-section"
 import { MapSection } from "@/components/map-section"
 import { FinalCTASection } from "@/components/final-cta-section"
@@ -40,7 +40,7 @@ export default function Home() {
                 <AppFeaturesSection />
                 <WhyWorkSection />
                 <CityComparisonSection />
-                <TestimonialsSection />
+                {/* TestimonialsSection removed per client request */}
                 <FAQSection />
                 <MapSection />
                 <FinalCTASection />
