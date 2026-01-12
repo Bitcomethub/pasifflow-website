@@ -4,42 +4,43 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Pasiflow Premium Theme - New Branding */
+  /* Pasiflow Premium Theme - Brand Guide v1 */
 
-  /* Background: Light Blue-Gray */
-  --background: #f5f9fc;
-  /* Foreground: Dark Slate */
-  --foreground: #04131e;
+  /* Background: Off-White / Kırık Beyaz */
+  --background: #F6F7F9;
+  /* Foreground: Charcoal / Kömür - Main Text */
+  --foreground: #1F2328;
 
   /* Card: Pure White */
-  --card: #ffffff;
-  --card-foreground: #04131e;
+  --card: #FFFFFF;
+  --card-foreground: #1F2328;
 
-  --popover: #ffffff;
-  --popover-foreground: #04131e;
+  --popover: #FFFFFF;
+  --popover-foreground: #1F2328;
 
-  /* Primary: Dark Navy Blue */
-  --primary: #001c31;
-  --primary-foreground: #ffffff;
+  /* Primary: Dark Navy / Lacivert */
+  --primary: #001C32;
+  --primary-foreground: #FFFFFF;
 
-  /* Secondary: Light Cool Grey */
-  --secondary: #e8eef3;
-  --secondary-foreground: #001c31;
+  /* Secondary: Light Cool Grey - Mapped to Guide's Secondary Surface if needed, or derived */
+  --secondary: #E5E6E8;
+  --secondary-foreground: #001C32;
 
-  /* Muted: Soft Grey */
-  --muted: #f0f4f7;
-  --muted-foreground: #5a6a7a;
+  /* Muted: Soft Grey / İkincil Metin */
+  --muted: #E5E6E8; 
+  --muted-foreground: #535454; /* Guide: Secondary Text Grey */
 
-  /* Accent: Vibrant Orange */
-  --accent: #ef7200;
-  --accent-foreground: #ffffff;
+  /* Accent: Vibrant Orange / Turuncu */
+  --accent: #EF7202;
+  --accent-foreground: #FFFFFF;
 
   --destructive: #dc2626;
   --destructive-foreground: #ffffff;
 
-  --border: #dce4eb;
-  --input: #dce4eb;
-  --ring: #001c31;
+  /* Border: Light Grey / Açık Gri */
+  --border: #E5E6E8;
+  --input: #E5E6E8;
+  --ring: #001C32;
 
   --radius: 1rem;
 }
