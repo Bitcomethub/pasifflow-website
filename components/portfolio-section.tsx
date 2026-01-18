@@ -548,6 +548,7 @@ export function PortfolioSection() {
                 onSuccess={handleLeadSuccess}
                 triggerSource={modalSource}
               />
-            </section >
-            )
+            </div>
+          </section>
+          )
 }

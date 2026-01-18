@@ -39,7 +39,6 @@ export function TrustBadges() {
     ]
 
     return (
-    return (
         <section className="py-12 bg-transparent relative overflow-hidden border-t border-white/5">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
@@ -66,6 +65,5 @@ export function TrustBadges() {
                 </div>
             </div>
         </section>
-    )
     )
 }
