@@ -2,56 +2,68 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { Shield, Star, Award, CheckCircle, Users } from "lucide-react"
+import { Shield, Star, Award, CheckCircle, Users, ShieldCheck, Trophy } from "lucide-react"
 
 export function TrustBadges() {
     const t = useTranslations("trustBadges")
 
     const badges = [
         {
-            icon: Shield,
+            icon: ShieldCheck,
             value: "20+",
-            labelKey: "yearsExperience",
-            color: "text-primary"
+            label: t("yearsExperience"),
+            color: "text-blue-500",
+            bg: "bg-blue-500/10"
         },
         {
             icon: Star,
-            value: "4.9",
-            labelKey: "googleRating",
-            color: "text-amber-500"
+            value: "4.9/5",
+            label: t("googleRating"), // Will update key in translation to be generic 'Score'
+            color: "text-yellow-500",
+            bg: "bg-yellow-500/10"
         },
         {
             icon: Users,
-            value: "500+",
-            labelKey: "happyInvestors",
-            color: "text-green-500"
+            value: "50+",
+            label: t("happyInvestors"),
+            color: "text-green-500",
+            bg: "bg-green-500/10"
         },
         {
-            icon: Award,
+            icon: Trophy,
             value: "$50M+",
-            labelKey: "transactionsValue",
-            color: "text-blue-500"
-        },
+            label: t("transactionsValue"),
+            color: "text-purple-500",
+            bg: "bg-purple-500/10"
+        }
     ]
 
     return (
-        <section className="py-12 bg-muted/30 border-y border-border/30">
-            <div className="container mx-auto px-4 md:px-6">
+        <section className="py-12 bg-background border-y border-border/40 relative overflow-hidden">
+            {/* Background Tech Elements */}
+            <div className="absolute top-0 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-accent/5 rounded-full blur-3xl translate-y-1/2 pointer-events-none" />
+
+            <div className="container mx-auto px-4">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
                     {badges.map((badge, index) => (
                         <motion.div
-                            key={badge.labelKey}
+                            key={badge.label}
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: index * 0.1 }}
-                            className="flex flex-col items-center text-center"
+                            className="flex flex-col items-center text-center p-4 rounded-2xl hover:bg-muted/50 transition-colors duration-300 border border-transparent hover:border-border/50"
                         >
-                            <div className={`w-14 h-14 rounded-full bg-background border border-border/50 flex items-center justify-center mb-3 shadow-sm ${badge.color}`}>
-                                <badge.icon size={24} />
+                            <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-4 shadow-sm backdrop-blur-sm ${badge.bg} ${badge.color}`}>
+                                <badge.icon size={28} strokeWidth={1.5} />
                             </div>
-                            <div className="text-2xl md:text-3xl font-bold text-foreground">{badge.value}</div>
-                            <div className="text-sm text-muted-foreground">{t(badge.labelKey)}</div>
+                            <div className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight mb-1">
+                                {badge.value}
+                            </div>
+                            <div className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                                {badge.label}
+                            </div>
                         </motion.div>
                     ))}
                 </div>

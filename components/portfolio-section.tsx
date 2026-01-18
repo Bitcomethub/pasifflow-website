@@ -239,14 +239,14 @@ export function PortfolioSection() {
             {properties.map((property, i) => (
               <div key={i} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0">
                 <Card
-                  className={`group h-full overflow-hidden border-border/50 bg-card transition-all duration-300 flex flex-col cursor-pointer relative ${isGuest && i > 0 ? 'pointer-events-none select-none' : 'hover:shadow-2xl hover:shadow-primary/5'}`}
+                  className={`group h-full overflow-hidden border-border/50 bg-card transition-all duration-300 flex flex-col cursor-pointer relative ${isGuest && i >= 3 ? 'pointer-events-none select-none' : 'hover:shadow-2xl hover:shadow-primary/5'}`}
                   onClick={() => {
-                    if (isGuest && i > 0) return; // Should be blocked by overlay, but safety check
+                    if (isGuest && i >= 3) return; // Should be blocked by overlay, but safety check
                     openPropertyModal(property)
                   }}
                 >
-                  {/* Gating Overlay for Guests (Items > 0) */}
-                  {isGuest && i > 0 && (
+                  {/* Gating Overlay for Guests (Items >= 3) */}
+                  {isGuest && i >= 3 && (
                     <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-background/60 backdrop-blur-md p-6 text-center pointer-events-auto"
                       onClick={(e) => {
                         e.stopPropagation()
@@ -255,12 +255,12 @@ export function PortfolioSection() {
                     >
                       <div className="bg-background/80 p-6 rounded-2xl shadow-2xl border border-primary/20 max-w-xs transform hover:scale-105 transition-transform duration-300 cursor-pointer">
                         <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
-                        <h3 className="text-xl font-bold text-foreground mb-2">Gizli Fırsat</h3>
+                        <h3 className="text-xl font-bold text-foreground mb-2">Daha Fazla Fırsat</h3>
                         <p className="text-sm text-muted-foreground mb-4">
-                          Bu mülkün detaylarını ve getiri analizlerini görmek için ücretsiz üye olun.
+                          Tüm portföyü, detaylı analizleri ve yeni fırsatları görmek için ücretsiz üye olun.
                         </p>
                         <Button className="w-full font-bold shadow-lg shadow-primary/20">
-                          Detayları Gör
+                          Tümünü Gör
                         </Button>
                       </div>
                     </div>

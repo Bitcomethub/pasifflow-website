@@ -85,7 +85,7 @@ export function BuybackSection() {
                                         <div className="text-sm text-muted-foreground">{t("appraisalValue")}</div>
                                     </div>
                                     <div className="p-4 rounded-xl bg-background/50 border border-primary/10">
-                                        <div className="text-3xl font-bold text-primary mb-1">30-45</div>
+                                        <div className="text-3xl font-bold text-primary mb-1">30</div>
                                         <div className="text-sm text-muted-foreground">{t("closingDays")}</div>
                                     </div>
                                 </div>

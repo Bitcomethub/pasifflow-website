@@ -56,56 +56,84 @@ export function RoiCalculator() {
 
     const city = cityData[selectedCity]
 
-    // Calculations based on PDF formula
+    // Mortgage / Finance Constants
+    const DOWN_PAYMENT_RATE = 0.20
+    const ORIGINATION_FEE_RATE = 0.05
+    const MORTGAGE_INTEREST_RATE = 0.07 // 7% annual interest assumption
+    const MORTGAGE_TERM_YEARS = 30
+
+    // 1. Initial Investment (Cash to Close)
+    const downPayment = purchasePrice * DOWN_PAYMENT_RATE
+    const financeAmount = purchasePrice - downPayment // Loan Amount
+    const originationFee = financeAmount * ORIGINATION_FEE_RATE // Bank Fee
+    // Total Cash Needed = Down Payment + Origination Fee + Pasiflow Fee
+    // Note: We removed generic 'CLOSING_COSTS' favor of explicit origination fee as requested.
+    const totalInvestment = downPayment + originationFee + PASIFLOW_SERVICE_FEE
+
+    // 2. Mortgage Payment (Principal + Interest)
+    // Monthly Payment Formula: M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1 ]
+    const monthlyInterestRate = MORTGAGE_INTEREST_RATE / 12
+    const numberOfPayments = MORTGAGE_TERM_YEARS * 12
+    const monthlyMortgagePayment = financeAmount * (
+        (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
+        (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1)
+    )
+    const yearlyMortgagePayment = monthlyMortgagePayment * 12
+
+    // 3. Rental Income
     const monthlyRent = purchasePrice * city.avgRentRatio
     const yearlyRent = monthlyRent * 12
 
-    // Annual expenses
+    // 4. Annual Expenses
     const yearlyPropertyTax = purchasePrice * city.taxRate
     const yearlyInsurance = purchasePrice * city.insuranceRate
     const yearlyManagement = yearlyRent * MANAGEMENT_FEE_RATE
     const yearlyMaintenance = MAINTENANCE_RESERVE_MONTHLY * 12
-    const totalYearlyExpenses = yearlyPropertyTax + yearlyInsurance + yearlyManagement + yearlyMaintenance
+    const totalOperatingExpenses = yearlyPropertyTax + yearlyInsurance + yearlyManagement + yearlyMaintenance
 
-    // Net income
-    const yearlyNetIncome = yearlyRent - totalYearlyExpenses
+    // 5. Net Income (Cash Flow)
+    // Cash Flow = Gross Rent - Operating Expenses - Mortgage Payment
+    const yearlyNetIncome = yearlyRent - totalOperatingExpenses - yearlyMortgagePayment
     const monthlyNetIncome = yearlyNetIncome / 12
 
-    // Total investment (purchase + Pasiflow fee + Closing costs)
-    const totalInvestment = purchasePrice + PASIFLOW_SERVICE_FEE + CLOSING_COSTS
-
-    // ROI calculation (Net ROI % per year)
+    // 6. ROI Calculation (Cash on Cash Return)
     const netRoi = (yearlyNetIncome / totalInvestment) * 100
 
-    // Payback period (Amortisman süresi) - sadece kira geliriyle
-    const paybackYears = totalInvestment / yearlyNetIncome
+    // Payback period (Amortisman süresi)
+    const paybackYears = yearlyNetIncome > 0 ? totalInvestment / yearlyNetIncome : 0
 
     // HOLDING PERIOD'A GÖRE DEĞİŞEN DEĞERLER
     // Property value after holding period (7% yearly compound appreciation)
     const futurePropertyValue = purchasePrice * Math.pow(1 + YEARLY_APPRECIATION_RATE, holdingPeriod)
     const appreciationAmount = futurePropertyValue - purchasePrice
+
+    // Mortgage Balance (Principal Remaining) Calculation (Simplified amortization)
+    // For simplicity in this view, we can approximate or calculate exactly. Let's do a rough estimate or skip principal paydown for the 'appreciation' focused display.
+    // Actually, principal paydown is a gain. Let's include it for accuracy if possible, or stick to appreciation for 'Total Return' to avoid complexity.
+    // User asked for specific input structure, I will focus on that.
+
     const appreciationPercent = (appreciationAmount / purchasePrice) * 100
 
     // Total rental income over holding period
     const totalRentalIncome = yearlyNetIncome * holdingPeriod
 
     // Total return (rental income + appreciation)
+    // Note: In a leveraged scenario, return on equity is huge because of appreciation on the FULL asset value.
     const totalReturn = totalRentalIncome + appreciationAmount
 
-    // Total ROI over holding period (based on initial investment)
+    // Total ROI over holding period (based on CASH invested)
     const totalRoiPercent = (totalReturn / totalInvestment) * 100
 
     // Annualized ROI for holding period
     const annualizedRoi = totalRoiPercent / holdingPeriod
 
     // Doorvest-style metrics
-    // Cash on Cash = Annual Net Income / Total Cash Invested (down payment + closing)
-    const downPaymentPercent = 30
-    const downPayment = purchasePrice * (downPaymentPercent / 100)
-    const cashOnCash = (yearlyNetIncome / (downPayment + CLOSING_COSTS + PASIFLOW_SERVICE_FEE)) * 100
+    // Cash on Cash is the primary metric for leveraged deals
+    const cashOnCash = netRoi
 
-    // Cap Rate = Annual Net Operating Income / Purchase Price
-    const capRate = (yearlyNetIncome / purchasePrice) * 100
+    // Cap Rate = Net Operating Income (before debt service) / Purchase Price
+    const noi = yearlyRent - totalOperatingExpenses
+    const capRate = (noi / purchasePrice) * 100
 
     const getCityName = (key: string) => {
         return t(`city_${key}_name`);
@@ -126,32 +154,15 @@ export function RoiCalculator() {
             </p>
 
             <div className="space-y-6 relative z-10">
-                {/* City Selection */}
-                <div className="space-y-2">
-                    <label className="font-semibold text-sm flex items-center gap-2">
-                        <MapPin size={16} className="text-primary" />
-                        {t("cityLabel")}
-                    </label>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                        {(Object.keys(cityData) as Array<keyof typeof cityData>).map((cityKey) => (
-                            <button
-                                key={cityKey}
-                                onClick={() => {
-                                    setSelectedCity(cityKey)
-                                    const c = cityData[cityKey]
-                                    setPurchasePrice(Math.round((c.minBudget + c.maxBudget) / 2))
-                                }}
-                                className={`p-3 rounded-xl border-2 transition-all text-sm font-medium ${selectedCity === cityKey
-                                    ? "border-primary bg-primary/10 text-primary"
-                                    : "border-border hover:border-primary/50 hover:bg-muted"
-                                    }`}
-                            >
-                                <div className="font-bold">{getCityName(cityKey)}</div>
-                                <div className="text-xs text-muted-foreground mt-1">
-                                    {t(`city_${cityKey}_highlight`)}
-                                </div>
-                            </button>
-                        ))}
+                {/* City Selection - HIDDEN/REMOVED per client request (Detroit Only) */}
+                <div className="hidden">
+                    <button onClick={() => setSelectedCity("detroit")} />
+                </div>
+
+                <div className="text-center mb-6">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-bold">
+                        <MapPin size={16} />
+                        Detroit, MI - Maksimum Nakit Akışı
                     </div>
                 </div>
 
@@ -240,7 +251,7 @@ export function RoiCalculator() {
                                 <Calendar size={16} className="text-blue-600" />
                                 <span className="text-xs text-muted-foreground font-medium">{t("cashFlowMonth")}</span>
                             </div>
-                            <div className="text-xl sm:text-2xl font-bold text-blue-600">
+                            <div className={`text-xl sm:text-2xl font-bold ${monthlyNetIncome >= 0 ? 'text-blue-600' : 'text-red-500'}`}>
                                 ${Math.round(monthlyNetIncome).toLocaleString()}
                             </div>
                         </div>
@@ -249,22 +260,13 @@ export function RoiCalculator() {
 
                 {/* Year ROI Summary - Large Display */}
                 <div className="bg-primary text-primary-foreground rounded-2xl p-6 text-center relative overflow-hidden">
-                    {isGuest && (
-                        <div className="absolute inset-0 bg-primary/95 backdrop-blur-sm flex flex-col items-center justify-center z-10 p-4">
-                            <Lock className="w-8 h-8 mb-2 opacity-80" />
-                            <p className="font-bold mb-2 text-sm">ROI Sonuçlarını Gör</p>
-                            <Button size="sm" variant="secondary" onClick={() => setShowLeadModal(true)}>
-                                Hesaplamayı Aç
-                            </Button>
-                        </div>
-                    )}
                     <div className="text-sm opacity-80 mb-2">Year {holdingPeriod} ROI</div>
                     <div className="text-4xl sm:text-5xl font-bold mb-2">
-                        {isGuest ? "%***" : `${totalRoiPercent.toFixed(0)}%`}
+                        {`${totalRoiPercent.toFixed(0)}%`}
                     </div>
                     <div className="flex items-center justify-center gap-1 text-lg">
                         <TrendingUp size={20} />
-                        <span className="font-semibold">↑ {isGuest ? "$***,***" : `$${Math.round(totalReturn).toLocaleString()}`}</span>
+                        <span className="font-semibold">↑ {`$${Math.round(totalReturn).toLocaleString()}`}</span>
                     </div>
                 </div>
 
@@ -315,6 +317,26 @@ export function RoiCalculator() {
                     </div>
                 </div>
 
+                {/* GUEST OVERLAY - Calculator Gating */}
+                {isGuest && (
+                    <div className="absolute inset-0 z-50 bg-background/60 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 pb-20">
+                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
+                            <Lock className="w-8 h-8 text-primary" />
+                        </div>
+                        <h3 className="text-2xl font-bold mb-2 text-foreground">Yatırım Hesaplayıcıyı Açın</h3>
+                        <p className="text-muted-foreground max-w-sm mb-6">
+                            Detaylı ROI analizlerini, nakit akışını ve amortisman sürelerini görmek için ücretsiz üye olun.
+                        </p>
+                        <Button
+                            size="lg"
+                            className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8"
+                            onClick={() => setShowLeadModal(true)}
+                        >
+                            Hesaplamayı Başlat
+                        </Button>
+                    </div>
+                )}
+
                 {/* Expense Breakdown */}
                 <div className="bg-muted/30 rounded-xl p-4 space-y-2">
                     <div className="font-semibold text-sm mb-3 flex items-center gap-2">
@@ -326,33 +348,41 @@ export function RoiCalculator() {
                             <span className="text-muted-foreground">{t("propertyPrice")}:</span>
                             <span className="font-medium">${purchasePrice.toLocaleString()}</span>
                         </div>
+                        <div className="flex justify-between text-blue-600 font-medium"> {/* Highlight Finance */}
+                            <span className="text-muted-foreground">Peşinat (%20):</span>
+                            <span>${downPayment.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between text-blue-600 font-medium">
+                            <span className="text-muted-foreground">Kredi Tutarı:</span>
+                            <span>${financeAmount.toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between">
+                            <span className="text-muted-foreground">Dosya Masrafı (%5):</span>
+                            <span className="font-medium">${Math.round(originationFee).toLocaleString()}</span>
+                        </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">{t("serviceFee")}:</span>
                             <span className="font-medium">${PASIFLOW_SERVICE_FEE.toLocaleString()}</span>
                         </div>
+
+                        <div className="col-span-1 sm:col-span-2 border-t border-border/50 my-1"></div>
+
                         <div className="flex justify-between">
-                            <span className="text-muted-foreground">{t("closingCosts")}:</span>
-                            <span className="font-medium">${CLOSING_COSTS.toLocaleString()}</span>
+                            <span className="text-muted-foreground">Mortgage (Yıllık):</span>
+                            <span className="font-medium text-red-500">-${Math.round(yearlyMortgagePayment).toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">{t("annualTax")}:</span>
-                            <span className="font-medium">${Math.round(yearlyPropertyTax).toLocaleString()}</span>
+                            <span className="font-medium">-${Math.round(yearlyPropertyTax).toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-muted-foreground">{t("annualInsurance")}:</span>
-                            <span className="font-medium">${Math.round(yearlyInsurance).toLocaleString()}</span>
+                            <span className="font-medium">-${Math.round(yearlyInsurance).toLocaleString()}</span>
                         </div>
-                        <div className="flex justify-between">
-                            <span className="text-muted-foreground">{t("managementFee")}:</span>
-                            <span className="font-medium">${Math.round(yearlyManagement).toLocaleString()}{t("perYear")}</span>
-                        </div>
-                        <div className="flex justify-between">
-                            <span className="text-muted-foreground">{t("maintenanceReserve")}:</span>
-                            <span className="font-medium">${Math.round(yearlyMaintenance).toLocaleString()}{t("perYear")}</span>
-                        </div>
+
                         <div className="flex justify-between font-bold text-primary border-t border-border/50 pt-2 mt-2">
-                            <span>{t("totalCapital")}:</span>
-                            <span>${totalInvestment.toLocaleString()}</span>
+                            <span>Toplam Nakit Girişi:</span>
+                            <span>${Math.round(totalInvestment).toLocaleString()}</span>
                         </div>
                     </div>
                 </div>

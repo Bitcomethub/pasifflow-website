@@ -39,7 +39,6 @@ export default function Home() {
                 <PropertyManagementSection />
                 <AppFeaturesSection />
                 <WhyWorkSection />
-                <CityComparisonSection />
                 {/* TestimonialsSection removed per client request */}
                 <FAQSection />
                 <MapSection />
