@@ -214,12 +214,12 @@ export function PortfolioSection() {
   ]
 
   return (
-    <section id="portfoy" className="py-24 bg-background">
+    <section id="portfoy" className="py-24 bg-transparent">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div className="space-y-4 max-w-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold text-primary">{t("title")}</h2>
-            <p className="text-muted-foreground text-lg">
+            <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">{t("title")}</h2>
+            <p className="text-slate-400 text-lg">
               {t("subtitle")}
             </p>
           </div>
@@ -239,335 +239,315 @@ export function PortfolioSection() {
             {properties.map((property, i) => (
               <div key={i} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0">
                 <Card
-                  className={`group h-full overflow-hidden border-border/50 bg-card transition-all duration-300 flex flex-col cursor-pointer relative ${isGuest && i >= 3 ? 'pointer-events-none select-none' : 'hover:shadow-2xl hover:shadow-primary/5'}`}
+                  className={`group h-full overflow-hidden border-white/10 bg-white/5 backdrop-blur-md transition-all duration-300 flex flex-col cursor-pointer relative ${isGuest && i >= 3 ? 'pointer-events-none select-none' : 'hover:shadow-[0_0_30px_-5px_rgba(14,165,233,0.15)] hover:border-primary/20 hover:bg-white/10'}`}
                   onClick={() => {
-                    if (isGuest && i >= 3) return; // Should be blocked by overlay, but safety check
+                    if (isGuest && i >= 3) return;
                     openPropertyModal(property)
                   }}
                 >
                   {/* Gating Overlay for Guests (Items >= 3) */}
                   {isGuest && i >= 3 && (
-                    <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-background/60 backdrop-blur-md p-6 text-center pointer-events-auto"
+                    <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-black/60 backdrop-blur-xl p-6 text-center pointer-events-auto"
                       onClick={(e) => {
                         e.stopPropagation()
                         handleGatedClick()
                       }}
                     >
-                      <div className="bg-background/80 p-6 rounded-2xl shadow-2xl border border-primary/20 max-w-xs transform hover:scale-105 transition-transform duration-300 cursor-pointer">
+                      <div className="bg-white/5 border border-white/10 p-6 rounded-2xl shadow-2xl max-w-xs transform hover:scale-105 transition-transform duration-300 cursor-pointer backdrop-blur-md">
                         <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
-                        <h3 className="text-xl font-bold text-foreground mb-2">Daha Fazla Fırsat</h3>
-                        <p className="text-sm text-muted-foreground mb-4">
+                        <h3 className="text-xl font-bold text-white mb-2">Daha Fazla Fırsat</h3>
+                        <p className="text-sm text-slate-400 mb-4">
                           Tüm portföyü, detaylı analizleri ve yeni fırsatları görmek için ücretsiz üye olun.
                         </p>
-                        <Button className="w-full font-bold shadow-lg shadow-primary/20">
+                        <Button className="w-full font-bold shadow-lg shadow-primary/20 bg-primary text-black hover:bg-primary/90">
                           Tümünü Gör
                         </Button>
                       </div>
                     </div>
                   )}
-
-                  {/* Image Area */}
-                  <div className="relative h-64 overflow-hidden">
-                    <img
-                      src={property.image}
-                      alt={property.city}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    {/* Removed black gradient overlay for a cleaner, brighter look */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                    {/* Top Right - Cap Rate (Hidden for Guests) */}
-                    {!isGuest && (
-                      <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
-                        {property.capRate} {t("capRate")}
-                      </Badge>
-                    )}
-
-                    {/* Top Left - Section 8 & Buy-Back badges */}
-                    <div className="absolute top-4 left-4 flex flex-col gap-2">
-                      <Badge className="bg-accent text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
-                        <Check size={12} strokeWidth={4} />
-                        {t("section8Badge")}
-                      </Badge>
-                      <Badge className="bg-primary text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
-                        <Check size={12} strokeWidth={4} />
-                        {t("buyBack")}
-                      </Badge>
-                    </div>
-
-                    {/* Bottom Left - Discount Badge */}
-                    {property.discount && (
-                      <Badge className="absolute bottom-4 left-4 bg-red-500 text-white font-bold shadow-lg border-0 px-3 py-1.5 flex items-center gap-1.5 animate-pulse">
-                        <Tag size={14} />
-                        {property.discount}
-                      </Badge>
-                    )}
-
-                    {/* Bottom Right - Investors Watching */}
-                    {property.investorsWatching && (
-                      <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm">
-                        <Users size={12} />
-                        <span>{property.investorsWatching} {t("investorsWatching")}</span>
-                      </div>
-                    )}
+                  <div className="bg-background/80 p-6 rounded-2xl shadow-2xl border border-primary/20 max-w-xs transform hover:scale-105 transition-transform duration-300 cursor-pointer">
+                    <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-foreground mb-2">Daha Fazla Fırsat</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      Tüm portföyü, detaylı analizleri ve yeni fırsatları görmek için ücretsiz üye olun.
+                    </p>
+                    <Button className="w-full font-bold shadow-lg shadow-primary/20">
+                      Tümünü Gör
+                    </Button>
                   </div>
+              </div>
+            )}
 
-                  <div className="p-6 flex flex-col flex-grow space-y-4">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="text-lg font-bold text-foreground">
-                          {property.address}
-                        </h3>
-                        {property.status === "New Listing" && (
-                          <Badge className="bg-green-500 text-white text-xs px-2 py-0.5">{t("new")}</Badge>
+            {/* Image Area */}
+            <div className="relative h-64 overflow-hidden">
+              <img
+                src={property.image}
+                alt={property.city}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              {/* Removed black gradient overlay for a cleaner, brighter look */}
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Top Right - Cap Rate (Hidden for Guests) */}
+              {!isGuest && (
+                <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
+                  {property.capRate} {t("capRate")}
+                </Badge>
+              )}
+
+              {/* Top Left - Section 8 & Buy-Back badges */}
+              <div className="absolute top-4 left-4 flex flex-col gap-2">
+                <Badge className="bg-accent text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
+                  <Check size={12} strokeWidth={4} />
+                  {t("section8Badge")}
+                </Badge>
+                <Badge className="bg-primary text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
+                  <Check size={12} strokeWidth={4} />
+                  {t("buyBack")}
+                </Badge>
+              </div>
+
+              {/* Bottom Left - Discount Badge */}
+              {property.discount && (
+                <Badge className="absolute bottom-4 left-4 bg-red-500 text-white font-bold shadow-lg border-0 px-3 py-1.5 flex items-center gap-1.5 animate-pulse">
+                  <Tag size={14} />
+                  {property.discount}
+                </Badge>
+              )}
+
+              {/* Bottom Right - Investors Watching */}
+              {property.investorsWatching && (
+                <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm">
+                  <Users size={12} />
+                  <span>{property.investorsWatching} {t("investorsWatching")}</span>
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 flex flex-col flex-grow space-y-4">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <h3 className="text-lg font-bold text-white group-hover:text-primary transition-colors">
+                    {property.address}
+                  </h3>
+                  {property.status === "New Listing" && (
+                    <Badge className="bg-green-500 text-white text-xs px-2 py-0.5 border-0">{t("new")}</Badge>
+                  )}
+                </div>
+                <p className="text-sm text-slate-400">
+                  {property.city}
+                </p>
+                <p className="text-xs text-slate-500 mt-1 font-mono">
+                  {property.rooms} {t("rooms")} • {property.sqft} {t("sqft")} • MLS# {property.mls}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 py-4 border-y border-white/10">
+                <div>
+                  <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("price")}</p>
+                  <p className="text-xl font-bold text-white">{property.price}</p>
+                </div>
+                <div>
+                </div>
+              </div >
+
+              {/* Property Detail Modal */}
+              < Dialog open={!!selectedProperty
+              } onOpenChange={closePropertyModal} >
+                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+                  {selectedProperty && (
+                    <>
+                      {/* Image Gallery */}
+                      <div className="relative h-72 md:h-96 bg-black">
+                        <img
+                          src={selectedProperty.images[currentImageIndex]}
+                          alt={`${selectedProperty.address} - Image ${currentImageIndex + 1}`}
+                          className="w-full h-full object-cover"
+                        />
+
+                        {/* Image Navigation */}
+                        {selectedProperty.images.length > 1 && (
+                          <>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
+                              onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                            >
+                              <ChevronLeft className="h-6 w-6" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
+                              onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                            >
+                              <ChevronRight className="h-6 w-6" />
+                            </Button>
+
+                            {/* Image Dots */}
+                            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                              {selectedProperty.images.map((_, idx) => (
+                                <button
+                                  key={idx}
+                                  className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50'}`}
+                                  onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
+                                />
+                              ))}
+                            </div>
+                          </>
+                        )}
+
+                        {/* Badges */}
+                        <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
+                          {selectedProperty.capRate} {t("capRate")}
+                        </Badge>
+                        {selectedProperty.status === "New Listing" && (
+                          <Badge className="absolute top-4 left-4 bg-green-500 text-white font-bold shadow-lg border-0 px-3 py-1">
+                            {t("new")}
+                          </Badge>
                         )}
                       </div>
-                      <p className="text-sm text-muted-foreground">
-                        {property.city}
-                      </p>
-                      <p className="text-xs text-muted-foreground mt-1">
-                        {property.rooms} {t("rooms")} • {property.sqft} {t("sqft")} • MLS# {property.mls}
-                      </p>
-                    </div>
 
-                    <div className="grid grid-cols-2 gap-4 py-4 border-y border-border/50">
-                      <div>
-                        <p className="text-xs text-muted-foreground uppercase font-semibold">{t("price")}</p>
-                        <p className="text-xl font-bold text-primary">{property.price}</p>
+                      {/* Property Details */}
+                      <div className="p-6 space-y-6">
+                        {/* Header */}
+                        <div>
+                          <div className="flex items-center gap-2 mb-2">
+                            <h2 className="text-2xl font-bold text-foreground">{selectedProperty.address}</h2>
+                            <Badge className="bg-accent text-white">
+                              <Check size={12} strokeWidth={4} className="mr-1" />
+                              {t("section8Badge")}
+                            </Badge>
+                          </div>
+                          <p className="text-muted-foreground flex items-center gap-1">
+                            <MapPin size={16} />
+                            {selectedProperty.city}
+                          </p>
+                          <p className="text-sm text-muted-foreground mt-1">MLS# {selectedProperty.mls}</p>
+                        </div>
+
+                        {/* Property Stats */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/50 rounded-lg">
+                          <div className="flex items-center gap-2">
+                            <BedDouble className="text-primary" size={20} />
+                            <div>
+                              <p className="text-xs text-muted-foreground">{t("rooms")}</p>
+                              <p className="font-bold">{selectedProperty.rooms}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Bath className="text-primary" size={20} />
+                            <div>
+                              <p className="text-xs text-muted-foreground">{t("bathrooms")}</p>
+                              <p className="font-bold">{selectedProperty.bathrooms}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Square className="text-primary" size={20} />
+                            <div>
+                              <p className="text-xs text-muted-foreground">{t("sqft")}</p>
+                              <p className="font-bold">{selectedProperty.sqft}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <TreePine className="text-primary" size={20} />
+                            <div>
+                              <p className="text-xs text-muted-foreground">{t("lotSize")}</p>
+                              <p className="font-bold">{selectedProperty.lotSize}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Additional Info */}
+                        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                          <div className="flex items-center gap-2">
+                            <Home className="text-muted-foreground" size={18} />
+                            <div>
+                              <p className="text-xs text-muted-foreground">{t("type")}</p>
+                              <p className="font-medium">{selectedProperty.propertyType}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Calendar className="text-muted-foreground" size={18} />
+                            <div>
+                              <p className="text-xs text-muted-foreground">{t("yearBuilt")}</p>
+                              <p className="font-medium">{selectedProperty.yearBuilt}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Maximize className="text-muted-foreground" size={18} />
+                            <div>
+                              <p className="text-xs text-muted-foreground">{t("status")}</p>
+                              <p className="font-medium">{selectedProperty.status}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Description */}
+                        <div>
+                          <h3 className="font-bold text-lg mb-2">{t("description")}</h3>
+                          <p className="text-muted-foreground">{selectedProperty.description}</p>
+                        </div>
+
+                        {/* Features */}
+                        <div>
+                          <h3 className="font-bold text-lg mb-2">{t("features")}</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedProperty.features.map((feature, idx) => (
+                              <Badge key={idx} variant="secondary" className="text-sm">
+                                <Check size={12} className="mr-1" />
+                                {feature}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Financial Summary */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-primary/5 rounded-lg border border-primary/20">
+                          <div>
+                            <p className="text-xs text-muted-foreground uppercase font-semibold">{t("price")}</p>
+                            <p className="text-xl font-bold text-primary">{selectedProperty.price}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground uppercase font-semibold">{t("rent")}</p>
+                            <p className="text-xl font-bold">{selectedProperty.monthlyRent}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground uppercase font-semibold">{t("netMonthly")}</p>
+                            <p className="text-xl font-bold text-accent">{selectedProperty.netMonthly}</p>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground uppercase font-semibold">{t("netYearly")}</p>
+                            <p className="text-xl font-bold text-accent">{selectedProperty.netYearly}</p>
+                          </div>
+                        </div>
+
+                        {/* CTA Buttons */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-4">
+                          <Button className="w-full font-semibold shadow-lg shadow-primary/20 bg-primary text-white hover:bg-primary/90" asChild>
+                            <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
+                              {t("cta")}
+                            </a>
+                          </Button>
+                          <Button variant="outline" className="w-full border-primary/20 text-primary hover:bg-primary/5" asChild>
+                            <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
+                              WhatsApp
+                            </a>
+                          </Button>
+                        </div>
                       </div>
-                      <div>
-                        <p className="text-xs text-muted-foreground uppercase font-semibold text-right">{t("netYearly")}</p>
-                        <p className="text-xl font-bold text-accent text-right">{isGuest ? "Login" : property.netYearly}</p>
-                      </div>
-                    </div>
+                    </>
+                  )}
+                </DialogContent>
+              </Dialog >
 
-                    <div className="space-y-2 flex-grow">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">{t("rent")}:</span>
-                        <span className="font-medium">{property.monthlyRent}</span>
-                      </div>
-                      <div className="flex justify-between text-sm pt-2 border-t border-border/50">
-                        <span className="font-bold text-foreground">{t("netMonthly")}:</span>
-                        <span className="font-bold text-accent">{isGuest ? "***" : property.netMonthly}</span>
-                      </div>
-                    </div>
-
-                    <div className="pt-4 grid gap-3">
-                      <Button className="w-full font-semibold shadow-lg shadow-primary/20 bg-primary text-white hover:bg-primary/90" asChild>
-                        <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
-                          {t("cta")}
-                        </a>
-                      </Button>
-                      <Button variant="outline" className="w-full border-primary/20 text-primary hover:bg-primary/5" asChild>
-                        <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(property.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
-                          WhatsApp
-                        </a>
-                      </Button>
-                    </div>
-                  </div>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Property Detail Modal */}
-      <Dialog open={!!selectedProperty} onOpenChange={closePropertyModal}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
-          {selectedProperty && (
-            <>
-              {/* Image Gallery */}
-              <div className="relative h-72 md:h-96 bg-black">
-                <img
-                  src={selectedProperty.images[currentImageIndex]}
-                  alt={`${selectedProperty.address} - Image ${currentImageIndex + 1}`}
-                  className="w-full h-full object-cover"
-                />
-
-                {/* Image Navigation */}
-                {selectedProperty.images.length > 1 && (
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
-                      onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                    >
-                      <ChevronLeft className="h-6 w-6" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
-                      onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                    >
-                      <ChevronRight className="h-6 w-6" />
-                    </Button>
-
-                    {/* Image Dots */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                      {selectedProperty.images.map((_, idx) => (
-                        <button
-                          key={idx}
-                          className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50'}`}
-                          onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
-
-                {/* Badges */}
-                <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
-                  {selectedProperty.capRate} {t("capRate")}
-                </Badge>
-                {selectedProperty.status === "New Listing" && (
-                  <Badge className="absolute top-4 left-4 bg-green-500 text-white font-bold shadow-lg border-0 px-3 py-1">
-                    {t("new")}
-                  </Badge>
-                )}
-              </div>
-
-              {/* Property Details */}
-              <div className="p-6 space-y-6">
-                {/* Header */}
-                <div>
-                  <div className="flex items-center gap-2 mb-2">
-                    <h2 className="text-2xl font-bold text-foreground">{selectedProperty.address}</h2>
-                    <Badge className="bg-accent text-white">
-                      <Check size={12} strokeWidth={4} className="mr-1" />
-                      {t("section8Badge")}
-                    </Badge>
-                  </div>
-                  <p className="text-muted-foreground flex items-center gap-1">
-                    <MapPin size={16} />
-                    {selectedProperty.city}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">MLS# {selectedProperty.mls}</p>
-                </div>
-
-                {/* Property Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/50 rounded-lg">
-                  <div className="flex items-center gap-2">
-                    <BedDouble className="text-primary" size={20} />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{t("rooms")}</p>
-                      <p className="font-bold">{selectedProperty.rooms}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Bath className="text-primary" size={20} />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{t("bathrooms")}</p>
-                      <p className="font-bold">{selectedProperty.bathrooms}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Square className="text-primary" size={20} />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{t("sqft")}</p>
-                      <p className="font-bold">{selectedProperty.sqft}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <TreePine className="text-primary" size={20} />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{t("lotSize")}</p>
-                      <p className="font-bold">{selectedProperty.lotSize}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Additional Info */}
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  <div className="flex items-center gap-2">
-                    <Home className="text-muted-foreground" size={18} />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{t("type")}</p>
-                      <p className="font-medium">{selectedProperty.propertyType}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="text-muted-foreground" size={18} />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{t("yearBuilt")}</p>
-                      <p className="font-medium">{selectedProperty.yearBuilt}</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Maximize className="text-muted-foreground" size={18} />
-                    <div>
-                      <p className="text-xs text-muted-foreground">{t("status")}</p>
-                      <p className="font-medium">{selectedProperty.status}</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Description */}
-                <div>
-                  <h3 className="font-bold text-lg mb-2">{t("description")}</h3>
-                  <p className="text-muted-foreground">{selectedProperty.description}</p>
-                </div>
-
-                {/* Features */}
-                <div>
-                  <h3 className="font-bold text-lg mb-2">{t("features")}</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProperty.features.map((feature, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-sm">
-                        <Check size={12} className="mr-1" />
-                        {feature}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Financial Summary */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-primary/5 rounded-lg border border-primary/20">
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase font-semibold">{t("price")}</p>
-                    <p className="text-xl font-bold text-primary">{selectedProperty.price}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase font-semibold">{t("rent")}</p>
-                    <p className="text-xl font-bold">{selectedProperty.monthlyRent}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase font-semibold">{t("netMonthly")}</p>
-                    <p className="text-xl font-bold text-accent">{selectedProperty.netMonthly}</p>
-                  </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground uppercase font-semibold">{t("netYearly")}</p>
-                    <p className="text-xl font-bold text-accent">{selectedProperty.netYearly}</p>
-                  </div>
-                </div>
-
-                {/* CTA Buttons */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-4">
-                  <Button className="w-full font-semibold shadow-lg shadow-primary/20 bg-primary text-white hover:bg-primary/90" asChild>
-                    <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
-                      {t("cta")}
-                    </a>
-                  </Button>
-                  <Button variant="outline" className="w-full border-primary/20 text-primary hover:bg-primary/5" asChild>
-                    <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
-                      WhatsApp
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog>
-
-      <LeadGenModal
-        open={showLeadModal}
-        onOpenChange={setShowLeadModal}
-        onSuccess={handleLeadSuccess}
-        triggerSource={modalSource}
-      />
-    </section>
-  )
+              <LeadGenModal
+                open={showLeadModal}
+                onOpenChange={setShowLeadModal}
+                onSuccess={handleLeadSuccess}
+                triggerSource={modalSource}
+              />
+            </section >
+            )
 }
