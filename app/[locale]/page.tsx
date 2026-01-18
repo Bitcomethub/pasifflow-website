@@ -15,7 +15,7 @@ import { WhyWorkSection } from "@/components/why-work-section"
 import { CityComparisonSection } from "@/components/city-comparison-section"
 // TestimonialsSection removed per client request
 import { FAQSection } from "@/components/faq-section"
-import { MapSection } from "@/components/map-section"
+// MapSection removed per client request
 import { FinalCTASection } from "@/components/final-cta-section"
 import { AboutSection } from "@/components/about-section"
 import { Footer } from "@/components/footer"
@@ -41,7 +41,7 @@ export default function Home() {
                 <WhyWorkSection />
                 {/* TestimonialsSection removed per client request */}
                 <FAQSection />
-                <MapSection />
+                {/* MapSection (Fırsat Bölgeleri) removed per client request */}
                 <FinalCTASection />
             </main>
             <Footer />
