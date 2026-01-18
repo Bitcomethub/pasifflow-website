@@ -1,10 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Slider } from "@/components/ui/slider"
 import { Card } from "@/components/ui/card"
-import { DollarSign, TrendingUp, PieChart, Building2, MapPin, Calculator, Clock, Calendar } from "lucide-react"
+import { DollarSign, TrendingUp, PieChart, Building2, MapPin, Calculator, Clock, Calendar, Lock } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { Button } from "@/components/ui/button"
+import { LeadGenModal } from "@/components/lead-gen-modal"
 
 // City-specific data (numerical only)
 const cityData = {
@@ -44,6 +46,13 @@ export function RoiCalculator() {
     const [selectedCity, setSelectedCity] = useState<keyof typeof cityData>("detroit")
     const [purchasePrice, setPurchasePrice] = useState(92500)
     const [holdingPeriod, setHoldingPeriod] = useState(5)
+    const [isGuest, setIsGuest] = useState(true)
+    const [showLeadModal, setShowLeadModal] = useState(false)
+
+    useEffect(() => {
+        const lead = localStorage.getItem("pasiflow_user_lead")
+        if (lead) setIsGuest(false)
+    }, [])
 
     const city = cityData[selectedCity]
 
@@ -239,14 +248,23 @@ export function RoiCalculator() {
                 </div>
 
                 {/* Year ROI Summary - Large Display */}
-                <div className="bg-primary text-primary-foreground rounded-2xl p-6 text-center">
+                <div className="bg-primary text-primary-foreground rounded-2xl p-6 text-center relative overflow-hidden">
+                    {isGuest && (
+                        <div className="absolute inset-0 bg-primary/95 backdrop-blur-sm flex flex-col items-center justify-center z-10 p-4">
+                            <Lock className="w-8 h-8 mb-2 opacity-80" />
+                            <p className="font-bold mb-2 text-sm">ROI Sonuçlarını Gör</p>
+                            <Button size="sm" variant="secondary" onClick={() => setShowLeadModal(true)}>
+                                Hesaplamayı Aç
+                            </Button>
+                        </div>
+                    )}
                     <div className="text-sm opacity-80 mb-2">Year {holdingPeriod} ROI</div>
                     <div className="text-4xl sm:text-5xl font-bold mb-2">
-                        {totalRoiPercent.toFixed(0)}%
+                        {isGuest ? "%***" : `${totalRoiPercent.toFixed(0)}%`}
                     </div>
                     <div className="flex items-center justify-center gap-1 text-lg">
                         <TrendingUp size={20} />
-                        <span className="font-semibold">↑ ${Math.round(totalReturn).toLocaleString()}</span>
+                        <span className="font-semibold">↑ {isGuest ? "$***,***" : `$${Math.round(totalReturn).toLocaleString()}`}</span>
                     </div>
                 </div>
 
@@ -343,6 +361,16 @@ export function RoiCalculator() {
                     {t("disclaimer")}
                 </p>
             </div>
+
+            <LeadGenModal
+                open={showLeadModal}
+                onOpenChange={setShowLeadModal}
+                onSuccess={() => {
+                    setIsGuest(false)
+                    setShowLeadModal(false)
+                }}
+                triggerSource="gated-content"
+            />
         </Card>
     )
 }

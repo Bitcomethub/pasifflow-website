@@ -6,9 +6,10 @@ import { Badge } from "@/components/ui/badge"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import { ChevronLeft, ChevronRight, Check, Home, Calendar, Maximize, MapPin, X, BedDouble, Bath, Square, TreePine, Users, Tag, Award } from "lucide-react"
-import { useCallback, useState } from "react"
+import { ChevronLeft, ChevronRight, Check, Home, Calendar, Maximize, MapPin, X, BedDouble, Bath, Square, TreePine, Users, Tag, Award, Lock } from "lucide-react"
+import { useCallback, useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
+import { LeadGenModal } from "@/components/lead-gen-modal"
 
 interface Property {
   address: string
@@ -40,6 +41,34 @@ export function PortfolioSection() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true }, [Autoplay({ delay: 4000 }) as any])
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [isGuest, setIsGuest] = useState(true)
+  const [showLeadModal, setShowLeadModal] = useState(false)
+  const [modalSource, setModalSource] = useState<"timer" | "gated-content">("timer")
+
+  useEffect(() => {
+    // Check local storage for guest status
+    const lead = localStorage.getItem("pasiflow_user_lead")
+    if (lead) {
+      setIsGuest(false)
+    } else {
+      // Show timer modal after 15 seconds
+      const timer = setTimeout(() => {
+        setModalSource("timer")
+        setShowLeadModal(true)
+      }, 15000)
+      return () => clearTimeout(timer)
+    }
+  }, [])
+
+  const handleLeadSuccess = () => {
+    setIsGuest(false)
+    setShowLeadModal(false)
+  }
+
+  const handleGatedClick = () => {
+    setModalSource("gated-content")
+    setShowLeadModal(true)
+  }
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
@@ -210,9 +239,33 @@ export function PortfolioSection() {
             {properties.map((property, i) => (
               <div key={i} className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0">
                 <Card
-                  className="group h-full overflow-hidden border-border/50 bg-card hover:shadow-2xl hover:shadow-primary/5 transition-all duration-300 flex flex-col cursor-pointer"
-                  onClick={() => openPropertyModal(property)}
+                  className={`group h-full overflow-hidden border-border/50 bg-card transition-all duration-300 flex flex-col cursor-pointer relative ${isGuest && i > 0 ? 'pointer-events-none select-none' : 'hover:shadow-2xl hover:shadow-primary/5'}`}
+                  onClick={() => {
+                    if (isGuest && i > 0) return; // Should be blocked by overlay, but safety check
+                    openPropertyModal(property)
+                  }}
                 >
+                  {/* Gating Overlay for Guests (Items > 0) */}
+                  {isGuest && i > 0 && (
+                    <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-background/60 backdrop-blur-md p-6 text-center pointer-events-auto"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        handleGatedClick()
+                      }}
+                    >
+                      <div className="bg-background/80 p-6 rounded-2xl shadow-2xl border border-primary/20 max-w-xs transform hover:scale-105 transition-transform duration-300 cursor-pointer">
+                        <Lock className="w-10 h-10 text-primary mx-auto mb-4" />
+                        <h3 className="text-xl font-bold text-foreground mb-2">Gizli Fırsat</h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Bu mülkün detaylarını ve getiri analizlerini görmek için ücretsiz üye olun.
+                        </p>
+                        <Button className="w-full font-bold shadow-lg shadow-primary/20">
+                          Detayları Gör
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Image Area */}
                   <div className="relative h-64 overflow-hidden">
                     <img
@@ -223,10 +276,12 @@ export function PortfolioSection() {
                     {/* Removed black gradient overlay for a cleaner, brighter look */}
                     <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    {/* Top Right - Cap Rate */}
-                    <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
-                      {property.capRate} {t("capRate")}
-                    </Badge>
+                    {/* Top Right - Cap Rate (Hidden for Guests) */}
+                    {!isGuest && (
+                      <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
+                        {property.capRate} {t("capRate")}
+                      </Badge>
+                    )}
 
                     {/* Top Left - Section 8 & Buy-Back badges */}
                     <div className="absolute top-4 left-4 flex flex-col gap-2">
@@ -282,7 +337,7 @@ export function PortfolioSection() {
                       </div>
                       <div>
                         <p className="text-xs text-muted-foreground uppercase font-semibold text-right">{t("netYearly")}</p>
-                        <p className="text-xl font-bold text-accent text-right">{property.netYearly}</p>
+                        <p className="text-xl font-bold text-accent text-right">{isGuest ? "Login" : property.netYearly}</p>
                       </div>
                     </div>
 
@@ -293,7 +348,7 @@ export function PortfolioSection() {
                       </div>
                       <div className="flex justify-between text-sm pt-2 border-t border-border/50">
                         <span className="font-bold text-foreground">{t("netMonthly")}:</span>
-                        <span className="font-bold text-accent">{property.netMonthly}</span>
+                        <span className="font-bold text-accent">{isGuest ? "***" : property.netMonthly}</span>
                       </div>
                     </div>
 
@@ -506,6 +561,13 @@ export function PortfolioSection() {
           )}
         </DialogContent>
       </Dialog>
+
+      <LeadGenModal
+        open={showLeadModal}
+        onOpenChange={setShowLeadModal}
+        onSuccess={handleLeadSuccess}
+        triggerSource={modalSource}
+      />
     </section>
   )
 }

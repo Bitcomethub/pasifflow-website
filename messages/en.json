@@ -152,7 +152,7 @@
     },
     "roiCalculator": {
         "title": "Investment ROI Calculator",
-        "subtitle": "Net ROI calculation with real data • 7% annual appreciation",
+        "subtitle": "Net ROI calculation with real data • 5% annual appreciation",
         "cityLabel": "Investment City",
         "city_detroit_highlight": "Maximum Cash Flow",
         "city_cleveland_highlight": "Balanced & Secure",
@@ -173,7 +173,7 @@
         "roiYearly": "Net ROI (Yearly)",
         "payback": "Payback Period",
         "projectedReturnTitle": "Projected Return After {years} Years",
-        "appreciationAssumption": "(Assuming 7% annual appreciation)",
+        "appreciationAssumption": "(Assuming 5% annual appreciation)",
         "propertyValue": "Property Value",
         "appreciation": "appreciation",
         "totalRentalIncome": "Total Rental Income",
@@ -194,7 +194,7 @@
         "yoyAppreciation": "YoY Appreciation",
         "cashFlowMonth": "Cash Flow/mo.",
         "downPayment": "Down Payment (30%)",
-        "disclaimer": "* 7% annual appreciation assumption is used. Actual results may vary depending on market conditions."
+        "disclaimer": "* 5% annual appreciation assumption is used. Actual results may vary depending on market conditions."
     },
     "section8": {
         "badge": "State Guarantee",
@@ -405,7 +405,7 @@
         "q25": "Does PASIFLOW charge for services?",
         "a25": "Yes. PASIFLOW works with transparent and pre-agreed fees for its professional services. There are no hidden costs.",
         "q27": "How much does PASIFLOW charge after closing?",
-        "a27": "When the purchase of your selected property is completed, PASIFLOW takes the remaining $4,000 service fee. Total service fee is $5,000.",
+        "a27": "When the purchase of your selected property is completed, PASIFLOW takes the remaining $2,500 service fee. Total service fee is $3,500.",
         "q28": "Is there an ongoing PASIFLOW fee after purchase?",
         "a28": "Yes. After purchase, PASIFLOW only takes a management fee of 10% of monthly rental income. In return, a complete operational system is set up.",
         "q29": "What's included in the 10% management fee?",

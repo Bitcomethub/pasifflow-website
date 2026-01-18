@@ -47,7 +47,7 @@ export function Logo({
                     "text-[10px] sm:text-xs font-medium tracking-wide uppercase mt-0.5",
                     theme === "dark" ? "text-white/80" : "text-muted-foreground"
                 )}>
-                )}>
+
                     Şeffaf süreç, sağlam yatırım.
                 </span>
             )}

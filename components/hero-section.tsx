@@ -25,7 +25,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-20">
+    <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-background pt-32 md:pt-40">
       {/* Background Gradients - Bomb Effect */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
         <div className="absolute -top-[30%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-primary/10 blur-[120px]" />

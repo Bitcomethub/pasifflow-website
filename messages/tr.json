@@ -78,20 +78,6 @@
         "transactionVolume": "$250M+ işlem hacmi",
         "miamiSales": "$100M+ Miami gayrimenkul satışı"
     },
-    "section8": {
-        "title": "Section 8 Nedir?",
-        "subtitle": "Amerikan hükümetinin en güvenilir konut programı",
-        "description": "Section 8 (Konut Tercih Kuponu Programı), düşük gelirli ailelerin kaliteli konutlara erişimini sağlayan federal bir programdır. Kira ödemelerinin %70-100'ü doğrudan ABD hükümeti tarafından ev sahibine ödenir.",
-        "stat1Value": "3-4+ Yıl",
-        "stat1Label": "Ortalama Kiracı Kalış Süresi",
-        "stat2Value": "%100",
-        "stat2Label": "%100 Kira Tahsilat Garantisi",
-        "stat3Value": "50+ Yıl",
-        "stat3Label": "Program Geçmişi",
-        "benefit1": "Kira ödemesi her ayın 5-10'unda hesabınızda",
-        "benefit2": "Minimum veya hiç boşluk yok",
-        "benefit3": "Uzun süreli kiracılar (3-4 yıl minimum)"
-    },
     "portfolio": {
         "title": "Yatırım Portföyümüz",
         "subtitle": "Anahtar teslim, kiracısı hazır evler",
@@ -405,7 +391,7 @@
         "q25": "PASIFLOW hizmet karşılığında ücret alıyor mu?",
         "a25": "Evet. PASIFLOW sunduğu profesyonel hizmetler karşılığında şeffaf ve önceden netleştirilmiş ücretlerle çalışır. Gizli masraf yoktur.",
         "q27": "Kapanış sonrası PASIFLOW ne kadar ücret alır?",
-        "a27": "Seçtiğiniz mülkün satın alma işlemi tamamlandığında, PASIFLOW kalan $4.000 hizmet bedelini alır. Toplam hizmet bedeli $5.000'dır.",
+        "a27": "Seçtiğiniz mülkün satın alma işlemi tamamlandığında, PASIFLOW kalan $2.500 hizmet bedelini alır. Toplam hizmet bedeli $3.500'dır.",
         "q28": "Satın alma sonrası PASIFLOW'un devam eden ücreti var mı?",
         "a28": "Evet. Satın alma sonrasında PASIFLOW yalnızca aylık kira gelirinin %10'u kadar bir yönetim bedeli alır. Bu ücret karşılığında tam bir operasyonel sistem kurulur.",
         "q29": "%10 yönetim ücretine neler dahildir?",
@@ -453,18 +439,6 @@
         "ctaPrimary": "Ücretsiz Danışmanlık Al",
         "ctaSecondary": "WhatsApp'tan Hemen Yaz",
         "disclaimer": "*Yatırım tavsiyesi değildir. Geçmiş performans gelecek sonuçları garanti etmez."
-    },
-    "contact": {
-        "title": "Bizimle İletişime Geçin",
-        "subtitle": "Sorularınız için 7/24 yanınızdayız",
-        "nameLabel": "Adınız Soyadınız",
-        "emailLabel": "E-posta Adresiniz",
-        "phoneLabel": "Telefon Numaranız",
-        "messageLabel": "Mesajınız",
-        "submitButton": "Mesaj Gönder",
-        "whatsappButton": "WhatsApp ile Yazın",
-        "successMessage": "Mesajınız başarıyla gönderildi!",
-        "errorMessage": "Bir hata oluştu, lütfen tekrar deneyin."
     },
     "privacy": {
         "title": "Gizlilik Politikası",
