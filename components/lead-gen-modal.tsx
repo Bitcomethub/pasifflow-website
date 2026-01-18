@@ -52,9 +52,9 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
                         </div>
                         <div>
                             <h3 className="text-white font-bold text-lg tracking-tight">
-                                {step === "form" ? "VIP Erişim" : "Kayıt Tamamlandı"}
+                                {step === "form" ? "Ücretsiz Danışmanlık" : "Kayıt Tamamlandı"}
                             </h3>
-                            <p className="text-slate-400 text-xs font-medium">Özel yatırım fırsatları</p>
+                            <p className="text-slate-400 text-xs font-medium">ABD Gayrimenkul Yatırımı</p>
                         </div>
                     </div>
                 </div>
