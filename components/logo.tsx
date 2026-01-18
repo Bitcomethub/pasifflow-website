@@ -15,10 +15,10 @@ interface LogoProps {
 }
 
 const sizeStyles = {
-    sm: { width: 140, height: 50 },
-    md: { width: 180, height: 65 },
-    lg: { width: 220, height: 80 },
-    xl: { width: 280, height: 100 },
+    sm: { width: 160, height: 58 },
+    md: { width: 210, height: 76 },
+    lg: { width: 260, height: 95 },
+    xl: { width: 320, height: 115 },
 }
 
 export function Logo({

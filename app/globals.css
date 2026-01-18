@@ -4,73 +4,56 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Pasiflow TECH Theme - Dark Mode Default */
+  /* Pasiflow Light Premium Theme - Verified Light Mode */
 
-  /* Background: Deep Slate / Void Black */
-  --background: #020617; /* Slate 950 */
-  /* Foreground: Crisp White */
-  --foreground: #f8fafc; /* Slate 50 */
+  /* Background: White / Light Slate */
+  --background: #f8fafc;
+  /* Slate 50 */
+  --foreground: #1e284b;
+  /* Deep Navy */
 
-  /* Card: Glassmorphic Dark */
-  --card: rgba(15, 23, 42, 0.6);
-  --card-foreground: #f8fafc;
+  /* Card: Pure White with Soft Shadow */
+  --card: #ffffff;
+  --card-foreground: #1e284b;
 
-  --popover: #0f172a;
-  --popover-foreground: #f8fafc;
+  /* Popover */
+  --popover: #ffffff;
+  --popover-foreground: #1e284b;
 
-  /* Primary: Electric Cyan / Sky Blue */
-  --primary: #0ea5e9; /* Sky 500 */
-  --primary-foreground: #020617;
+  /* Primary: Vibrant Orange */
+  --primary: #fe7e1d;
+  --primary-foreground: #ffffff;
+  /* White text on orange */
 
-  /* Secondary: Deep Tech Blue */
-  --secondary: #1e293b; /* Slate 800 */
-  --secondary-foreground: #f8fafc;
+  /* Secondary: Deep Navy */
+  --secondary: #1e284b;
+  --secondary-foreground: #ffffff;
 
-  /* Muted: Subtle Blue-Grey */
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8; /* Slate 400 */
+  /* Muted: Light Slate */
+  --muted: #f1f5f9;
+  /* Slate 100 */
+  --muted-foreground: #64748b;
+  /* Slate 500 */
 
-  /* Accent: Neon Violet / Purple */
-  --accent: #8b5cf6; /* Violet 500 */
+  /* Accent: Rich Teal for visibility */
+  --accent: #0ea5e9;
+  /* Sky 500 - bright and visible */
   --accent-foreground: #ffffff;
 
+  /* Destructive */
   --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: #f8fafc;
 
-  /* Border: Low opacity white for glass effect */
-  --border: rgba(148, 163, 184, 0.15);
-  --input: rgba(148, 163, 184, 0.15);
-  --ring: #0ea5e9;
-
-  --radius: 1rem;
-}
-
-.dark {
-  /* Ensuring dark class maps to the same (or slightly tweaked) values */
-  --background: #020617;
-  --foreground: #f8fafc;
-  --card: rgba(15, 23, 42, 0.6);
-  --card-foreground: #f8fafc;
-  --popover: #0f172a;
-  --popover-foreground: #f8fafc;
-  --primary: #0ea5e9;
-  --primary-foreground: #020617;
-  --secondary: #1e293b;
-  --secondary-foreground: #f8fafc;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #8b5cf6;
-  --accent-foreground: #ffffff;
-  --destructive: #ef4444;
-  --destructive-foreground: #ffffff;
-  --border: rgba(148, 163, 184, 0.15);
-  --input: rgba(148, 163, 184, 0.15);
-  --ring: #0ea5e9;
+  /* Border & Input */
+  --border: #e2e8f0;
+  /* Slate 200 */
+  --input: #e2e8f0;
+  --ring: #fe7e1d;
 }
 
 @theme inline {
-  --font-sans: var(--font-body), "Inter", "sans-serif";
-  --font-heading: var(--font-heading), "Outfit", "sans-serif";
+  --font-sans: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -105,16 +88,36 @@
 
   body {
     @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
-    font-feature-settings: "rlig" 1, "calt" 1;
-    /* Add a subtle mesh gradient to the body */
-    background-image: 
-      radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 0% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 40%);
-    background-attachment: fixed;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
-    @apply tracking-tight;
+  h1 {
+    @apply text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1];
+  }
+
+  h2 {
+    @apply text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight;
+  }
+
+  h3 {
+    @apply text-2xl sm:text-3xl font-semibold tracking-tight;
+  }
+
+  h4 {
+    @apply text-xl sm:text-2xl font-semibold;
+  }
+
+  h5 {
+    @apply text-lg font-semibold;
+  }
+
+  h6 {
+    @apply text-base font-semibold;
+  }
+
+  p {
+    @apply leading-relaxed;
   }
 }

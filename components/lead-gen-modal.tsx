@@ -4,8 +4,7 @@ import { useState, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { Check, Lock } from "lucide-react"
+import { Check, Lock, Sparkles, Shield, TrendingUp } from "lucide-react"
 
 interface LeadGenModalProps {
     open: boolean
@@ -24,21 +23,16 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
         e.preventDefault()
         setLoading(true)
 
-        // Simulate API call
         try {
             await new Promise(resolve => setTimeout(resolve, 1000))
-
-            // Save to localStorage
             localStorage.setItem("pasiflow_user_lead", JSON.stringify({ name, email, date: new Date().toISOString() }))
-
-            // Log for "backend"
             console.log("LEAD CAPTURED:", { name, email, source: triggerSource })
 
             setStep("success")
             setTimeout(() => {
                 onSuccess()
                 onOpenChange(false)
-                setStep("form") // Reset for next time if ever needed
+                setStep("form")
             }, 2000)
         } catch (error) {
             console.error("Error submitting lead:", error)
@@ -49,73 +43,103 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-md bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border border-primary/10 shadow-2xl ring-1 ring-primary/20 overflow-hidden">
-                {/* Decorative Top Gradient */}
-                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-accent to-primary" />
-
-                <DialogHeader className="pt-6">
-                    <div className="mx-auto mb-4 bg-gradient-to-br from-primary/10 to-accent/10 w-16 h-16 rounded-2xl flex items-center justify-center shadow-inner border border-white/50 dark:border-white/10">
-                        {step === "form" ? <Lock className="w-8 h-8 text-primary" strokeWidth={1.5} /> : <Check className="w-8 h-8 text-green-600" />}
+            <DialogContent className="sm:max-w-lg bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl overflow-hidden p-0">
+                {/* Premium Header Bar */}
+                <div className="bg-slate-900 px-8 py-6">
+                    <div className="flex items-center justify-center gap-3">
+                        <div className="p-2.5 bg-white/10 rounded-xl">
+                            {step === "form" ? <Lock className="w-5 h-5 text-white" /> : <Check className="w-5 h-5 text-green-400" />}
+                        </div>
+                        <div>
+                            <h3 className="text-white font-bold text-lg tracking-tight">
+                                {step === "form" ? "VIP Erişim" : "Kayıt Tamamlandı"}
+                            </h3>
+                            <p className="text-slate-400 text-xs font-medium">Özel yatırım fırsatları</p>
+                        </div>
                     </div>
-                    <DialogTitle className="text-center text-2xl font-bold tracking-tight">
-                        {step === "form"
-                            ? (triggerSource === "gated-content" ? "Bu İçeriği Görüntülemek İçin..." : "Özel Fırsatları Kaçırmayın")
-                            : "Teşekkürler!"}
-                    </DialogTitle>
-                    <DialogDescription className="text-center text-muted-foreground pt-2 text-base">
-                        {step === "form"
-                            ? "Detaylı portföy bilgilerine, yüksek getirili fırsatlara ve özel analizlere erişmek için hemen ücretsiz kayıt olun."
-                            : "Kaydınız başarıyla alındı. Şimdi tüm portföye erişebilirsiniz."}
-                    </DialogDescription>
-                </DialogHeader>
+                </div>
 
-                {step === "form" ? (
-                    <form onSubmit={handleSubmit} className="space-y-5 pt-2 pb-4">
-                        <div className="space-y-2">
-                            <Input
-                                placeholder="Adınız Soyadınız"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                required
-                                className="h-12 border-primary/10 bg-muted/20 focus-visible:ring-primary/30 focus-visible:border-primary transition-all rounded-xl"
-                            />
+                <div className="p-8">
+                    <DialogHeader className="mb-6">
+                        <DialogTitle className="text-center text-2xl font-bold tracking-tight text-slate-900">
+                            {step === "form"
+                                ? (triggerSource === "gated-content" ? "Premium İçeriğe Erişin" : "Özel Fırsatları Keşfedin")
+                                : "Teşekkürler!"}
+                        </DialogTitle>
+                        <DialogDescription className="text-center text-slate-500 pt-2 text-sm leading-relaxed">
+                            {step === "form"
+                                ? "Detaylı portföy analizleri ve yüksek getirili yatırım fırsatlarına anında erişim sağlayın."
+                                : "Kaydınız başarıyla alındı. Portföye yönlendiriliyorsunuz."}
+                        </DialogDescription>
+                    </DialogHeader>
+
+                    {step === "form" ? (
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div className="space-y-3">
+                                <Input
+                                    placeholder="Adınız Soyadınız"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    required
+                                    className="h-12 bg-slate-50 border-slate-200 focus:border-slate-900 focus:ring-slate-900/10 rounded-xl text-sm font-medium placeholder:text-slate-400"
+                                />
+                                <Input
+                                    type="email"
+                                    placeholder="E-posta Adresiniz"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                    className="h-12 bg-slate-50 border-slate-200 focus:border-slate-900 focus:ring-slate-900/10 rounded-xl text-sm font-medium placeholder:text-slate-400"
+                                />
+                            </div>
+
+                            {/* Benefits Strip */}
+                            <div className="flex items-center justify-center gap-4 py-4 border-y border-slate-100">
+                                <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                                    <TrendingUp size={14} className="text-slate-900" />
+                                    <span>ROI Analizi</span>
+                                </div>
+                                <div className="w-1 h-1 rounded-full bg-slate-300" />
+                                <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                                    <Shield size={14} className="text-slate-900" />
+                                    <span>Section 8</span>
+                                </div>
+                                <div className="w-1 h-1 rounded-full bg-slate-300" />
+                                <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
+                                    <Sparkles size={14} className="text-slate-900" />
+                                    <span>Portföy</span>
+                                </div>
+                            </div>
+
+                            <Button
+                                type="submit"
+                                className="w-full h-12 text-base font-bold bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-all"
+                                disabled={loading}
+                            >
+                                {loading ? (
+                                    <div className="flex items-center gap-2">
+                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                        İşleniyor...
+                                    </div>
+                                ) : (
+                                    "Hemen Erişim Sağla"
+                                )}
+                            </Button>
+
+                            <p className="text-xs text-center text-slate-400 pt-2">
+                                <Lock size={10} className="inline mr-1" />
+                                Bilgileriniz 256-bit SSL ile korunmaktadır.
+                            </p>
+                        </form>
+                    ) : (
+                        <div className="py-8 flex flex-col items-center justify-center gap-4">
+                            <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center">
+                                <Check className="w-8 h-8 text-green-600" />
+                            </div>
+                            <div className="text-slate-600 font-medium text-sm">Yönlendiriliyorsunuz...</div>
                         </div>
-                        <div className="space-y-2">
-                            <Input
-                                type="email"
-                                placeholder="E-posta Adresiniz"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                                className="h-12 border-primary/10 bg-muted/20 focus-visible:ring-primary/30 focus-visible:border-primary transition-all rounded-xl"
-                            />
-                        </div>
-
-                        <div className="flex flex-wrap gap-2 justify-center py-2">
-                            <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary px-3 py-1 text-xs">
-                                <Check size={10} className="mr-1" /> ROI Analizleri
-                            </Badge>
-                            <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary px-3 py-1 text-xs">
-                                <Check size={10} className="mr-1" /> Section 8 Fırsatları
-                            </Badge>
-                            <Badge variant="outline" className="border-primary/20 bg-primary/5 text-primary px-3 py-1 text-xs">
-                                <Check size={10} className="mr-1" /> Güncel Portföy
-                            </Badge>
-                        </div>
-
-                        <Button type="submit" className="w-full h-12 text-lg font-bold shadow-xl shadow-primary/25 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary rounded-xl transition-all hover:scale-[1.01]" disabled={loading}>
-                            {loading ? "İşleniyor..." : "Portföyü Görüntüle"}
-                        </Button>
-
-                        <p className="text-xs text-center text-muted-foreground/60">
-                            Kişisel verileriniz gizlilik politikamıza uygun olarak saklanır.
-                        </p>
-                    </form>
-                ) : (
-                    <div className="py-8 flex justify-center">
-                        <div className="animate-pulse text-primary font-medium">Yönlendiriliyorsunuz...</div>
-                    </div>
-                )}
+                    )}
+                </div>
             </DialogContent>
         </Dialog>
     )

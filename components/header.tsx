@@ -71,35 +71,50 @@ export function Header() {
         className={cn(
           "mx-auto transition-all duration-500 flex items-center justify-between",
           isScrolled
-            ? "bg-black/40 backdrop-blur-xl border border-white/10 shadow-lg shadow-black/10 rounded-2xl md:rounded-full h-16 max-w-7xl px-6"
+            ? "bg-white/70 backdrop-blur-xl border border-white/40 shadow-lg shadow-slate-200/50 rounded-2xl md:rounded-full h-16 max-w-7xl px-6"
             : "bg-transparent h-24 max-w-7xl px-6 md:px-0"
         )}
       >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 relative z-50 group">
-          <div className={cn("transition-all duration-300", isScrolled ? "scale-90" : "scale-100")}>
-            <Logo size={isScrolled ? "sm" : "md"} theme="dark" showMotto={false} />
+          <div className={cn("transition-all duration-300", isScrolled ? "scale-95" : "scale-100")}>
+            <Logo size={isScrolled ? "md" : "lg"} theme="light" showMotto={false} />
           </div>
         </Link>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          <div className="flex items-center gap-6 px-6 py-2 rounded-full bg-white/5 border border-white/5 backdrop-blur-sm">
-            {navLinks.map((link) => (
-              <Link
+        <nav className="hidden md:flex items-center gap-6">
+          <div className={cn(
+            "flex items-center gap-5 px-5 py-2.5 rounded-full transition-all duration-300",
+            isScrolled ? "bg-slate-100/80 border border-slate-200" : "bg-white/10 border border-white/10 backdrop-blur-sm"
+          )}>
+            {navLinks.map((link, idx) => (
+              <motion.div
                 key={link.name}
-                href={link.href}
-                className="text-sm font-medium text-white/80 hover:text-white transition-colors relative hover:glow-text"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 + idx * 0.05, ease: [0.16, 1, 0.3, 1] }}
               >
-                {link.name}
-              </Link>
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "text-[13px] font-semibold transition-colors relative hover:glow-text",
+                    isScrolled ? "text-slate-700 hover:text-primary" : "text-slate-700 hover:text-primary"
+                  )}
+                >
+                  {link.name}
+                </Link>
+              </motion.div>
             ))}
-            <div className="w-px h-4 bg-white/10" />
+            <div className={cn("w-px h-5", isScrolled ? "bg-slate-300" : "bg-slate-300")} />
             {extraLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-white/80 hover:text-accent transition-colors relative"
+                className={cn(
+                  "text-[13px] font-semibold transition-colors relative",
+                  isScrolled ? "text-slate-700 hover:text-primary" : "text-slate-700 hover:text-primary"
+                )}
               >
                 {link.name}
               </Link>
@@ -110,23 +125,26 @@ export function Header() {
             {/* Language Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-1.5 text-white/80 hover:text-white hover:bg-white/10 rounded-full h-9 px-3">
-                  <Globe className="h-4 w-4" />
-                  <span className="text-xs font-semibold">{currentLang.flag}</span>
+                <Button variant="ghost" size="sm" className={cn(
+                  "gap-2 rounded-full h-10 px-4 border",
+                  isScrolled ? "text-slate-700 hover:text-slate-900 hover:bg-slate-100 border-slate-200 bg-slate-50" : "text-slate-700 hover:text-slate-900 hover:bg-slate-100 border-slate-200 bg-white/80"
+                )}>
+                  <span className="text-lg">{currentLang.flag}</span>
+                  <ChevronDown className="h-3.5 w-3.5" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="min-w-[140px] bg-slate-900/90 backdrop-blur-xl border-white/10 text-white">
+              <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-slate-200 shadow-xl">
                 {languages.map((lang) => (
                   <DropdownMenuItem
                     key={lang.code}
                     onClick={() => switchLocale(lang.code)}
                     className={cn(
-                      "gap-2 cursor-pointer font-medium focus:bg-white/10 focus:text-white",
-                      currentLocale === lang.code && "bg-primary/20 text-primary"
+                      "gap-3 cursor-pointer font-semibold text-slate-700 focus:bg-slate-100 focus:text-slate-900 py-2.5",
+                      currentLocale === lang.code && "bg-slate-100 text-slate-900"
                     )}
                   >
-                    <span>{lang.flag}</span>
-                    <span>{lang.name}</span>
+                    <span className="text-xl">{lang.flag}</span>
+                    <span className="text-sm">{lang.name}</span>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -145,7 +163,10 @@ export function Header() {
 
         {/* Mobile Menu Toggle */}
         <button
-          className="md:hidden z-[70] text-white p-2 rounded-full hover:bg-white/10 transition-colors"
+          className={cn(
+            "md:hidden z-[70] p-2 rounded-full transition-colors",
+            isScrolled ? "text-slate-900 hover:bg-slate-100" : "text-white hover:bg-white/10"
+          )}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -185,7 +206,7 @@ export function Header() {
               </Link>
             ))}
 
-            <div className="flex gap-4 mt-6">
+            <div className="flex gap-5 mt-6">
               {languages.map((lang) => (
                 <button
                   key={lang.code}
@@ -194,8 +215,8 @@ export function Header() {
                     setMobileMenuOpen(false)
                   }}
                   className={cn(
-                    "text-xl p-3 rounded-full hover:bg-white/10 transition-colors bg-white/5 border border-white/5",
-                    currentLocale === lang.code && "ring-2 ring-primary border-primary/50"
+                    "text-3xl p-4 rounded-2xl hover:bg-white/10 transition-colors bg-white/5 border border-white/10",
+                    currentLocale === lang.code && "ring-2 ring-primary border-primary/50 bg-primary/10"
                   )}
                 >
                   {lang.flag}

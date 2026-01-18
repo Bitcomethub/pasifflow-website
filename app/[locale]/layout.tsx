@@ -1,22 +1,17 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Outfit, Plus_Jakarta_Sans } from "next/font/google"
+import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n/request';
+import { AIAssistant } from "@/components/ai-assistant"
 import "../globals.css"
 
-const outfit = Outfit({
+const inter = Inter({
     subsets: ["latin"],
-    variable: "--font-heading",
-    display: "swap",
-})
-
-const jakarta = Plus_Jakarta_Sans({
-    subsets: ["latin"],
-    variable: "--font-body",
+    variable: "--font-inter",
     display: "swap",
 })
 
@@ -58,9 +53,10 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} dir={dir}>
-            <body className={`${outfit.variable} ${jakarta.variable} font-sans antialiased`}>
+            <body className={`${inter.variable} font-sans antialiased`}>
                 <NextIntlClientProvider messages={messages}>
                     {children}
+                    <AIAssistant />
                 </NextIntlClientProvider>
                 <Analytics />
             </body>

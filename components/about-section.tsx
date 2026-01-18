@@ -29,7 +29,7 @@ export function AboutSection() {
                         viewport={{ once: true }}
                         className="text-center mb-12"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold text-sm mb-6">
+                        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
                             <Shield className="h-4 w-4" />
                             {t("badge")}
                         </div>

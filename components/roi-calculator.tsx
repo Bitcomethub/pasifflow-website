@@ -140,13 +140,15 @@ export function RoiCalculator() {
     }
 
     return (
-        <Card className="p-6 sm:p-8 bg-gradient-to-br from-card to-secondary/10 border-border/50 shadow-2xl relative overflow-hidden">
+        <Card className="p-8 sm:p-10 bg-white border-slate-100 shadow-[0_30px_60px_-15px_rgba(30,40,75,0.08)] relative overflow-hidden rounded-[2.5rem]">
             {/* Background blobs for premium feel */}
-            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-40 h-40 bg-accent/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-40 h-40 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 -mr-20 -mt-20 w-60 h-60 bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-60 h-60 bg-accent/5 rounded-full blur-3xl pointer-events-none" />
 
-            <h3 className="text-xl sm:text-2xl font-bold text-center mb-2 flex items-center justify-center gap-2">
-                <Calculator className="text-accent" />
+            <h3 className="text-2xl sm:text-3xl font-bold text-center mb-3 flex items-center justify-center gap-3 text-slate-900 tracking-tight">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                    <Calculator className="text-primary w-6 h-6" />
+                </div>
                 {t("title")}
             </h3>
             <p className="text-center text-muted-foreground text-sm mb-6">
@@ -212,46 +214,46 @@ export function RoiCalculator() {
                 </div>
 
                 {/* Doorvest-style Investor Highlights */}
-                <div className="bg-gradient-to-r from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 rounded-2xl p-5 sm:p-6 border border-slate-200 dark:border-slate-700">
-                    <div className="text-center mb-4">
-                        <div className="text-lg font-bold text-foreground">
+                <div className="bg-slate-50 rounded-3xl p-6 sm:p-8 border border-slate-100">
+                    <div className="text-center mb-6">
+                        <div className="text-xl font-bold text-slate-900 tracking-tight">
                             {t("investorHighlights")} - {holdingPeriod}Y
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                        <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                            <div className="flex items-center justify-center gap-1.5 mb-1.5">
-                                <DollarSign size={16} className="text-primary" />
-                                <span className="text-xs text-muted-foreground font-medium">{t("cashOnCash")}</span>
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6">
+                        <div className="text-center p-4 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm transition-all hover:shadow-md">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <DollarSign size={18} className="text-primary" />
+                                <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">{t("cashOnCash")}</span>
                             </div>
-                            <div className="text-xl sm:text-2xl font-bold text-foreground">
+                            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                                 {cashOnCash.toFixed(1)}%
                             </div>
                         </div>
-                        <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                            <div className="flex items-center justify-center gap-1.5 mb-1.5">
-                                <PieChart size={16} className="text-accent" />
-                                <span className="text-xs text-muted-foreground font-medium">{t("capRateMetric")}</span>
+                        <div className="text-center p-4 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm transition-all hover:shadow-md">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <PieChart size={18} className="text-accent" />
+                                <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">{t("capRateMetric")}</span>
                             </div>
-                            <div className="text-xl sm:text-2xl font-bold text-foreground">
+                            <div className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                                 {capRate.toFixed(2)}%
                             </div>
                         </div>
-                        <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                            <div className="flex items-center justify-center gap-1.5 mb-1.5">
-                                <TrendingUp size={16} className="text-green-600" />
-                                <span className="text-xs text-muted-foreground font-medium">{t("yoyAppreciation")}</span>
+                        <div className="text-center p-4 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm transition-all hover:shadow-md">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <TrendingUp size={18} className="text-green-600" />
+                                <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">{t("yoyAppreciation")}</span>
                             </div>
-                            <div className="text-xl sm:text-2xl font-bold text-green-600">
+                            <div className="text-2xl sm:text-3xl font-extrabold text-green-600">
                                 7%
                             </div>
                         </div>
-                        <div className="text-center p-3 sm:p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
-                            <div className="flex items-center justify-center gap-1.5 mb-1.5">
-                                <Calendar size={16} className="text-blue-600" />
-                                <span className="text-xs text-muted-foreground font-medium">{t("cashFlowMonth")}</span>
+                        <div className="text-center p-4 sm:p-6 bg-white rounded-2xl border border-slate-100 shadow-sm transition-all hover:shadow-md">
+                            <div className="flex items-center justify-center gap-2 mb-2">
+                                <Calendar size={18} className="text-blue-600" />
+                                <span className="text-xs text-slate-500 font-bold uppercase tracking-wider">{t("cashFlowMonth")}</span>
                             </div>
-                            <div className={`text-xl sm:text-2xl font-bold ${monthlyNetIncome >= 0 ? 'text-blue-600' : 'text-red-500'}`}>
+                            <div className={`text-2xl sm:text-3xl font-extrabold ${monthlyNetIncome >= 0 ? 'text-blue-600' : 'text-red-500'}`}>
                                 ${Math.round(monthlyNetIncome).toLocaleString()}
                             </div>
                         </div>
@@ -259,14 +261,14 @@ export function RoiCalculator() {
                 </div>
 
                 {/* Year ROI Summary - Large Display */}
-                <div className="bg-primary text-primary-foreground rounded-2xl p-6 text-center relative overflow-hidden">
-                    <div className="text-sm opacity-80 mb-2">Year {holdingPeriod} ROI</div>
-                    <div className="text-4xl sm:text-5xl font-bold mb-2">
+                <div className="bg-primary text-black rounded-3xl p-8 text-center relative overflow-hidden shadow-xl shadow-primary/20">
+                    <div className="text-sm font-bold uppercase tracking-widest text-black/60 mb-2">Year {holdingPeriod} ROI</div>
+                    <div className="text-5xl sm:text-6xl font-black mb-3">
                         {`${totalRoiPercent.toFixed(0)}%`}
                     </div>
-                    <div className="flex items-center justify-center gap-1 text-lg">
-                        <TrendingUp size={20} />
-                        <span className="font-semibold">↑ {`$${Math.round(totalReturn).toLocaleString()}`}</span>
+                    <div className="flex items-center justify-center gap-2 text-xl">
+                        <TrendingUp size={24} strokeWidth={2.5} />
+                        <span className="font-extrabold">↑ {`$${Math.round(totalReturn).toLocaleString()}`}</span>
                     </div>
                 </div>
 
@@ -319,21 +321,22 @@ export function RoiCalculator() {
 
                 {/* GUEST OVERLAY - Calculator Gating */}
                 {isGuest && (
-                    <div className="absolute inset-0 z-50 bg-background/60 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 pb-20">
-                        <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                            <Lock className="w-8 h-8 text-primary" />
+                    <div className="absolute inset-0 z-50 bg-white/40 backdrop-blur-xl flex flex-col items-center justify-center text-center p-8">
+                        <div className="bg-white/90 border border-white/40 p-10 rounded-[3rem] shadow-[0_40px_80px_-20px_rgba(30,40,75,0.2)] max-w-md backdrop-blur-2xl transform hover:scale-[1.01] transition-all duration-500">
+                            <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-8">
+                                <Lock className="w-10 h-10 text-primary" />
+                            </div>
+                            <h3 className="text-3xl font-bold mb-4 text-slate-900 tracking-tight">Yatırım Hesaplayıcıyı Açın</h3>
+                            <p className="text-slate-500 text-lg mb-10 leading-relaxed">
+                                Detaylı ROI analizlerini, nakit akışını ve amortisman sürelerini görmek için ücretsiz üye olun.
+                            </p>
+                            <Button
+                                className="w-full h-14 text-lg font-bold bg-primary text-black hover:bg-primary/90 rounded-2xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                                onClick={() => setShowLeadModal(true)}
+                            >
+                                Hemen Üye Ol
+                            </Button>
                         </div>
-                        <h3 className="text-2xl font-bold mb-2 text-foreground">Yatırım Hesaplayıcıyı Açın</h3>
-                        <p className="text-muted-foreground max-w-sm mb-6">
-                            Detaylı ROI analizlerini, nakit akışını ve amortisman sürelerini görmek için ücretsiz üye olun.
-                        </p>
-                        <Button
-                            size="lg"
-                            className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold px-8"
-                            onClick={() => setShowLeadModal(true)}
-                        >
-                            Hesaplamayı Başlat
-                        </Button>
                     </div>
                 )}
 
