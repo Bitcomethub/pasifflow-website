@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { MapPin, Globe, Cpu, Handshake, MessageSquare, CheckCircle2, Home } from "lucide-react"
+import { MapPin, Globe, Cpu, Handshake, MessageSquare, CheckCircle2, Home, Award, Sparkles, Headset } from "lucide-react"
 
 export function WhyWorkSection() {
     const t = useTranslations("whyWork")
@@ -53,21 +53,47 @@ export function WhyWorkSection() {
                         viewport={{ once: true }}
                         className="grid grid-cols-2 gap-6"
                     >
-                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
-                            <p className="text-4xl font-bold text-slate-900 mb-2">20+</p>
-                            <p className="text-slate-600 text-sm font-medium">Amerika Emlak Tecrübesi</p>
+                        {/* 20+ Experience - Blue */}
+                        <div className="bg-white rounded-2xl p-8 border border-blue-100 shadow-xl shadow-blue-900/5 hover:shadow-2xl hover:shadow-blue-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
+                            <div className="p-4 rounded-full bg-blue-50 group-hover:bg-blue-100 transition-colors">
+                                <Award className="w-8 h-8 text-blue-600" />
+                            </div>
+                            <div className="text-center">
+                                <p className="text-2xl font-bold text-slate-900">20+ Yıl</p>
+                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">Amerİka Emlak Tecrübesİ</p>
+                            </div>
                         </div>
-                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow flex flex-col items-center justify-center gap-2">
-                            <Home className="w-12 h-12 text-[#EF7202] mb-2" />
-                            <p className="text-slate-600 text-sm font-medium">Tam Kapsamlı Yönetim</p>
+
+                        {/* Full Management - Orange */}
+                        <div className="bg-white rounded-2xl p-8 border border-orange-100 shadow-xl shadow-orange-900/5 hover:shadow-2xl hover:shadow-orange-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
+                            <div className="p-4 rounded-full bg-orange-50 group-hover:bg-orange-100 transition-colors">
+                                <Home className="w-8 h-8 text-[#EF7202]" />
+                            </div>
+                            <div className="text-center">
+                                <p className="text-slate-900 font-bold text-lg leading-tight">Tam Kapsamlı<br />Yönetim</p>
+                            </div>
                         </div>
-                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
-                            <p className="text-4xl font-bold text-emerald-600 mb-2">%100</p>
-                            <p className="text-slate-600 text-sm font-medium">Yapay Zeka Tabanlı</p>
+
+                        {/* AI Based - Purple */}
+                        <div className="bg-white rounded-2xl p-8 border border-purple-100 shadow-xl shadow-purple-900/5 hover:shadow-2xl hover:shadow-purple-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
+                            <div className="p-4 rounded-full bg-purple-50 group-hover:bg-purple-100 transition-colors">
+                                <Sparkles className="w-8 h-8 text-purple-600" />
+                            </div>
+                            <div className="text-center">
+                                <p className="text-2xl font-bold text-slate-900">%100</p>
+                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">Yapay Zeka Tabanlı</p>
+                            </div>
                         </div>
-                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
-                            <p className="text-4xl font-bold text-slate-900 mb-2">7/24</p>
-                            <p className="text-slate-600 text-sm font-medium">Destek</p>
+
+                        {/* 7/24 Support - Emerald */}
+                        <div className="bg-white rounded-2xl p-8 border border-emerald-100 shadow-xl shadow-emerald-900/5 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
+                            <div className="p-4 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
+                                <Headset className="w-8 h-8 text-emerald-600" />
+                            </div>
+                            <div className="text-center">
+                                <p className="text-2xl font-bold text-slate-900">7/24</p>
+                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">Devamlı Destek</p>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
