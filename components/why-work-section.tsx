@@ -58,7 +58,7 @@ export function WhyWorkSection() {
                             <p className="text-slate-600 text-sm font-medium">Yıl ABD Tecrübesi</p>
                         </div>
                         <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
-                            <p className="text-4xl font-bold text-slate-900 mb-2">$250M+</p>
+                            <p className="text-4xl font-bold text-slate-900 mb-2">$100M+</p>
                             <div className="w-12 h-1 bg-orange-500 mx-auto mb-2 rounded-full"></div>
                             <p className="text-slate-600 text-sm font-medium">İşlem Hacmi</p>
                         </div>

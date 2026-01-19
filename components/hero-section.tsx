@@ -119,7 +119,7 @@ export function HeroSection() {
                 <span className="hidden sm:block text-[#C7CBD3]">•</span>
                 <span>500+ Yatırımcı</span>
                 <span className="hidden sm:block text-[#C7CBD3]">•</span>
-                <span>$250M+ İşlem Hacmi</span>
+                <span>$100M+ İşlem Hacmi</span>
               </div>
             </motion.div>
 
