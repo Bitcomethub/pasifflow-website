@@ -47,6 +47,7 @@ export function Header() {
 
   const navLinks = [
     { name: t("howItWorks"), href: "#nasil-calisir" },
+    { name: "Hakkımızda", href: "/about" },
     { name: t("portfolio"), href: "#portfoy" },
     { name: t("faq"), href: "#faq" },
   ]

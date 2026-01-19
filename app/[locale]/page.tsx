@@ -2,7 +2,7 @@ import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { TrustBadges } from "@/components/trust-badges"
 import { ValuePropsSection } from "@/components/value-props-section"
-import { FoundersSection } from "@/components/founders-section"
+
 import { ComparisonSection } from "@/components/comparison-section"
 import { AdvantagesSection } from "@/components/advantages-section"
 import { PortfolioSection } from "@/components/portfolio-section"
@@ -17,7 +17,6 @@ import { CityComparisonSection } from "@/components/city-comparison-section"
 import { FAQSection } from "@/components/faq-section"
 // MapSection removed per client request
 import { FinalCTASection } from "@/components/final-cta-section"
-import { AboutSection } from "@/components/about-section"
 import { Footer } from "@/components/footer"
 
 export default function Home() {
@@ -27,9 +26,7 @@ export default function Home() {
             <main>
                 <HeroSection />
                 <TrustBadges />
-                <AboutSection />
                 <ValuePropsSection />
-                <FoundersSection />
                 <ComparisonSection />
                 <AdvantagesSection />
                 <PortfolioSection />

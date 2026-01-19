@@ -192,7 +192,7 @@
         "benefit3": "Minimum Boşluk Riski",
         "stat1Value": "+4 Yıl",
         "stat1Label": "Ortalama Kiracı Kalış Süresi",
-        "stat2Value": "Her Ayın 5'inde",
+        "stat2Value": "Her Ayın 15'inde",
         "stat2Label": "Ödeme Günleri",
         "stat3Value": "%100",
         "stat3Label": "Garantili Ödeme"
@@ -315,7 +315,7 @@
         "pasif1": "Amortisman Süresi 6-7 Yıl",
         "pasif2": "Section 8 Devlet Garantisi",
         "pasif3": "Minimum Bakım Masrafı",
-        "pasif4": "Her Ayın 5-10'unda Düzenli Kira",
+        "pasif4": "Her Ayın 15'inde Düzenli Kira",
         "pasif5": "Uzun Süreli Kiracılar (+4 Yıl)",
         "pasif6": "%100 Garantili Ödeme"
     },
@@ -387,7 +387,7 @@
         "q23": "Acil durumlarda nasıl bilgilendirilirim?",
         "a23": "Acil durumlarda hesap yöneticiniz sizinle doğrudan iletişime geçer ve çözüm süreci yönetilir.",
         "q24": "Kira ödemeleri bana nasıl iletilir?",
-        "a24": "Kiralar banka hesabınıza düzenli olarak aktarılır. Detaylar panel üzerinden takip edilir. Her ayın 5-10'unda ödeme hesabınızda.",
+        "a24": "Kiralar banka hesabınıza düzenli olarak aktarılır. Detaylar panel üzerinden takip edilir. Her ayın 15'inde ödeme hesabınızda.",
         "q25": "PASIFLOW hizmet karşılığında ücret alıyor mu?",
         "a25": "Evet. PASIFLOW sunduğu profesyonel hizmetler karşılığında şeffaf ve önceden netleştirilmiş ücretlerle çalışır. Gizli masraf yoktur.",
         "q27": "Kapanış sonrası PASIFLOW ne kadar ücret alır?",
