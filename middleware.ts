@@ -9,6 +9,8 @@ export default createMiddleware({
 });
 
 export const config = {
-    // Exclude: api, _next, _vercel, all files with extensions (images, html, etc.)
-    matcher: ['/', '/(tr|en|ar|ru)/:path*', '/((?!api|_next|_vercel|.*\\..*).*)', '/((?!_next|_vercel|.*\\..*).*)']
+    // Only match locale routes, explicitly exclude api, _next, _vercel, and static files
+    matcher: [
+        '/((?!api|_next|_vercel|.*\\..*).*)'
+    ]
 };
