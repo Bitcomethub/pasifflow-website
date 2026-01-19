@@ -109,17 +109,41 @@ export function HeroSection() {
 
             {/* Trust Signals */}
             <motion.div variants={item} className="pt-8 border-t border-[#E5E6E8]">
-              <div className="flex flex-wrap items-center gap-6 text-sm text-[#535454]">
-                <div className="flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-[#EF7202] text-[#EF7202]" />
-                  ))}
-                  <span className="ml-2 font-medium text-[#1F2328]">4.9/5</span>
+              <div className="flex flex-col sm:flex-row flex-wrap items-start sm:items-center gap-4 sm:gap-6 text-sm text-[#535454]">
+
+                {/* 1. 20+ Experience */}
+                <div className="flex items-center gap-2">
+                  <ShieldCheck className="h-4 w-4 text-[#EF7202]" />
+                  <span className="font-medium text-[#1F2328]">20+ Yıllık Emlak Deneyimi</span>
                 </div>
+
                 <span className="hidden sm:block text-[#C7CBD3]">•</span>
-                <span>500+ Yatırımcı</span>
+
+                {/* 2. Rating */}
+                <div className="flex items-center gap-2">
+                  <div className="flex">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-4 w-4 fill-[#EF7202] text-[#EF7202]" />
+                    ))}
+                  </div>
+                  <span className="font-medium text-[#1F2328]">4.9/5 Müşteri Memnuniyeti</span>
+                </div>
+
                 <span className="hidden sm:block text-[#C7CBD3]">•</span>
-                <span>$100M+ İşlem Hacmi</span>
+
+                {/* 3. Investors */}
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-[#1F2328]">50+ Mutlu Yatırımcı</span>
+                </div>
+
+                <span className="hidden sm:block text-[#C7CBD3]">•</span>
+
+                {/* 4. Volume */}
+                <div className="flex items-center gap-2">
+                  <div className="h-4 w-4 text-[#EF7202] flex items-center justify-center font-bold">$</div>
+                  <span className="font-medium text-[#1F2328]">$100M+ İşlem Hacmi</span>
+                </div>
+
               </div>
             </motion.div>
 
