@@ -54,20 +54,26 @@ export function AIAssistant() {
         setIsLoading(true)
 
         try {
-            const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-            const response = await fetch(`${baseUrl}/api/chat`, {
+            const response = await fetch("/api/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ messages: [...messages, userMessage] }),
             })
 
             const data = await response.json()
+
+            if (data.debug) {
+                console.log("AI Assistant Debug:", data.debug)
+            }
+
             if (data.role) {
                 setMessages((prev) => [...prev, data])
             } else {
-                throw new Error(data.error || "Yanıt alınamadı")
+                const errorMsg = data.error || "Yanıt alınamadı"
+                setMessages((prev) => [...prev, { role: "assistant", content: errorMsg }])
             }
-        } catch (error) {
+        } catch (error: any) {
+            console.error("AI Assistant Error:", error)
             setMessages((prev) => [...prev, { role: "assistant", content: "Bağlantıda bir sorun oluştu. Lütfen tekrar deneyin." }])
         } finally {
             setIsLoading(false)

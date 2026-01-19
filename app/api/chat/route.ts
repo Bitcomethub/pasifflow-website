@@ -33,8 +33,9 @@ export async function POST(req: Request) {
         const { messages } = await req.json();
 
         if (!process.env.OPENAI_API_KEY) {
+            console.error("OPENAI_API_KEY is not set in environment variables");
             return NextResponse.json(
-                { error: "OpenAI API key is missing" },
+                { error: "API yapılandırması eksik. Lütfen site yöneticisiyle iletişime geçin.", debug: "missing_api_key" },
                 { status: 500 }
             );
         }
@@ -54,9 +55,25 @@ export async function POST(req: Request) {
             content: response.choices[0].message.content,
         });
     } catch (error: any) {
-        console.error("Chat API Error:", error);
+        console.error("Chat API Error:", error?.message || error);
+
+        // Check for specific OpenAI errors
+        if (error?.status === 401) {
+            return NextResponse.json(
+                { error: "API anahtarı geçersiz. Lütfen daha sonra tekrar deneyin.", debug: "invalid_api_key" },
+                { status: 500 }
+            );
+        }
+
+        if (error?.status === 429) {
+            return NextResponse.json(
+                { error: "Çok fazla istek. Lütfen birkaç saniye bekleyip tekrar deneyin.", debug: "rate_limit" },
+                { status: 429 }
+            );
+        }
+
         return NextResponse.json(
-            { error: "Mesaj iletilemedi. Lütfen daha sonra tekrar deneyin." },
+            { error: "Mesaj iletilemedi. Lütfen tekrar deneyin.", debug: error?.message || "unknown_error" },
             { status: 500 }
         );
     }
