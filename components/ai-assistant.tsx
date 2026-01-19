@@ -54,7 +54,8 @@ export function AIAssistant() {
         setIsLoading(true)
 
         try {
-            const response = await fetch("/api/chat", {
+            const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+            const response = await fetch(`${baseUrl}/api/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ messages: [...messages, userMessage] }),
