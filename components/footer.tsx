@@ -95,7 +95,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-[#E5E6E8] text-center text-sm text-[#535454] flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-[#E5E6E8] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <p className="font-medium">&copy; {new Date().getFullYear()} Pasiflow LLC. {t("allRightsReserved")}</p>
           <p className="text-xs flex items-center gap-1">
             Designed with <span className="text-[#EF7202] max-w-4">♥</span> for Global Investors
