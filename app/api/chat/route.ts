@@ -33,11 +33,11 @@ export async function POST(req: Request) {
         const { messages } = await req.json();
 
         if (!process.env.OPENAI_API_KEY) {
-            console.error("OPENAI_API_KEY is not set in environment variables");
-            return NextResponse.json(
-                { error: "API yapılandırması eksik. Lütfen site yöneticisiyle iletişime geçin.", debug: "missing_api_key" },
-                { status: 500 }
-            );
+            console.log("OPENAI_API_KEY missing, returning demo response");
+            return NextResponse.json({
+                role: "assistant",
+                content: "Merhaba! Şu anda demo modundayım çünkü OpenAI API anahtarı henüz yapılandırılmamış. Gerçek zamanlı yanıtlar için lütfen sistem yöneticisiyle iletişime geçerek API anahtarını tanımlamasını isteyin. Bu süreçte size statik bilgilerle yardımcı olmaya çalışabilirim.",
+            });
         }
 
         const response = await openai.chat.completions.create({
