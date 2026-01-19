@@ -33,10 +33,10 @@ export async function POST(req: Request) {
         const { messages } = await req.json();
 
         if (!process.env.OPENAI_API_KEY) {
-            console.log("OPENAI_API_KEY missing, returning demo response");
+            console.log("OPENAI_API_KEY missing in environment");
             return NextResponse.json({
                 role: "assistant",
-                content: "Merhaba! Şu anda demo modundayım çünkü OpenAI API anahtarı henüz yapılandırılmamış. Gerçek zamanlı yanıtlar için lütfen sistem yöneticisiyle iletişime geçerek API anahtarını tanımlamasını isteyin. Bu süreçte size statik bilgilerle yardımcı olmaya çalışabilirim.",
+                content: "Sistem bağlantısı kontrol ediliyor... (API Anahtarı yapılandırması bekleniyor. Eğer yeni eklendiyse, uygulamanın 'Redeploy' edilmesi gerekebilir.)",
             });
         }
 
