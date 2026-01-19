@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Check, Lock, Sparkles, Shield, TrendingUp } from "lucide-react"
+import { Check, Lock, Sparkles, Shield, TrendingUp, X } from "lucide-react"
 
 interface LeadGenModalProps {
     open: boolean
@@ -43,7 +43,16 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-lg bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl overflow-hidden p-0">
+            <DialogContent className="sm:max-w-lg bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl overflow-hidden p-0 relative">
+                {/* Close Button */}
+                <button
+                    onClick={() => onOpenChange(false)}
+                    className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all z-50 backdrop-blur-sm"
+                    type="button"
+                >
+                    <X size={18} />
+                </button>
+
                 {/* Premium Header Bar */}
                 <div className="bg-slate-900 px-8 py-6">
                     <div className="flex items-center justify-center gap-3">
