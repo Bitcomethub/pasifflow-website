@@ -135,21 +135,21 @@ export function RoiCalculator() {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
                         <p className="text-xs text-[#6b6b67] mb-1">Aylık Nakit Akışı</p>
-                        <p className={`text-2xl font-serif ${monthlyNetIncome >= 0 ? 'text-[#22c55e]' : 'text-red-500'}`}>
+                        <p className={`text-2xl font-bold ${monthlyNetIncome >= 0 ? 'text-[#22c55e]' : 'text-red-500'}`}>
                             ${Math.round(monthlyNetIncome)}
                         </p>
                     </div>
                     <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
                         <p className="text-xs text-[#6b6b67] mb-1">Cash-on-Cash</p>
-                        <p className="text-2xl font-serif text-[#151513]">{netRoi.toFixed(1)}%</p>
+                        <p className="text-2xl font-bold text-[#151513]">{netRoi.toFixed(1)}%</p>
                     </div>
                     <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
                         <p className="text-xs text-[#6b6b67] mb-1">{holdingPeriod}Y Değer Artışı</p>
-                        <p className="text-2xl font-serif text-[#22c55e]">+${Math.round(appreciationAmount / 1000)}K</p>
+                        <p className="text-2xl font-bold text-[#22c55e]">+${Math.round(appreciationAmount / 1000)}K</p>
                     </div>
                     <div className="bg-[#a3452b] rounded-xl p-4 text-center">
                         <p className="text-xs text-white/70 mb-1">{holdingPeriod}Y Toplam ROI</p>
-                        <p className="text-2xl font-serif text-white font-semibold">{totalRoiPercent.toFixed(0)}%</p>
+                        <p className="text-2xl font-bold text-white">{totalRoiPercent.toFixed(0)}%</p>
                     </div>
                 </div>
 

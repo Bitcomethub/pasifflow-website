@@ -34,7 +34,7 @@ export function AboutSection() {
                         <h2 className="text-sm md:text-base font-bold tracking-[0.2em] uppercase text-[#EF7202] mb-4">
                             {t("badge") || "HAKKIMIZDA"}
                         </h2>
-                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-medium leading-tight mb-6">
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight mb-6">
                             {t("title")}
                         </h1>
                         <p className="text-lg md:text-2xl text-white/90 font-light max-w-2xl mx-auto leading-relaxed">
@@ -66,7 +66,7 @@ export function AboutSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="text-2xl md:text-3xl lg:text-4xl font-serif text-[#1F2328] leading-relaxed"
+                        className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-[#1F2328] leading-relaxed"
                     >
                         "{t("description2")}"
                     </motion.p>
