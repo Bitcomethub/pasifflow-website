@@ -17,20 +17,6 @@ export function FoundersSection() {
       bio: t("founder1Bio"),
       image: "/founders/erman.jpg"
     },
-    {
-      initials: "TK",
-      name: t("founder2Name"),
-      title: t("founder2Title"),
-      bio: t("founder2Bio"),
-      image: "/founders/tugce.jpg"
-    },
-    {
-      initials: "CK",
-      name: t("founder3Name"),
-      title: t("founder3Title"),
-      bio: t("founder3Bio"),
-      image: "/founders/cem.jpg"
-    },
   ]
 
   const stats = [
@@ -135,7 +121,7 @@ export function FoundersSection() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid gap-8 md:grid-cols-3"
+          className="flex justify-center max-w-lg mx-auto"
         >
           {founders.map((founder, i) => (
             <motion.div
