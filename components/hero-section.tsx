@@ -210,25 +210,7 @@ export function HeroSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#001C32]/50 via-transparent to-transparent" />
 
-              {/* Stats Card */}
-              <motion.div
-                initial={{ y: 30, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="absolute bottom-6 left-6 right-6"
-              >
-                <div className="bg-white p-5 rounded-xl shadow-xl border border-[#E5E6E8]">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs text-[#535454] uppercase tracking-wider font-medium">Net Aylık Gelir</p>
-                      <p className="text-2xl font-bold text-[#1F2328] mt-1">$1,250<span className="text-sm text-[#535454] font-normal">/ay</span></p>
-                    </div>
-                    <div className="h-11 w-11 rounded-lg bg-[#009688] flex items-center justify-center">
-                      <TrendingUp className="text-white h-5 w-5" />
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
+
             </div>
           </motion.div>
         </div>
