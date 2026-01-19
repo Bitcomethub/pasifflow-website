@@ -84,7 +84,7 @@ export function Footer() {
               <a
                 href="https://wa.me/13056903146?text=Merhaba%2C%20Pasiflow%20ile%20ilgili%20bilgi%20almak%20istiyorum."
                 target="_blank"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#EF7202]/10 hover:bg-[#EF7202]/20 text-[#EF7202] border border-[#EF7202]/50 rounded-lg font-bold text-sm transition-all mt-2"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-lg font-bold text-sm transition-all mt-2 shadow-lg shadow-green-500/20"
               >
                 {t("whatsapp")}
               </a>

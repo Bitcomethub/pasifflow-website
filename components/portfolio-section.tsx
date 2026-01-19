@@ -355,7 +355,7 @@ export function PortfolioSection() {
                           {t("cta")}
                         </a>
                       </Button>
-                      <Button className="w-full h-12 rounded-xl bg-[#25D366] text-white hover:bg-[#128C7E] transition-colors shadow-lg shadow-green-500/20" asChild>
+                      <Button variant="outline" className="w-full h-12 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" asChild>
                         <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(property.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
                           WhatsApp
                         </a>
@@ -476,7 +476,7 @@ export function PortfolioSection() {
                       {t("cta")}
                     </a>
                   </Button>
-                  <Button className="w-full h-14 text-lg font-bold bg-[#25D366] text-white hover:bg-[#128C7E] rounded-2xl transition-all shadow-xl shadow-green-500/20" asChild>
+                  <Button variant="outline" className="w-full h-14 text-lg font-bold border-slate-200 text-slate-700 hover:bg-slate-50 rounded-2xl transition-all" asChild>
                     <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
                       WhatsApp
                     </a>
