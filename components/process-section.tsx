@@ -1,6 +1,6 @@
 "use client"
 
-import { Target, Search, FileCheck, FilePen, Home, BarChart3 } from "lucide-react"
+import { Target, Search, FileCheck, FilePen, Home, BarChart3, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
 
@@ -8,134 +8,91 @@ export function ProcessSection() {
   const t = useTranslations("process")
 
   const steps = [
-    {
-      icon: Target,
-      titleKey: "step1Title",
-      descKey: "step1Desc",
-      checks: ["step1Check1", "step1Check2", "step1Check3"]
-    },
-    {
-      icon: Search,
-      titleKey: "step2Title",
-      descKey: "step2Desc",
-      checks: ["step2Check1", "step2Check2", "step2Check3"]
-    },
-    {
-      icon: FileCheck,
-      titleKey: "step3Title",
-      descKey: "step3Desc",
-      checks: ["step3Check1", "step3Check2", "step3Check3"]
-    },
-    {
-      icon: FilePen,
-      titleKey: "step4Title",
-      descKey: "step4Desc",
-      checks: ["step4Check1", "step4Check2", "step4Check3"]
-    },
-    {
-      icon: Home,
-      titleKey: "step5Title",
-      descKey: "step5Desc",
-      checks: ["step5Check1", "step5Check2", "step5Check3"]
-    },
-    {
-      icon: BarChart3,
-      titleKey: "step6Title",
-      descKey: "step6Desc",
-      checks: ["step6Check1", "step6Check2", "step6Check3"]
-    },
+    { icon: Target, titleKey: "step1Title", descKey: "step1Desc" },
+    { icon: Search, titleKey: "step2Title", descKey: "step2Desc" },
+    { icon: FileCheck, titleKey: "step3Title", descKey: "step3Desc" },
+    { icon: FilePen, titleKey: "step4Title", descKey: "step4Desc" },
+    { icon: Home, titleKey: "step5Title", descKey: "step5Desc" },
+    { icon: BarChart3, titleKey: "step6Title", descKey: "step6Desc" },
   ]
 
   return (
-    <section id="nasil-calisir" className="py-24 bg-muted/30 overflow-hidden">
-      <div className="container mx-auto px-4 md:px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center space-y-4 mb-20 max-w-3xl mx-auto"
-        >
+    <section id="nasil-calisir" className="py-24 bg-[#faf9f6] overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16">
+        {/* LEFT-ALIGNED Header - Fundrise Style */}
+        <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-2 shadow-lg"
+            className="text-left"
           >
-            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
-            {t("subtitle")}
+            <p className="text-[#a3452b] font-medium mb-4 uppercase tracking-wider text-sm">
+              {t("subtitle")}
+            </p>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-normal text-[#151513] mb-6">
+              {t("title")}
+            </h2>
+            <p className="text-lg text-[#6b6b67] leading-relaxed">
+              {t("intro")}
+            </p>
           </motion.div>
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900">
-            {t("title")}
-          </h2>
-          <p className="text-slate-600 text-lg leading-relaxed">
-            {t("intro")}
-          </p>
-        </motion.div>
-
-        <div className="relative max-w-5xl mx-auto">
-          {/* Center Line (Hidden on mobile) */}
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-primary/5 via-primary/20 to-primary/5 md:-translate-x-1/2 hidden md:block" />
-
-          <div className="space-y-12 md:space-y-20">
-            {steps.map((step, i) => (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{
-                  duration: 0.8,
-                  delay: i * 0.1,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={`flex flex-col md:flex-row gap-8 items-center ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-              >
-                <div className="flex-1 md:text-right">
-                  <div className={`space-y-4 ${i % 2 === 0 ? 'md:text-left' : 'md:text-right'} p-8 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group`}>
-                    <div className={`md:hidden flex items-center gap-3 mb-4`}>
-                      <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-xl shadow-lg shadow-primary/20">
-                        {i + 1}
-                      </div>
-                      <h3 className="font-bold text-xl group-hover:text-primary transition-colors">{t(step.titleKey)}</h3>
-                    </div>
-
-                    <h3 className="font-bold text-xl hidden md:block group-hover:text-primary transition-colors">{t(step.titleKey)}</h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {t(step.descKey)}
-                    </p>
-
-                    {/* Check list visual enhancement */}
-                    <ul className={`space-y-2 pt-2 ${i % 2 === 0 ? 'items-start' : 'items-end md:items-end'} flex flex-col`}>
-                      {step.checks.map((checkKey, j) => (
-                        <li key={j} className="flex items-center gap-2 text-sm font-medium text-foreground/80">
-                          {i % 2 !== 0 && <span className="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-accent" />}
-                          {t(checkKey)}
-                          {i % 2 === 0 && <span className="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-accent" />}
-                          <span className="md:hidden w-1.5 h-1.5 rounded-full bg-accent" />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Center Number Bubble */}
-                <div className="relative z-10 flex-shrink-0 hidden md:flex">
-                  <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-2xl shadow-xl shadow-primary/20 border-4 border-background transition-transform duration-300 hover:scale-110">
-                    <step.icon size={28} />
-                  </div>
-                  <div className="absolute top-0 right-0 -mr-2 -mt-2 w-8 h-8 bg-accent rounded-full flex items-center justify-center text-xs font-bold text-accent-foreground border-2 border-background shadow-sm">
-                    {i + 1}
-                  </div>
-                </div>
-
-                {/* Empty Side for Layout Balance */}
-                <div className="flex-1 hidden md:block" />
-              </motion.div>
-            ))}
-          </div>
         </div>
+
+        {/* Steps Grid - Clean Fundrise Layout */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {steps.map((step, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{
+                duration: 0.6,
+                delay: i * 0.08,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="text-left p-8 bg-white rounded-xl border border-[#e5e4df] hover:border-[#a3452b]/30 hover:shadow-lg transition-all duration-300 group"
+            >
+              {/* Step Number */}
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-[#a3452b] flex items-center justify-center text-white font-semibold">
+                  {i + 1}
+                </div>
+                <div className="w-10 h-10 rounded-lg bg-[#a3452b]/10 flex items-center justify-center group-hover:bg-[#a3452b]/20 transition-colors">
+                  <step.icon className="h-5 w-5 text-[#a3452b]" />
+                </div>
+              </div>
+
+              <h3 className="font-semibold text-xl text-[#151513] mb-3">
+                {t(step.titleKey)}
+              </h3>
+              <p className="text-[#6b6b67] leading-relaxed">
+                {t(step.descKey)}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* CTA Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-12 text-left"
+        >
+          <a
+            href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[#a3452b] font-medium hover:underline group"
+          >
+            Ücretsiz Danışmanlık Alın
+            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </motion.div>
       </div>
     </section>
   )

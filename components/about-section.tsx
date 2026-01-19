@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { Shield, Target, Eye, Cpu, Users, TrendingUp } from "lucide-react"
+import { Shield, Target, Eye, Cpu, Users, ArrowRight } from "lucide-react"
 
 export function AboutSection() {
     const t = useTranslations("about")
@@ -15,75 +15,78 @@ export function AboutSection() {
     ]
 
     return (
-        <section className="py-24 bg-gradient-to-b from-background to-muted/30 relative overflow-hidden">
-            {/* Background decoration */}
-            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-80 h-80 bg-accent/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-                <div className="max-w-4xl mx-auto">
-                    {/* Header */}
+        <section className="py-24 bg-[#151513] relative overflow-hidden">
+            {/* Dark section for contrast - Fundrise alternating pattern */}
+            <div className="container mx-auto px-6 md:px-12 lg:px-16 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-16 items-start">
+                    {/* LEFT-ALIGNED Content */}
                     <motion.div
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 25 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="text-center mb-12"
+                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="text-left"
                     >
-                        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
+                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#a3452b]/20 text-[#a3452b] font-medium text-sm mb-8">
                             <Shield className="h-4 w-4" />
                             {t("badge")}
                         </div>
-                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+
+                        <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-normal text-white mb-8 leading-tight">
                             {t("title")}
                         </h2>
-                    </motion.div>
 
-                    {/* Main Description */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
-                        className="bg-card border border-border/50 rounded-3xl p-8 md:p-12 shadow-xl mb-12"
-                    >
-                        <p className="text-lg md:text-xl text-foreground leading-relaxed mb-6">
+                        <p className="text-lg text-[#9b9b97] leading-relaxed mb-6">
                             {t("description1")}
                         </p>
-                        <p className="text-lg md:text-xl text-primary font-semibold mb-6">
+
+                        <p className="text-lg text-[#a3452b] font-medium mb-8">
                             {t("description2")}
                         </p>
-                        <div className="border-l-4 border-accent pl-6 py-2">
-                            <p className="text-lg text-foreground font-medium mb-2">
+
+                        {/* Quote block */}
+                        <div className="border-l-2 border-[#a3452b] pl-6 py-2 mb-8">
+                            <p className="text-white font-medium mb-2">
                                 {t("transparencyTitle")}
                             </p>
-                            <p className="text-muted-foreground leading-relaxed">
+                            <p className="text-[#9b9b97] leading-relaxed">
                                 {t("transparencyDesc")}
                             </p>
                         </div>
+
+                        <a
+                            href="#contact"
+                            className="inline-flex items-center gap-2 text-[#a3452b] font-medium hover:underline group"
+                        >
+                            Detaylı Bilgi Alın
+                            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        </a>
                     </motion.div>
 
-                    {/* Principles Grid */}
-                    <div className="grid md:grid-cols-2 gap-6">
+                    {/* RIGHT - Principles Grid */}
+                    <div className="grid sm:grid-cols-2 gap-6">
                         {principles.map((principle, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
+                                initial={{ opacity: 0, y: 25 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: 0.2 + i * 0.1 }}
-                                className="flex items-start gap-4 p-6 bg-card rounded-2xl border border-border/50 hover:border-primary/30 hover:shadow-lg transition-all"
+                                transition={{
+                                    delay: 0.1 + i * 0.08,
+                                    duration: 0.6,
+                                    ease: [0.22, 1, 0.36, 1],
+                                }}
+                                className="p-6 bg-[#1f1f1d] rounded-xl border border-[#2a2a28] hover:border-[#a3452b]/30 transition-colors"
                             >
-                                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                                    <principle.icon className="h-6 w-6 text-primary" />
+                                <div className="w-10 h-10 rounded-lg bg-[#a3452b]/10 flex items-center justify-center mb-4">
+                                    <principle.icon className="h-5 w-5 text-[#a3452b]" />
                                 </div>
-                                <div>
-                                    <h3 className="font-bold text-foreground mb-1">
-                                        {t(`${principle.key}Title`)}
-                                    </h3>
-                                    <p className="text-muted-foreground text-sm leading-relaxed">
-                                        {t(`${principle.key}Desc`)}
-                                    </p>
-                                </div>
+                                <h3 className="font-semibold text-white mb-2">
+                                    {t(`${principle.key}Title`)}
+                                </h3>
+                                <p className="text-[#9b9b97] text-sm leading-relaxed">
+                                    {t(`${principle.key}Desc`)}
+                                </p>
                             </motion.div>
                         ))}
                     </div>

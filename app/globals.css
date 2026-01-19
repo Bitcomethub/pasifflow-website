@@ -4,56 +4,51 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Pasiflow Light Premium Theme - Verified Light Mode */
+  /* Fundrise-Inspired Professional Theme */
 
-  /* Background: White / Light Slate */
-  --background: #f8fafc;
-  /* Slate 50 */
-  --foreground: #1e284b;
-  /* Deep Navy */
+  /* Background: Warm Cream */
+  --background: #faf9f6;
+  --foreground: #151513;
 
-  /* Card: Pure White with Soft Shadow */
+  /* Card: Pure White */
   --card: #ffffff;
-  --card-foreground: #1e284b;
+  --card-foreground: #151513;
 
   /* Popover */
   --popover: #ffffff;
-  --popover-foreground: #1e284b;
+  --popover-foreground: #151513;
 
-  /* Primary: Vibrant Orange */
-  --primary: #fe7e1d;
+  /* Primary: Burnt Orange/Rust (Fundrise accent) */
+  --primary: #a3452b;
   --primary-foreground: #ffffff;
-  /* White text on orange */
 
-  /* Secondary: Deep Navy */
-  --secondary: #1e284b;
+  /* Secondary: Charcoal */
+  --secondary: #151513;
   --secondary-foreground: #ffffff;
 
-  /* Muted: Light Slate */
-  --muted: #f1f5f9;
-  /* Slate 100 */
-  --muted-foreground: #64748b;
-  /* Slate 500 */
+  /* Muted: Warm Gray */
+  --muted: #f5f3ed;
+  --muted-foreground: #6b6b67;
 
-  /* Accent: Rich Teal for visibility */
-  --accent: #0ea5e9;
-  /* Sky 500 - bright and visible */
+  /* Accent: Same as Primary for consistency */
+  --accent: #a3452b;
   --accent-foreground: #ffffff;
 
   /* Destructive */
-  --destructive: #ef4444;
-  --destructive-foreground: #f8fafc;
+  --destructive: #dc2626;
+  --destructive-foreground: #faf9f6;
 
   /* Border & Input */
-  --border: #e2e8f0;
-  /* Slate 200 */
-  --input: #e2e8f0;
-  --ring: #fe7e1d;
+  --border: #e5e4df;
+  --input: #e5e4df;
+  --ring: #a3452b;
 }
 
 @theme inline {
-  --font-sans: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-heading: var(--font-inter), "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Serif for headlines, Sans-serif for body - Fundrise style */
+  --font-sans: var(--font-inter), "Inter", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-heading: "Georgia", "Times New Roman", serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -87,22 +82,26 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased selection:bg-primary/20 selection:text-primary;
+    @apply bg-background text-foreground antialiased;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Serif headlines - Fundrise editorial style */
   h1 {
-    @apply text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-[1.1];
+    font-family: Georgia, "Times New Roman", serif;
+    @apply text-4xl sm:text-5xl md:text-6xl font-normal tracking-tight leading-[1.15];
   }
 
   h2 {
-    @apply text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight;
+    font-family: Georgia, "Times New Roman", serif;
+    @apply text-3xl sm:text-4xl md:text-5xl font-normal tracking-tight leading-tight;
   }
 
   h3 {
-    @apply text-2xl sm:text-3xl font-semibold tracking-tight;
+    font-family: Georgia, "Times New Roman", serif;
+    @apply text-2xl sm:text-3xl font-normal tracking-tight;
   }
 
   h4 {
@@ -120,4 +119,9 @@
   p {
     @apply leading-relaxed;
   }
+}
+
+/* Custom serif class for inline use */
+.font-serif {
+  font-family: Georgia, "Times New Roman", serif;
 }

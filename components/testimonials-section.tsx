@@ -36,9 +36,14 @@ export function TestimonialsSection() {
         <section className="py-20 bg-background">
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 30, scale: 0.98 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={{ once: true }}
+                    transition={{
+                        duration: 0.8,
+                        ease: [0.25, 0.46, 0.45, 0.94],
+                        scale: { type: "spring", stiffness: 200, damping: 25 }
+                    }}
                     className="text-center mb-12"
                 >
                     <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -53,10 +58,15 @@ export function TestimonialsSection() {
                     {testimonials.map((testimonial, index) => (
                         <motion.div
                             key={testimonial.nameKey}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 35, scale: 0.95 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
+                            transition={{
+                                delay: index * 0.12,
+                                duration: 0.7,
+                                ease: [0.25, 0.46, 0.45, 0.94],
+                                scale: { type: "spring", stiffness: 180, damping: 20 }
+                            }}
                         >
                             <Card className="p-6 h-full border-border/50 hover:shadow-lg transition-shadow relative">
                                 <Quote className="absolute top-4 right-4 text-primary/10" size={40} />

@@ -1,96 +1,110 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Building2, TrendingUp, ShieldCheck, Key, ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
+import { Building2, TrendingUp, ShieldCheck, Key, ArrowRight, Star } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
 
 export function HeroSection() {
   const t = useTranslations("hero")
+
+  // Rotating titles - cycles every 3 seconds
+  const rotatingTitles = [
+    t("titleAccent"),
+    "Pasif Gelir",
+    "Finansal Özgürlük"
+  ]
+
+  const [currentTitleIndex, setCurrentTitleIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTitleIndex((prev) => (prev + 1) % rotatingTitles.length)
+    }, 3000)
+    return () => clearInterval(interval)
+  }, [rotatingTitles.length])
 
   const container = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.2,
+        staggerChildren: 0.1,
+        delayChildren: 0.15,
         ease: [0.25, 0.4, 0.25, 1],
       },
     },
   }
 
   const item = {
-    hidden: { opacity: 0, y: 30, scale: 0.98 },
+    hidden: { opacity: 0, y: 25 },
     show: {
       opacity: 1,
       y: 0,
-      scale: 1,
       transition: {
-        duration: 0.7,
+        duration: 0.6,
         ease: [0.22, 1, 0.36, 1],
       }
     },
   }
 
-  const floatAnimation = {
-    y: [0, -8, 0],
-    transition: {
-      duration: 4,
-      repeat: Infinity,
-      ease: "easeInOut",
-    },
-  }
-
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white pt-28 pb-16 md:pt-36 md:pb-24">
-      {/* Clean Gradient Background - Corporate */}
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#faf9f6] pt-24 pb-16 md:pt-32 md:pb-24">
+      {/* Fundrise-style cream background */}
       <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-orange-50/30" />
-        {/* Subtle Grid - Tech Feel */}
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(15,23,42,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] bg-[size:48px_48px]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#faf9f6] via-[#f7f5f0] to-[#f5f3ed]" />
       </div>
 
-      <div className="container mx-auto px-4 md:px-6 z-10">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Text Content */}
+          {/* LEFT-ALIGNED Text Content - Fundrise Style */}
           <motion.div
             variants={container}
             initial="hidden"
             animate="show"
-            className="space-y-8"
+            className="space-y-8 text-left"
           >
-            <motion.div variants={item} className="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white shadow-lg">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              <span className="tracking-wide">{t("badge")}</span>
-            </motion.div>
-
-            <motion.div variants={item} className="space-y-5">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-slate-900 leading-[1.1]">
+            {/* Premium Headline with Rotating Title */}
+            <motion.div variants={item} className="space-y-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-serif font-normal tracking-tight text-[#151513] leading-[1.15]">
                 {t("title")} <br />
-                <span className="text-primary">
-                  {t("titleAccent")}
+                <span className="relative inline-block h-[1.2em] overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={currentTitleIndex}
+                      initial={{ y: 40, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      exit={{ y: -40, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      className="text-[#a3452b] inline-block"
+                    >
+                      {rotatingTitles[currentTitleIndex]}
+                    </motion.span>
+                  </AnimatePresence>
                 </span>
               </h1>
-              <p className="text-lg md:text-xl text-slate-600 leading-relaxed max-w-lg">
+              <p className="text-lg md:text-xl text-[#4a4a47] leading-relaxed max-w-lg font-light">
                 {t("description")}
               </p>
             </motion.div>
 
-            <motion.div variants={item} className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="h-14 px-8 text-base rounded-full bg-slate-900 hover:bg-slate-800 text-white font-semibold shadow-xl shadow-slate-900/20 hover:shadow-2xl hover:shadow-slate-900/30 transition-all duration-300 group" asChild>
+            {/* Email Capture / CTA - Fundrise Style */}
+            <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 max-w-md">
+              <Button
+                size="lg"
+                className="h-14 px-8 text-base rounded-lg bg-[#a3452b] hover:bg-[#8a3a24] text-white font-medium shadow-lg transition-all duration-300"
+                asChild
+              >
                 <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
                   {t("ctaPrimary")}
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </a>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="h-14 px-8 text-base rounded-full border-2 border-slate-200 text-slate-700 hover:bg-slate-100 hover:border-slate-300 font-semibold transition-all duration-300"
+                className="h-14 px-8 text-base rounded-lg border-2 border-[#d1d0cb] text-[#151513] hover:bg-[#f0efea] hover:border-[#bbbab6] font-medium transition-all duration-300"
                 asChild
               >
                 <a href="#portfoy">
@@ -99,79 +113,77 @@ export function HeroSection() {
               </Button>
             </motion.div>
 
-            <motion.div variants={item} className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-6">
+            {/* Trust Signals - Fundrise Style */}
+            <motion.div variants={item} className="pt-8 border-t border-[#e5e4df]">
+              <div className="flex flex-wrap items-center gap-6 text-sm text-[#6b6b67]">
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-[#a3452b] text-[#a3452b]" />
+                  ))}
+                  <span className="ml-2 font-medium">4.9/5</span>
+                </div>
+                <span className="hidden sm:block">•</span>
+                <span>500+ Yatırımcı</span>
+                <span className="hidden sm:block">•</span>
+                <span>$250M+ İşlem Hacmi</span>
+              </div>
+            </motion.div>
+
+            {/* Key Stats Row - Professional */}
+            <motion.div variants={item} className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
               {[
-                { icon: ShieldCheck, label: "stat1Label", value: "stat1Value" },
-                { icon: TrendingUp, label: "stat2Label", value: "stat2Value" },
-                { icon: Building2, label: "stat3Label", value: "stat3Value" },
-                { icon: Key, label: "stat4Label", value: "stat4Value" },
+                { icon: ShieldCheck, label: t("stat1Label") || "Garanti", value: t("stat1Value") || "%100" },
+                { icon: TrendingUp, label: t("stat2Label") || "Getiri", value: t("stat2Value") || "%8-12" },
+                { icon: Building2, label: t("stat3Label") || "Mülk", value: t("stat3Value") || "150+" },
+                { icon: Key, label: t("stat4Label") || "Anahtar", value: t("stat4Value") || "Teslim" },
               ].map((stat, i) => (
-                <div key={i} className="flex flex-col gap-1.5 p-3 rounded-xl bg-slate-50 border border-slate-100 hover:border-slate-200 transition-colors">
-                  <stat.icon className="h-5 w-5 text-primary" />
-                  <span className="text-[11px] font-medium text-slate-500 uppercase tracking-wider">{t(stat.label) || "Data"}</span>
-                  <span className="text-lg font-bold text-slate-900">{t(stat.value) || "100%"}</span>
+                <div key={i} className="text-left">
+                  <p className="text-2xl md:text-3xl font-serif font-normal text-[#151513]">{stat.value}</p>
+                  <p className="text-sm text-[#6b6b67] mt-1">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Visual Content - Professional Dashboard Style */}
+          {/* RIGHT Visual Content - Premium Property Image */}
           <motion.div
-            initial={{ opacity: 0, x: 60, scale: 0.95 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{
-              duration: 1,
-              delay: 0.4,
+              duration: 0.8,
+              delay: 0.3,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative hidden lg:flex items-center justify-center"
+            className="relative hidden lg:block"
           >
             {/* Main Image Container */}
-            <div className="relative w-full max-w-md aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-slate-300/50 border border-slate-200">
+            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src="/hero-family.png"
                 alt="Amerika Yatırım"
                 className="w-full h-full object-cover"
               />
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent z-10" />
 
-              {/* HUD 1: Net Income - Bottom */}
-              <motion.div
-                initial={{ y: 40, opacity: 0, scale: 0.9 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                transition={{
-                  delay: 0.9,
-                  duration: 0.8,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="absolute bottom-5 left-5 right-5 z-20"
-              >
-                <div className="bg-white p-5 rounded-2xl shadow-xl flex items-center justify-between">
-                  <div>
-                    <p className="text-xs text-slate-500 uppercase font-bold tracking-widest mb-0.5">Net Monthly Income</p>
-                    <p className="text-3xl font-bold text-slate-900">$1,250<span className="text-base text-slate-400 font-normal">/mo</span></p>
-                  </div>
-                  <div className="h-12 w-12 rounded-xl bg-green-500 flex items-center justify-center shadow-lg shadow-green-500/30">
-                    <TrendingUp className="text-white h-6 w-6" />
-                  </div>
-                </div>
-              </motion.div>
+              {/* Minimal Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
 
-              {/* HUD 2: Status Tag - Top Right */}
+              {/* Simple Stats Card - Bottom */}
               <motion.div
-                initial={{ x: 30, opacity: 0, scale: 0.9 }}
-                animate={{ x: 0, opacity: 1, scale: 1 }}
-                transition={{
-                  delay: 1.1,
-                  duration: 0.7,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="absolute top-5 right-5 z-20"
+                initial={{ y: 30, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                className="absolute bottom-6 left-6 right-6"
               >
-                <div className="bg-slate-900 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">
-                  <span className="h-2 w-2 rounded-full bg-green-400 animate-pulse" />
-                  <span className="text-sm font-semibold tracking-wide">Live Market</span>
+                <div className="bg-white p-5 rounded-xl shadow-xl">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-xs text-[#6b6b67] uppercase tracking-wider font-medium">Net Aylık Gelir</p>
+                      <p className="text-2xl font-serif text-[#151513] mt-1">$1,250<span className="text-sm text-[#9b9b97] font-sans">/ay</span></p>
+                    </div>
+                    <div className="h-11 w-11 rounded-lg bg-[#22c55e] flex items-center justify-center">
+                      <TrendingUp className="text-white h-5 w-5" />
+                    </div>
+                  </div>
                 </div>
               </motion.div>
             </div>
