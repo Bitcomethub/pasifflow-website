@@ -15,6 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { LeadGenModal } from "@/components/lead-gen-modal"
 
 const languages = [
   { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
@@ -27,6 +28,16 @@ export function Header() {
   const { scrollY } = useScroll()
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Auth Modal State
+  const [showLeadModal, setShowLeadModal] = useState(false)
+  const [authMode, setAuthMode] = useState<"login" | "signup">("signup")
+
+  const openAuthModal = (mode: "login" | "signup") => {
+    setAuthMode(mode)
+    setShowLeadModal(true)
+  }
+
   const pathname = usePathname()
   const router = useRouter()
   const t = useTranslations("common")
@@ -129,19 +140,6 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-// ... imports
-            import {LeadGenModal} from "@/components/lead-gen-modal"
-
-            // ... inside component
-            const [showLeadModal, setShowLeadModal] = useState(false)
-            const [authMode, setAuthMode] = useState<"login" | "signup">("signup")
-
-  const openAuthModal = (mode: "login" | "signup") => {
-              setAuthMode(mode)
-    setShowLeadModal(true)
-  }
-
-            // ... inside render
             <Button
               variant="outline"
               size="sm"
@@ -158,6 +156,13 @@ export function Header() {
               {t("getConsultation")}
             </Button>
           </div>
+
+          <LeadGenModal
+            open={showLeadModal}
+            onOpenChange={setShowLeadModal}
+            onSuccess={() => setShowLeadModal(false)}
+            triggerSource="Header Auth"
+          />
 
           <LeadGenModal
             open={showLeadModal}
