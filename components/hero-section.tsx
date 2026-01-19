@@ -124,16 +124,16 @@ export function HeroSection() {
             </motion.div>
 
             {/* Key Stats Row */}
-            <motion.div variants={item} className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
+            <motion.div variants={item} className="grid grid-cols-2 lg:flex lg:justify-between gap-6 pt-4 min-w-full">
               {[
-                { icon: ShieldCheck, label: t("stat1Label") || "Garanti", value: t("stat1Value") || "%100" },
-                { icon: TrendingUp, label: t("stat2Label") || "Getiri", value: t("stat2Value") || "%8-12" },
-                { icon: Building2, label: t("stat3Label") || "Mülk", value: t("stat3Value") || "150+" },
-                { icon: Key, label: t("stat4Label") || "Anahtar", value: t("stat4Value") || "Teslim" },
+                { label: "Hedef Net Getiri", value: "%9-14" },
+                { label: "Doluluk Oranı", value: "%98+" },
+                { label: "Ort. Kiracılık Süresi", value: "Ort. 4+ Yıl" },
+                { label: "Giriş Noktası", value: "$30K" },
               ].map((stat, i) => (
                 <div key={i} className="text-left">
-                  <p className="text-2xl md:text-3xl font-bold text-[#001C32]">{stat.value}</p>
-                  <p className="text-sm text-[#535454] mt-1">{stat.label}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-[#001C32] whitespace-nowrap">{stat.value}</p>
+                  <p className="text-sm text-[#535454] mt-1 whitespace-nowrap">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
@@ -146,11 +146,11 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="relative hidden lg:block"
           >
-            <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src="/hero-family.png"
                 alt="Amerika Yatırım"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover object-[center_20%]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#001C32]/50 via-transparent to-transparent" />
 
