@@ -77,7 +77,7 @@ export function FoundersSection() {
                     <AvatarImage
                       src={founder.image}
                       alt={founder.name}
-                      className="object-cover"
+                      className="object-cover object-top"
                     />
                     <AvatarFallback className="text-2xl font-bold bg-muted text-muted-foreground">
                       {founder.initials}
