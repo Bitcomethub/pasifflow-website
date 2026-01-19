@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { MapPin, Globe, Cpu, Handshake, MessageSquare, CheckCircle2 } from "lucide-react"
+import { MapPin, Globe, Cpu, Handshake, MessageSquare, CheckCircle2, Home } from "lucide-react"
 
 export function WhyWorkSection() {
     const t = useTranslations("whyWork")
@@ -57,9 +57,8 @@ export function WhyWorkSection() {
                             <p className="text-4xl font-bold text-slate-900 mb-2">20+</p>
                             <p className="text-slate-600 text-sm font-medium">Amerika Emlak Tecrübesi</p>
                         </div>
-                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
-                            <p className="text-4xl font-bold text-slate-900 mb-2">$100M+</p>
-                            <div className="w-12 h-1 bg-orange-500 mx-auto mb-2 rounded-full"></div>
+                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow flex flex-col items-center justify-center gap-2">
+                            <Home className="w-12 h-12 text-[#EF7202] mb-2" />
                             <p className="text-slate-600 text-sm font-medium">Tam Kapsamlı Yönetim</p>
                         </div>
                         <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
