@@ -51,48 +51,49 @@ export function WhyWorkSection() {
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="grid grid-cols-2 gap-6"
+                        className="grid grid-cols-2 gap-8 md:gap-12 lg:grid-cols-4"
                     >
                         {/* 20+ Experience - Blue */}
-                        <div className="bg-white rounded-2xl p-8 border border-blue-100 shadow-xl shadow-blue-900/5 hover:shadow-2xl hover:shadow-blue-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
-                            <div className="p-4 rounded-full bg-blue-50 group-hover:bg-blue-100 transition-colors">
-                                <Award className="w-8 h-8 text-blue-600" />
+                        <div className="flex flex-col items-center justify-center gap-4 group">
+                            <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                                <Award className="w-8 h-8" />
                             </div>
                             <div className="text-center">
-                                <p className="text-2xl font-bold text-slate-900">20+</p>
-                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">Yıllık Emlak Deneyimi</p>
+                                <p className="text-3xl font-bold text-slate-900">20+</p>
+                                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">YILLIK EMLAK DENEYİMİ</p>
                             </div>
                         </div>
 
                         {/* Full Management - Orange */}
-                        <div className="bg-white rounded-2xl p-8 border border-orange-100 shadow-xl shadow-orange-900/5 hover:shadow-2xl hover:shadow-orange-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
-                            <div className="p-4 rounded-full bg-orange-50 group-hover:bg-orange-100 transition-colors">
-                                <Home className="w-8 h-8 text-[#EF7202]" />
+                        <div className="flex flex-col items-center justify-center gap-4 group">
+                            <div className="w-16 h-16 rounded-2xl bg-orange-50 text-[#EF7202] flex items-center justify-center transition-transform group-hover:scale-110">
+                                <Home className="w-8 h-8" />
                             </div>
                             <div className="text-center">
+                                <Home className="w-8 h-8 text-[#EF7202] mx-auto mb-2 hidden" /> {/* Hidden but kept for structure logic if needed */}
                                 <p className="text-slate-900 font-bold text-lg leading-tight">Tam Kapsamlı<br />Yönetim</p>
                             </div>
                         </div>
 
                         {/* AI Based - Purple */}
-                        <div className="bg-white rounded-2xl p-8 border border-purple-100 shadow-xl shadow-purple-900/5 hover:shadow-2xl hover:shadow-purple-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
-                            <div className="p-4 rounded-full bg-purple-50 group-hover:bg-purple-100 transition-colors">
-                                <Sparkles className="w-8 h-8 text-purple-600" />
+                        <div className="flex flex-col items-center justify-center gap-4 group">
+                            <div className="w-16 h-16 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                                <Sparkles className="w-8 h-8" />
                             </div>
                             <div className="text-center">
-                                <p className="text-2xl font-bold text-slate-900">%100</p>
-                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">Yapay Zeka Tabanlı</p>
+                                <p className="text-3xl font-bold text-slate-900">%100</p>
+                                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">YAPAY ZEKA TABANLI</p>
                             </div>
                         </div>
 
                         {/* Transaction Volume - Emerald */}
-                        <div className="bg-white rounded-2xl p-8 border border-emerald-100 shadow-xl shadow-emerald-900/5 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
-                            <div className="p-4 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                                <LineChart className="w-8 h-8 text-emerald-600" />
+                        <div className="flex flex-col items-center justify-center gap-4 group">
+                            <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                                <LineChart className="w-8 h-8" />
                             </div>
                             <div className="text-center">
-                                <p className="text-2xl font-bold text-slate-900">$100M+</p>
-                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">İşlem Hacmi</p>
+                                <p className="text-3xl font-bold text-slate-900">$100M+</p>
+                                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">İŞLEM HACMİ</p>
                             </div>
                         </div>
                     </motion.div>
