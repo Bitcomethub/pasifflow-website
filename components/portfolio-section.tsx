@@ -262,7 +262,7 @@ export function PortfolioSection() {
                         <p className="text-slate-500 mb-8 leading-relaxed">
                           Tüm portföyü, detaylı analizleri ve yeni fırsatları görmek için ücretsiz üye olun.
                         </p>
-                        <Button className="w-full h-12 rounded-xl font-bold bg-primary text-black hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98]">
+                        <Button className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98]">
                           Hemen Üye Ol
                         </Button>
                       </div>
@@ -350,7 +350,7 @@ export function PortfolioSection() {
                     </div>
 
                     <div className="pt-4 grid gap-3">
-                      <Button className="w-full h-12 rounded-xl font-bold bg-primary text-black hover:bg-primary/90 transition-all shadow-[0_10px_20px_-5px_rgba(254,126,29,0.2)]" asChild>
+                      <Button className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all shadow-[0_10px_20px_-5px_rgba(254,126,29,0.2)]" asChild>
                         <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
                           {t("cta")}
                         </a>
@@ -471,7 +471,7 @@ export function PortfolioSection() {
 
                 {/* CTA Buttons */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                  <Button className="w-full h-14 text-lg font-bold shadow-xl shadow-primary/20 bg-primary text-black hover:bg-primary/90 rounded-2xl transition-all hover:scale-[1.02]" asChild>
+                  <Button className="w-full h-14 text-lg font-bold shadow-xl shadow-primary/20 bg-primary text-white hover:bg-primary/90 rounded-2xl transition-all hover:scale-[1.02]" asChild>
                     <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
                       {t("cta")}
                     </a>
