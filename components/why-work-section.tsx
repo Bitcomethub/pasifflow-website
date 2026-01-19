@@ -55,16 +55,16 @@ export function WhyWorkSection() {
                     >
                         <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
                             <p className="text-4xl font-bold text-slate-900 mb-2">20+</p>
-                            <p className="text-slate-600 text-sm font-medium">Yıl ABD Tecrübesi</p>
+                            <p className="text-slate-600 text-sm font-medium">Amerika Emlak Tecrübesi</p>
                         </div>
                         <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
                             <p className="text-4xl font-bold text-slate-900 mb-2">$100M+</p>
                             <div className="w-12 h-1 bg-orange-500 mx-auto mb-2 rounded-full"></div>
-                            <p className="text-slate-600 text-sm font-medium">İşlem Hacmi</p>
+                            <p className="text-slate-600 text-sm font-medium">Tam Kapsamlı Yönetim</p>
                         </div>
                         <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
-                            <p className="text-4xl font-bold text-emerald-600 mb-2">98%+</p>
-                            <p className="text-slate-600 text-sm font-medium">Doluluk Oranı</p>
+                            <p className="text-4xl font-bold text-emerald-600 mb-2">%100</p>
+                            <p className="text-slate-600 text-sm font-medium">Yapay Zeka Tabanlı</p>
                         </div>
                         <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
                             <p className="text-4xl font-bold text-slate-900 mb-2">7/24</p>
