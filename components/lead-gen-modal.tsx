@@ -11,16 +11,24 @@ interface LeadGenModalProps {
     open: boolean
     onOpenChange: (open: boolean) => void
     onSuccess: () => void
-    triggerSource?: "timer" | "gated-content"
+    triggerSource?: "timer" | "gated-content" | "Header Auth"
+    initialAuthMode?: "login" | "signup"
 }
 
-export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: LeadGenModalProps) {
+export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, initialAuthMode = "signup" }: LeadGenModalProps) {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [loading, setLoading] = useState(false)
     const [step, setStep] = useState<"form" | "success">("form")
-    const [authMode, setAuthMode] = useState<"signup" | "login">("signup") // New State for Auth Mode
+    const [authMode, setAuthMode] = useState<"signup" | "login">(initialAuthMode)
+
+    // Reset auth mode when modal opens
+    useEffect(() => {
+        if (open) {
+            setAuthMode(initialAuthMode)
+        }
+    }, [open, initialAuthMode])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()

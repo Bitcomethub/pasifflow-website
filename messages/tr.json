@@ -537,7 +537,25 @@
         "reason2": "Uluslararası Deneyim: Kur farkları ve vergi sonuçları dahil sınır ötesi yatırım karmaşıklıklarını anlama",
         "reason3": "Teknoloji Odaklı: Sizi bilgilendiren ve kontrolü elinizde tutmanızı sağlayan modern araçlar",
         "reason4": "Çıkarların Uyumu: Başarımız sizin başarınıza bağlıdır",
-        "reason5": "Hızlı İletişim: Farklı saat dilimlerinde çok dilli ekip üyeleriyle destek"
+        "reason5": "Hızlı İletişim: Farklı saat dilimlerinde çok dilli ekip üyeleriyle destek",
+        "features": {
+            "localExpertise": {
+                "title": "Yerel Pazar Uzmanlığı",
+                "description": "ABD gayrimenkul piyasaları ve Section 8 düzenlemeleri hakkında derin bilgiye sahibiz."
+            },
+            "globalExperience": {
+                "title": "Uluslararası Deneyim",
+                "description": "Kur farkları, vergi sonuçları ve sınır ötesi yatırım süreçlerini sizin için yönetiyoruz."
+            },
+            "techDriven": {
+                "title": "Teknoloji Odaklı",
+                "description": "Yatırımlarınızı anlık takip etmenizi sağlayan şeffaf paneller sunuyoruz."
+            },
+            "fastCommunication": {
+                "title": "Hızlı İletişim",
+                "description": "Farklı saat dilimlerinde bile 7/24 ulaşabileceğiniz çok dilli ekibimizle yanınızdayız."
+            }
+        }
     },
     "contact": {
         "pageTitle": "İletişime Geçin",
