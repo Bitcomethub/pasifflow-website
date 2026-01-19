@@ -4,50 +4,32 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Pasiflow Official Brand Colors (from Brand Guide) */
-
-  /* Background: Kırık Beyaz */
+  /* Pasiflow Official Brand Colors */
   --background: #F6F7F9;
   --foreground: #1F2328;
-
-  /* Card: Beyaz */
   --card: #FFFFFF;
   --card-foreground: #1F2328;
-
-  /* Popover */
   --popover: #FFFFFF;
   --popover-foreground: #1F2328;
-
-  /* Primary: Turuncu (CTA) */
   --primary: #EF7202;
   --primary-foreground: #FFFFFF;
-
-  /* Secondary: Lacivert */
   --secondary: #001C32;
   --secondary-foreground: #FFFFFF;
-
-  /* Muted: Açık Gri */
   --muted: #E5E6E8;
   --muted-foreground: #535454;
-
-  /* Accent: Petrol Yeşili (Success/Verified) */
   --accent: #009688;
   --accent-foreground: #FFFFFF;
-
-  /* Destructive */
   --destructive: #dc2626;
   --destructive-foreground: #FFFFFF;
-
-  /* Border & Input: Açık Gri */
   --border: #E5E6E8;
   --input: #E5E6E8;
   --ring: #EF7202;
 }
 
 @theme inline {
-  /* User requested font stack */
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  /* Pasiflow Typography System - Locked */
+  --font-sans: var(--font-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-inter), "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -80,45 +62,90 @@
     @apply border-border outline-ring/50;
   }
 
+  html {
+    font-family: var(--font-sans);
+  }
+
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-sans);
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Clean sans-serif headlines */
-  h1 {
-    @apply text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1];
+  /* H1 – Ana başlık (hero başlığı) */
+  h1,
+  .h1 {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(32px, 4vw, 40px);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
     color: #1F2328;
   }
 
-  h2 {
-    @apply text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight leading-tight;
+  /* H2 – Bölüm başlıkları */
+  h2,
+  .h2 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.3;
     color: #1F2328;
   }
 
-  h3 {
-    @apply text-2xl sm:text-3xl font-semibold tracking-tight;
+  /* H3 – Kart / kutu başlıkları */
+  h3,
+  .h3 {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.3;
     color: #1F2328;
   }
 
+  /* Gövde metni (body) */
+  p,
+  .body {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #535454;
+  }
+
+  /* H4, H5, H6 fallback defaults */
   h4 {
-    @apply text-xl sm:text-2xl font-semibold;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1.4;
     color: #1F2328;
   }
 
   h5 {
-    @apply text-lg font-semibold;
+    font-weight: 600;
+    font-size: 16px;
+    color: #1F2328;
+  }
+}
+
+@layer components {
+
+  /* Küçük açıklama metni (supporting text) */
+  .text-sm-custom {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #6B7280;
   }
 
-  h6 {
-    @apply text-base font-semibold;
-  }
-
-  p {
-    @apply leading-relaxed;
-    color: #535454;
+  /* Butonlar */
+  .btn,
+  .button-base {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
   }
 }
