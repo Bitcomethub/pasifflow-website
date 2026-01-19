@@ -45,31 +45,51 @@ export function CityComparisonSection() {
     ]
 
     return (
-        <section className="py-24 bg-muted/30">
+        <section className="py-24 bg-muted/30 overflow-hidden">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="text-center space-y-4 mb-16 max-w-3xl mx-auto">
-                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-4 shadow-lg">
-                        <span className="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                    className="text-center space-y-4 mb-16 max-w-3xl mx-auto"
+                >
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                        className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-4 shadow-lg"
+                    >
+                        <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
                         {t("badge")}
-                    </div>
-                    <h2 className="text-3xl md:text-5xl font-bold text-primary">
+                    </motion.div>
+                    <h2 className="text-3xl md:text-5xl font-bold text-slate-900">
                         {t("title")}
                     </h2>
-                    <p className="text-muted-foreground text-lg leading-relaxed">
+                    <p className="text-slate-600 text-lg leading-relaxed">
                         {t("description")}
                     </p>
-                </div>
+                </motion.div>
 
                 <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                     {cities.map((city, index) => (
                         <motion.div
                             key={city.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{
+                                delay: 0.2 + index * 0.15,
+                                duration: 0.8,
+                                ease: [0.22, 1, 0.36, 1],
+                            }}
+                            whileHover={{
+                                y: -8,
+                                transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
+                            }}
                         >
-                            <Card className="h-full p-6 border-border/50 hover:shadow-xl hover:shadow-primary/5 transition-all group overflow-hidden relative">
+                            <Card className="h-full p-6 bg-white border-slate-200 hover:shadow-2xl hover:border-slate-300 transition-all duration-500 group overflow-hidden relative">
                                 {/* Top gradient bar */}
                                 <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${city.color}`} />
 

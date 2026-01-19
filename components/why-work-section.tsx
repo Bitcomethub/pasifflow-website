@@ -53,21 +53,22 @@ export function WhyWorkSection() {
                         viewport={{ once: true }}
                         className="grid grid-cols-2 gap-6"
                     >
-                        <div className="bg-background rounded-2xl p-8 border border-border/50 text-center shadow-sm">
-                            <p className="text-4xl font-bold text-primary mb-2">20+</p>
-                            <p className="text-muted-foreground text-sm">Yıl ABD Tecrübesi</p>
+                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
+                            <p className="text-4xl font-bold text-slate-900 mb-2">20+</p>
+                            <p className="text-slate-600 text-sm font-medium">Yıl ABD Tecrübesi</p>
                         </div>
-                        <div className="bg-background rounded-2xl p-8 border border-border/50 text-center shadow-sm">
-                            <p className="text-4xl font-bold text-accent mb-2">$250M+</p>
-                            <p className="text-muted-foreground text-sm">İşlem Hacmi</p>
+                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
+                            <p className="text-4xl font-bold text-slate-900 mb-2">$250M+</p>
+                            <div className="w-12 h-1 bg-orange-500 mx-auto mb-2 rounded-full"></div>
+                            <p className="text-slate-600 text-sm font-medium">İşlem Hacmi</p>
                         </div>
-                        <div className="bg-background rounded-2xl p-8 border border-border/50 text-center shadow-sm">
-                            <p className="text-4xl font-bold text-emerald-500 mb-2">98%+</p>
-                            <p className="text-muted-foreground text-sm">Doluluk Oranı</p>
+                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
+                            <p className="text-4xl font-bold text-emerald-600 mb-2">98%+</p>
+                            <p className="text-slate-600 text-sm font-medium">Doluluk Oranı</p>
                         </div>
-                        <div className="bg-background rounded-2xl p-8 border border-border/50 text-center shadow-sm">
-                            <p className="text-4xl font-bold text-purple-500 mb-2">7/24</p>
-                            <p className="text-muted-foreground text-sm">Destek</p>
+                        <div className="bg-white rounded-2xl p-8 border border-slate-200 text-center shadow-md hover:shadow-lg transition-shadow">
+                            <p className="text-4xl font-bold text-slate-900 mb-2">7/24</p>
+                            <p className="text-slate-600 text-sm font-medium">Destek</p>
                         </div>
                     </motion.div>
                 </div>

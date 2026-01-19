@@ -18,11 +18,11 @@ export function AppFeaturesSection() {
     ]
 
     return (
-        <section className="py-24 bg-gradient-to-br from-primary via-primary/95 to-accent/80 text-white relative overflow-hidden">
+        <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
             {/* Decorative background */}
-            <div className="absolute inset-0 opacity-10">
-                <div className="absolute top-20 right-20 w-64 h-64 bg-white rounded-full blur-3xl" />
-                <div className="absolute bottom-20 left-20 w-80 h-80 bg-accent rounded-full blur-3xl" />
+            <div className="absolute inset-0">
+                <div className="absolute top-20 right-20 w-64 h-64 bg-orange-500/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-20 left-20 w-80 h-80 bg-slate-700/50 rounded-full blur-3xl" />
             </div>
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -33,9 +33,13 @@ export function AppFeaturesSection() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <h2 className="text-3xl md:text-5xl font-bold mb-4">{t("title")}</h2>
-                        <p className="text-xl text-white/80 mb-8">{t("subtitle")}</p>
-                        <p className="text-white/70 mb-8">{t("description")}</p>
+                        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white text-slate-900 font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
+                            <Smartphone className="w-4 h-4" />
+                            <span>Mobil Uygulama</span>
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">{t("title")}</h2>
+                        <p className="text-xl text-slate-300 mb-8">{t("subtitle")}</p>
+                        <p className="text-slate-400 mb-8">{t("description")}</p>
 
                         <div className="grid gap-4">
                             {features.map((feature, i) => (
@@ -45,12 +49,12 @@ export function AppFeaturesSection() {
                                     whileInView={{ opacity: 1, x: 0 }}
                                     viewport={{ once: true }}
                                     transition={{ delay: i * 0.1 }}
-                                    className="flex items-start gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 hover:bg-white/20 transition-colors"
+                                    className="flex items-start gap-4 bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/10 hover:border-white/20 transition-all"
                                 >
-                                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-accent flex items-center justify-center">
-                                        <feature.icon className="h-5 w-5 text-white" />
+                                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-md">
+                                        <feature.icon className="h-5 w-5 text-slate-900" />
                                     </div>
-                                    <p className="text-white/90 text-sm leading-relaxed pt-2">{t(feature.key)}</p>
+                                    <p className="text-white text-sm leading-relaxed pt-2 font-medium">{t(feature.key)}</p>
                                 </motion.div>
                             ))}
                         </div>

@@ -13,15 +13,33 @@ export function HeroSection() {
     show: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.08,
-        delayChildren: 0.1,
+        staggerChildren: 0.12,
+        delayChildren: 0.2,
+        ease: [0.25, 0.4, 0.25, 1],
       },
     },
   }
 
   const item = {
-    hidden: { opacity: 0, y: 15 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 30, scale: 0.98 },
+    show: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+      }
+    },
+  }
+
+  const floatAnimation = {
+    y: [0, -8, 0],
+    transition: {
+      duration: 4,
+      repeat: Infinity,
+      ease: "easeInOut",
+    },
   }
 
   return (
@@ -99,9 +117,13 @@ export function HeroSection() {
 
           {/* Visual Content - Professional Dashboard Style */}
           <motion.div
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+            initial={{ opacity: 0, x: 60, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{
+              duration: 1,
+              delay: 0.4,
+              ease: [0.22, 1, 0.36, 1],
+            }}
             className="relative hidden lg:flex items-center justify-center"
           >
             {/* Main Image Container */}
@@ -116,9 +138,13 @@ export function HeroSection() {
 
               {/* HUD 1: Net Income - Bottom */}
               <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
+                initial={{ y: 40, opacity: 0, scale: 0.9 }}
+                animate={{ y: 0, opacity: 1, scale: 1 }}
+                transition={{
+                  delay: 0.9,
+                  duration: 0.8,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="absolute bottom-5 left-5 right-5 z-20"
               >
                 <div className="bg-white p-5 rounded-2xl shadow-xl flex items-center justify-between">
@@ -134,9 +160,13 @@ export function HeroSection() {
 
               {/* HUD 2: Status Tag - Top Right */}
               <motion.div
-                initial={{ x: 20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ delay: 1, duration: 0.5 }}
+                initial={{ x: 30, opacity: 0, scale: 0.9 }}
+                animate={{ x: 0, opacity: 1, scale: 1 }}
+                transition={{
+                  delay: 1.1,
+                  duration: 0.7,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className="absolute top-5 right-5 z-20"
               >
                 <div className="bg-slate-900 text-white px-4 py-2 rounded-full flex items-center gap-2 shadow-lg">

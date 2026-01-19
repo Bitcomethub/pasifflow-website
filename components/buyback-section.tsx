@@ -39,12 +39,12 @@ export function BuybackSection() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 border border-accent/20 mb-6">
-                        <Shield className="w-4 h-4 text-accent" />
-                        <span className="text-accent text-sm font-semibold tracking-wide uppercase">{t("badge")}</span>
+                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
+                        <Shield className="w-4 h-4" />
+                        <span>{t("badge")}</span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-                        {t("title")} <span className="text-accent">{t("titleAccent")}</span>
+                    <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                        {t("title")} <span className="text-orange-600">{t("titleAccent")}</span>
                     </h2>
                     <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                         {t("subtitle")}
@@ -119,22 +119,22 @@ export function BuybackSection() {
 
                                 <div className="relative z-10">
                                     <div className="flex items-center justify-between mb-4">
-                                        <h3 className="text-xl font-bold text-foreground">{t("pricingTitle")}</h3>
-                                        <span className="px-3 py-1 rounded-full bg-accent/20 text-accent text-sm font-semibold">
+                                        <h3 className="text-xl font-bold text-slate-900">{t("pricingTitle")}</h3>
+                                        <span className="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-semibold">
                                             {t("optional")}
                                         </span>
                                     </div>
 
                                     <div className="flex items-baseline gap-2 mb-4">
-                                        <span className="text-5xl font-bold text-accent">$3,500</span>
-                                        <span className="text-muted-foreground">{t("oneTime")}</span>
+                                        <span className="text-5xl font-bold text-slate-900">$3,500</span>
+                                        <span className="text-slate-600">{t("oneTime")}</span>
                                     </div>
 
                                     <p className="text-muted-foreground mb-6">
                                         {t("pricingDesc")}
                                     </p>
 
-                                    <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold py-6 text-lg group">
+                                    <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-6 text-lg group shadow-lg">
                                         {t("ctaButton")}
                                         <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                                     </Button>

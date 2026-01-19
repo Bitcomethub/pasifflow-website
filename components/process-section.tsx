@@ -47,19 +47,32 @@ export function ProcessSection() {
   ]
 
   return (
-    <section id="nasil-calisir" className="py-24 bg-muted/30">
+    <section id="nasil-calisir" className="py-24 bg-muted/30 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center space-y-4 mb-20 max-w-3xl mx-auto">
-          <div className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent font-semibold text-sm mb-2 border border-accent/20">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="text-center space-y-4 mb-20 max-w-3xl mx-auto"
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-2 shadow-lg"
+          >
+            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
             {t("subtitle")}
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-primary">
+          </motion.div>
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900">
             {t("title")}
           </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed">
+          <p className="text-slate-600 text-lg leading-relaxed">
             {t("intro")}
           </p>
-        </div>
+        </motion.div>
 
         <div className="relative max-w-5xl mx-auto">
           {/* Center Line (Hidden on mobile) */}
@@ -69,15 +82,18 @@ export function ProcessSection() {
             {steps.map((step, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
+                initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: true, margin: "-80px" }}
+                transition={{
+                  duration: 0.8,
+                  delay: i * 0.1,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
                 className={`flex flex-col md:flex-row gap-8 items-center ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
               >
-                {/* Content Side */}
                 <div className="flex-1 md:text-right">
-                  <div className={`space-y-4 ${i % 2 === 0 ? 'md:text-left' : 'md:text-right'} p-8 bg-background rounded-2xl border border-border/50 shadow-sm hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 hover:-translate-y-1 group`}>
+                  <div className={`space-y-4 ${i % 2 === 0 ? 'md:text-left' : 'md:text-right'} p-8 bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group`}>
                     <div className={`md:hidden flex items-center gap-3 mb-4`}>
                       <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-xl shadow-lg shadow-primary/20">
                         {i + 1}
