@@ -92,7 +92,7 @@ export function WhyWorkSection() {
                                 <Trophy className="w-8 h-8" />
                             </div>
                             <div className="text-center">
-                                <p className="text-3xl font-bold text-slate-900">$100M+</p>
+                                <p className="text-3xl font-bold text-slate-900">$250M+</p>
                                 <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">İŞLEM HACMİ</p>
                             </div>
                         </div>
