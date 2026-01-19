@@ -147,49 +147,49 @@ export function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Key Stats Row - Replaced with Colorful Trust Boxes */}
+            {/* Key Stats Row - Brand Colors Only */}
             <motion.div variants={item} className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8 min-w-full">
-              {/* 1. 20+ Experience - Blue */}
+              {/* 1. 20+ Experience */}
               <div className="flex flex-col items-center justify-center gap-3 group p-4 rounded-2xl hover:bg-white/50 transition-colors">
-                <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                <div className="w-14 h-14 rounded-2xl bg-[#FEEBE5] text-[#EF7202] flex items-center justify-center transition-transform group-hover:scale-110">
                   <ShieldCheck className="w-7 h-7" />
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900">20+</p>
-                  <p className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">YILLIK EMLAK DENEYİMİ</p>
+                  <p className="text-2xl md:text-3xl font-bold text-[#001C32]">20+</p>
+                  <p className="text-[#535454] text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">YILLIK EMLAK DENEYİMİ</p>
                 </div>
               </div>
 
-              {/* 2. Customer Satisfaction - Yellow */}
+              {/* 2. Customer Satisfaction */}
               <div className="flex flex-col items-center justify-center gap-3 group p-4 rounded-2xl hover:bg-white/50 transition-colors">
-                <div className="w-14 h-14 rounded-2xl bg-yellow-50 text-yellow-500 flex items-center justify-center transition-transform group-hover:scale-110">
+                <div className="w-14 h-14 rounded-2xl bg-[#FEEBE5] text-[#EF7202] flex items-center justify-center transition-transform group-hover:scale-110">
                   <Star className="w-7 h-7 fill-current" />
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900">4.9/5</p>
-                  <p className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">MÜŞTERİ MEMNUNİYETİ</p>
+                  <p className="text-2xl md:text-3xl font-bold text-[#001C32]">4.9/5</p>
+                  <p className="text-[#535454] text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">MÜŞTERİ MEMNUNİYETİ</p>
                 </div>
               </div>
 
-              {/* 3. Happy Investors - Green */}
+              {/* 3. Happy Investors */}
               <div className="flex flex-col items-center justify-center gap-3 group p-4 rounded-2xl hover:bg-white/50 transition-colors">
-                <div className="w-14 h-14 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                <div className="w-14 h-14 rounded-2xl bg-[#FEEBE5] text-[#EF7202] flex items-center justify-center transition-transform group-hover:scale-110">
                   <Users className="w-7 h-7" />
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900">50+</p>
-                  <p className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">MUTLU YATIRIMCI</p>
+                  <p className="text-2xl md:text-3xl font-bold text-[#001C32]">50+</p>
+                  <p className="text-[#535454] text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">MUTLU YATIRIMCI</p>
                 </div>
               </div>
 
-              {/* 4. Transaction Volume - Purple */}
+              {/* 4. Transaction Volume */}
               <div className="flex flex-col items-center justify-center gap-3 group p-4 rounded-2xl hover:bg-white/50 transition-colors">
-                <div className="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                <div className="w-14 h-14 rounded-2xl bg-[#FEEBE5] text-[#EF7202] flex items-center justify-center transition-transform group-hover:scale-110">
                   <Trophy className="w-7 h-7" />
                 </div>
                 <div className="text-center">
-                  <p className="text-2xl md:text-3xl font-bold text-slate-900">$250M+</p>
-                  <p className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">İŞLEM HACMİ</p>
+                  <p className="text-2xl md:text-3xl font-bold text-[#001C32]">$250M+</p>
+                  <p className="text-[#535454] text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">İŞLEM HACMİ</p>
                 </div>
               </div>
             </motion.div>
