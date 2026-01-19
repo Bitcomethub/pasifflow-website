@@ -29,7 +29,7 @@ export function AIAssistant() {
                 setMessages([
                     {
                         role: "assistant",
-                        content: "Merhaba, Pasiflow'a hoş geldiniz. Ben yatırım danışmanınız. ABD gayrimenkul yatırımlarıyla ilgili sorularınızı yanıtlamak için buradayım. Size nasıl yardımcı olabilirim?"
+                        content: "Merhaba, Pasiflow’a hoş geldiniz. Ben Pasi, akıllı yatırım danışmanınız. ABD gayrimenkul yatırımlarıyla ilgili sorularınızı yanıtlamak ve sizi adım adım yönlendirmek için buradayım. Size nasıl yardımcı olabilirim?"
                     }
                 ])
                 setHasGreeted(true)
@@ -102,7 +102,7 @@ export function AIAssistant() {
                                         <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-slate-900 rounded-full" />
                                     </div>
                                     <div>
-                                        <h3 className="font-bold text-sm tracking-tight">Yatırım Danışmanı</h3>
+                                        <h3 className="font-bold text-sm tracking-tight">Pasi | Akıllı Danışman</h3>
                                         <div className="flex items-center gap-1.5 mt-0.5">
                                             <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
                                             <span className="text-xs text-slate-400 font-medium">Çevrimiçi</span>
