@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { MapPin, Globe, Cpu, Handshake, MessageSquare, CheckCircle2, Home, Award, Sparkles, Headset, LineChart } from "lucide-react"
+import { MapPin, Globe, Cpu, Handshake, MessageSquare, CheckCircle2, Home, Award, Sparkles, Headset, LineChart, ShieldCheck, Users, Trophy, Star } from "lucide-react"
 
 export function WhyWorkSection() {
     const t = useTranslations("whyWork")
@@ -56,7 +56,7 @@ export function WhyWorkSection() {
                         {/* 20+ Experience - Blue */}
                         <div className="flex flex-col items-center justify-center gap-4 group">
                             <div className="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center transition-transform group-hover:scale-110">
-                                <Award className="w-8 h-8" />
+                                <ShieldCheck className="w-8 h-8" />
                             </div>
                             <div className="text-center">
                                 <p className="text-3xl font-bold text-slate-900">20+</p>
@@ -64,32 +64,32 @@ export function WhyWorkSection() {
                             </div>
                         </div>
 
-                        {/* Full Management - Orange */}
+                        {/* Customer Satisfaction - Yellow */}
                         <div className="flex flex-col items-center justify-center gap-4 group">
-                            <div className="w-16 h-16 rounded-2xl bg-orange-50 text-[#EF7202] flex items-center justify-center transition-transform group-hover:scale-110">
-                                <Home className="w-8 h-8" />
+                            <div className="w-16 h-16 rounded-2xl bg-yellow-50 text-yellow-500 flex items-center justify-center transition-transform group-hover:scale-110">
+                                <Star className="w-8 h-8 fill-current" />
                             </div>
                             <div className="text-center">
-                                <Home className="w-8 h-8 text-[#EF7202] mx-auto mb-2 hidden" /> {/* Hidden but kept for structure logic if needed */}
-                                <p className="text-slate-900 font-bold text-lg leading-tight">Tam Kapsamlı<br />Yönetim</p>
+                                <p className="text-3xl font-bold text-slate-900">4.9/5</p>
+                                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">MÜŞTERİ MEMNUNİYETİ</p>
                             </div>
                         </div>
 
-                        {/* AI Based - Purple */}
+                        {/* Happy Investors - Green */}
+                        <div className="flex flex-col items-center justify-center gap-4 group">
+                            <div className="w-16 h-16 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                                <Users className="w-8 h-8" />
+                            </div>
+                            <div className="text-center">
+                                <p className="text-3xl font-bold text-slate-900">50+</p>
+                                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">MUTLU YATIRIMCI</p>
+                            </div>
+                        </div>
+
+                        {/* Transaction Volume - Purple */}
                         <div className="flex flex-col items-center justify-center gap-4 group">
                             <div className="w-16 h-16 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center transition-transform group-hover:scale-110">
-                                <Sparkles className="w-8 h-8" />
-                            </div>
-                            <div className="text-center">
-                                <p className="text-3xl font-bold text-slate-900">%100</p>
-                                <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-2">YAPAY ZEKA TABANLI</p>
-                            </div>
-                        </div>
-
-                        {/* Transaction Volume - Emerald */}
-                        <div className="flex flex-col items-center justify-center gap-4 group">
-                            <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center transition-transform group-hover:scale-110">
-                                <LineChart className="w-8 h-8" />
+                                <Trophy className="w-8 h-8" />
                             </div>
                             <div className="text-center">
                                 <p className="text-3xl font-bold text-slate-900">$100M+</p>
