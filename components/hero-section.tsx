@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Building2, TrendingUp, ShieldCheck, Key, ArrowRight, Star } from "lucide-react"
+import { Building2, TrendingUp, ShieldCheck, Key, ArrowRight, Star, Users, Trophy } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
 
@@ -147,19 +147,51 @@ export function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Key Stats Row */}
-            <motion.div variants={item} className="grid grid-cols-2 lg:flex lg:justify-between gap-6 pt-4 min-w-full">
-              {[
-                { label: "Hedef Net Getiri", value: "%9-14" },
-                { label: "Doluluk Oranı", value: "%98+" },
-                { label: "Ort. Kiracılık Süresi", value: "Ort. 4+ Yıl" },
-                { label: "Giriş Noktası", value: "$30K" },
-              ].map((stat, i) => (
-                <div key={i} className="text-left">
-                  <p className="text-2xl md:text-3xl font-bold text-[#001C32] whitespace-nowrap">{stat.value}</p>
-                  <p className="text-sm text-[#535454] mt-1 whitespace-nowrap">{stat.label}</p>
+            {/* Key Stats Row - Replaced with Colorful Trust Boxes */}
+            <motion.div variants={item} className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8 min-w-full">
+              {/* 1. 20+ Experience - Blue */}
+              <div className="flex flex-col items-center justify-center gap-3 group p-4 rounded-2xl hover:bg-white/50 transition-colors">
+                <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                  <ShieldCheck className="w-7 h-7" />
                 </div>
-              ))}
+                <div className="text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900">20+</p>
+                  <p className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">YILLIK EMLAK DENEYİMİ</p>
+                </div>
+              </div>
+
+              {/* 2. Customer Satisfaction - Yellow */}
+              <div className="flex flex-col items-center justify-center gap-3 group p-4 rounded-2xl hover:bg-white/50 transition-colors">
+                <div className="w-14 h-14 rounded-2xl bg-yellow-50 text-yellow-500 flex items-center justify-center transition-transform group-hover:scale-110">
+                  <Star className="w-7 h-7 fill-current" />
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900">4.9/5</p>
+                  <p className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">MÜŞTERİ MEMNUNİYETİ</p>
+                </div>
+              </div>
+
+              {/* 3. Happy Investors - Green */}
+              <div className="flex flex-col items-center justify-center gap-3 group p-4 rounded-2xl hover:bg-white/50 transition-colors">
+                <div className="w-14 h-14 rounded-2xl bg-green-50 text-green-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                  <Users className="w-7 h-7" />
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900">50+</p>
+                  <p className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">MUTLU YATIRIMCI</p>
+                </div>
+              </div>
+
+              {/* 4. Transaction Volume - Purple */}
+              <div className="flex flex-col items-center justify-center gap-3 group p-4 rounded-2xl hover:bg-white/50 transition-colors">
+                <div className="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center transition-transform group-hover:scale-110">
+                  <Trophy className="w-7 h-7" />
+                </div>
+                <div className="text-center">
+                  <p className="text-2xl md:text-3xl font-bold text-slate-900">$250M+</p>
+                  <p className="text-slate-500 text-[10px] md:text-xs font-bold uppercase tracking-widest mt-1">İŞLEM HACMİ</p>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
 
