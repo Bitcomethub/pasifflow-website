@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { MapPin, Globe, Cpu, Handshake, MessageSquare, CheckCircle2, Home, Award, Sparkles, Headset } from "lucide-react"
+import { MapPin, Globe, Cpu, Handshake, MessageSquare, CheckCircle2, Home, Award, Sparkles, Headset, LineChart } from "lucide-react"
 
 export function WhyWorkSection() {
     const t = useTranslations("whyWork")
@@ -59,8 +59,8 @@ export function WhyWorkSection() {
                                 <Award className="w-8 h-8 text-blue-600" />
                             </div>
                             <div className="text-center">
-                                <p className="text-2xl font-bold text-slate-900">20+ Yıl</p>
-                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">Amerİka Emlak Tecrübesİ</p>
+                                <p className="text-2xl font-bold text-slate-900">20+</p>
+                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">Yıllık Emlak Deneyimi</p>
                             </div>
                         </div>
 
@@ -85,14 +85,14 @@ export function WhyWorkSection() {
                             </div>
                         </div>
 
-                        {/* 7/24 Support - Emerald */}
+                        {/* Transaction Volume - Emerald */}
                         <div className="bg-white rounded-2xl p-8 border border-emerald-100 shadow-xl shadow-emerald-900/5 hover:shadow-2xl hover:shadow-emerald-900/10 transition-all flex flex-col items-center justify-center gap-3 group">
                             <div className="p-4 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                                <Headset className="w-8 h-8 text-emerald-600" />
+                                <LineChart className="w-8 h-8 text-emerald-600" />
                             </div>
                             <div className="text-center">
-                                <p className="text-2xl font-bold text-slate-900">7/24</p>
-                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">Devamlı Destek</p>
+                                <p className="text-2xl font-bold text-slate-900">$100M+</p>
+                                <p className="text-slate-600 text-xs font-medium uppercase tracking-wide mt-1">İşlem Hacmi</p>
                             </div>
                         </div>
                     </motion.div>
