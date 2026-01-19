@@ -17,10 +17,10 @@ export function ProcessSection() {
   ]
 
   return (
-    <section id="nasil-calisir" className="py-24 bg-[#faf9f6] overflow-hidden">
+    <section id="nasil-calisir" className="py-24 bg-[#F6F7F9] overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 lg:px-16">
-        {/* LEFT-ALIGNED Header - Fundrise Style */}
-        <div className="grid lg:grid-cols-2 gap-16 items-start mb-20">
+        {/* Header */}
+        <div className="grid lg:grid-cols-2 gap-16 items-start mb-16">
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -28,49 +28,39 @@ export function ProcessSection() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-left"
           >
-            <p className="text-[#a3452b] font-medium mb-4 uppercase tracking-wider text-sm">
+            <p className="text-[#EF7202] font-semibold mb-4 uppercase tracking-wider text-sm">
               {t("subtitle")}
             </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-normal text-[#151513] mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1F2328] mb-6">
               {t("title")}
             </h2>
-            <p className="text-lg text-[#6b6b67] leading-relaxed">
+            <p className="text-lg text-[#535454] leading-relaxed">
               {t("intro")}
             </p>
           </motion.div>
         </div>
 
-        {/* Steps Grid - Clean Fundrise Layout */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Steps Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {steps.map((step, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{
-                duration: 0.6,
-                delay: i * 0.08,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="text-left p-8 bg-white rounded-xl border border-[#e5e4df] hover:border-[#a3452b]/30 hover:shadow-lg transition-all duration-300 group"
+              transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="text-left p-6 bg-white rounded-xl border border-[#E5E6E8] hover:border-[#EF7202]/30 hover:shadow-lg transition-all duration-300 group"
             >
-              {/* Step Number */}
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-[#a3452b] flex items-center justify-center text-white font-semibold">
+              <div className="flex items-center gap-4 mb-5">
+                <div className="w-10 h-10 rounded-lg bg-[#001C32] flex items-center justify-center text-white font-bold">
                   {i + 1}
                 </div>
-                <div className="w-10 h-10 rounded-lg bg-[#a3452b]/10 flex items-center justify-center group-hover:bg-[#a3452b]/20 transition-colors">
-                  <step.icon className="h-5 w-5 text-[#a3452b]" />
+                <div className="w-10 h-10 rounded-lg bg-[#EF7202]/10 flex items-center justify-center group-hover:bg-[#EF7202]/20 transition-colors">
+                  <step.icon className="h-5 w-5 text-[#EF7202]" />
                 </div>
               </div>
-
-              <h3 className="font-semibold text-xl text-[#151513] mb-3">
-                {t(step.titleKey)}
-              </h3>
-              <p className="text-[#6b6b67] leading-relaxed">
-                {t(step.descKey)}
-              </p>
+              <h3 className="font-semibold text-lg text-[#1F2328] mb-2">{t(step.titleKey)}</h3>
+              <p className="text-[#535454] leading-relaxed text-sm">{t(step.descKey)}</p>
             </motion.div>
           ))}
         </div>
@@ -81,13 +71,13 @@ export function ProcessSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-12 text-left"
+          className="mt-10 text-left"
         >
           <a
             href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#a3452b] font-medium hover:underline group"
+            className="inline-flex items-center gap-2 text-[#EF7202] font-medium hover:underline group"
           >
             Ücretsiz Danışmanlık Alın
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

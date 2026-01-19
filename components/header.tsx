@@ -71,32 +71,30 @@ export function Header() {
             : "bg-transparent"
         )}
       >
-        {/* Fundrise-style: Logo left, nav center-left, CTA right */}
         <div className="container mx-auto px-6 md:px-12 lg:px-16 h-16 flex items-center justify-between">
           {/* LEFT: Logo + Nav Links */}
           <div className="flex items-center gap-10">
-            {/* Logo */}
             <Link href="/" className="flex items-center relative z-50">
               <Logo size="md" theme="light" showMotto={false} />
             </Link>
 
-            {/* Desktop Nav - LEFT aligned after logo */}
+            {/* Desktop Nav */}
             <nav className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-sm font-medium text-[#151513] hover:text-[#a3452b] transition-colors"
+                  className="text-sm font-medium text-[#1F2328] hover:text-[#EF7202] transition-colors"
                 >
                   {link.name}
                 </Link>
               ))}
-              <span className="w-px h-4 bg-[#e5e4df]" />
+              <span className="w-px h-4 bg-[#E5E6E8]" />
               {extraLinks.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="text-sm font-medium text-[#6b6b67] hover:text-[#a3452b] transition-colors"
+                  className="text-sm font-medium text-[#535454] hover:text-[#EF7202] transition-colors"
                 >
                   {link.name}
                 </Link>
@@ -106,22 +104,21 @@ export function Header() {
 
           {/* RIGHT: Language + CTA */}
           <div className="hidden md:flex items-center gap-4">
-            {/* Language Switcher */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-2 h-9 px-3 text-[#151513] hover:bg-[#f5f3ed] rounded-lg">
+                <Button variant="ghost" size="sm" className="gap-2 h-9 px-3 text-[#1F2328] hover:bg-[#E5E6E8] rounded-lg">
                   <span className="text-base">{currentLang.flag}</span>
-                  <ChevronDown className="h-3 w-3 text-[#6b6b67]" />
+                  <ChevronDown className="h-3 w-3 text-[#535454]" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="min-w-[140px] bg-white border-[#e5e4df]">
+              <DropdownMenuContent align="end" className="min-w-[140px] bg-white border-[#E5E6E8]">
                 {languages.map((lang) => (
                   <DropdownMenuItem
                     key={lang.code}
                     onClick={() => switchLocale(lang.code)}
                     className={cn(
-                      "gap-3 cursor-pointer text-[#151513] focus:bg-[#f5f3ed] py-2",
-                      currentLocale === lang.code && "bg-[#f5f3ed]"
+                      "gap-3 cursor-pointer text-[#1F2328] focus:bg-[#F6F7F9] py-2",
+                      currentLocale === lang.code && "bg-[#F6F7F9]"
                     )}
                   >
                     <span className="text-lg">{lang.flag}</span>
@@ -132,7 +129,7 @@ export function Header() {
             </DropdownMenu>
 
             <Button
-              className="bg-[#a3452b] hover:bg-[#8a3a24] text-white font-medium px-5 h-9 rounded-lg transition-all"
+              className="bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold px-5 h-9 rounded-lg transition-all"
               asChild
             >
               <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
@@ -143,7 +140,7 @@ export function Header() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden z-[70] p-2 rounded-lg text-[#151513] hover:bg-[#f5f3ed] transition-colors"
+            className="md:hidden z-[70] p-2 rounded-lg text-[#1F2328] hover:bg-[#E5E6E8] transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -157,25 +154,25 @@ export function Header() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="fixed inset-0 top-16 bg-[#faf9f6] z-[60] flex flex-col p-6"
+          className="fixed inset-0 top-16 bg-[#F6F7F9] z-[60] flex flex-col p-6"
         >
           <div className="space-y-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="block text-xl font-medium text-[#151513] hover:text-[#a3452b] py-2"
+                className="block text-xl font-medium text-[#1F2328] hover:text-[#EF7202] py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <div className="h-px bg-[#e5e4df] my-4" />
+            <div className="h-px bg-[#E5E6E8] my-4" />
             {extraLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="block text-lg text-[#6b6b67] hover:text-[#a3452b] py-2"
+                className="block text-lg text-[#535454] hover:text-[#EF7202] py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
@@ -192,8 +189,8 @@ export function Header() {
                   setMobileMenuOpen(false)
                 }}
                 className={cn(
-                  "text-2xl p-3 rounded-lg hover:bg-[#f5f3ed] transition-colors border border-[#e5e4df]",
-                  currentLocale === lang.code && "bg-[#a3452b]/10 border-[#a3452b]/30"
+                  "text-2xl p-3 rounded-lg hover:bg-[#E5E6E8] transition-colors border border-[#E5E6E8]",
+                  currentLocale === lang.code && "bg-[#EF7202]/10 border-[#EF7202]/30"
                 )}
               >
                 {lang.flag}
@@ -202,7 +199,7 @@ export function Header() {
           </div>
 
           <Button
-            className="mt-8 bg-[#a3452b] hover:bg-[#8a3a24] text-white font-medium py-6 text-lg rounded-lg"
+            className="mt-8 bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold py-6 text-lg rounded-lg"
             asChild
           >
             <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">

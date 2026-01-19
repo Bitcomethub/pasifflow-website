@@ -32,7 +32,6 @@ export function HeroSection() {
       transition: {
         staggerChildren: 0.1,
         delayChildren: 0.15,
-        ease: [0.25, 0.4, 0.25, 1],
       },
     },
   }
@@ -50,15 +49,10 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#faf9f6] pt-24 pb-16 md:pt-32 md:pb-24">
-      {/* Fundrise-style cream background */}
-      <div className="absolute inset-0 w-full h-full z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#faf9f6] via-[#f7f5f0] to-[#f5f3ed]" />
-      </div>
-
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#F6F7F9] pt-24 pb-16 md:pt-32 md:pb-24">
       <div className="container mx-auto px-6 md:px-12 lg:px-16 z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* LEFT-ALIGNED Text Content - Fundrise Style */}
+          {/* LEFT-ALIGNED Text Content */}
           <motion.div
             variants={container}
             initial="hidden"
@@ -67,7 +61,7 @@ export function HeroSection() {
           >
             {/* Premium Headline with Rotating Title */}
             <motion.div variants={item} className="space-y-6">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] font-serif font-normal tracking-tight text-[#151513] leading-[1.15]">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] font-bold tracking-tight text-[#1F2328] leading-[1.15]">
                 {t("title")} <br />
                 <span className="relative inline-block h-[1.2em] overflow-hidden">
                   <AnimatePresence mode="wait">
@@ -77,23 +71,23 @@ export function HeroSection() {
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -40, opacity: 0 }}
                       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      className="text-[#a3452b] inline-block"
+                      className="text-[#EF7202] inline-block"
                     >
                       {rotatingTitles[currentTitleIndex]}
                     </motion.span>
                   </AnimatePresence>
                 </span>
               </h1>
-              <p className="text-lg md:text-xl text-[#4a4a47] leading-relaxed max-w-lg font-light">
+              <p className="text-lg md:text-xl text-[#535454] leading-relaxed max-w-lg">
                 {t("description")}
               </p>
             </motion.div>
 
-            {/* Email Capture / CTA - Fundrise Style */}
+            {/* CTA Buttons */}
             <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 max-w-md">
               <Button
                 size="lg"
-                className="h-14 px-8 text-base rounded-lg bg-[#a3452b] hover:bg-[#8a3a24] text-white font-medium shadow-lg transition-all duration-300"
+                className="h-14 px-8 text-base rounded-lg bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold shadow-lg transition-all duration-300"
                 asChild
               >
                 <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
@@ -104,7 +98,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="h-14 px-8 text-base rounded-lg border-2 border-[#d1d0cb] text-[#151513] hover:bg-[#f0efea] hover:border-[#bbbab6] font-medium transition-all duration-300"
+                className="h-14 px-8 text-base rounded-lg border-2 border-[#E5E6E8] text-[#1F2328] hover:bg-[#E5E6E8] font-semibold transition-all duration-300"
                 asChild
               >
                 <a href="#portfoy">
@@ -113,23 +107,23 @@ export function HeroSection() {
               </Button>
             </motion.div>
 
-            {/* Trust Signals - Fundrise Style */}
-            <motion.div variants={item} className="pt-8 border-t border-[#e5e4df]">
-              <div className="flex flex-wrap items-center gap-6 text-sm text-[#6b6b67]">
+            {/* Trust Signals */}
+            <motion.div variants={item} className="pt-8 border-t border-[#E5E6E8]">
+              <div className="flex flex-wrap items-center gap-6 text-sm text-[#535454]">
                 <div className="flex items-center gap-1">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-[#a3452b] text-[#a3452b]" />
+                    <Star key={i} className="h-4 w-4 fill-[#EF7202] text-[#EF7202]" />
                   ))}
-                  <span className="ml-2 font-medium">4.9/5</span>
+                  <span className="ml-2 font-medium text-[#1F2328]">4.9/5</span>
                 </div>
-                <span className="hidden sm:block">•</span>
+                <span className="hidden sm:block text-[#C7CBD3]">•</span>
                 <span>500+ Yatırımcı</span>
-                <span className="hidden sm:block">•</span>
+                <span className="hidden sm:block text-[#C7CBD3]">•</span>
                 <span>$250M+ İşlem Hacmi</span>
               </div>
             </motion.div>
 
-            {/* Key Stats Row - Professional */}
+            {/* Key Stats Row */}
             <motion.div variants={item} className="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
               {[
                 { icon: ShieldCheck, label: t("stat1Label") || "Garanti", value: t("stat1Value") || "%100" },
@@ -138,49 +132,42 @@ export function HeroSection() {
                 { icon: Key, label: t("stat4Label") || "Anahtar", value: t("stat4Value") || "Teslim" },
               ].map((stat, i) => (
                 <div key={i} className="text-left">
-                  <p className="text-2xl md:text-3xl font-serif font-normal text-[#151513]">{stat.value}</p>
-                  <p className="text-sm text-[#6b6b67] mt-1">{stat.label}</p>
+                  <p className="text-2xl md:text-3xl font-bold text-[#001C32]">{stat.value}</p>
+                  <p className="text-sm text-[#535454] mt-1">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* RIGHT Visual Content - Premium Property Image */}
+          {/* RIGHT Visual Content */}
           <motion.div
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{
-              duration: 0.8,
-              delay: 0.3,
-              ease: [0.22, 1, 0.36, 1],
-            }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="relative hidden lg:block"
           >
-            {/* Main Image Container */}
             <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src="/hero-family.png"
                 alt="Amerika Yatırım"
                 className="w-full h-full object-cover"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#001C32]/50 via-transparent to-transparent" />
 
-              {/* Minimal Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-
-              {/* Simple Stats Card - Bottom */}
+              {/* Stats Card */}
               <motion.div
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                 className="absolute bottom-6 left-6 right-6"
               >
-                <div className="bg-white p-5 rounded-xl shadow-xl">
+                <div className="bg-white p-5 rounded-xl shadow-xl border border-[#E5E6E8]">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-xs text-[#6b6b67] uppercase tracking-wider font-medium">Net Aylık Gelir</p>
-                      <p className="text-2xl font-serif text-[#151513] mt-1">$1,250<span className="text-sm text-[#9b9b97] font-sans">/ay</span></p>
+                      <p className="text-xs text-[#535454] uppercase tracking-wider font-medium">Net Aylık Gelir</p>
+                      <p className="text-2xl font-bold text-[#1F2328] mt-1">$1,250<span className="text-sm text-[#535454] font-normal">/ay</span></p>
                     </div>
-                    <div className="h-11 w-11 rounded-lg bg-[#22c55e] flex items-center justify-center">
+                    <div className="h-11 w-11 rounded-lg bg-[#009688] flex items-center justify-center">
                       <TrendingUp className="text-white h-5 w-5" />
                     </div>
                   </div>
