@@ -162,13 +162,7 @@ export function Header() {
             onOpenChange={setShowLeadModal}
             onSuccess={() => setShowLeadModal(false)}
             triggerSource="Header Auth"
-          />
-
-          <LeadGenModal
-            open={showLeadModal}
-            onOpenChange={setShowLeadModal}
-            onSuccess={() => setShowLeadModal(false)}
-            triggerSource="Header Auth"
+            initialAuthMode={authMode}
           />
 
 
