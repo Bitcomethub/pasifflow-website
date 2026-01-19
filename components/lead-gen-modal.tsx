@@ -27,9 +27,20 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
         setLoading(true)
 
         try {
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            const response = await fetch("/api/leads", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    fullName: name,
+                    email,
+                    phone: phone || undefined,
+                    source: triggerSource || "Website Modal",
+                }),
+            })
+
+            if (!response.ok) throw new Error("Bir hata oluştu")
+
             localStorage.setItem("pasiflow_user_lead", JSON.stringify({ name, email, date: new Date().toISOString() }))
-            console.log("LEAD CAPTURED:", { name, email, source: triggerSource })
 
             setStep("success")
             setTimeout(() => {

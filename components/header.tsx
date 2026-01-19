@@ -129,15 +129,43 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
+// ... imports
+            import {LeadGenModal} from "@/components/lead-gen-modal"
+
+            // ... inside component
+            const [showLeadModal, setShowLeadModal] = useState(false)
+            const [authMode, setAuthMode] = useState<"login" | "signup">("signup")
+
+  const openAuthModal = (mode: "login" | "signup") => {
+              setAuthMode(mode)
+    setShowLeadModal(true)
+  }
+
+            // ... inside render
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden lg:flex border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
+              onClick={() => openAuthModal("login")}
+            >
+              Giriş Yap / Üye Ol
+            </Button>
+
             <Button
               className="bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold px-5 h-9 rounded-lg transition-all"
-              asChild
+              onClick={() => openAuthModal("signup")}
             >
-              <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
-                {t("getConsultation")}
-              </a>
+              {t("getConsultation")}
             </Button>
           </div>
+
+          <LeadGenModal
+            open={showLeadModal}
+            onOpenChange={setShowLeadModal}
+            onSuccess={() => setShowLeadModal(false)}
+            triggerSource="Header Auth"
+          />
+
 
           {/* Mobile Menu Toggle */}
           <button

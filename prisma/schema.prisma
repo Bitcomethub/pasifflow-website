@@ -1,0 +1,18 @@
+datasource db {
+  provider = "sqlite"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Lead {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String
+  phone     String
+  budget    String?
+  source    String   @default("Website")
+  message   String?
+  createdAt DateTime @default(now())
+}
