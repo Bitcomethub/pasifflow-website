@@ -141,7 +141,7 @@ export function HeroSection() {
                 {/* 4. Volume */}
                 <div className="flex items-center gap-2">
                   <div className="h-4 w-4 text-[#EF7202] flex items-center justify-center font-bold">$</div>
-                  <span className="font-medium text-[#1F2328]">$100M+ İşlem Hacmi</span>
+                  <span className="font-medium text-[#1F2328]">$250M+ İşlem Hacmi</span>
                 </div>
 
               </div>
