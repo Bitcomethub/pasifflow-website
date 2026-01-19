@@ -61,17 +61,14 @@ export function Header() {
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={cn(
-        "fixed left-0 right-0 z-50 transition-all duration-500",
-        isScrolled ? "top-0" : "top-0"
-      )}
+      className="fixed top-0 left-0 right-0 z-50"
     >
       <div
         className={cn(
-          "mx-auto transition-all duration-500",
+          "mx-auto transition-all duration-300",
           isScrolled
-            ? "bg-white/95 backdrop-blur-md border-b border-[#e5e4df] shadow-sm"
-            : "bg-[#faf9f6]"
+            ? "bg-white shadow-md"
+            : "bg-transparent"
         )}
       >
         {/* Fundrise-style: Logo left, nav center-left, CTA right */}
