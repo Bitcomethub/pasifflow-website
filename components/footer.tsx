@@ -11,37 +11,37 @@ export function Footer() {
   const tFooter = useTranslations("footer")
 
   return (
-    <footer className="bg-[#001C32] text-white pt-20 pb-16 border-t border-white/10 relative overflow-hidden mt-8">
+    <footer className="bg-white text-[#1F2328] pt-32 pb-16 border-t border-[#E5E6E8] relative overflow-hidden mt-8">
       {/* Decorative Background */}
       <div className="absolute inset-0 opacity-40 pointer-events-none">
-        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
-        <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-accent/5 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3" />
+        <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#EF7202]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
+        <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-[#009688]/5 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 items-start">
 
           <div className="space-y-4">
-            <Logo size="lg" linkTo="/" theme="dark" />
-            <p className="text-[#C7CBD3] text-sm leading-relaxed">
+            <Logo size="lg" linkTo="/" theme="light" />
+            <p className="text-[#535454] text-sm leading-relaxed">
               {tFooter("description")}
             </p>
             <div className="flex gap-4">
-              <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors text-white hover:text-[#EF7202] border border-white/10">
+              <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-full bg-[#001C32]/5 hover:bg-[#001C32]/10 transition-colors text-[#001C32] hover:text-[#EF7202] border border-[#001C32]/10">
                 <Instagram size={18} />
               </Link>
-              <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors text-white hover:text-[#EF7202] border border-white/10">
+              <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2 rounded-full bg-[#001C32]/5 hover:bg-[#001C32]/10 transition-colors text-[#001C32] hover:text-[#EF7202] border border-[#001C32]/10">
                 <Linkedin size={18} />
               </Link>
-              <Link href="https://youtube.com/@pasiflow" target="_blank" className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors text-white hover:text-[#EF7202] border border-white/10">
+              <Link href="https://youtube.com/@pasiflow" target="_blank" className="p-2 rounded-full bg-[#001C32]/5 hover:bg-[#001C32]/10 transition-colors text-[#001C32] hover:text-[#EF7202] border border-[#001C32]/10">
                 <Youtube size={18} />
               </Link>
             </div>
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-white">{tFooter("quickLinks")}</h4>
-            <ul className="space-y-3 text-sm text-[#C7CBD3]">
+            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{tFooter("quickLinks")}</h4>
+            <ul className="space-y-3 text-sm text-[#535454]">
               <li><Link href="#nasil-calisir" className="hover:text-[#EF7202] transition-colors font-medium">{t("howItWorks")}</Link></li>
               <li><Link href="#portfoy" className="hover:text-[#EF7202] transition-colors font-medium">{t("portfolio")}</Link></li>
               <li><Link href="#faq" className="hover:text-[#EF7202] transition-colors font-medium">{t("faq")}</Link></li>
@@ -51,8 +51,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-white">{tFooter("legal")}</h4>
-            <ul className="space-y-3 text-sm text-[#C7CBD3]">
+            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{tFooter("legal")}</h4>
+            <ul className="space-y-3 text-sm text-[#535454]">
               <li><Link href="/gizlilik" className="hover:text-[#EF7202] transition-colors font-medium">{t("privacyPolicy")}</Link></li>
               <li><Link href="/kullanim-sartlari" className="hover:text-[#EF7202] transition-colors font-medium">{t("termsOfService")}</Link></li>
               <li><Link href="/kvkk" className="hover:text-[#EF7202] transition-colors font-medium">{t("kvkk")}</Link></li>
@@ -60,8 +60,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-white">{t("contact")}</h4>
-            <div className="space-y-4 text-sm text-[#C7CBD3]">
+            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{t("contact")}</h4>
+            <div className="space-y-4 text-sm text-[#535454]">
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-[#EF7202]" />
                 <a href="mailto:hi@pasiflow.com" className="hover:text-[#EF7202] transition-colors font-medium">
@@ -77,8 +77,8 @@ export function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin size={16} className="text-[#EF7202] mt-0.5" />
                 <div>
-                  <p className="text-white font-medium">Miami, Florida, USA</p>
-                  <p className="text-xs text-[#C7CBD3] mt-1">{tFooter("istanbulOffice")}</p>
+                  <p className="text-[#1F2328] font-medium">Miami, Florida, USA</p>
+                  <p className="text-xs text-[#535454] mt-1">{tFooter("istanbulOffice")}</p>
                 </div>
               </div>
               <a
@@ -88,17 +88,17 @@ export function Footer() {
               >
                 {t("whatsapp")}
               </a>
-              <p className="pt-4 text-xs text-[#C7CBD3] leading-relaxed opacity-60">
+              <p className="pt-4 text-xs text-[#535454] leading-relaxed opacity-80">
                 {tFooter("disclaimer")}
               </p>
             </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/10 text-center text-sm text-[#C7CBD3] flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-[#E5E6E8] text-center text-sm text-[#535454] flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="font-medium">&copy; {new Date().getFullYear()} Pasiflow LLC. {t("allRightsReserved")}</p>
           <p className="text-xs flex items-center gap-1">
-            Designed with <span className="text-[#EF7202]">♥</span> for Global Investors
+            Designed with <span className="text-[#EF7202] max-w-4">♥</span> for Global Investors
           </p>
         </div>
       </div>
