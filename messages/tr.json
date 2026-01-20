@@ -34,22 +34,25 @@
         "badge": "Pasiflow Hakkında",
         "title": "Teknoloji Destekli Yatırım Platformu",
         "description1": "Pasiflow, teknoloji odaklı, yeni nesil bir gayrimenkul yatırım şirketidir. Amacımız, riski minimumda tutarak nesiller boyu sürecek pasif nakit akışı oluşturmanızı sağlamaktır.",
-        "description2": "Pasiflow sadece bir emlak şirketi değil, teknoloji destekli bir yatırım platformudur.",
-        "transparencyTitle": "En temel ilkemiz tam şeffaflıktır.",
-        "transparencyDesc": "Her şey açık, net ve ölçülebilirdir. Yatırım sürecinin her aşamasında yanınızda olur, yatırım stratejinizi sizinle birlikte planlar ve uygularız.",
-        "principle1Title": "Teknoloji Odaklı",
-        "principle1Desc": "Modern teknoloji ile desteklenen yatırım süreçleri ve gerçek zamanlı takip imkanı.",
-        "principle2Title": "Pasif Gelir Odaklı",
-        "principle2Desc": "Nesiller boyu sürecek, minimum riskli düzenli nakit akışı oluşturma hedefi.",
-        "principle3Title": "Tam Şeffaflık",
-        "principle3Desc": "Her aşamada açık, net ve ölçülebilir bilgi paylaşımı.",
-        "principle4Title": "Birlikte Planlama",
-        "principle4Desc": "Yatırım stratejinizi sizinle birlikte planlayıp uyguluyoruz."
+        "description2": "Gayrimenkul yatırımını teknoloji ve şeffaflıkla yeniden tanımlıyoruz.",
+        "transparencyTitle": "Şeffaf",
+        "transparencyDesc": "Sürecin her aşamasında tam şeffaflık ve dürüstlük prensibiyle çalışıyoruz.",
+        "technologyTitle": "Teknoloji",
+        "technologyDesc": "Veri odaklı analizlerle en doğru yatırım kararları.",
+        "trustTitle": "Güven",
+        "trustDesc": "Amerika'da yerleşik hukuk ve yönetim ekibi.",
+        "ctaTeam": "Yönetim Ekibiyle Tanışın"
     },
     "hero": {
         "badge": "Türkiye'den Amerika'ya Güvenli Yatırım",
         "title": "Devlet Garantili",
         "titleAccent": "Dolar Kira Geliri",
+        "rotatingTitles": [
+            "Devlet Garantili",
+            "Yüksek Kira Getirisi",
+            "Düşük Riskli",
+            "Tam Şeffaf"
+        ],
         "description": "Section 8 programı ile ABD hükümeti tarafından desteklenen kira ödemeleri sayesinde, her ay düzenli ve garantili dolar geliri elde edin.",
         "stat1Label": "Hedef Net Getiri",
         "stat1Value": "%14-18",
@@ -61,6 +64,21 @@
         "stat4Value": "$30K",
         "ctaPrimary": "Ücretsiz Danışmanlık Al",
         "ctaSecondary": "Portföyü İncele"
+    },
+    "whyWork": {
+        "title": "Neden Pasiflow?",
+        "subtitle": "Amerika'da gayrimenkul yatırımını karmaşık olmaktan çıkarıp, tamamen şeffaf ve teknoloji odaklı bir deneyime dönüştürüyoruz.",
+        "benefit1": "Uçtan Uca Yönetim",
+        "benefit2": "Yüksek Kira Getirisi",
+        "benefit3": "Resmi ve Şeffaf Süreç",
+        "stat1Label": "YIL DENEYİM",
+        "stat1Value": "20+",
+        "stat2Label": "TAM KAPSAMLI YÖNETİM",
+        "stat2Value": "360°",
+        "stat3Label": "YAPAY ZEKA TABANLI",
+        "stat3Value": "SMART",
+        "stat4Label": "TEKNİK DESTEK",
+        "stat4Value": "7/24"
     },
     "valueProps": {
         "title": "Neden Pasiflow?",

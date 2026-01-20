@@ -10,11 +10,7 @@ export function HeroSection() {
   const t = useTranslations("hero")
 
   // Rotating titles - cycles every 3 seconds
-  const rotatingTitles = [
-    t("titleAccent"),
-    "Pasif Gelir",
-    "Finansal Özgürlük"
-  ]
+  const rotatingTitles = t.raw("rotatingTitles") as string[]
 
   const [currentTitleIndex, setCurrentTitleIndex] = useState(0)
 

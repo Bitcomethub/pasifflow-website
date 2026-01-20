@@ -58,22 +58,22 @@ export function AboutSection() {
 
                     <div className="grid md:grid-cols-3 gap-8 pt-8 border-t border-[#E5E6E8]">
                         <div className="space-y-3">
-                            <h3 className="text-[#EF7202] font-bold text-lg uppercase tracking-wide">Şeffaflık</h3>
+                            <h3 className="text-[#EF7202] font-bold text-lg uppercase tracking-wide">{t("transparencyTitle")}</h3>
                             <p className="text-[#535454] leading-relaxed">{t("transparencyDesc")}</p>
                         </div>
                         <div className="space-y-3">
-                            <h3 className="text-[#EF7202] font-bold text-lg uppercase tracking-wide">Teknoloji</h3>
-                            <p className="text-[#535454] leading-relaxed">Veri odaklı analizlerle en doğru yatırım kararları.</p>
+                            <h3 className="text-[#EF7202] font-bold text-lg uppercase tracking-wide">{t("technologyTitle")}</h3>
+                            <p className="text-[#535454] leading-relaxed">{t("technologyDesc")}</p>
                         </div>
                         <div className="space-y-3">
-                            <h3 className="text-[#EF7202] font-bold text-lg uppercase tracking-wide">Güven</h3>
-                            <p className="text-[#535454] leading-relaxed">Amerika'da yerleşik hukuk ve yönetim ekibi.</p>
+                            <h3 className="text-[#EF7202] font-bold text-lg uppercase tracking-wide">{t("trustTitle")}</h3>
+                            <p className="text-[#535454] leading-relaxed">{t("trustDesc")}</p>
                         </div>
                     </div>
 
                     <div className="pt-8">
                         <a href="#contact" className="inline-flex items-center gap-2 text-[#EF7202] font-bold text-lg hover:underline group">
-                            Yönetim Ekibiyle Tanışın
+                            {t("ctaTeam")}
                             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                         </a>
                     </div>

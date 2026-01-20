@@ -71,10 +71,10 @@ export function WhyWorkSection() {
                         className="grid grid-cols-1 sm:grid-cols-2 gap-6"
                     >
                         {[
-                            { label: "Yıl ABD Tecrübesi", value: "20+", icon: ShieldCheck },
-                            { label: "Tam Kapsamlı Yönetim", value: "360°", icon: Layout },
-                            { label: "Yapay Zeka Tabanlı", value: "Smart", icon: Cpu },
-                            { label: "7/24 Teknik Destek", value: "Canlı", icon: Headphones },
+                            { label: t("stat1Label"), value: t("stat1Value"), icon: ShieldCheck },
+                            { label: t("stat2Label"), value: t("stat2Value"), icon: Layout },
+                            { label: t("stat3Label"), value: t("stat3Value"), icon: Cpu },
+                            { label: t("stat4Label"), value: t("stat4Value"), icon: Headphones },
                         ].map((stat, index) => (
                             <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-[#E5E6E8] hover:shadow-md transition-all group text-center">
                                 <div className="w-16 h-16 rounded-2xl bg-[#FEEBE5] text-[#EF7202] flex items-center justify-center mx-auto mb-4 transition-transform group-hover:scale-110">
