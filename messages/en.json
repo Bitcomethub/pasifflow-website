@@ -66,8 +66,8 @@
         "ctaSecondary": "View Portfolio"
     },
     "whyWork": {
-        "title": "Why Pasiflow?",
-        "subtitle": "We turn real estate investment in America into a fully transparent and technology-oriented experience.",
+        "title": "Why Work With Us?",
+        "subtitle": "Your Trusted Partner in U.S. Real Estate Investments",
         "benefit1": "End-to-End Management",
         "benefit2": "High Rental Yield",
         "benefit3": "Official & Transparent Process",
@@ -78,7 +78,30 @@
         "stat3Label": "AI DRIVEN",
         "stat3Value": "SMART",
         "stat4Label": "TECH SUPPORT",
-        "stat4Value": "7/24"
+        "stat4Value": "7/24",
+        "reason1": "Local Market Expertise: Deep knowledge of U.S. real estate markets and Section 8 regulations",
+        "reason2": "International Experience: Understanding cross-border investment complexities including currency and tax implications",
+        "reason3": "Technology-Driven: Modern tools that keep you informed and in control",
+        "reason4": "Aligned Interests: Our success is tied to your success",
+        "reason5": "Fast Communication: Support with multilingual team members across time zones",
+        "features": {
+            "localExpertise": {
+                "title": "Local Market Expertise",
+                "description": "Deep knowledge of U.S. real estate markets and Section 8 regulations."
+            },
+            "globalExperience": {
+                "title": "International Experience",
+                "description": "We manage cross-border investment processes, currency differences, and tax implications for you."
+            },
+            "techDriven": {
+                "title": "Technology-Driven",
+                "description": "We offer transparent panels that allow you to track your investments in real-time."
+            },
+            "fastCommunication": {
+                "title": "Fast Communication",
+                "description": "We are by your side with our multilingual team that you can reach 24/7, even in different time zones."
+            }
+        }
     },
     "valueProps": {
         "title": "Why Pasiflow?",
@@ -572,33 +595,6 @@
         "package3Desc": "Looking to grow? We help you identify and acquire additional properties that meet your investment criteria.",
         "package4Title": "Exit Strategy",
         "package4Desc": "Ready to sell your U.S. property? We offer disposal strategy and market analysis to maximize your returns."
-    },
-    "whyWork": {
-        "title": "Why Work With Us?",
-        "subtitle": "Your Trusted Partner in U.S. Real Estate Investments",
-        "reason1": "Local Market Expertise: Deep knowledge of U.S. real estate markets and Section 8 regulations",
-        "reason2": "International Experience: Understanding cross-border investment complexities including currency and tax implications",
-        "reason3": "Technology-Driven: Modern tools that keep you informed and in control",
-        "reason4": "Aligned Interests: Our success is tied to your success",
-        "reason5": "Fast Communication: Support with multilingual team members across time zones",
-        "features": {
-            "localExpertise": {
-                "title": "Local Market Expertise",
-                "description": "Deep knowledge of U.S. real estate markets and Section 8 regulations."
-            },
-            "globalExperience": {
-                "title": "International Experience",
-                "description": "We manage cross-border investment processes, currency differences, and tax implications for you."
-            },
-            "techDriven": {
-                "title": "Technology-Driven",
-                "description": "We offer transparent panels that allow you to track your investments in real-time."
-            },
-            "fastCommunication": {
-                "title": "Fast Communication",
-                "description": "We are by your side with our multilingual team that you can reach 24/7, even in different time zones."
-            }
-        }
     },
     "contact": {
         "pageTitle": "Get In Touch",

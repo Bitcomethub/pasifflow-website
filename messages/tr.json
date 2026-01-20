@@ -66,8 +66,8 @@
         "ctaSecondary": "Portföyü İncele"
     },
     "whyWork": {
-        "title": "Neden Pasiflow?",
-        "subtitle": "Amerika'da gayrimenkul yatırımını karmaşık olmaktan çıkarıp, tamamen şeffaf ve teknoloji odaklı bir deneyime dönüştürüyoruz.",
+        "title": "Neden Bizimle Çalışmalısınız?",
+        "subtitle": "ABD Gayrimenkul Yatırımlarınızda Güvenilir Ortağınız",
         "benefit1": "Uçtan Uca Yönetim",
         "benefit2": "Yüksek Kira Getirisi",
         "benefit3": "Resmi ve Şeffaf Süreç",
@@ -78,7 +78,30 @@
         "stat3Label": "YAPAY ZEKA TABANLI",
         "stat3Value": "SMART",
         "stat4Label": "TEKNİK DESTEK",
-        "stat4Value": "7/24"
+        "stat4Value": "7/24",
+        "reason1": "Yerel Pazar Uzmanlığı: ABD gayrimenkul piyasaları ve Section 8 düzenlemeleri hakkında derin bilgi",
+        "reason2": "Uluslararası Deneyim: Kur farkları ve vergi sonuçları dahil sınır ötesi yatırım karmaşıklıklarını anlama",
+        "reason3": "Teknoloji Odaklı: Sizi bilgilendiren ve kontrolü elinizde tutmanızı sağlayan modern araçlar",
+        "reason4": "Çıkarların Uyumu: Başarımız sizin başarınıza bağlıdır",
+        "reason5": "Hızlı İletişim: Farklı saat dilimlerinde çok dilli ekip üyeleriyle destek",
+        "features": {
+            "localExpertise": {
+                "title": "Yerel Pazar Uzmanlığı",
+                "description": "ABD gayrimenkul piyasaları ve Section 8 düzenlemeleri hakkında derin bilgiye sahibiz."
+            },
+            "globalExperience": {
+                "title": "Uluslararası Deneyim",
+                "description": "Kur farkları, vergi sonuçları ve sınır ötesi yatırım süreçlerini sizin için yönetiyoruz."
+            },
+            "techDriven": {
+                "title": "Teknoloji Odaklı",
+                "description": "Yatırımlarınızı anlık takip etmenizi sağlayan şeffaf paneller sunuyoruz."
+            },
+            "fastCommunication": {
+                "title": "Hızlı İletişim",
+                "description": "Farklı saat dilimlerinde bile 7/24 ulaşabileceğiniz çok dilli ekibimizle yanınızdayız."
+            }
+        }
     },
     "valueProps": {
         "title": "Neden Pasiflow?",
@@ -548,33 +571,6 @@
         "package3Desc": "Büyümek mi istiyorsunuz? Yatırım kriterlerinize uygun ek mülkleri belirlemenize ve satın almanıza yardımcı oluyoruz.",
         "package4Title": "Çıkış Stratejisi",
         "package4Desc": "ABD mülkünüzü satmaya hazır mısınız? Getirinizi maksimize etmek için elden çıkarma stratejisi ve pazar analizi sunuyoruz."
-    },
-    "whyWork": {
-        "title": "Neden Bizimle Çalışmalısınız?",
-        "subtitle": "ABD Gayrimenkul Yatırımlarınızda Güvenilir Ortağınız",
-        "reason1": "Yerel Pazar Uzmanlığı: ABD gayrimenkul piyasaları ve Section 8 düzenlemeleri hakkında derin bilgi",
-        "reason2": "Uluslararası Deneyim: Kur farkları ve vergi sonuçları dahil sınır ötesi yatırım karmaşıklıklarını anlama",
-        "reason3": "Teknoloji Odaklı: Sizi bilgilendiren ve kontrolü elinizde tutmanızı sağlayan modern araçlar",
-        "reason4": "Çıkarların Uyumu: Başarımız sizin başarınıza bağlıdır",
-        "reason5": "Hızlı İletişim: Farklı saat dilimlerinde çok dilli ekip üyeleriyle destek",
-        "features": {
-            "localExpertise": {
-                "title": "Yerel Pazar Uzmanlığı",
-                "description": "ABD gayrimenkul piyasaları ve Section 8 düzenlemeleri hakkında derin bilgiye sahibiz."
-            },
-            "globalExperience": {
-                "title": "Uluslararası Deneyim",
-                "description": "Kur farkları, vergi sonuçları ve sınır ötesi yatırım süreçlerini sizin için yönetiyoruz."
-            },
-            "techDriven": {
-                "title": "Teknoloji Odaklı",
-                "description": "Yatırımlarınızı anlık takip etmenizi sağlayan şeffaf paneller sunuyoruz."
-            },
-            "fastCommunication": {
-                "title": "Hızlı İletişim",
-                "description": "Farklı saat dilimlerinde bile 7/24 ulaşabileceğiniz çok dilli ekibimizle yanınızdayız."
-            }
-        }
     },
     "contact": {
         "pageTitle": "İletişime Geçin",

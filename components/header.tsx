@@ -188,9 +188,11 @@ export function Header() {
                   variant="outline"
                   size="sm"
                   className="flex border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
-                  onClick={() => openAuthModal("login")}
+                  asChild
                 >
-                  Giriş Yap / Üye Ol
+                  <a href="https://app.pasiflow.app" target="_blank" rel="noopener noreferrer">
+                    Giriş Yap / Üye Ol
+                  </a>
                 </Button>
 
                 <Button
