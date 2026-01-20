@@ -26,7 +26,7 @@
         "quickLinks": "Quick Links",
         "legal": "Legal",
         "istanbulOffice": "Istanbul office opening May 2026",
-        "disclaimer": "*Information on this site is not investment advice.",
+        "disclaimer": "* The information shared here is intended to help you better understand the world of investment. Every investment can have different risks and outcomes. Pasiflow presents the process transparently; the investment decision is entirely yours.",
         "contact": "Contact",
         "designedWith": "Designed with ♥ for Global Investors"
     },
@@ -76,7 +76,7 @@
         "prop4Desc": "We use the exact same system we offer to PASIFLOW investors and profit from this model ourselves.",
         "experience": "20+ years U.S. experience",
         "transactionVolume": "$250M+ transaction volume",
-        "miamiSales": "$100M+ Miami real estate sales"
+        "miamiSales": "$250M+ Miami real estate sales"
     },
     "section8": {
         "title": "What is Section 8?",
@@ -306,7 +306,7 @@
         "description": "PASIFLOW is managed by professionals who have lived in America for many years, deeply understand the U.S. real estate market, and work with an investment focus.",
         "founder1Name": "Erman Adanır",
         "founder1Title": "Co-Founder & CEO",
-        "founder1Bio": "20+ years U.S. business experience, $100M+ Miami real estate sales",
+        "founder1Bio": "20+ years U.S. business experience, $250M+ Miami real estate sales",
         "founder2Name": "Tuğçe Kuran",
         "founder2Title": "Co-Founder & CFO",
         "founder2Bio": "Finance and investment consulting expert, investor relations",
@@ -377,7 +377,7 @@
         "q11": "What is PASIFLOW's purpose?",
         "a11": "PASIFLOW's purpose is to provide regular passive income for years to its investors and their families and to create a wealth structure that continues for generations.",
         "q12": "Why should I trust PASIFLOW?",
-        "a12": "The PASIFLOW team has 20+ years of business experience in the USA, $250M+ total transaction volume, and $100M+ real estate sales in Miami in the last 10 years.",
+        "a12": "The PASIFLOW team has 20+ years of business experience in the USA, $250M+ total transaction volume, and $250M+ real estate sales in Miami in the last 10 years.",
         "q13": "Who is PASIFLOW suitable for?",
         "a13": "PASIFLOW is designed for busy professionals, those wanting to invest from abroad to the USA, and investors who don't want to deal with property management.",
         "q14": "Can I invest without being a U.S. citizen?",
@@ -450,7 +450,7 @@
         "benefit3": "Transparent and professional process from start to finish",
         "ctaPrimary": "Get Free Consultation",
         "ctaSecondary": "Write on WhatsApp Now",
-        "disclaimer": "*This is not investment advice. Past performance does not guarantee future results."
+        "disclaimer": "* The information shared here is intended to help you better understand the world of investment. Every investment can have different risks and outcomes. Pasiflow presents the process transparently; the investment decision is entirely yours.",
     },
     "contact": {
         "title": "Contact Us",
@@ -561,7 +561,25 @@
         "reason2": "International Experience: Understanding cross-border investment complexities including currency and tax implications",
         "reason3": "Technology-Driven: Modern tools that keep you informed and in control",
         "reason4": "Aligned Interests: Our success is tied to your success",
-        "reason5": "Fast Communication: Support with multilingual team members across time zones"
+        "reason5": "Fast Communication: Support with multilingual team members across time zones",
+        "features": {
+            "localExpertise": {
+                "title": "Local Market Expertise",
+                "description": "Deep knowledge of U.S. real estate markets and Section 8 regulations."
+            },
+            "globalExperience": {
+                "title": "International Experience",
+                "description": "We manage cross-border investment processes, currency differences, and tax implications for you."
+            },
+            "techDriven": {
+                "title": "Technology-Driven",
+                "description": "We offer transparent panels that allow you to track your investments in real-time."
+            },
+            "fastCommunication": {
+                "title": "Fast Communication",
+                "description": "We are by your side with our multilingual team that you can reach 24/7, even in different time zones."
+            }
+        }
     },
     "contact": {
         "pageTitle": "Get In Touch",
@@ -722,17 +740,53 @@
         "transactionsValue": "Transaction Volume"
     },
     "testimonials": {
-        "title": "What Our Investors Say",
-        "subtitle": "Real experiences from our investors around the world",
-        "testimonial1Name": "Ahmet K.",
-        "testimonial1Role": "Istanbul, Turkey",
-        "testimonial1Quote": "I bought my first investment property with Pasiflow. The process was transparent, the team professional. I've been receiving regular rental income for 6 months.",
-        "testimonial2Name": "Mohammed A.",
-        "testimonial2Role": "Dubai, UAE",
-        "testimonial2Quote": "Thanks to Section 8 guarantee, I receive rent without any vacancy. The best decision for my investment.",
-        "testimonial3Name": "Alexander S.",
-        "testimonial3Role": "Moscow, Russia",
-        "testimonial3Quote": "Owning property in America was my dream. With Pasiflow's support, I made this dream come true."
+        "title": "Pasiflow Customer Stories",
+        "subtitle": "Real experiences and honest feedback from our investors",
+        "testimonial1Name": "Bora",
+        "testimonial1Role": "Istanbul",
+        "testimonial1Quote": "No lie, I was a bit hesitant at first. But after a couple of meetings, the system clicked. Now I just check the app, and everything is good to go.",
+        "testimonial2Name": "İdil",
+        "testimonial2Role": "Ankara",
+        "testimonial2Quote": "It's going pretty well so far. The app is super easy to use—no unnecessary emails or phone calls, no headaches. Everything is in one place, nice and clean.",
+        "testimonial3Name": "Arda",
+        "testimonial3Role": "Izmir",
+        "testimonial3Quote": "Got it with a loan, closing took about 30 days. Mr. Erman explained everything step-by-step—what I was signing, what happens when—it was all clear. Smooth sailing.",
+        "testimonial4Name": "Nisan",
+        "testimonial4Role": "Bursa",
+        "testimonial4Quote": "You always wonder 'what if' with remote investing... but I don't have that feeling right now. Monthly videos and area notes come in, so it's like I'm actually seeing the house.",
+        "testimonial5Name": "Rüzgar",
+        "testimonial5Role": "Antalya",
+        "testimonial5Quote": "I'm busy and didn't want to chase details. The app keeps everything organized anyway. Cem is my account manager, he responds fast. The whole process is very practical.",
+        "testimonial6Name": "Selen",
+        "testimonial6Role": "Istanbul",
+        "testimonial6Quote": "Knowing who my tenant is really put me at ease. They even sent a short intro video 😄 Plus, the state-backed rent thing... that 'rent coming from the US' vibe is different but feels great.",
+        "testimonial7Name": "Kaan",
+        "testimonial7Role": "Ankara",
+        "testimonial7Quote": "Reporting is sharp. You see exactly what happened this month and what's planned on the app. This kind of order makes me feel relaxed.",
+        "testimonial8Name": "Lavin",
+        "testimonial8Role": "Izmir",
+        "testimonial8Quote": "I love order. Documents, closing, tracking—everything stayed recorded and traceable. When the monthly report drops, you feel like you're in total control.",
+        "testimonial9Name": "Tuna",
+        "testimonial9Role": "Istanbul",
+        "testimonial9Quote": "Currently talking about new houses with the team. We're moving like a portfolio plan, not just a single house. Can't say zero stress, but it's going great right now. Hopefully, it stays this way.",
+        "testimonial10Name": "Duru",
+        "testimonial10Role": "Ankara",
+        "testimonial10Quote": "They explained everything clearly in the first meeting, and that same transparency continued. If I have a question, I just message Cem, and he gets back to me immediately. I can reach Mr. Erman when needed too.",
+        "testimonial11Name": "Atlas",
+        "testimonial11Role": "Istanbul",
+        "testimonial11Quote": "I know Mr. Erman from Miami. Some friends had bought through Miamili and were happy. When I heard he founded Pasiflow, I reached out; it fit my budget. Had some doubts at first, but seeing the system put me at ease. Even found someone I know on the team (Kemal), which added trust. Bought 3 houses with loans; it's going really well, hope it continues like this.",
+        "testimonial12Name": "Miray",
+        "testimonial12Role": "Izmir",
+        "testimonial12Quote": "I love the 'peace of mind' feeling. I liked that they even shared a video of the tenant. Every month I get house details, area info, and a video. Plus, the state-backed rent gives an extra sense of security.",
+        "testimonial13Name": "Cihan",
+        "testimonial13Role": "Ankara",
+        "testimonial13Quote": "Bought with a loan, closing took about 30 days. They explained title, docs, closing... everything bit by bit. Kemal was very helpful too. Now we're planning to add a new house.",
+        "testimonial14Name": "Pera",
+        "testimonial14Role": "Berlin",
+        "testimonial14Quote": "Trust is everything in overseas investing. Communication is regular here but not overwhelming. Everything is organized on the app. Cem is fast, reached Mr. Erman too when it was urgent.",
+        "testimonial15Name": "Efe",
+        "testimonial15Role": "Izmir",
+        "testimonial15Quote": "Overall, I'm satisfied. Was nervous at first, which is normal, then calmed down after the meetings. The state-backed rent is a pretty interesting feeling... you go 'wow, rent is coming from the US' 😄 Going great right now, hopefully stays this way."
     },
     "locations": {
         "heroTitle": "{city} Section 8 Investment Opportunities",

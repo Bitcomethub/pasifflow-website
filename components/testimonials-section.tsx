@@ -8,89 +8,59 @@ import { Star, Quote } from "lucide-react"
 export function TestimonialsSection() {
     const t = useTranslations("testimonials")
 
-    const testimonials = [
-        {
-            nameKey: "testimonial1Name",
-            roleKey: "testimonial1Role",
-            quoteKey: "testimonial1Quote",
-            rating: 5,
-            avatar: "🇹🇷"
-        },
-        {
-            nameKey: "testimonial2Name",
-            roleKey: "testimonial2Role",
-            quoteKey: "testimonial2Quote",
-            rating: 5,
-            avatar: "🇦🇪"
-        },
-        {
-            nameKey: "testimonial3Name",
-            roleKey: "testimonial3Role",
-            quoteKey: "testimonial3Quote",
-            rating: 5,
-            avatar: "🇷🇺"
-        },
-    ]
+    const testimonials = Array.from({ length: 15 }, (_, i) => ({
+        nameKey: `testimonial${i + 1}Name`,
+        roleKey: `testimonial${i + 1}Role`,
+        quoteKey: `testimonial${i + 1}Quote`,
+        rating: 5,
+        avatar: "👤"
+    }))
 
     return (
-        <section className="py-20 bg-background">
+        <section className="py-24 bg-white">
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div
-                    initial={{ opacity: 0, y: 30, scale: 0.98 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{
-                        duration: 0.8,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                        scale: { type: "spring", stiffness: 200, damping: 25 }
-                    }}
-                    className="text-center mb-12"
+                    className="text-center mb-16"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    <h2 className="text-3xl md:text-5xl font-bold text-[#001C32] mb-6">
                         {t("title")}
                     </h2>
-                    <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                    <p className="text-[#535454] text-lg max-w-2xl mx-auto leading-relaxed">
                         {t("subtitle")}
                     </p>
                 </motion.div>
 
-                <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6 max-w-7xl mx-auto">
                     {testimonials.map((testimonial, index) => (
                         <motion.div
                             key={testimonial.nameKey}
-                            initial={{ opacity: 0, y: 35, scale: 0.95 }}
-                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{
-                                delay: index * 0.12,
-                                duration: 0.7,
-                                ease: [0.25, 0.46, 0.45, 0.94],
-                                scale: { type: "spring", stiffness: 180, damping: 20 }
-                            }}
+                            transition={{ delay: index % 3 * 0.1 }}
+                            className="break-inside-avoid"
                         >
-                            <Card className="p-6 h-full border-border/50 hover:shadow-lg transition-shadow relative">
-                                <Quote className="absolute top-4 right-4 text-primary/10" size={40} />
-
-                                {/* Rating Stars */}
-                                <div className="flex gap-1 mb-4">
+                            <Card className="p-8 border-[#E5E6E8] hover:border-[#EF7202]/30 hover:shadow-xl transition-all duration-300 group">
+                                <div className="flex gap-1 mb-6">
                                     {[...Array(testimonial.rating)].map((_, i) => (
-                                        <Star key={i} size={16} className="fill-amber-400 text-amber-400" />
+                                        <Star key={i} size={14} className="fill-[#EF7202] text-[#EF7202]" />
                                     ))}
                                 </div>
 
-                                {/* Quote */}
-                                <p className="text-foreground mb-6 leading-relaxed">
+                                <p className="text-[#1F2328] mb-8 leading-relaxed italic text-base">
                                     "{t(testimonial.quoteKey)}"
                                 </p>
 
-                                {/* Author */}
-                                <div className="flex items-center gap-3 mt-auto">
-                                    <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center text-2xl">
-                                        {testimonial.avatar}
+                                <div className="flex items-center gap-4 pt-6 border-t border-[#F6F7F9]">
+                                    <div className="w-12 h-12 rounded-full bg-[#F6F7F9] text-[#EF7202] flex items-center justify-center font-bold text-lg group-hover:bg-[#EF7202] group-hover:text-white transition-colors">
+                                        {t(testimonial.nameKey).charAt(0)}
                                     </div>
                                     <div>
-                                        <div className="font-semibold text-foreground">{t(testimonial.nameKey)}</div>
-                                        <div className="text-sm text-muted-foreground">{t(testimonial.roleKey)}</div>
+                                        <div className="font-bold text-[#001C32]">{t(testimonial.nameKey)}</div>
+                                        <div className="text-xs text-[#535454] font-medium uppercase tracking-wider">{t(testimonial.roleKey)}</div>
                                     </div>
                                 </div>
                             </Card>

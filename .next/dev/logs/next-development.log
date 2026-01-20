@@ -25,3 +25,205 @@
 [16:09:10.048] Server  LOG       Reload env: .env
 [16:09:38.279] Server  LOG       Reload env: .env
 [16:17:05.756] Server  LOG       Reload env: .env
+[16:19:05.538] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[16:19:05.994] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/tr" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/tr" tree={[...]} params={{locale:"tr"}} cacheNode={{...}} ...>
+                        <SegmentViewNode type="layout" pagePath="/Desktop/p...">
+                          <SegmentTrieNode>
+                          <link>
+                          <script>
+                          <script>
+                          <script>
+                          <script>
+                          <script>
+                          <LocaleLayout>
+                            <html lang="tr" dir="ltr">
+                              <body
++                               className="inter_c15e96cb-module__0bjUvq__variable font-sans antialiased"
+-                               className="inter_c15e96cb-module__0bjUvq__variable font-sans antialiased antigravity-s..."
+                              >
+                      ...
+          ...
+
+[16:19:05.994] Browser WARN    Image with src "http://localhost:3000/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[16:19:05.994] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[16:19:05.994] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
+[16:19:05.994] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768903474657}
+[16:23:40.758] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[16:23:41.321] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+%s%s https://react.dev/link/hydration-mismatch 
+
+  ...
+    <RenderFromTemplateContext>
+      <ScrollAndFocusHandler segmentPath={[...]}>
+        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
+          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+            <LoadingBoundary name="/" loading={null}>
+              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
+                <HTTPAccessFallbackErrorBoundary pathname="/tr" notFound={<SegmentViewNode>} forbidden={undefined} ...>
+                  <RedirectBoundary>
+                    <RedirectErrorBoundary router={{...}}>
+                      <InnerLayoutRouter url="/tr" tree={[...]} params={{locale:"tr"}} cacheNode={{...}} ...>
+                        <SegmentViewNode type="layout" pagePath="/Desktop/p...">
+                          <SegmentTrieNode>
+                          <link>
+                          <script>
+                          <script>
+                          <script>
+                          <script>
+                          <script>
+                          <LocaleLayout>
+                            <html lang="tr" dir="ltr">
+                              <body
++                               className="inter_c15e96cb-module__0bjUvq__variable font-sans antialiased"
+-                               className="inter_c15e96cb-module__0bjUvq__variable font-sans antialiased antigravity-s..."
+                              >
+                      ...
+          ...
+
+[16:23:41.321] Browser WARN    Image with src "http://localhost:3000/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[16:23:41.321] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[16:23:41.321] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
+[16:23:41.321] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768903749980}
+[16:28:57.027] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`.
+[16:28:57.034] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`.
+[16:28:57.038] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`.
+[16:28:57.045] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`.
+[16:28:57.047] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`.
+[16:28:57.050] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`.
+[16:28:57.053] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`.
+[16:28:57.057] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`.
+[16:28:57.434] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`."}
+[16:28:57.850] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`."}
+[16:28:57.851] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`."}
+[16:28:57.851] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`."}
+[16:28:57.851] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`."}
+[16:28:57.851] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`."}
+[16:28:57.851] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`."}
+[16:28:57.851] Browser WARN    Image with src "http://localhost:3000/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[16:28:57.851] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[16:28:57.851] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/en","route":"/[locale]"}
+[16:28:57.851] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/en color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/en","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768904066503}
+[16:30:49.035] Server  LOG     ○ Compiling /api/auth/login ...
+[16:30:52.618] Browser ERROR   Auth error: {}
+[16:32:43.586] Browser ERROR   Auth error: {}
+[16:33:44.000] Browser ERROR   Auth error: {}
+[16:35:03.333] Browser ERROR   Auth error: {}
+[16:36:52.585] Browser ERROR   Auth error: {}
+[16:37:08.609] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`.
+[16:37:08.639] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`.
+[16:37:08.646] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`.
+[16:37:08.650] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`.
+[16:37:08.660] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`.
+[16:37:08.667] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`.
+[16:37:08.680] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`.
+[16:37:08.683] Server  ERROR   Error: MISSING_MESSAGE: Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`.
+[16:37:10.024] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`."}
+[16:37:10.613] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`."}
+[16:37:10.613] Browser WARN    Image with src "http://localhost:3000/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[16:37:10.613] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[16:37:10.613] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/en","route":"/[locale]"}
+[16:37:10.613] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/en?reload=true color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/en?reload=true","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1768904559185}
+[16:38:07.177] Browser ERROR   Auth error: {}
+[16:43:17.836] Browser ERROR   Auth error: {}
+[16:58:06.269] Server  LOG       Reload env: .env
+[16:58:07.667] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`."}
+[16:58:07.667] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`."}
+[16:58:07.667] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`."}
+[16:58:07.668] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.title` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.localExpertise.description` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.title` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.globalExperience.description` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.title` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.techDriven.description` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.title` in messages for locale `tr`."}
+[16:58:07.717] Browser ERROR   {"code":"MISSING_MESSAGE","originalMessage":"Could not resolve `whyWork.features.fastCommunication.description` in messages for locale `tr`."}
+[16:59:25.756] Server  LOG     ✓ Compiled in 487ms
+[16:59:47.725] Server  LOG     ✓ Compiled in 225ms
+[16:59:49.624] Server  LOG     ✓ Compiled in 217ms
+[17:11:11.357] Server  LOG     ✓ Compiled in 116ms
+[17:11:12.479] Server  LOG     ✓ Compiled in 5ms
+[17:11:12.601] Server  LOG     ✓ Compiled in 170ms
+[17:46:37.059] Server  LOG     ✓ Compiled in 433ms
+[17:47:39.240] Server  LOG     ✓ Compiled in 144ms
+[17:50:52.631] Server  LOG     ✓ Compiled in 164ms
+[18:43:47.085] Server  LOG     ✓ Compiled in 2s
+[18:44:37.771] Server  LOG     ✓ Compiled in 231ms
+[18:44:54.749] Server  LOG     ✓ Compiled in 344ms
+[18:45:14.001] Server  LOG     ✓ Compiled in 168ms

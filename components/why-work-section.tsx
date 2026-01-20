@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
-import { MapPin, Globe, Cpu, MessageCircle } from "lucide-react"
+import { MapPin, Globe, Cpu, MessageCircle, ShieldCheck, Layout, Headphones } from "lucide-react"
 
 export function WhyWorkSection() {
     const t = useTranslations("whyWork")
@@ -71,14 +71,17 @@ export function WhyWorkSection() {
                         className="grid grid-cols-1 sm:grid-cols-2 gap-6"
                     >
                         {[
-                            { label: "Yıl ABD Tecrübesi", value: "20+" },
-                            { label: "İşlem Hacmi", value: "$250M+" },
-                            { label: "Doluluk Oranı", value: "98%+" },
-                            { label: "Destek", value: "7/24" },
+                            { label: "Yıl ABD Tecrübesi", value: "20+", icon: ShieldCheck },
+                            { label: "Tam Kapsamlı Yönetim", value: "360°", icon: Layout },
+                            { label: "Yapay Zeka Tabanlı", value: "Smart", icon: Cpu },
+                            { label: "7/24 Teknik Destek", value: "Canlı", icon: Headphones },
                         ].map((stat, index) => (
-                            <div key={index} className="bg-white p-6 rounded-2xl shadow-sm border border-[#E5E6E8] hover:shadow-md transition-shadow text-center">
-                                <p className="text-3xl md:text-4xl font-bold text-[#001C32] mb-2">{stat.value}</p>
-                                <p className="text-sm text-[#535454] font-medium">{stat.label}</p>
+                            <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-[#E5E6E8] hover:shadow-md transition-all group text-center">
+                                <div className="w-16 h-16 rounded-2xl bg-[#FEEBE5] text-[#EF7202] flex items-center justify-center mx-auto mb-4 transition-transform group-hover:scale-110">
+                                    <stat.icon className="w-8 h-8" />
+                                </div>
+                                <p className="text-2xl font-bold text-[#001C32] mb-1">{stat.value}</p>
+                                <p className="text-sm text-[#535454] font-medium uppercase tracking-wider">{stat.label}</p>
                             </div>
                         ))}
                     </motion.div>

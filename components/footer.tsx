@@ -21,9 +21,11 @@ export function Footer() {
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 items-start">
 
-          <div className="space-y-4">
-            <Logo size="lg" linkTo="/" theme="light" />
-            <p className="text-[#535454] text-sm leading-relaxed">
+          <div className="space-y-6">
+            <div className="flex justify-start">
+              <Logo size="lg" linkTo="/" theme="light" />
+            </div>
+            <p className="text-[#535454] text-sm leading-relaxed max-w-xs">
               {tFooter("description")}
             </p>
             <div className="flex gap-4">
@@ -64,8 +66,8 @@ export function Footer() {
             <div className="space-y-4 text-sm text-[#535454]">
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-[#EF7202]" />
-                <a href="mailto:hi@pasiflow.com" className="hover:text-[#EF7202] transition-colors font-medium">
-                  hi@pasiflow.com
+                <a href="mailto:info@pasiflow.com" className="hover:text-[#EF7202] transition-colors font-medium">
+                  info@pasiflow.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -96,7 +98,7 @@ export function Footer() {
         </div>
 
         <div className="pt-8 border-t border-[#E5E6E8] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <p className="font-medium">Pasiflow Property Management Group, LLC — Powered by Pasiflow®️</p>
+          <p className="font-medium">Pasiflow LLC — Powered by Pasiflow®️</p>
           <p className="text-xs flex items-center gap-1">
             Designed with <span className="text-[#EF7202] max-w-4">♥</span> for Global Investors
           </p>

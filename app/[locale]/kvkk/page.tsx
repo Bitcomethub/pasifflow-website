@@ -8,7 +8,7 @@ export default function KVKKPage() {
             <div className="prose prose-slate max-w-none space-y-8 text-slate-600">
                 <div>
                     <h2 className="text-xl font-bold text-slate-900 mb-2">Pasiflow</h2>
-                    <p className="font-medium">Son Güncelleme: Aralık 2024</p>
+                    <p className="font-medium">Son Güncelleme: Aralık 2025</p>
                 </div>
 
                 <div>

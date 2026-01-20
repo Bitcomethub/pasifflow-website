@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageCircle, X, Send, Loader2, Minimize2, Maximize2, Briefcase, ArrowRight } from "lucide-react"
+import { MessageCircle, X, Send, Loader2, Minimize2, Maximize2, Bot, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
@@ -96,9 +96,7 @@ export function AIAssistant() {
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="relative">
-                                        <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center backdrop-blur-sm border border-white/10">
-                                            <Briefcase size={20} className="text-white" />
-                                        </div>
+                                        <Bot size={20} className="text-white" />
                                         <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-slate-900 rounded-full" />
                                     </div>
                                     <div>

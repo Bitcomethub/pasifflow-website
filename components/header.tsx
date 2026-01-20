@@ -187,7 +187,7 @@ export function Header() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="hidden lg:flex border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
+                  className="flex border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
                   onClick={() => openAuthModal("login")}
                 >
                   Giriş Yap / Üye Ol

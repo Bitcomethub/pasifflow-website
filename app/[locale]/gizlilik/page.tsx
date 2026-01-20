@@ -13,7 +13,7 @@ export default function PrivacyPage() {
                     <h1 className="text-3xl md:text-4xl font-bold text-[#001C32] mb-8">
                         Gizlilik Politikası
                     </h1>
-                    <p className="text-sm text-[#535454] mb-8 font-medium">Son Güncelleme: Ocak 2026</p>
+                    <p className="text-sm text-[#535454] mb-8 font-medium">Son Güncelleme: Aralık 2025</p>
 
                     <div className="prose prose-lg max-w-none space-y-8 text-[#535454]">
 
