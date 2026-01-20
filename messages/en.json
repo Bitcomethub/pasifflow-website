@@ -558,7 +558,8 @@
         "feature3": "Financial Dashboards: Cash flow, expenses, and ROI metrics",
         "feature4": "Document Storage: Access lease agreements, inspection reports, and tax documents",
         "feature5": "Direct Communication: Message your property manager instantly",
-        "feature6": "Performance Analytics: Compare properties and track portfolio growth"
+        "feature6": "Performance Analytics: Compare properties and track portfolio growth",
+        "badgeText": "Live on the iOS App Store"
     },
     "servicePackages": {
         "title": "Services Tailored to Your Needs",

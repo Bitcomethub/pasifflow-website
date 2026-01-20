@@ -81,10 +81,9 @@ export function AppFeaturesSection() {
                             />
                         </div>
 
-                        {/* App Store Badges */}
                         <div className="flex flex-col sm:flex-row gap-4 mt-8">
                             <a
-                                href="https://apps.apple.com/app/pasiflow"
+                                href="https://app.pasiflow.app"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="transition-transform hover:scale-105"
@@ -95,20 +94,8 @@ export function AppFeaturesSection() {
                                     className="h-12"
                                 />
                             </a>
-                            <a
-                                href="https://play.google.com/store/apps/details?id=com.pasiflow.app"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="transition-transform hover:scale-105"
-                            >
-                                <img
-                                    src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                                    alt="Get it on Google Play"
-                                    className="h-12"
-                                />
-                            </a>
                         </div>
-                        <p className="text-white/60 text-sm mt-4">Yakında iOS & Android'de</p>
+                        <p className="text-white/60 text-sm mt-4 italic">{t("badgeText")}</p>
                     </motion.div>
                 </div>
             </div>

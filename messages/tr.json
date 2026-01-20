@@ -534,7 +534,8 @@
         "feature3": "Finansal Panolar: Nakit akışı, giderler ve yatırım getirisi metrikleri",
         "feature4": "Belge Depolama: Kira sözleşmeleri, denetim raporları ve vergi belgelerine erişin",
         "feature5": "Doğrudan İletişim: Mülk yöneticinize anında mesaj gönderin",
-        "feature6": "Performans Analitiği: Mülkleri karşılaştırın ve portföy büyümesini izleyin"
+        "feature6": "Performans Analitiği: Mülkleri karşılaştırın ve portföy büyümesini izleyin",
+        "badgeText": "iOS App Store'da yayında"
     },
     "servicePackages": {
         "title": "İhtiyaçlarınıza Göre Hizmetler",
