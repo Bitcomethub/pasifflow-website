@@ -172,11 +172,9 @@ export function RoiCalculator() {
                             </p>
                             <Button
                                 className="w-full h-12 font-medium bg-[#a3452b] hover:bg-[#8a3a24] text-white rounded-lg"
-                                asChild
+                                onClick={() => setShowLeadModal(true)}
                             >
-                                <a href="https://app.pasiflow.app" target="_blank" rel="noopener noreferrer">
-                                    Ücretsiz Başla
-                                </a>
+                                Ücretsiz Başla
                             </Button>
                         </div>
                     </div>

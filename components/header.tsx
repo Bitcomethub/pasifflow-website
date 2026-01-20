@@ -46,6 +46,22 @@ export function Header() {
     }
   }, [])
 
+  // Timer-based lead generation popup for guests (30 seconds)
+  useEffect(() => {
+    const storedUser = localStorage.getItem("pasiflow_user")
+    const hasSeenPopup = sessionStorage.getItem("pasiflow_popup_shown")
+
+    if (!storedUser && !hasSeenPopup) {
+      const timer = setTimeout(() => {
+        setAuthMode("signup")
+        setShowLeadModal(true)
+        sessionStorage.setItem("pasiflow_popup_shown", "true")
+      }, 30000) // 30 seconds
+
+      return () => clearTimeout(timer)
+    }
+  }, [])
+
   const openAuthModal = (mode: "login" | "signup") => {
     setAuthMode(mode)
     setShowLeadModal(true)
@@ -190,9 +206,9 @@ export function Header() {
                   className="flex border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
                   asChild
                 >
-                  <a href="https://app.pasiflow.app" target="_blank" rel="noopener noreferrer">
+                  <Link href={`/${currentLocale}/login`}>
                     Giriş Yap / Üye Ol
-                  </a>
+                  </Link>
                 </Button>
 
                 <Button

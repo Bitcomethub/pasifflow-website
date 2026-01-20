@@ -262,10 +262,14 @@ export function PortfolioSection() {
                         <p className="text-slate-500 mb-8 leading-relaxed">
                           Tüm portföyü, detaylı analizleri ve yeni fırsatları görmek için ücretsiz üye olun.
                         </p>
-                        <Button className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98]" asChild>
-                          <a href="https://app.pasiflow.app" target="_blank" rel="noopener noreferrer">
-                            Hemen Üye Ol
-                          </a>
+                        <Button
+                          className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                          onClick={() => {
+                            setModalSource("gated-content")
+                            setShowLeadModal(true)
+                          }}
+                        >
+                          Hemen Üye Ol
                         </Button>
                       </div>
                     </div>
@@ -354,11 +358,13 @@ export function PortfolioSection() {
                     <div className="pt-4 grid gap-3">
                       <Button
                         className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all shadow-[0_10px_20px_-5px_rgba(254,126,29,0.2)]"
-                        asChild
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setModalSource("gated-content")
+                          setShowLeadModal(true)
+                        }}
                       >
-                        <a href="https://app.pasiflow.app" target="_blank" rel="noopener noreferrer">
-                          {t("cta")}
-                        </a>
+                        {t("cta")}
                       </Button>
                       <Button variant="outline" className="w-full h-12 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" asChild>
                         <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(property.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
@@ -478,11 +484,12 @@ export function PortfolioSection() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
                   <Button
                     className="w-full h-14 text-lg font-bold shadow-xl shadow-primary/20 bg-primary text-white hover:bg-primary/90 rounded-2xl transition-all hover:scale-[1.02]"
-                    asChild
+                    onClick={() => {
+                      setModalSource("gated-content")
+                      setShowLeadModal(true)
+                    }}
                   >
-                    <a href="https://app.pasiflow.app" target="_blank" rel="noopener noreferrer">
-                      {t("cta")}
-                    </a>
+                    {t("cta")}
                   </Button>
                   <Button variant="outline" className="w-full h-14 text-lg font-bold border-slate-200 text-slate-700 hover:bg-slate-50 rounded-2xl transition-all" asChild>
                     <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
