@@ -19,9 +19,11 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
+    const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
     const [step, setStep] = useState<"form" | "success">("form")
     const [authMode, setAuthMode] = useState<"signup" | "login">(initialAuthMode)
+    const [error, setError] = useState<string | null>(null)
 
     // Reset auth mode when modal opens
     useEffect(() => {
@@ -33,22 +35,29 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setLoading(true)
+        setError(null)
+
+        const endpoint = authMode === "signup" ? "/api/auth/signup" : "/api/auth/login"
+        const payload = authMode === "signup"
+            ? { fullName: name, email, phone: phone || undefined, password }
+            : { email, password }
 
         try {
-            const response = await fetch("/api/leads", {
+            const response = await fetch(endpoint, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    fullName: name,
-                    email,
-                    phone: phone || undefined,
-                    source: triggerSource || "Website Modal",
-                }),
+                body: JSON.stringify(payload),
             })
 
-            if (!response.ok) throw new Error("Bir hata oluştu")
+            const data = await response.json()
 
-            localStorage.setItem("pasiflow_user_lead", JSON.stringify({ name, email, date: new Date().toISOString() }))
+            if (!response.ok) {
+                throw new Error(data.error || "Bir hata oluştu")
+            }
+
+            // Save user data and token
+            localStorage.setItem("pasiflow_token", data.token)
+            localStorage.setItem("pasiflow_user", JSON.stringify(data.user))
 
             setStep("success")
             setTimeout(() => {
@@ -56,8 +65,9 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                 onOpenChange(false)
                 setStep("form")
             }, 2000)
-        } catch (error) {
-            console.error("Error submitting lead:", error)
+        } catch (err: any) {
+            console.error("Auth error:", err)
+            setError(err.message)
         } finally {
             setLoading(false)
         }
@@ -175,6 +185,14 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                         required
                                         className="h-12 bg-slate-50 border-slate-200 focus:border-slate-900 focus:ring-slate-900/10 rounded-xl text-sm font-medium placeholder:text-slate-400"
                                     />
+                                    <Input
+                                        type="password"
+                                        placeholder="Şifreniz"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                        className="h-12 bg-slate-50 border-slate-200 focus:border-slate-900 focus:ring-slate-900/10 rounded-xl text-sm font-medium placeholder:text-slate-400"
+                                    />
                                     {authMode === "signup" && (
                                         <Input
                                             type="tel"
@@ -185,6 +203,12 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                         />
                                     )}
                                 </div>
+
+                                {error && (
+                                    <div className="p-3 rounded-lg bg-red-50 text-red-600 text-xs font-medium border border-red-100">
+                                        {error}
+                                    </div>
+                                )}
 
                                 {/* Benefits Strip - Only Show on Signup */}
                                 {authMode === "signup" && (

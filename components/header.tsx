@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -32,10 +32,29 @@ export function Header() {
   // Auth Modal State
   const [showLeadModal, setShowLeadModal] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "signup">("signup")
+  const [currentUser, setCurrentUser] = useState<{ email: string; fullName?: string } | null>(null)
+
+  // Check for logged-in user on mount
+  useEffect(() => {
+    const storedUser = localStorage.getItem("pasiflow_user")
+    if (storedUser) {
+      try {
+        setCurrentUser(JSON.parse(storedUser))
+      } catch (e) {
+        console.error("Failed to parse stored user", e)
+      }
+    }
+  }, [])
 
   const openAuthModal = (mode: "login" | "signup") => {
     setAuthMode(mode)
     setShowLeadModal(true)
+  }
+
+  const handleLogout = () => {
+    localStorage.removeItem("pasiflow_token")
+    localStorage.removeItem("pasiflow_user")
+    setCurrentUser(null)
   }
 
   const pathname = usePathname()
@@ -140,21 +159,48 @@ export function Header() {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Button
-              variant="outline"
-              size="sm"
-              className="hidden lg:flex border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
-              onClick={() => openAuthModal("login")}
-            >
-              Giriş Yap / Üye Ol
-            </Button>
+            {currentUser ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="hidden lg:flex gap-2 border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
+                  >
+                    <span className="w-6 h-6 rounded-full bg-[#EF7202] text-white flex items-center justify-center text-xs font-bold">
+                      {currentUser.fullName?.charAt(0).toUpperCase() || currentUser.email.charAt(0).toUpperCase()}
+                    </span>
+                    <span className="max-w-[100px] truncate">{currentUser.fullName || currentUser.email}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-[#E5E6E8]">
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer text-red-600 focus:bg-red-50"
+                  >
+                    Çıkış Yap
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="hidden lg:flex border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
+                  onClick={() => openAuthModal("login")}
+                >
+                  Giriş Yap / Üye Ol
+                </Button>
 
-            <Button
-              className="bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold px-5 h-9 rounded-lg transition-all"
-              onClick={() => openAuthModal("signup")}
-            >
-              {t("getConsultation")}
-            </Button>
+                <Button
+                  className="bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold px-5 h-9 rounded-lg transition-all"
+                  onClick={() => openAuthModal("signup")}
+                >
+                  {t("getConsultation")}
+                </Button>
+              </>
+            )}
           </div>
 
           <LeadGenModal
