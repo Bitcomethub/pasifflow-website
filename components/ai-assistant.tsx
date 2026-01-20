@@ -198,24 +198,103 @@ export function AIAssistant() {
             </AnimatePresence>
 
             <div className="flex flex-col items-end gap-3">
-                {/* Entrance Badge (If closed) */}
-                {!isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="bg-slate-900 px-5 py-3 rounded-xl shadow-xl text-white mb-2 flex items-center gap-3 cursor-pointer hover:bg-slate-800 transition-colors"
-                        onClick={() => {
-                            setIsOpen(true)
-                            setIsMinimized(false)
-                        }}
-                    >
-                        <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                            <span className="text-sm font-semibold">Yatırım danışmanınız hazır</span>
-                        </div>
-                        <ArrowRight size={14} className="text-white/60" />
-                    </motion.div>
-                )}
+                {/* Pasi Welcome Speech Bubble (If closed) */}
+                <AnimatePresence>
+                    {!isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.8, y: 10 }}
+                            transition={{ type: "spring", damping: 20, stiffness: 300 }}
+                            className="relative max-w-[320px]"
+                        >
+                            {/* Speech Bubble */}
+                            <div
+                                className="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.25)] border border-slate-100 p-5 cursor-pointer hover:shadow-[0_25px_70px_-12px_rgba(0,0,0,0.3)] transition-shadow"
+                                onClick={() => {
+                                    setIsOpen(true)
+                                    setIsMinimized(false)
+                                }}
+                            >
+                                {/* Header with Avatar */}
+                                <div className="flex items-start gap-3 mb-4">
+                                    <motion.div
+                                        className="relative flex-shrink-0"
+                                        animate={{ rotate: [0, -8, 8, 0] }}
+                                        transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 4 }}
+                                    >
+                                        <Image
+                                            src="/pasi-mascot.png"
+                                            alt="Pasi"
+                                            width={48}
+                                            height={48}
+                                            className="rounded-full border-2 border-[#EF7202] shadow-lg"
+                                        />
+                                        <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white rounded-full" />
+                                    </motion.div>
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2">
+                                            <span className="font-bold text-[#001C32]">Pasi</span>
+                                            <span className="text-xs bg-[#EF7202]/10 text-[#EF7202] px-2 py-0.5 rounded-full font-medium">AI Danışman</span>
+                                        </div>
+                                        <p className="text-slate-600 text-sm mt-1 leading-relaxed">
+                                            Merhaba! Ben <strong>Pasi</strong> 🦉 <br />
+                                            ABD gayrimenkul yatırımları hakkında size yardımcı olmak için buradayım!
+                                        </p>
+                                    </div>
+                                </div>
+
+                                {/* Quick Actions */}
+                                <div className="space-y-2">
+                                    <p className="text-xs text-slate-400 font-medium uppercase tracking-wider">Hızlı Sorular</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        <button
+                                            className="text-xs bg-slate-100 hover:bg-[#EF7202] hover:text-white text-slate-600 px-3 py-1.5 rounded-full transition-colors font-medium"
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                setIsOpen(true)
+                                                setInput("Section 8 nedir?")
+                                            }}
+                                        >
+                                            Section 8 nedir?
+                                        </button>
+                                        <button
+                                            className="text-xs bg-slate-100 hover:bg-[#EF7202] hover:text-white text-slate-600 px-3 py-1.5 rounded-full transition-colors font-medium"
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                setIsOpen(true)
+                                                setInput("Getiri oranları nedir?")
+                                            }}
+                                        >
+                                            Getiri oranları
+                                        </button>
+                                        <button
+                                            className="text-xs bg-slate-100 hover:bg-[#EF7202] hover:text-white text-slate-600 px-3 py-1.5 rounded-full transition-colors font-medium"
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                setIsOpen(true)
+                                                setInput("Neden Detroit?")
+                                            }}
+                                        >
+                                            Neden Detroit?
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* CTA */}
+                                <div className="mt-4 pt-3 border-t border-slate-100">
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-xs text-slate-400">Tıklayarak sohbete başla</span>
+                                        <ArrowRight size={14} className="text-[#EF7202]" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Speech Bubble Tail */}
+                            <div className="absolute -bottom-2 right-8 w-4 h-4 bg-white border-r border-b border-slate-100 transform rotate-45" />
+                        </motion.div>
+                    )}
+                </AnimatePresence>
 
                 {/* Toggle Button with Pasi Mascot */}
                 <motion.button
