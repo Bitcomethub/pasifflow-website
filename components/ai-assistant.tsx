@@ -2,10 +2,11 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { MessageCircle, X, Send, Loader2, Minimize2, Maximize2, Bot, ArrowRight } from "lucide-react"
+import { X, Send, Loader2, Minimize2, Maximize2, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 interface Message {
     role: "user" | "assistant"
@@ -91,19 +92,30 @@ export function AIAssistant() {
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
                         className="mb-4 w-[380px] sm:w-[420px] bg-white border border-slate-200 shadow-[0_25px_80px_-12px_rgba(0,0,0,0.25)] rounded-2xl overflow-hidden flex flex-col"
                     >
-                        {/* Premium Header */}
-                        <div className="px-5 py-4 bg-slate-900 text-white">
+                        {/* Premium Header with Pasi Mascot */}
+                        <div className="px-5 py-4 bg-gradient-to-r from-[#001C32] to-[#002a4a] text-white">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="relative">
-                                        <Bot size={20} className="text-white" />
-                                        <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-slate-900 rounded-full" />
+                                        <motion.div
+                                            animate={{ rotate: [0, -5, 5, 0] }}
+                                            transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                                        >
+                                            <Image
+                                                src="/pasi-mascot.png"
+                                                alt="Pasi"
+                                                width={40}
+                                                height={40}
+                                                className="rounded-full border-2 border-[#EF7202]"
+                                            />
+                                        </motion.div>
+                                        <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-[#001C32] rounded-full" />
                                     </div>
                                     <div>
                                         <h3 className="font-bold text-sm tracking-tight">Pasi | Akıllı Danışman</h3>
                                         <div className="flex items-center gap-1.5 mt-0.5">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-                                            <span className="text-xs text-slate-400 font-medium">Çevrimiçi</span>
+                                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+                                            <span className="text-xs text-[#EF7202] font-medium">Çevrimiçi</span>
                                         </div>
                                     </div>
                                 </div>
@@ -205,16 +217,46 @@ export function AIAssistant() {
                     </motion.div>
                 )}
 
-                {/* Toggle Button */}
-                <Button
+                {/* Toggle Button with Pasi Mascot */}
+                <motion.button
                     onClick={() => {
                         setIsOpen(true)
                         setIsMinimized(false)
                     }}
-                    className="w-14 h-14 rounded-full shadow-[0_8px_30px_-4px_rgba(15,23,42,0.3)] bg-slate-900 hover:bg-slate-800 text-white transition-all duration-300 hover:scale-105"
+                    className="relative w-16 h-16 rounded-full shadow-[0_8px_30px_-4px_rgba(239,114,2,0.4)] bg-gradient-to-br from-[#EF7202] to-[#d86502] text-white transition-all duration-300 hover:scale-110 overflow-hidden border-2 border-white/20"
+                    animate={{
+                        y: [0, -6, 0],
+                        boxShadow: [
+                            "0 8px 30px -4px rgba(239,114,2,0.4)",
+                            "0 12px 40px -4px rgba(239,114,2,0.6)",
+                            "0 8px 30px -4px rgba(239,114,2,0.4)"
+                        ]
+                    }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
+                    whileTap={{ scale: 0.95 }}
                 >
-                    {isOpen && !isMinimized ? <X size={22} /> : <MessageCircle size={22} />}
-                </Button>
+                    {isOpen && !isMinimized ? (
+                        <X size={24} className="absolute inset-0 m-auto" />
+                    ) : (
+                        <Image
+                            src="/pasi-mascot.png"
+                            alt="Pasi"
+                            fill
+                            className="object-cover p-0.5"
+                        />
+                    )}
+                    {/* Notification Badge */}
+                    {!isOpen && (
+                        <motion.div
+                            className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center text-xs font-bold border-2 border-white"
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 1.5, repeat: Infinity }}
+                        >
+                            1
+                        </motion.div>
+                    )}
+                </motion.button>
             </div>
 
             {/* Mini Bar if Minimized */}
