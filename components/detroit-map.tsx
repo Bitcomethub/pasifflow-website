@@ -5,8 +5,10 @@ import mapboxgl from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
 import { useTranslations } from "next-intl"
 import { DETROIT_LANDMARKS, Landmark } from "./detroit-data"
-import { MapPin, Navigation, Info, X, ChevronRight, Building2 } from "lucide-react"
+import { MapPin, Navigation, Info, X, ChevronRight, Building2, Layers, Search } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
+import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css';
 
 export function DetroitNeighborhoodMap() {
     const t = useTranslations("map")
@@ -14,6 +16,7 @@ export function DetroitNeighborhoodMap() {
     const map = useRef<mapboxgl.Map | null>(null)
     const [activeLandmark, setActiveLandmark] = useState<Landmark | null>(null)
     const [isSidebarOpen, setIsSidebarOpen] = useState(true)
+    const [mapStyle, setMapStyle] = useState<'light' | 'satellite'>('light')
 
     useEffect(() => {
         if (!mapContainer.current) return
@@ -41,7 +44,7 @@ export function DetroitNeighborhoodMap() {
         map.current.on('style.load', () => {
             if (!map.current) return;
 
-            // Add 3D buildings layer
+            // Re-add 3D buildings layer (it gets removed on style change)
             const layers = map.current.getStyle()?.layers || [];
             const labelLayerId = layers.find(
                 (layer) => layer.type === 'symbol' && layer.layout?.['text-field']
@@ -93,8 +96,17 @@ export function DetroitNeighborhoodMap() {
             });
         });
 
+        // Add Search (Geocoder)
+        const geocoder = new MapboxGeocoder({
+            accessToken: token,
+            mapboxgl: mapboxgl,
+            marker: true,
+            placeholder: 'Adres veya Yer Ara...'
+        });
+        map.current.addControl(geocoder, 'top-right');
+
         // Add navigation controls
-        map.current.addControl(new mapboxgl.NavigationControl(), "top-right")
+        map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right")
 
         return () => {
             map.current?.remove()
@@ -114,6 +126,34 @@ export function DetroitNeighborhoodMap() {
         });
 
         // Show popup manually if needed, or rely on active state UI
+    }
+
+    const zoomInToLandmark = () => {
+        if (!activeLandmark || !map.current) return;
+        map.current.flyTo({
+            center: activeLandmark.coordinates,
+            zoom: 17.5,
+            pitch: 65,
+            bearing: -10,
+            duration: 2000
+        });
+    }
+
+    const openGoogleMaps = () => {
+        if (!activeLandmark) return;
+        const query = encodeURIComponent(`${activeLandmark.title} Detroit`);
+        window.open(`https://www.google.com/maps/search/?api=1&query=${query}`, '_blank');
+    }
+
+    const toggleMapStyle = () => {
+        if (!map.current) return;
+        const newStyle = mapStyle === 'light' ? 'satellite' : 'light';
+        map.current.setStyle(
+            newStyle === 'light'
+                ? "mapbox://styles/mapbox/light-v10"
+                : "mapbox://styles/mapbox/satellite-streets-v12"
+        );
+        setMapStyle(newStyle);
     }
 
     return (
@@ -192,11 +232,17 @@ export function DetroitNeighborhoodMap() {
                             {activeLandmark.description}
                         </p>
                         <div className="flex gap-2">
-                            <button className="flex-1 bg-[#001C32] text-white text-xs font-bold py-2.5 rounded-lg hover:bg-[#002a4a] transition-colors flex items-center justify-center gap-2">
+                            <button
+                                onClick={zoomInToLandmark}
+                                className="flex-1 bg-[#001C32] text-white text-xs font-bold py-2.5 rounded-lg hover:bg-[#002a4a] transition-colors flex items-center justify-center gap-2"
+                            >
                                 <Navigation size={14} />
                                 Oraya Git
                             </button>
-                            <button className="flex-1 bg-[#EF7202]/10 text-[#EF7202] text-xs font-bold py-2.5 rounded-lg hover:bg-[#EF7202]/20 transition-colors flex items-center justify-center gap-2">
+                            <button
+                                onClick={openGoogleMaps}
+                                className="flex-1 bg-[#EF7202]/10 text-[#EF7202] text-xs font-bold py-2.5 rounded-lg hover:bg-[#EF7202]/20 transition-colors flex items-center justify-center gap-2"
+                            >
                                 <Info size={14} />
                                 Detaylar
                             </button>
@@ -214,6 +260,15 @@ export function DetroitNeighborhoodMap() {
                     <Building2 size={24} />
                 </button>
             )}
+
+            {/* Map Style Toggle */}
+            <button
+                onClick={toggleMapStyle}
+                className="absolute bottom-32 right-2.5 md:right-12 md:bottom-8 bg-white p-3 rounded-lg shadow-lg z-10 text-[#001C32] hover:text-[#EF7202] transition-all border border-slate-200"
+                title={mapStyle === 'light' ? "Uydu Görünümü" : "Harita Görünümü"}
+            >
+                <Layers size={20} />
+            </button>
         </section>
     )
 }

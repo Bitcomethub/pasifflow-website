@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
+    "@mapbox/mapbox-gl-geocoder": "^5.1.2",
     "@prisma/client": "5.22.0",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
@@ -76,6 +77,7 @@
     "@tailwindcss/postcss": "^4.1.9",
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/mapbox__mapbox-gl-geocoder": "^5.1.0",
     "@types/node": "^22",
     "@types/nodemailer": "^7.0.5",
     "@types/react": "^19",
