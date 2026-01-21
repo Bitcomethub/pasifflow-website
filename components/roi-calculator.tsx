@@ -173,10 +173,11 @@ export function RoiCalculator() {
                             <p className="text-[#6b6b67] text-sm mb-6">
                                 ROI analizlerini görmek için ücretsiz üye olun.
                             </p>
+                            <Button
                                 className="w-full h-12 font-medium bg-[#a3452b] hover:bg-[#8a3a24] text-white rounded-lg"
                                 asChild
                             >
-                                 <Link href={`/${locale}/signup`}>
+                                <Link href={`/${locale}/signup`}>
                                     Ücretsiz Başla
                                 </Link>
                             </Button>
