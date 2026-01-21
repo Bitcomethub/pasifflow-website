@@ -41,7 +41,7 @@ interface Property {
 export function PortfolioSection() {
   const t = useTranslations("portfolio")
   const locale = useLocale()
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true }, [Autoplay({ delay: 4000 }) as any])
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: false })
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isGuest, setIsGuest] = useState(true)

@@ -1,71 +1,103 @@
 "use client"
 
 import { useTranslations } from "next-intl"
-import { motion } from "framer-motion"
+import { useCallback, useEffect } from "react"
 import { Card } from "@/components/ui/card"
-import { Star, Quote } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Star, ChevronLeft, ChevronRight } from "lucide-react"
+import useEmblaCarousel from "embla-carousel-react"
+import Autoplay from "embla-carousel-autoplay"
 
 export function TestimonialsSection() {
     const t = useTranslations("testimonials")
+    const [emblaRef, emblaApi] = useEmblaCarousel(
+        { align: "start", loop: true, dragFree: true },
+        [Autoplay({ delay: 3000, stopOnInteraction: false })]
+    )
+
+    const scrollPrev = useCallback(() => {
+        if (emblaApi) emblaApi.scrollPrev()
+    }, [emblaApi])
+
+    const scrollNext = useCallback(() => {
+        if (emblaApi) emblaApi.scrollNext()
+    }, [emblaApi])
 
     const testimonials = Array.from({ length: 15 }, (_, i) => ({
         nameKey: `testimonial${i + 1}Name`,
         roleKey: `testimonial${i + 1}Role`,
         quoteKey: `testimonial${i + 1}Quote`,
         rating: 5,
-        avatar: "👤"
     }))
 
     return (
-        <section className="py-24 bg-white">
+        <section className="py-20 bg-gradient-to-b from-white to-slate-50 overflow-hidden">
             <div className="container mx-auto px-4 md:px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-3xl md:text-5xl font-bold text-[#001C32] mb-6">
-                        {t("title")}
-                    </h2>
-                    <p className="text-[#535454] text-lg max-w-2xl mx-auto leading-relaxed">
-                        {t("subtitle")}
-                    </p>
-                </motion.div>
-
-                <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6 max-w-7xl mx-auto">
-                    {testimonials.map((testimonial, index) => (
-                        <motion.div
-                            key={testimonial.nameKey}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index % 3 * 0.1 }}
-                            className="break-inside-avoid"
+                {/* Header */}
+                <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+                    <div className="space-y-3">
+                        <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
+                            {t("title")}
+                        </h2>
+                        <p className="text-slate-600 text-base max-w-xl">
+                            {t("subtitle")}
+                        </p>
+                    </div>
+                    <div className="flex gap-2">
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={scrollPrev}
+                            className="rounded-full w-10 h-10 border-2 hover:bg-[#a3452b]/5 hover:border-[#a3452b]/30"
                         >
-                            <Card className="p-8 border-[#E5E6E8] hover:border-[#EF7202]/30 hover:shadow-xl transition-all duration-300 group">
-                                <div className="flex gap-1 mb-6">
-                                    {[...Array(testimonial.rating)].map((_, i) => (
-                                        <Star key={i} size={14} className="fill-[#EF7202] text-[#EF7202]" />
-                                    ))}
-                                </div>
+                            <ChevronLeft className="h-5 w-5" />
+                        </Button>
+                        <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={scrollNext}
+                            className="rounded-full w-10 h-10 border-2 hover:bg-[#a3452b]/5 hover:border-[#a3452b]/30"
+                        >
+                            <ChevronRight className="h-5 w-5" />
+                        </Button>
+                    </div>
+                </div>
 
-                                <p className="text-[#1F2328] mb-8 leading-relaxed italic text-base">
-                                    "{t(testimonial.quoteKey)}"
-                                </p>
+                {/* Carousel */}
+                <div className="overflow-hidden -mx-4 px-4" ref={emblaRef}>
+                    <div className="flex gap-5">
+                        {testimonials.map((testimonial, index) => (
+                            <div
+                                key={testimonial.nameKey}
+                                className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0"
+                            >
+                                <Card className="p-6 h-full border-slate-100 bg-white hover:shadow-lg hover:border-[#a3452b]/20 transition-all duration-300 group">
+                                    {/* Stars */}
+                                    <div className="flex gap-0.5 mb-4">
+                                        {[...Array(testimonial.rating)].map((_, i) => (
+                                            <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                                        ))}
+                                    </div>
 
-                                <div className="flex items-center gap-4 pt-6 border-t border-[#F6F7F9]">
-                                    <div className="w-12 h-12 rounded-full bg-[#F6F7F9] text-[#EF7202] flex items-center justify-center font-bold text-lg group-hover:bg-[#EF7202] group-hover:text-white transition-colors">
-                                        {t(testimonial.nameKey).charAt(0)}
+                                    {/* Quote */}
+                                    <p className="text-slate-700 mb-6 leading-relaxed text-sm line-clamp-4">
+                                        "{t(testimonial.quoteKey)}"
+                                    </p>
+
+                                    {/* Author */}
+                                    <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#a3452b] to-[#8a3a24] text-white flex items-center justify-center font-bold text-sm">
+                                            {t(testimonial.nameKey).charAt(0)}
+                                        </div>
+                                        <div>
+                                            <div className="font-semibold text-slate-900 text-sm">{t(testimonial.nameKey)}</div>
+                                            <div className="text-xs text-slate-500">{t(testimonial.roleKey)}</div>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <div className="font-bold text-[#001C32]">{t(testimonial.nameKey)}</div>
-                                        <div className="text-xs text-[#535454] font-medium uppercase tracking-wider">{t(testimonial.roleKey)}</div>
-                                    </div>
-                                </div>
-                            </Card>
-                        </motion.div>
-                    ))}
+                                </Card>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

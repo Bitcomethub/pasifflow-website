@@ -12,7 +12,6 @@ import { Section8Section } from "@/components/section8-section"
 import { PropertyManagementSection } from "@/components/property-management-section"
 import { AppFeaturesSection } from "@/components/app-features-section"
 import { WhyWorkSection } from "@/components/why-work-section"
-import { CityComparisonSection } from "@/components/city-comparison-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { FAQSection } from "@/components/faq-section"
 import { FinalCTASection } from "@/components/final-cta-section"
@@ -34,7 +33,6 @@ export default function Home() {
                 <PropertyManagementSection />
                 <AppFeaturesSection />
                 <WhyWorkSection />
-                <CityComparisonSection />
                 <TestimonialsSection />
                 <FAQSection />
                 <FinalCTASection />
