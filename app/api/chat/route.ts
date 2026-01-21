@@ -449,7 +449,7 @@ ITIN BAŞVURU SÜRECİ:
 Süre: 7-11 hafta
 Maliyet: Ücretsiz (sadece danışman ücreti)
 
-💵 VERGİ YÜKÜMLÜLÜKLER
+💵 VERGİ YÜKÜMLÜLÜKLERİ
 
 ABD'DE ÖDENEN VERGİLER:
 1. Federal Gelir Vergisi: %10-37 (dilim sistemi)
