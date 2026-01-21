@@ -10,65 +10,35 @@ export function WhyWorkSection() {
     return (
         <section className="py-24 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-                    {/* Left Content */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        className="space-y-8"
-                    >
-                        <div className="space-y-4">
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
-                                {t("title")}
-                            </h2>
-                            <p className="text-lg text-slate-600">
-                                {t("subtitle")}
-                            </p>
-                        </div>
+                <div className="space-y-12">
+                    {/* Header (Centered) */}
+                    <div className="text-center max-w-3xl mx-auto space-y-4">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            className="text-3xl md:text-4xl font-bold text-slate-900"
+                        >
+                            {t("title")}
+                        </motion.h2>
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.1 }}
+                            className="text-lg text-slate-600"
+                        >
+                            {t("subtitle")}
+                        </motion.p>
+                    </div>
 
-                        <div className="space-y-6">
-                            {[
-                                {
-                                    icon: MapPin,
-                                    title: t("features.localExpertise.title"),
-                                    description: t("features.localExpertise.description")
-                                },
-                                {
-                                    icon: Globe,
-                                    title: t("features.globalExperience.title"),
-                                    description: t("features.globalExperience.description")
-                                },
-                                {
-                                    icon: Cpu,
-                                    title: t("features.techDriven.title"),
-                                    description: t("features.techDriven.description")
-                                },
-                                {
-                                    icon: MessageCircle,
-                                    title: t("features.fastCommunication.title"),
-                                    description: t("features.fastCommunication.description")
-                                }
-                            ].map((feature, index) => (
-                                <div key={index} className="flex gap-4">
-                                    <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-[#FEEBE5] text-[#EF7202] flex items-center justify-center">
-                                        <feature.icon className="w-6 h-6" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-semibold text-[#001C32] mb-1">{feature.title}</h3>
-                                        <p className="text-[#535454] leading-relaxed">{feature.description}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </motion.div>
-
-                    {/* Right Stats Grid */}
+                    {/* Stats Grid - Side by Side (4 cols) */}
                     <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
-                        className="grid grid-cols-1 sm:grid-cols-2 gap-6"
+                        transition={{ delay: 0.2 }}
+                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
                     >
                         {[
                             { label: t("stat1Label"), value: t("stat1Value"), icon: ShieldCheck },
