@@ -65,12 +65,15 @@ export function Logo({
     return content
 }
 
-// Inline text version for use within paragraphs
-export function PasiflowText({ className }: { className?: string }) {
+// Inline logo version for use within paragraphs or titles
+export function PasiflowText({ className, height = 20 }: { className?: string; height?: number }) {
     return (
-        <span className={cn("font-bold inline-flex items-center gap-1", className)}>
-            <span className="text-primary">PASI</span>
-            <span className="text-accent">FLOW</span>
-        </span>
+        <Image
+            src="/logo-new.png"
+            alt="Pasiflow"
+            width={Math.round(height * 2.76)} // maintain aspect ratio
+            height={height}
+            className={cn("inline-block align-middle", className)}
+        />
     )
 }
