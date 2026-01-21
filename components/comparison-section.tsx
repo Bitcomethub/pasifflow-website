@@ -7,7 +7,7 @@ import { useTranslations } from "next-intl"
 export function ComparisonSection() {
   const t = useTranslations("comparison")
 
-  const traditionalItems = ["trad1", "trad2", "trad3", "trad4", "trad5", "trad6"]
+  const traditionalItems = ["trad1", "trad2", "trad3"]
   const pasiflowItems = ["pasif1", "pasif2", "pasif3", "pasif4", "pasif5", "pasif6"]
 
   return (

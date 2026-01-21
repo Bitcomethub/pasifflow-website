@@ -37,9 +37,10 @@ export function Section8Section() {
 
             <ul className="space-y-4">
               {[
-                "Düzenli Devlet Ödemeleri",
-                "Minimum Kiracı Sirkülasyonu",
-                "Minimum Boşluk Riski"
+                "Ekonomik dalgalanmalara karşı dayanıklı",
+                "Durgunluk dönemlerinde talebini koruyan",
+                "Kriz dönemlerinde dayanıklılık",
+                "Pandemi sürecinde dahi ödeme sürekliliği gösteren yapı"
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <div className="h-6 w-6 rounded-full bg-[#009688] flex items-center justify-center text-white shrink-0">

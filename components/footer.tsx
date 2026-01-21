@@ -25,9 +25,7 @@ export function Footer() {
             <div className="flex justify-start">
               <Logo size="lg" linkTo="/" theme="light" />
             </div>
-            <p className="text-[#535454] text-sm leading-relaxed max-w-xs">
-              {tFooter("description")}
-            </p>
+
             <div className="flex gap-4">
               <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-full bg-[#001C32]/5 hover:bg-[#001C32]/10 transition-colors text-[#001C32] hover:text-[#EF7202] border border-[#001C32]/10">
                 <Instagram size={18} />

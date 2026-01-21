@@ -74,6 +74,15 @@ type RouteHandlerConfig<Route extends AppRouteHandlerRoutes = AppRouteHandlerRou
   type __Unused = __Check
 }
 
+// Validate ../../../app/[locale]/harita/page.tsx
+{
+  type __IsExpected<Specific extends AppPageConfig<"/[locale]/harita">> = Specific
+  const handler = {} as typeof import("../../../app/[locale]/harita/page.js")
+  type __Check = __IsExpected<typeof handler>
+  // @ts-ignore
+  type __Unused = __Check
+}
+
 // Validate ../../../app/[locale]/iletisim/page.tsx
 {
   type __IsExpected<Specific extends AppPageConfig<"/[locale]/iletisim">> = Specific
