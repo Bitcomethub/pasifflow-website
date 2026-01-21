@@ -1,14 +1,19 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import mapboxgl from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
 import { useTranslations } from "next-intl"
+import { DETROIT_LANDMARKS, Landmark } from "./detroit-data"
+import { MapPin, Navigation, Info, X, ChevronRight, Building2 } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 export function DetroitNeighborhoodMap() {
     const t = useTranslations("map")
     const mapContainer = useRef<HTMLDivElement>(null)
     const map = useRef<mapboxgl.Map | null>(null)
+    const [activeLandmark, setActiveLandmark] = useState<Landmark | null>(null)
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
     useEffect(() => {
         if (!mapContainer.current) return
@@ -27,8 +32,8 @@ export function DetroitNeighborhoodMap() {
             container: mapContainer.current,
             style: "mapbox://styles/mapbox/light-v10",
             center: [-83.045753, 42.331429],
-            zoom: 11,
-            pitch: 45,
+            zoom: 11.5,
+            pitch: 55,
             bearing: -17.6,
             antialias: true
         })
@@ -53,30 +58,39 @@ export function DetroitNeighborhoodMap() {
                         minzoom: 12,
                         paint: {
                             'fill-extrusion-color': '#aaa',
-                            'fill-extrusion-height': [
-                                'interpolate',
-                                ['linear'],
-                                ['zoom'],
-                                12,
-                                0,
-                                12.05,
-                                ['get', 'height']
-                            ],
-                            'fill-extrusion-base': [
-                                'interpolate',
-                                ['linear'],
-                                ['zoom'],
-                                12,
-                                0,
-                                12.05,
-                                ['get', 'min_height']
-                            ],
+                            'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 12, 0, 12.05, ['get', 'height']],
+                            'fill-extrusion-base': ['interpolate', ['linear'], ['zoom'], 12, 0, 12.05, ['get', 'min_height']],
                             'fill-extrusion-opacity': 0.6
                         }
                     },
                     labelLayerId
                 );
             }
+        });
+
+        // Add Markers
+        DETROIT_LANDMARKS.forEach((landmark) => {
+            // Customize marker element
+            const el = document.createElement('div');
+            el.className = 'marker';
+            el.style.backgroundImage = 'url(/pin.svg)'; // Fallback-ish, but let's use CSS or built-in
+            el.innerHTML = `<div style="background-color: #EF7202; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.3); cursor: pointer;"></div>`;
+
+            const marker = new mapboxgl.Marker({ element: el })
+                .setLngLat(landmark.coordinates)
+                .setPopup(
+                    new mapboxgl.Popup({ offset: 25, closeButton: false }) // add popups
+                        .setHTML(`
+                            <h3 style="font-weight:bold; color:#001C32;">${landmark.title}</h3>
+                            <p style="font-size:12px; margin-top:4px;">${landmark.category}</p>
+                        `)
+                )
+                .addTo(map.current!);
+
+            // Add click listener to fly to
+            el.addEventListener('click', () => {
+                handleLandmarkClick(landmark);
+            });
         });
 
         // Add navigation controls
@@ -88,34 +102,118 @@ export function DetroitNeighborhoodMap() {
         }
     }, [])
 
+    const handleLandmarkClick = (landmark: Landmark) => {
+        setActiveLandmark(landmark);
+        map.current?.flyTo({
+            center: landmark.coordinates,
+            zoom: 15,
+            pitch: 60,
+            bearing: 20,
+            duration: 2000,
+            essential: true
+        });
+
+        // Show popup manually if needed, or rely on active state UI
+    }
+
     return (
-        <section className="relative h-[600px] w-full overflow-hidden">
+        <section className="relative h-[700px] w-full overflow-hidden bg-slate-100 rounded-xl border border-slate-200 shadow-2xl">
             {/* Map Container */}
             <div ref={mapContainer} className="absolute inset-0 w-full h-full" />
 
             {/* Overlay Gradient */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
 
-            {/* Content Overlay */}
-            <div className="absolute inset-0 flex flex-col justify-between p-6 pointer-events-none">
-                {/* Header */}
-                <div className="pointer-events-auto">
-                    <div className="bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl max-w-sm border border-white/50">
-                        <h2 className="text-2xl font-bold text-[#001C32] mb-2 flex items-center gap-2">
-                            <span className="w-2 h-8 bg-[#EF7202] rounded-full" />
-                            {t("title")}
-                        </h2>
-                        <p className="text-[#535454] text-sm leading-relaxed mb-4">
-                            {t("description")}
-                        </p>
-                        <div className="inline-flex items-center justify-center px-4 py-2 bg-[#EF7202] text-white text-sm font-bold rounded-lg shadow-md">
-                            Detroit, MI
+            {/* Sidebar Control - Desktop left */}
+            <AnimatePresence>
+                {isSidebarOpen && (
+                    <motion.div
+                        initial={{ x: -300, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: -300, opacity: 0 }}
+                        className="absolute top-4 left-4 bottom-4 w-80 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden flex flex-col z-10 border border-white/50"
+                    >
+                        {/* Sidebar Header */}
+                        <div className="p-5 bg-[#001C32] text-white">
+                            <div className="flex justify-between items-center mb-4">
+                                <h3 className="font-bold text-lg flex items-center gap-2">
+                                    <MapPin className="text-[#EF7202]" size={20} />
+                                    Detroit Rehberi
+                                </h3>
+                                <button onClick={() => setIsSidebarOpen(false)} className="text-white/60 hover:text-white">
+                                    <X size={18} />
+                                </button>
+                            </div>
+                            <p className="text-xs text-white/70 leading-relaxed">
+                                Motor City'nin tarihi dokusunu, müzelerini ve yatırım bölgelerini 3D haritada keşfedin.
+                            </p>
                         </div>
-                    </div>
-                </div>
 
-                {/* Bottom Stats or Info could go here */}
-            </div>
+                        {/* List */}
+                        <div className="flex-1 overflow-y-auto p-2 space-y-2">
+                            {DETROIT_LANDMARKS.map((landmark) => (
+                                <button
+                                    key={landmark.id}
+                                    onClick={() => handleLandmarkClick(landmark)}
+                                    className={`w-full text-left p-3 rounded-xl transition-all border ${activeLandmark?.id === landmark.id ? 'bg-[#EF7202]/10 border-[#EF7202] shadow-sm' : 'hover:bg-slate-50 border-transparent hover:border-slate-200'}`}
+                                >
+                                    <h4 className={`font-bold text-sm mb-1 ${activeLandmark?.id === landmark.id ? 'text-[#EF7202]' : 'text-slate-800'}`}>
+                                        {landmark.title}
+                                    </h4>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
+                                            {landmark.category}
+                                        </span>
+                                        {activeLandmark?.id === landmark.id && <ChevronRight size={14} className="text-[#EF7202]" />}
+                                    </div>
+                                </button>
+                            ))}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Active Landmark Info Card (Bottom Overlay) */}
+            <AnimatePresence>
+                {activeLandmark && (
+                    <motion.div
+                        initial={{ y: 100, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        exit={{ y: 100, opacity: 0 }}
+                        className="absolute bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-96 bg-white rounded-2xl shadow-2xl p-5 z-20 border-l-4 border-[#EF7202]"
+                    >
+                        <div className="flex justify-between items-start mb-2">
+                            <h3 className="font-bold text-xl text-[#001C32] pr-4">{activeLandmark.title}</h3>
+                            <button onClick={() => setActiveLandmark(null)} className="text-slate-400 hover:text-slate-600">
+                                <X size={20} />
+                            </button>
+                        </div>
+                        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+                            {activeLandmark.description}
+                        </p>
+                        <div className="flex gap-2">
+                            <button className="flex-1 bg-[#001C32] text-white text-xs font-bold py-2.5 rounded-lg hover:bg-[#002a4a] transition-colors flex items-center justify-center gap-2">
+                                <Navigation size={14} />
+                                Oraya Git
+                            </button>
+                            <button className="flex-1 bg-[#EF7202]/10 text-[#EF7202] text-xs font-bold py-2.5 rounded-lg hover:bg-[#EF7202]/20 transition-colors flex items-center justify-center gap-2">
+                                <Info size={14} />
+                                Detaylar
+                            </button>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Re-open Sidebar Button */}
+            {!isSidebarOpen && (
+                <button
+                    onClick={() => setIsSidebarOpen(true)}
+                    className="absolute top-4 left-4 bg-white p-3 rounded-xl shadow-lg z-10 text-[#001C32] hover:text-[#EF7202] hover:shadow-xl transition-all"
+                >
+                    <Building2 size={24} />
+                </button>
+            )}
         </section>
     )
 }
