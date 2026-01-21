@@ -31,7 +31,7 @@ export function TrustBadges() {
         },
         {
             icon: Trophy,
-            value: "$50M+",
+            value: "$100M+",
             label: t("transactionsValue"),
             color: "text-purple-500",
             bg: "bg-purple-500/10"

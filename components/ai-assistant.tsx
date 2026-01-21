@@ -153,20 +153,48 @@ export function AIAssistant() {
                         <div className="px-5 py-4 bg-gradient-to-r from-[#001C32] to-[#002a4a] text-white">
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-3">
-                                    <div className="relative">
+                                    <div className="relative group cursor-pointer">
+                                        {/* Breathing and floating animation */}
                                         <motion.div
-                                            animate={{ rotate: [0, -5, 5, 0] }}
-                                            transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                                            animate={{
+                                                scale: [1, 1.05, 1],
+                                                rotate: [0, -5, 5, 0],
+                                                y: [0, -3, 0]
+                                            }}
+                                            transition={{
+                                                duration: 4,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
+                                            className="relative z-10"
                                         >
                                             <Image
                                                 src="/pasi-mascot.png"
                                                 alt="Pasi"
                                                 width={40}
                                                 height={40}
-                                                className="rounded-full border-2 border-[#EF7202]"
+                                                className="rounded-full border-2 border-[#EF7202] shadow-lg"
                                             />
                                         </motion.div>
-                                        <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-[#001C32] rounded-full" />
+
+                                        {/* Glowing ripple effect behind */}
+                                        <motion.div
+                                            className="absolute inset-0 bg-[#EF7202] rounded-full -z-0"
+                                            animate={{
+                                                scale: [1, 1.4, 1],
+                                                opacity: [0.3, 0, 0.3]
+                                            }}
+                                            transition={{
+                                                duration: 2,
+                                                repeat: Infinity,
+                                                ease: "easeInOut"
+                                            }}
+                                        />
+
+                                        {/* Online status indicator */}
+                                        <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-[#001C32] rounded-full z-20 shadow-sm">
+                                            <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75"></div>
+                                        </div>
                                     </div>
                                     <div>
                                         <h3 className="font-bold text-sm tracking-tight">Pasi | Akıllı Danışman</h3>
@@ -360,13 +388,14 @@ export function AIAssistant() {
                         scale: [1, 1.1, 1.1, 1.1, 1.1, 1],
                     } : {
                         y: [0, -6, 0],
+                        scale: [1, 1.05, 1],
                         boxShadow: [
                             "0 8px 30px -4px rgba(239,114,2,0.4)",
                             "0 12px 40px -4px rgba(239,114,2,0.6)",
                             "0 8px 30px -4px rgba(239,114,2,0.4)"
                         ]
                     }}
-                    transition={isShaking ? { duration: 0.5 } : { duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    transition={isShaking ? { duration: 0.5 } : { duration: 3, repeat: Infinity, ease: "easeInOut" }}
                     whileHover={{ scale: 1.15, rotate: [0, -5, 5, 0] }}
                     whileTap={{ scale: 0.95 }}
                 >

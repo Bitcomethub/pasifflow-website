@@ -1,8 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -91,7 +89,6 @@ export default function SignupPage() {
 
     return (
         <>
-            <Header />
             <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 py-12 md:py-20">
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="max-w-2xl mx-auto">
@@ -102,8 +99,8 @@ export default function SignupPage() {
                                     <div
                                         key={s}
                                         className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${s <= step
-                                                ? "bg-primary text-primary-foreground"
-                                                : "bg-muted text-muted-foreground"
+                                            ? "bg-primary text-primary-foreground"
+                                            : "bg-muted text-muted-foreground"
                                             }`}
                                     >
                                         {s < step ? <CheckCircle2 size={16} /> : s}
@@ -145,8 +142,8 @@ export default function SignupPage() {
                                                     key={option.value}
                                                     onClick={() => setInvestorType(option.value as InvestorType)}
                                                     className={`p-4 rounded-xl border-2 text-left transition-all ${investorType === option.value
-                                                            ? "border-primary bg-primary/10"
-                                                            : "border-border hover:border-primary/50"
+                                                        ? "border-primary bg-primary/10"
+                                                        : "border-border hover:border-primary/50"
                                                         }`}
                                                 >
                                                     <div className="flex items-center gap-3">
@@ -185,8 +182,8 @@ export default function SignupPage() {
                                                     key={option.value}
                                                     onClick={() => setTimeline(option.value as Timeline)}
                                                     className={`p-4 rounded-xl border-2 text-left transition-all ${timeline === option.value
-                                                            ? "border-primary bg-primary/10"
-                                                            : "border-border hover:border-primary/50"
+                                                        ? "border-primary bg-primary/10"
+                                                        : "border-border hover:border-primary/50"
                                                         }`}
                                                 >
                                                     <div className="flex items-center gap-3">
@@ -222,8 +219,8 @@ export default function SignupPage() {
                                                     key={option.value}
                                                     onClick={() => setBudget(option.value as Budget)}
                                                     className={`p-4 rounded-xl border-2 text-center transition-all ${budget === option.value
-                                                            ? "border-primary bg-primary/10"
-                                                            : "border-border hover:border-primary/50"
+                                                        ? "border-primary bg-primary/10"
+                                                        : "border-border hover:border-primary/50"
                                                         }`}
                                                 >
                                                     <div className="font-semibold">{t(option.labelKey)}</div>
@@ -374,7 +371,6 @@ export default function SignupPage() {
                     </div>
                 </div>
             </main>
-            <Footer />
         </>
     )
 }

@@ -4,8 +4,6 @@ import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
 import { FileText, Landmark, Calculator, ArrowRight, CheckCircle2, Building2, TrendingDown, HeadphonesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import Link from "next/link"
 
 export default function TaxationPage() {
@@ -29,7 +27,6 @@ export default function TaxationPage() {
 
     return (
         <div className="min-h-screen">
-            <Header />
             <main className="bg-background pt-24 pb-20">
                 <div className="container mx-auto px-4 md:px-6">
                     {/* Hero Section */}
@@ -107,8 +104,10 @@ export default function TaxationPage() {
 
                     {/* CTA Buttons Row */}
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                        <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
-                            Ücretsiz Danışmanlık Al
+                        <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform" asChild>
+                            <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
+                                Ücretsiz Danışmanlık Al
+                            </a>
                         </Button>
                         <Button
                             size="lg"
@@ -135,8 +134,10 @@ export default function TaxationPage() {
                                 {t("ctaDesc")}
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                                <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform">
-                                    {t("ctaButton")}
+                                <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform" asChild>
+                                    <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
+                                        {t("ctaButton")}
+                                    </a>
                                 </Button>
                                 <Link href="/neden-amerika" passHref>
                                     <Button size="lg" variant="outline" className="font-semibold text-lg h-14 border-2">
@@ -148,7 +149,6 @@ export default function TaxationPage() {
                     </motion.div>
                 </div>
             </main>
-            <Footer />
         </div>
     )
 }

@@ -31,7 +31,6 @@ export default function LoginPage() {
 
     return (
         <>
-            <Header />
             <main className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 py-12 md:py-20">
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="max-w-md mx-auto">
@@ -150,7 +149,6 @@ export default function LoginPage() {
                     </div>
                 </div>
             </main>
-            <Footer />
         </>
     )
 }

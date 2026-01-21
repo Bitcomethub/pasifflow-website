@@ -7,6 +7,8 @@ import { DollarSign, TrendingUp, Building2, MapPin, Calculator, Calendar, Lock }
 import { useTranslations } from "next-intl"
 import { Button } from "@/components/ui/button"
 import { LeadGenModal } from "@/components/lead-gen-modal"
+import Link from "next/link"
+import { useLocale } from "next-intl"
 
 const cityData = {
     detroit: {
@@ -27,6 +29,7 @@ const holdingPeriods = [1, 5, 10, 20]
 
 export function RoiCalculator() {
     const t = useTranslations("roiCalculator")
+    const locale = useLocale()
     const [selectedCity] = useState<keyof typeof cityData>("detroit")
     const [purchasePrice, setPurchasePrice] = useState(92500)
     const [holdingPeriod, setHoldingPeriod] = useState(5)
@@ -170,11 +173,12 @@ export function RoiCalculator() {
                             <p className="text-[#6b6b67] text-sm mb-6">
                                 ROI analizlerini görmek için ücretsiz üye olun.
                             </p>
-                            <Button
                                 className="w-full h-12 font-medium bg-[#a3452b] hover:bg-[#8a3a24] text-white rounded-lg"
-                                onClick={() => setShowLeadModal(true)}
+                                asChild
                             >
-                                Ücretsiz Başla
+                                 <Link href={`/${locale}/signup`}>
+                                    Ücretsiz Başla
+                                </Link>
                             </Button>
                         </div>
                     </div>
@@ -194,6 +198,6 @@ export function RoiCalculator() {
                 }}
                 triggerSource="gated-content"
             />
-        </Card>
+        </Card >
     )
 }

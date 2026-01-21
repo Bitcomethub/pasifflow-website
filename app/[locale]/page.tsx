@@ -22,7 +22,6 @@ import { Footer } from "@/components/footer"
 export default function Home() {
     return (
         <div className="min-h-screen">
-            <Header />
             <main>
                 <HeroSection />
                 <TrustBadges />
@@ -41,7 +40,6 @@ export default function Home() {
                 {/* MapSection (Fırsat Bölgeleri) removed per client request */}
                 <FinalCTASection />
             </main>
-            <Footer />
         </div>
     )
 }
