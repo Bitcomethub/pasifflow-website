@@ -391,93 +391,111 @@
         "col2Item3": "مدفوعات منتظمة ومضمونة 100٪"
     },
     "faq": {
-        "title": "الأسئلة الشائعة",
-        "subtitle": "إجابات على أسئلتك هنا.",
-        "showMore": "عرض جميع الأسئلة",
-        "showLess": "عرض أقل",
-        "q1": "ما هو PASIFLOW؟",
-        "a1": "PASIFLOW هي منصة دخل سلبي تنظم استثمارات عقارية جاهزة للتسليم ومدارة باحترافية وذات عائد إيجاري عالٍ في أمريكا نيابة عن المستثمرين.",
-        "q2": "هل يمكنني إدارة استثماري عن بعد؟",
-        "a2": "نعم، بالطبع. منذ لقائنا الأول، سيتم تعيين مدير حساب خاص لك. يمكنك تتبع جميع التفاصيل عبر لوحتك الخاصة.",
-        "q3": "هل PASIFLOW شركة تدار عن بعد؟",
-        "a3": "لا. PASIFLOW هيكل نشط ميدانياً. لدينا فرق إدارة وفنيون في جميع الولايات التي نعمل فيها.",
-        "q4": "من المسؤول عن إيجاد المستأجرين والإدارة؟",
-        "a4": "يتم تنفيذ وضع المستأجرين وتتبع الإيجار والصيانة والإصلاح من قبل فرق PASIFLOW المحترفة. أنت فقط تتابع التقارير.",
-        "q5": "في أي مدن وولايات تستثمرون؟",
-        "a5": "تعمل PASIFLOW في مدن أمريكية ذات طلب إيجاري قوي وصديقة للمستثمرين وتوفر تدفقات نقدية متوقعة: ممفيس، كليفلاند، ديترويت، مونتغومري، سانت لويس، كولومبوس والمزيد.",
-        "q6": "ما هو الحد الأدنى لمبلغ الاستثمار؟",
-        "a6": "تبدأ الاستثمارات النقدية عادة من 70,000 - 145,000 دولار. تتوفر خيارات التمويل للميزانيات الأعلى.",
-        "q7": "هل دخل الإيجار آمن؟",
-        "a7": "تركز PASIFLOW على أنظمة الإيجار المدعومة حكومياً (مثل Section 8) وأسواق الإيجار القوية لتقليل مخاطر التحصيل إلى الصفر.",
-        "q8": "ما هو صافي عائد الإيجار؟",
-        "a8": "صافي العوائد في نطاق 10-14٪ صافي. هذا الرقم يمثل صافي الدخل بعد خصم جميع النفقات.",
-        "q9": "هل تقدمون الدعم في الضرائب والمحاسبة؟",
-        "a9": "نعم. نقدم الإرشاد في إنشاء LLC والتوجيهات المحاسبية وإعداد الوثائق خلال موسم الضرائب. تقديم الإقرار الضريبي مقابل 99 دولار فقط.",
-        "q10": "لماذا PASIFLOW مختلفة عن الشركات الأخرى؟",
-        "a10": "لأن PASIFLOW: نشطة ميدانياً، تعين مدير حساب مخصص، توفر شفافية كاملة، تستهدف الدخل السلبي طويل الأجل، وتستخدم نفس النظام في استثماراتها الخاصة.",
-        "q11": "ما هو هدف PASIFLOW؟",
-        "a11": "هدف PASIFLOW هو توفير دخل سلبي منتظم لمستثمريها وعائلاتهم لسنوات عديدة وإنشاء هيكل ثروة يستمر لأجيال.",
-        "q12": "لماذا يجب أن أثق في PASIFLOW؟",
-        "a12": "فريق PASIFLOW لديه أكثر من 20 عاماً خبرة في الأعمال الأمريكية، أكثر من 250 مليون دولار إجمالي حجم المعاملات، وأكثر من 100 مليون دولار مبيعات عقارات ميامي في آخر 10 سنوات.",
-        "q13": "لمن PASIFLOW مناسب؟",
-        "a13": "تم تصميم PASIFLOW للمحترفين المشغولين، والذين يرغبون في الاستثمار في أمريكا من الخارج، والمستثمرين الذين لا يريدون التعامل مع إدارة العقارات.",
-        "q14": "هل يمكنني الاستثمار بدون أن أكون مواطناً أمريكياً؟",
-        "a14": "نعم. لا تحتاج أن تكون مواطناً أمريكياً أو مقيماً. تنظم PASIFLOW العملية بأكملها للمستثمرين الأجانب.",
-        "q15": "هل يمكنني الاستثمار دون القدوم إلى أمريكا؟",
-        "a15": "نعم. يمكن إدارة العملية بأكملها عن بعد. إذا رغبت، يمكنك أيضاً زيارة أمريكا وفحص استثماراتك شخصياً.",
-        "q16": "ماذا يفعل مدير حسابي بالضبط؟",
-        "a16": "مدير الحساب المخصص لك مسؤول عن عمليات الشراء والتأجير والصيانة والتقارير والاتصالات. يعمل كيدك اليمنى في أمريكا.",
-        "q17": "هل يمكنني شراء عدة عقارات في نفس الوقت؟",
-        "a17": "نعم. تدعم PASIFLOW تنمية دخلك السلبي بعدة عقارات من خلال بناء محفظة.",
-        "q18": "هل يتم شراء العقارات باسم PASIFLOW أم باسمي؟",
-        "a18": "جميع العقارات تشترى باسم المستثمر. تتولى PASIFLOW جانب الإدارة والعمليات.",
-        "q19": "هل يتم فحص العقارات قبل الشراء؟",
-        "a19": "نعم. يتم فحص جميع العقارات بالتفصيل من قبل الفريق الميداني قبل الشراء.",
-        "q20": "هل هناك خطر الشغور؟",
-        "a20": "تفضل PASIFLOW العقارات الجاهزة للمستأجرين أو القابلة للتأجير السريع لتقليل مخاطر الشغور إلى الحد الأدنى.",
-        "q21": "ماذا يحدث إذا غادر المستأجر؟",
-        "a21": "عندما يغادر المستأجر، تدير PASIFLOW العملية ويتم إيجاد مستأجر جديد ويتم إبلاغ المستثمر. يبقى مستأجرو Section 8 في المتوسط 3-4 سنوات.",
-        "q22": "هل تكاليف الصيانة والإصلاح مفاجئة؟",
-        "a22": "لا. يتم مشاركة جميع طلبات الصيانة والإصلاح بشفافية في لوحة المستثمر.",
-        "q23": "كيف يتم إبلاغي في حالات الطوارئ؟",
-        "a23": "في حالات الطوارئ، يتواصل معك مدير حسابك مباشرة ويتم إدارة عملية الحل.",
-        "q24": "كيف يتم تحويل مدفوعات الإيجار إلي؟",
-        "a24": "يتم تحويل الإيجارات بانتظام إلى حسابك المصرفي. يتم تتبع التفاصيل عبر اللوحة. الدفع في حسابك في 1-5 من كل شهر.",
-        "q25": "هل تتقاضى PASIFLOW رسوماً مقابل خدماتها؟",
-        "a25": "نعم. تعمل PASIFLOW برسوم شفافة ومحددة مسبقاً مقابل خدماتها المهنية. لا توجد رسوم مخفية.",
-        "q27": "كم تتقاضى PASIFLOW بعد الإغلاق؟",
-        "a27": "عند اكتمال عملية شراء العقار المختار، تتقاضى PASIFLOW رسوم الخدمة المتبقية البالغة 2,500 دولار. إجمالي رسوم الخدمة 3,500 دولار.",
-        "q28": "هل هناك رسوم مستمرة من PASIFLOW بعد الشراء؟",
-        "a28": "نعم. بعد الشراء، تتقاضى PASIFLOW فقط رسوم إدارة بنسبة 10٪ من دخل الإيجار الشهري. مقابل هذه الرسوم يتم إنشاء نظام تشغيلي كامل.",
-        "q29": "ماذا تشمل رسوم الإدارة 10٪؟",
-        "a29": "تشمل هذه الرسوم: استخدام منصة PASIFLOW، تتبع الإيجار والتقارير، التواصل مع المستأجرين، تنظيم الصيانة والإصلاح، الإدارة النشطة لاستثمارك على مدار العام.",
-        "q30": "كيف تتم إدارة الضرائب والمحاسبة؟",
-        "a30": "يتم إعداد مستنداتك الضريبية في نهاية العام، ويتم تقديم إقرارك الرسمي لدى الحكومة الأمريكية مقابل 99 دولار فقط عبر شركاء المحاسبة.",
-        "q31": "كيف يتم التحكم في تكاليف الصيانة والإصلاح؟",
-        "a31": "بفضل فرق PASIFLOW الميدانية والفنيين: يتم الحصول على أفضل الأسعار، يتم حل المشاكل الصغيرة قبل أن تكبر، لا يتم مواجهة تكاليف عالية ومفاجئة.",
-        "q32": "لماذا يعمل PASIFLOW بنظام الفوز للفوز؟",
-        "a32": "أرباح PASIFLOW مرتبطة مباشرة بدخل الإيجار الخاص بك. عندما تربح، تربح PASIFLOW. لذلك تم بناء النظام طويل الأجل وشفاف ومركز على المستثمر.",
-        "q33": "هل يمكنني بيع استثماري متى أريد؟",
-        "a33": "نعم. العقار ملكك. توفر PASIFLOW أيضاً الدعم في عملية البيع.",
-        "q34": "هل العقارات مؤمنة؟",
-        "a34": "نعم. جميع العقارات تحت تغطية التأمين.",
-        "q35": "ماذا يتم تقديمه لي في وقت الضرائب؟",
-        "a35": "يتم إعداد جميع المستندات المطلوبة خلال موسم الضرائب ومشاركتها مع المستثمر.",
-        "q36": "كيف تبلغ PASIFLOW المستثمر؟",
-        "a36": "تتم إدارة العملية بشفافية من خلال التقارير المنتظمة وتحديثات اللوحة والتواصل المباشر.",
-        "q37": "هل نظام PASIFLOW آمن؟",
-        "a37": "نعم. النظام الذي تقدمه PASIFLOW هو نفس الهيكل الذي يستخدمه الفريق في استثماراته الخاصة.",
-        "q38": "هل تعمل PASIFLOW على المدى الطويل أم القصير؟",
-        "a38": "PASIFLOW تركز بالكامل على الدخل السلبي طويل الأجل وبناء الثروة.",
-        "q39": "كم سنة يمكنني العمل مع PASIFLOW؟",
-        "a39": "PASIFLOW ليست معاملة لمرة واحدة؛ إنها تقدم شراكة استثمارية ستستمر لسنوات عديدة.",
-        "q40": "هل يمكنني استخدام التمويل العقاري؟",
-        "a40": "نعم، تتوفر خيارات قروض DSCR للمستثمرين الأجانب. يمكنك استخدام القروض بدفعة أولى 25-30٪."
+        "title": "Sıkça Sorulan Sorular",
+        "subtitle": "Aklınızdaki tüm soruları kategorilere ayırarak detaylıca yanıtladık.",
+        "categories": {
+            "general": "Genel & Hakkımızda",
+            "process": "Yatırım Süreci",
+            "property": "Mülk & Bölge",
+            "financial": "Finans & Getiri",
+            "legal": "Hukuk & Vergi"
+        },
+        "general": [
+            {
+                "q": "PASIFLOW nedir ve ne yapar?",
+                "a": "PASIFLOW, ABD gayrimenkul piyasasında; kira getirisi yüksek, profesyonel yönetilen ve %100 devlet garantili (Section 8) mülk yatırımlarını organize eden, uçtan uca bir teknoloji ve yatırım platformudur."
+            },
+            {
+                "q": "Neden diğer turnkey firmalardan farklı?",
+                "a": "Biz sadece satış yapmıyoruz, aldığımız mülkün yönetimini de bizzat üstleniyoruz. Kendi saha ekiplerimiz, size özel atanan hesap yöneticisi ve şeffaf panel teknolojimiz ile 'sat ve unut' değil, 'uzun vadeli ortaklık' modelini benimsiyoruz."
+            },
+            {
+                "q": "PASIFLOW'a neden güvenmeliyim?",
+                "a": "Kurucu ekibimiz ABD'de 20+ yıllık deneyime ve $250M+ gayrimenkul işlem hacmine sahiptir. Ayrıca sunduğumuz Section 8 yatırım modelini, kendi aile birikimlerimizi değerlendirmek için de kullanıyoruz. Size ne sunuyorsak, kendimiz de ona yatırım yapıyoruz."
+            },
+            {
+                "q": "Kimler için uygun?",
+                "a": "Özellikle yoğun çalışan profesyoneller, pasif gelir arayan yatırımcılar ve mülk yönetimi (kiracı, tadilat vs.) ile uğraşmadan dolar kazanmak isteyen herkes için idealdir."
+            }
+        ],
+        "process": [
+            {
+                "q": "Amerika'ya gelmem gerekiyor mu?",
+                "a": "Hayır. Tüm süreç (seçim, satın alma, tapu devri, yönetim) %100 uzaktan ve dijital olarak yürütülür. Dilerseniz elbette mülklerinizi yerinde görebilirsiniz."
+            },
+            {
+                "q": "Yatırımımı nasıl takip edeceğim?",
+                "a": "Size özel Pasiflow Yatırımcı Paneli üzerinden; kira ödemelerini, bakım raporlarını, finansal tabloları ve tapu belgelerinizi 7/24 anlık olarak takip edebilirsiniz. Ayrıca size özel atanan Hesap Yöneticiniz her sorunuzda yanınızdadır."
+            },
+            {
+                "q": "Süreç ne kadar sürüyor?",
+                "a": "Mülk seçimi sonrası, satın alma ve tapu devir işlemleri (closing) nakit alımlarda ortalama 14-21 gün sürer. Kredili alımlarda bu süre 45-60 günü bulabilir."
+            }
+        ],
+        "property": [
+            {
+                "q": "Mülkler nerede?",
+                "a": "Şu an en yüksek kira getirisi (ROI) ve değer artış potansiyeli sunan bölgelere odaklanıyoruz: Detroit (MI), Cleveland (OH), Memphis (TN) ve St. Louis (MO). Bu bölgeler, Section 8 sisteminin en verimli çalıştığı pazarlardır."
+            },
+            {
+                "q": "Evler satın alınmadan önce kontrol ediliyor mu?",
+                "a": "Kesinlikle. Her mülk; saha ekiplerimizce, lisanslı 'inspector'larca ve belediye denetimlerince 3 aşamalı kontrolden geçer. Sadece standartlarımıza uyan mülkleri portföye ekleriz."
+            },
+            {
+                "q": "Bakım ve onarım süreçleri nasıl işliyor?",
+                "a": "Kendi tam zamanlı bakım ekiplerimiz mevcuttur. Küçük onarımlar için dışarıdan fahiş fiyatlı servis çağırmak yerine, kendi ekiplerimizle piyasanın çok altında maliyetle ve hızla çözüm üretiriz. Tüm işlemler panelinizde fotoğraflı olarak raporlanır."
+            },
+            {
+                "q": "Kiracı çıkarsa ne olur?",
+                "a": "Section 8 kiracıları genellikle çok uzun süreli (ortalama 5-7 yıl) kalırlar. Eğer çıkarlarsa, PASIFLOW pazarlama ekibi hemen yeni kiracı adaylarını bulur, güvenlik soruşturmasından geçirir ve yerleştirir."
+            }
+        ],
+        "financial": [
+            {
+                "q": "Minimum yatırım tutarı nedir?",
+                "a": "Nakit alımlar için $85.000 - $120.000 bandından başlayan portföylerimiz mevcuttur. Kredi (Mortgage) kullanacaklar için minimum %30-35 peşinat (yaklaşık $30k-$40k) yeterlidir."
+            },
+            {
+                "q": "Getiri (ROI) beklentisi nedir?",
+                "a": "Bölgelerimize göre değişmekle birlikte, tüm masraflar düştükten sonra yıllık NET Dolar Bazlı Getiri (ROI) %10 - %14 arasındadır. Ayrıca yıllık %5-8 arası gayrimenkul değer artışı öngörülmektedir."
+            },
+            {
+                "q": "Kira garantisi var mı?",
+                "a": "Kiranızın büyük bir bölümü (%70-%100 arası) Amerikan Hükümeti (Section 8 programı) tarafından garanti altındadır ve her ayın 1'inde otomatik olarak yatar. Kiracı ödemese bile devlet payı hesabımıza girer."
+            },
+            {
+                "q": "Hizmet bedelleriniz nedir?",
+                "a": "Çok şeffafız: Mülk başına $3.500 danışmanlık/kapanış bedeli (tek seferlik) ve aylık kira gelirinin %10'u kadar yönetim bedeli (property management fee) alıyoruz. Gizli masraf yok."
+            },
+            {
+                "q": "Kiram ne zaman yatar?",
+                "a": "Her ayın 1'i ile 5'i arası kiralar toplanır, masraflar düşülür ve ayın 15'inde doğrudan Türkiye veya Amerika'daki banka hesabınıza Dolar olarak transfer edilir."
+            }
+        ],
+        "legal": [
+            {
+                "q": "Mülk benim üzerime mi oluyor?",
+                "a": "Evet. Tapu (Deed) doğrudan sizin veya kuracağımız LLC şirketinizin üzerine yapılır. ABD'de mülkiyet hakları çok güçlüdür ve tamamen sizin kontrolünüzdedir."
+            },
+            {
+                "q": "Şirket kurmak (LLC) zorunlu mu?",
+                "a": "Zorunlu değil ama şiddetle tavsiye ediyoruz. LLC; sizi yasal risklerden korur (Limited Liability) ve çok ciddi vergi avantajları sağlar. Kurulumu PASIFLOW olarak biz sizin adınıza yapıyoruz ($750 maliyet ile)."
+            },
+            {
+                "q": "Vergi ödeyecek miyim?",
+                "a": "Evet, ancak korkmayın. ABD ve Türkiye arasında 'Çifte Vergilendirmeyi Önleme Anlaşması' var. ABD'de ödediğiniz cüzi vergiyi Türkiye'de mahsup edebilirsiniz. Ayrıca amortisman (depreciation) gibi giderlerle, kağıt üzerinde kârınızı düşük gösterip yasal olarak $0 vergi ödeme imkanları mevcuttur. Yıllık vergi beyanınızı $99 karşılığında iş ortaklarımızla yapıyoruz."
+            },
+            {
+                "q": "ABD vatandaşı olmam gerekir mi?",
+                "a": "Hayır. Pasaportunuzun olması yeterlidir. ABD'ye gitmenize или vizeniz olmasına bile gerek yoktur."
+            }
+        ]
     },
     "map": {
         "title": "مناطق الفرص",
-        "subtitle": "نستهدف مناطق ذات عوائد إيجارية عالية مثل ممفيس وكليفلاند وديترويت ومونتغومري وسانت لويس وكولومبوس.",
-        "activeStates": "6+ ولايات نشطة",
+        "subtitle": "We target high rental yield areas in Detroit.",
+        "description": "Discover Detroit's highest appreciating and high rental yield neighborhoods on our interactive map.",
+        "activeStates": "Detroit Focused",
         "tagline": "عائد إيجاري عالي واستهداف زيادة القيمة",
         "ctaPrimary": "استكشف المناطق",
         "ctaSecondary": "اطلب تقارير الولايات"

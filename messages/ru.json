@@ -391,93 +391,111 @@
         "col2Item3": "Регулярные и 100% гарантированные платежи"
     },
     "faq": {
-        "title": "Часто задаваемые вопросы",
-        "subtitle": "Ответы на ваши вопросы здесь.",
-        "showMore": "Показать все вопросы",
-        "showLess": "Показать меньше",
-        "q1": "Что такое PASIFLOW?",
-        "a1": "PASIFLOW — платформа пассивного дохода, которая организует инвестиции в недвижимость под ключ с высокой арендной доходностью и профессиональным управлением в Америке от имени инвесторов.",
-        "q2": "Могу ли я управлять инвестицией удалённо?",
-        "a2": "Да, конечно. С первой встречи вам назначается персональный менеджер. Вы можете отслеживать все детали через личную панель.",
-        "q3": "PASIFLOW — это удалённо управляемая компания?",
-        "a3": "Нет. PASIFLOW — это активно работающая полевая структура. У нас есть команды управления и техники во всех штатах, где мы работаем.",
-        "q4": "Кто отвечает за поиск арендаторов и управление?",
-        "a4": "Размещение арендаторов, отслеживание аренды, обслуживание и ремонт выполняются профессиональными командами PASIFLOW. Вы только следите за отчётами.",
-        "q5": "В каких городах и штатах вы инвестируете?",
-        "a5": "PASIFLOW работает в американских городах с сильным спросом на аренду, дружественных к инвесторам и с предсказуемым денежным потоком: Мемфис, Кливленд, Детройт, Монтгомери, Сент-Луис, Колумбус и другие.",
-        "q6": "Какова минимальная сумма инвестиции?",
-        "a6": "Наличные инвестиции обычно начинаются от $70,000 – $145,000. Для более высоких бюджетов доступны варианты финансирования.",
-        "q7": "Безопасен ли арендный доход?",
-        "a7": "PASIFLOW фокусируется на государственных арендных программах (как Section 8) и сильных арендных рынках, сводя риск сбора к НУЛЮ.",
-        "q8": "Какова чистая арендная доходность?",
-        "a8": "Чистая доходность в диапазоне 10-14% НЕТТО. Это чистый доход после вычета всех расходов.",
-        "q9": "Оказываете ли вы поддержку по налогам и бухгалтерии?",
-        "a9": "Да. Мы предоставляем консультации по созданию LLC, бухгалтерии и подготовке документов в налоговый сезон. Налоговая декларация всего за $99.",
-        "q10": "Чем PASIFLOW отличается от других компаний?",
-        "a10": "Потому что PASIFLOW: активна на местах, назначает персонального менеджера, обеспечивает полную прозрачность, нацелена на долгосрочный пассивный доход и использует ту же систему в своих инвестициях.",
-        "q11": "Какова цель PASIFLOW?",
-        "a11": "Цель PASIFLOW — обеспечить инвесторам и их семьям регулярный пассивный доход на многие годы и создать структуру благосостояния, которая передаётся из поколения в поколение.",
-        "q12": "Почему я должен доверять PASIFLOW?",
-        "a12": "Команда PASIFLOW имеет более 20 лет бизнес-опыта в США, более $250M общего объёма сделок и более $100M продаж недвижимости в Майами за последние 10 лет.",
-        "q13": "Для кого подходит PASIFLOW?",
-        "a13": "PASIFLOW разработана для занятых профессионалов, желающих инвестировать в США из-за рубежа, и инвесторов, которые не хотят заниматься управлением недвижимостью.",
-        "q14": "Могу ли я инвестировать, не будучи гражданином США?",
-        "a14": "Да. Вам не нужно быть гражданином или резидентом США. PASIFLOW организует весь процесс для иностранных инвесторов.",
-        "q15": "Могу ли я инвестировать, не приезжая в Америку?",
-        "a15": "Да. Весь процесс можно вести удалённо. При желании вы также можете приехать в Америку и осмотреть инвестиции лично.",
-        "q16": "Что именно делает мой персональный менеджер?",
-        "a16": "Назначенный вам менеджер отвечает за покупку, аренду, обслуживание, отчётность и коммуникацию. Работает как ваша правая рука в Америке.",
-        "q17": "Могу ли я купить несколько объектов одновременно?",
-        "a17": "Да. PASIFLOW поддерживает рост вашего пассивного дохода с несколькими объектами путём формирования портфеля.",
-        "q18": "Объекты покупаются на имя PASIFLOW или на моё?",
-        "a18": "Все объекты покупаются на имя инвестора. PASIFLOW занимается управлением и операциями.",
-        "q19": "Проверяются ли объекты перед покупкой?",
-        "a19": "Да. Все объекты детально проверяются полевой командой перед покупкой.",
-        "q20": "Есть ли риск простоя?",
-        "a20": "PASIFLOW предпочитает объекты с готовыми арендаторами или быстро сдаваемые, минимизируя риск простоя.",
-        "q21": "Что происходит, если арендатор съезжает?",
-        "a21": "Когда арендатор съезжает, PASIFLOW управляет процессом, находит нового арендатора и информирует инвестора. Арендаторы Section 8 в среднем остаются 3-4 года.",
-        "q22": "Расходы на обслуживание и ремонт неожиданны?",
-        "a22": "Нет. Все заявки на обслуживание и ремонт прозрачно отображаются в панели инвестора.",
-        "q23": "Как меня уведомляют в экстренных случаях?",
-        "a23": "В экстренных случаях ваш менеджер связывается с вами напрямую и управляет процессом решения.",
-        "q24": "Как мне переводятся арендные платежи?",
-        "a24": "Аренда регулярно переводится на ваш банковский счёт. Детали отслеживаются через панель. Оплата на вашем счету 1-5 числа каждого месяца.",
-        "q25": "Берёт ли PASIFLOW плату за услуги?",
-        "a25": "Да. PASIFLOW работает с прозрачными и заранее определёнными комиссиями за профессиональные услуги. Скрытых платежей нет.",
-        "q27": "Сколько берёт PASIFLOW после закрытия сделки?",
-        "a27": "После завершения покупки выбранного объекта PASIFLOW получает оставшуюся сервисную плату $2,500. Общая сервисная плата составляет $3,500.",
-        "q28": "Есть ли текущие платежи PASIFLOW после покупки?",
-        "a28": "Да. После покупки PASIFLOW берёт только комиссию за управление в размере 10% от месячного арендного дохода. За эту плату создаётся полная операционная система.",
-        "q29": "Что включает 10% комиссия за управление?",
-        "a29": "В эту плату входит: использование платформы PASIFLOW, отслеживание аренды и отчётность, общение с арендаторами, организация обслуживания и ремонта, активное управление вашей инвестицией круглый год.",
-        "q30": "Как управляются налоги и бухгалтерия?",
-        "a30": "В конце года готовятся налоговые документы, официальная декларация подаётся правительству США всего за $99 через бухгалтерских партнёров.",
-        "q31": "Как контролируются расходы на обслуживание и ремонт?",
-        "a31": "Благодаря полевым командам и техникам PASIFLOW: получаются лучшие цены, мелкие проблемы решаются до того, как станут большими, высоких и неожиданных расходов не возникает.",
-        "q32": "Почему PASIFLOW работает по принципу win-win?",
-        "a32": "Доход PASIFLOW напрямую связан с вашим арендным доходом. Когда вы зарабатываете, PASIFLOW зарабатывает. Поэтому система построена долгосрочно, прозрачно и ориентирована на инвестора.",
-        "q33": "Могу ли я продать инвестицию когда захочу?",
-        "a33": "Да. Объект принадлежит вам. PASIFLOW также оказывает поддержку в процессе продажи.",
-        "q34": "Объекты застрахованы?",
-        "a34": "Да. Все объекты покрыты страховкой.",
-        "q35": "Что мне предоставляется в налоговый период?",
-        "a35": "Все необходимые документы готовятся в налоговый сезон и передаются инвестору.",
-        "q36": "Как PASIFLOW информирует инвестора?",
-        "a36": "Процесс прозрачно управляется через регулярные отчёты, обновления панели и прямое общение.",
-        "q37": "Безопасна ли система PASIFLOW?",
-        "a37": "Да. Система, которую предлагает PASIFLOW — это та же структура, которую команда использует в своих собственных инвестициях.",
-        "q38": "PASIFLOW работает на долгосрочной или краткосрочной основе?",
-        "a38": "PASIFLOW полностью ориентирована на долгосрочный пассивный доход и создание благосостояния.",
-        "q39": "Сколько лет я могу работать с PASIFLOW?",
-        "a39": "PASIFLOW — это не разовая сделка; это инвестиционное партнёрство, которое будет длиться много лет.",
-        "q40": "Могу ли я использовать ипотеку?",
-        "a40": "Да, для иностранных инвесторов доступны кредиты DSCR. Вы можете использовать кредиты с первоначальным взносом 25-30%."
+        "title": "Sıkça Sorulan Sorular",
+        "subtitle": "Aklınızdaki tüm soruları kategorilere ayırarak detaylıca yanıtladık.",
+        "categories": {
+            "general": "Genel & Hakkımızda",
+            "process": "Yatırım Süreci",
+            "property": "Mülk & Bölge",
+            "financial": "Finans & Getiri",
+            "legal": "Hukuk & Vergi"
+        },
+        "general": [
+            {
+                "q": "PASIFLOW nedir ve ne yapar?",
+                "a": "PASIFLOW, ABD gayrimenkul piyasasında; kira getirisi yüksek, profesyonel yönetilen ve %100 devlet garantili (Section 8) mülk yatırımlarını organize eden, uçtan uca bir teknoloji ve yatırım platformudur."
+            },
+            {
+                "q": "Neden diğer turnkey firmalardan farklı?",
+                "a": "Biz sadece satış yapmıyoruz, aldığımız mülkün yönetimini de bizzat üstleniyoruz. Kendi saha ekiplerimiz, size özel atanan hesap yöneticisi ve şeffaf panel teknolojimiz ile 'sat ve unut' değil, 'uzun vadeli ortaklık' modelini benimsiyoruz."
+            },
+            {
+                "q": "PASIFLOW'a neden güvenmeliyim?",
+                "a": "Kurucu ekibimiz ABD'de 20+ yıllık deneyime ve $250M+ gayrimenkul işlem hacmine sahiptir. Ayrıca sunduğumuz Section 8 yatırım modelini, kendi aile birikimlerimizi değerlendirmek için de kullanıyoruz. Size ne sunuyorsak, kendimiz de ona yatırım yapıyoruz."
+            },
+            {
+                "q": "Kimler için uygun?",
+                "a": "Özellikle yoğun çalışan profesyoneller, pasif gelir arayan yatırımcılar ve mülk yönetimi (kiracı, tadilat vs.) ile uğraşmadan dolar kazanmak isteyen herkes için idealdir."
+            }
+        ],
+        "process": [
+            {
+                "q": "Amerika'ya gelmem gerekiyor mu?",
+                "a": "Hayır. Tüm süreç (seçim, satın alma, tapu devri, yönetim) %100 uzaktan ve dijital olarak yürütülür. Dilerseniz elbette mülklerinizi yerinde görebilirsiniz."
+            },
+            {
+                "q": "Yatırımımı nasıl takip edeceğim?",
+                "a": "Size özel Pasiflow Yatırımcı Paneli üzerinden; kira ödemelerini, bakım raporlarını, finansal tabloları ve tapu belgelerinizi 7/24 anlık olarak takip edebilirsiniz. Ayrıca size özel atanan Hesap Yöneticiniz her sorunuzda yanınızdadır."
+            },
+            {
+                "q": "Süreç ne kadar sürüyor?",
+                "a": "Mülk seçimi sonrası, satın alma ve tapu devir işlemleri (closing) nakit alımlarda ortalama 14-21 gün sürer. Kredili alımlarda bu süre 45-60 günü bulabilir."
+            }
+        ],
+        "property": [
+            {
+                "q": "Mülkler nerede?",
+                "a": "Şu an en yüksek kira getirisi (ROI) ve değer artış potansiyeli sunan bölgelere odaklanıyoruz: Detroit (MI), Cleveland (OH), Memphis (TN) ve St. Louis (MO). Bu bölgeler, Section 8 sisteminin en verimli çalıştığı pazarlardır."
+            },
+            {
+                "q": "Evler satın alınmadan önce kontrol ediliyor mu?",
+                "a": "Kesinlikle. Her mülk; saha ekiplerimizce, lisanslı 'inspector'larca ve belediye denetimlerince 3 aşamalı kontrolden geçer. Sadece standartlarımıza uyan mülkleri portföye ekleriz."
+            },
+            {
+                "q": "Bakım ve onarım süreçleri nasıl işliyor?",
+                "a": "Kendi tam zamanlı bakım ekiplerimiz mevcuttur. Küçük onarımlar için dışarıdan fahiş fiyatlı servis çağırmak yerine, kendi ekiplerimizle piyasanın çok altında maliyetle ve hızla çözüm üretiriz. Tüm işlemler panelinizde fotoğraflı olarak raporlanır."
+            },
+            {
+                "q": "Kiracı çıkarsa ne olur?",
+                "a": "Section 8 kiracıları genellikle çok uzun süreli (ortalama 5-7 yıl) kalırlar. Eğer çıkarlarsa, PASIFLOW pazarlama ekibi hemen yeni kiracı adaylarını bulur, güvenlik soruşturmasından geçirir ve yerleştirir."
+            }
+        ],
+        "financial": [
+            {
+                "q": "Minimum yatırım tutarı nedir?",
+                "a": "Nakit alımlar için $85.000 - $120.000 bandından başlayan portföylerimiz mevcuttur. Kredi (Mortgage) kullanacaklar için minimum %30-35 peşinat (yaklaşık $30k-$40k) yeterlidir."
+            },
+            {
+                "q": "Getiri (ROI) beklentisi nedir?",
+                "a": "Bölgelerimize göre değişmekle birlikte, tüm masraflar düştükten sonra yıllık NET Dolar Bazlı Getiri (ROI) %10 - %14 arasındadır. Ayrıca yıllık %5-8 arası gayrimenkul değer artışı öngörülmektedir."
+            },
+            {
+                "q": "Kira garantisi var mı?",
+                "a": "Kiranızın büyük bir bölümü (%70-%100 arası) Amerikan Hükümeti (Section 8 programı) tarafından garanti altındadır ve her ayın 1'inde otomatik olarak yatar. Kiracı ödemese bile devlet payı hesabımıza girer."
+            },
+            {
+                "q": "Hizmet bedelleriniz nedir?",
+                "a": "Çok şeffafız: Mülk başına $3.500 danışmanlık/kapanış bedeli (tek seferlik) ve aylık kira gelirinin %10'u kadar yönetim bedeli (property management fee) alıyoruz. Gizli masraf yok."
+            },
+            {
+                "q": "Kiram ne zaman yatar?",
+                "a": "Her ayın 1'i ile 5'i arası kiralar toplanır, masraflar düşülür ve ayın 15'inde doğrudan Türkiye veya Amerika'daki banka hesabınıza Dolar olarak transfer edilir."
+            }
+        ],
+        "legal": [
+            {
+                "q": "Mülk benim üzerime mi oluyor?",
+                "a": "Evet. Tapu (Deed) doğrudan sizin veya kuracağımız LLC şirketinizin üzerine yapılır. ABD'de mülkiyet hakları çok güçlüdür ve tamamen sizin kontrolünüzdedir."
+            },
+            {
+                "q": "Şirket kurmak (LLC) zorunlu mu?",
+                "a": "Zorunlu değil ama şiddetle tavsiye ediyoruz. LLC; sizi yasal risklerden korur (Limited Liability) ve çok ciddi vergi avantajları sağlar. Kurulumu PASIFLOW olarak biz sizin adınıza yapıyoruz ($750 maliyet ile)."
+            },
+            {
+                "q": "Vergi ödeyecek miyim?",
+                "a": "Evet, ancak korkmayın. ABD ve Türkiye arasında 'Çifte Vergilendirmeyi Önleme Anlaşması' var. ABD'de ödediğiniz cüzi vergiyi Türkiye'de mahsup edebilirsiniz. Ayrıca amortisman (depreciation) gibi giderlerle, kağıt üzerinde kârınızı düşük gösterip yasal olarak $0 vergi ödeme imkanları mevcuttur. Yıllık vergi beyanınızı $99 karşılığında iş ortaklarımızla yapıyoruz."
+            },
+            {
+                "q": "ABD vatandaşı olmam gerekir mi?",
+                "a": "Hayır. Pasaportunuzun olması yeterlidir. ABD'ye gitmenize или vizeniz olmasına bile gerek yoktur."
+            }
+        ]
     },
     "map": {
         "title": "Зоны возможностей",
-        "subtitle": "Мы нацелены на регионы с высокой арендной доходностью, такие как Мемфис, Кливленд, Детройт, Монтгомери, Сент-Луис и Колумбус.",
-        "activeStates": "6+ активных штатов",
+        "subtitle": "We target high rental yield areas in Detroit.",
+        "description": "Discover Detroit's highest appreciating and high rental yield neighborhoods on our interactive map.",
+        "activeStates": "Detroit Focused",
         "tagline": "Высокая арендная доходность и рост стоимости",
         "ctaPrimary": "Изучить регионы",
         "ctaSecondary": "Запросить отчёты по штатам"

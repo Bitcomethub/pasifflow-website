@@ -2,78 +2,80 @@
 
 import { useState } from "react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Button } from "@/components/ui/button"
-import { ChevronDown, ChevronUp } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useTranslations, useMessages } from "next-intl"
 import { motion, AnimatePresence } from "framer-motion"
+import { cn } from "@/lib/utils"
 
 export function FAQSection() {
   const t = useTranslations("faq")
-  const [showAll, setShowAll] = useState(false)
+  const messages = useMessages() as any
+  const [activeCategory, setActiveCategory] = useState("general")
 
-  // First 8 FAQs visible by default, rest hidden behind "show more"
-  const initialFaqCount = 8
-  const totalFaqCount = 40
+  // Access the categories safely from messages object
+  const faqItems = messages?.faq?.[activeCategory] || []
 
-  // Generate array [1...40]
-  const allFaqKeys = Array.from({ length: totalFaqCount }, (_, i) => i + 1)
-  const visibleFaqKeys = showAll ? allFaqKeys : allFaqKeys.slice(0, initialFaqCount)
+  const categories = [
+    { id: "general", label: t("categories.general") },
+    { id: "process", label: t("categories.process") },
+    { id: "property", label: t("categories.property") },
+    { id: "financial", label: t("categories.financial") },
+    { id: "legal", label: t("categories.legal") }
+  ]
 
   return (
-    <section id="faq" className="py-24 bg-muted/30">
-      <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+    <section id="faq" className="py-24 bg-gradient-to-b from-slate-50 to-white">
+      <div className="container mx-auto px-4 md:px-6 max-w-5xl">
         <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary">{t("title")}</h2>
-          <p className="text-muted-foreground text-lg">{t("subtitle")}</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-[#001C32]">{t("title")}</h2>
+          <p className="text-[#535454] text-lg max-w-2xl mx-auto">{t("subtitle")}</p>
         </div>
 
-        <Accordion type="single" collapsible className="w-full space-y-4">
-          {visibleFaqKeys.map((key) => (
-            <motion.div
-              key={key}
-              initial={{ opacity: 0, y: 15, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{
-                duration: 0.5,
-                delay: key > initialFaqCount ? (key - initialFaqCount) * 0.04 : key * 0.03,
-                ease: [0.25, 0.46, 0.45, 0.94]
-              }}
+        {/* Categories Tabs */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setActiveCategory(category.id)}
+              className={cn(
+                "px-6 py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 border",
+                activeCategory === category.id
+                  ? "bg-[#EF7202] text-white border-[#EF7202] shadow-lg scale-105"
+                  : "bg-white text-[#535454] border-gray-200 hover:border-[#EF7202] hover:text-[#EF7202] hover:bg-orange-50"
+              )}
             >
-              <AccordionItem
-                value={`item-${key}`}
-                className="bg-background border border-border/50 rounded-lg px-2 shadow-sm transition-all duration-200 data-[state=open]:border-primary/50 data-[state=open]:shadow-md"
-              >
-                <AccordionTrigger className="text-lg font-medium px-4 hover:no-underline hover:text-primary transition-colors py-6 text-left">
-                  {t(`q${key}`)}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground px-4 pb-6 text-base leading-relaxed">
-                  {t(`a${key}`)}
-                </AccordionContent>
-              </AccordionItem>
-            </motion.div>
+              {category.label}
+            </button>
           ))}
-        </Accordion>
+        </div>
 
-        {/* Show More / Show Less Button */}
-        <div className="flex justify-center mt-8">
-          <Button
-            variant="outline"
-            size="lg"
-            onClick={() => setShowAll(!showAll)}
-            className="gap-2 font-semibold border-2 hover:bg-primary/5 hover:border-primary/30 transition-all"
-          >
-            {showAll ? (
-              <>
-                {t("showLess")}
-                <ChevronUp className="h-5 w-5" />
-              </>
-            ) : (
-              <>
-                {t("showMore")}
-                <ChevronDown className="h-5 w-5" />
-              </>
-            )}
-          </Button>
+        {/* FAQ Items */}
+        <div className="min-h-[400px]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCategory}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Accordion type="single" collapsible className="w-full space-y-4">
+                {faqItems.map((item: any, index: number) => (
+                  <AccordionItem
+                    key={index}
+                    value={`item-${index}`}
+                    className="bg-white border border-[#E5E6E8] rounded-2xl px-2 shadow-sm transition-all duration-200 data-[state=open]:border-[#EF7202]/30 data-[state=open]:shadow-md overflow-hidden"
+                  >
+                    <AccordionTrigger className="text-base md:text-lg font-semibold px-4 hover:no-underline hover:text-[#EF7202] transition-colors py-5 text-left text-[#001C32]">
+                      {item.q}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-[#535454] px-4 pb-6 text-base leading-relaxed">
+                      {item.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>

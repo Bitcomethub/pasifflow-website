@@ -49,18 +49,13 @@ export function PortfolioSection() {
   const [modalSource, setModalSource] = useState<"timer" | "gated-content">("timer")
 
   useEffect(() => {
-    // Check local storage for guest status
-    const lead = localStorage.getItem("pasiflow_user_lead")
-    if (lead) {
+    // Check local storage for auth status
+    const token = localStorage.getItem("pasiflow_token")
+    if (token) {
       setIsGuest(false)
-    } else {
-      // Show timer modal after 15 seconds
-      const timer = setTimeout(() => {
-        setModalSource("timer")
-        setShowLeadModal(true)
-      }, 15000)
-      return () => clearTimeout(timer)
     }
+    // NOTE: Auto-timer modal disabled to prevent unexpected page darkening
+    // Users will see the lead modal when they click on locked properties instead
   }, [])
 
   const handleLeadSuccess = () => {

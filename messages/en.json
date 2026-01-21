@@ -391,93 +391,111 @@
         "col2Item3": "Regular and 100% Guaranteed Payments"
     },
     "faq": {
-        "title": "Frequently Asked Questions",
-        "subtitle": "Answers to your questions are here.",
-        "showMore": "Show All Questions",
-        "showLess": "Show Less",
-        "q1": "What is PASIFLOW?",
-        "a1": "PASIFLOW is a passive income platform that organizes high-yield, professionally managed, turnkey real estate investments in the USA on behalf of investors.",
-        "q2": "Can I manage my investment remotely?",
-        "a2": "Yes, absolutely. From our first meeting, you'll be assigned a dedicated account manager who acts as your right hand in America. You run the entire process through a single point of contact. Through your custom panel, you can track property value, tenant info, rent payments, maintenance processes, and tax documents in real-time.",
-        "q3": "Is PASIFLOW a remotely managed company?",
-        "a3": "No. PASIFLOW is an actively field-operating structure. We have our own management teams and technicians in all states where we work.",
-        "q4": "Who handles tenant finding and management?",
-        "a4": "Tenant placement, rent tracking, maintenance and repair processes are managed by PASIFLOW's professional teams. You only follow the reports.",
-        "q5": "In which cities and states do you invest?",
-        "a5": "PASIFLOW operates in U.S. cities with strong rental demand, investor-friendly environment, and predictable cash flow: Memphis (TN), Cleveland (OH), Detroit (MI), Montgomery (AL), St Louis (MO), Columbus (GA) and more.",
-        "q6": "What is the minimum investment amount?",
-        "a6": "Cash investments typically start from $70,000 – $145,000 range. Financing options are available for higher budgets.",
-        "q7": "Is rental income secure?",
-        "a7": "PASIFLOW reduces collection risk to ZERO by focusing on government-backed rental systems (like Section 8) and strong rental markets.",
-        "q8": "What is the net rental yield?",
-        "a8": "Net returns are in the 10% – 14% NET range. This represents net income after all expenses are deducted.",
-        "q9": "Do you provide support for tax and accounting matters?",
-        "a9": "Yes. We provide guidance on LLC formation, accounting direction, and preparation of necessary documents during tax season. Tax filing is done for only $99.",
-        "q10": "Why is PASIFLOW different from other turnkey firms?",
-        "a10": "Because PASIFLOW: Is active in the field, assigns a dedicated account manager, offers single contact and full transparency, aims for long-term passive income rather than short-term sales, and uses the same system in their own investments.",
-        "q11": "What is PASIFLOW's purpose?",
-        "a11": "PASIFLOW's purpose is to provide regular passive income for years to its investors and their families and to create a wealth structure that continues for generations.",
-        "q12": "Why should I trust PASIFLOW?",
-        "a12": "The PASIFLOW team has 20+ years of business experience in the USA, $250M+ total transaction volume, and $250M+ real estate sales in Miami in the last 10 years.",
-        "q13": "Who is PASIFLOW suitable for?",
-        "a13": "PASIFLOW is designed for busy professionals, those wanting to invest from abroad to the USA, and investors who don't want to deal with property management.",
-        "q14": "Can I invest without being a U.S. citizen?",
-        "a14": "Yes. You don't need to be a U.S. citizen or resident. PASIFLOW organizes the entire process for foreign investors.",
-        "q15": "Can I invest without coming to America?",
-        "a15": "Yes. The entire process can be managed remotely. If you wish, you can also come to America to inspect your investments on-site.",
-        "q16": "What exactly does my account manager do?",
-        "a16": "Your dedicated account manager is responsible for all purchasing, renting, maintenance, reporting, and communication processes. They work like your right hand in America.",
-        "q17": "Can I buy multiple properties at once?",
-        "a17": "Yes. PASIFLOW supports growing your passive income with multiple properties by building a portfolio.",
-        "q18": "Are properties purchased in PASIFLOW's name or mine?",
-        "a18": "All properties are purchased in the investor's name. PASIFLOW handles management and operations.",
-        "q19": "Are properties inspected before purchase?",
-        "a19": "Yes. All properties are thoroughly inspected by field teams before purchase.",
-        "q20": "Is there vacancy risk?",
-        "a20": "PASIFLOW minimizes vacancy risk by preferring properties with tenants or quickly rentable ones.",
-        "q21": "What happens if the tenant leaves?",
-        "a21": "When the tenant leaves, PASIFLOW manages the process, finds a new tenant, and informs the investor. Section 8 tenants stay an average of 3-4 years.",
-        "q22": "Will maintenance and repair costs be a surprise?",
-        "a22": "No. All maintenance and repair requests are transparently shared on the investor panel.",
-        "q23": "How am I informed in emergencies?",
-        "a23": "In emergencies, your account manager contacts you directly and manages the resolution process.",
-        "q24": "How are rent payments delivered to me?",
-        "a24": "Rents are regularly transferred to your bank account. Details are tracked through the panel. Payment is in your account by the 1st-5th of each month.",
-        "q25": "Does PASIFLOW charge for services?",
-        "a25": "Yes. PASIFLOW works with transparent and pre-agreed fees for its professional services. There are no hidden costs.",
-        "q27": "How much does PASIFLOW charge after closing?",
-        "a27": "When the purchase of your selected property is completed, PASIFLOW takes the remaining $2,500 service fee. Total service fee is $3,500.",
-        "q28": "Is there an ongoing PASIFLOW fee after purchase?",
-        "a28": "Yes. After purchase, PASIFLOW only takes a management fee of 10% of monthly rental income. In return, a complete operational system is set up.",
-        "q29": "What's included in the 10% management fee?",
-        "a29": "This fee includes: Use of PASIFLOW platform, rent tracking and reporting, tenant communication, maintenance and repair organization, active management of your investment throughout the year.",
-        "q30": "How are tax and accounting matters managed?",
-        "a30": "At year-end, your tax documents are prepared, and through our accounting partners, your official declaration is made to the U.S. government for only $99.",
-        "q31": "How are maintenance and repair costs controlled?",
-        "a31": "Thanks to PASIFLOW's own field teams and technicians: Best prices are obtained, small problems are solved before they grow, high and surprise costs are avoided.",
-        "q32": "Why does PASIFLOW work as a win-win model?",
-        "a32": "PASIFLOW's earnings are directly connected to your rental income. As you earn, PASIFLOW earns. Therefore, the system is built long-term, transparent, and investor-focused.",
-        "q33": "Can I sell my investment whenever I want?",
-        "a33": "Yes. The property belongs to you. PASIFLOW also provides support during the sales process.",
-        "q34": "Are properties insured?",
-        "a34": "Yes. All properties are covered by insurance.",
-        "q35": "What is provided during tax time?",
-        "a35": "All necessary documents are prepared during tax season and shared with the investor.",
-        "q36": "How does PASIFLOW inform investors?",
-        "a36": "The process is managed transparently with regular reports, panel updates, and one-on-one communication.",
-        "q37": "Is the PASIFLOW system secure?",
-        "a37": "Yes. The system offered by PASIFLOW is the exact same structure the team uses in their own investments.",
-        "q38": "Does PASIFLOW work long-term or short-term?",
-        "a38": "PASIFLOW is entirely focused on long-term passive income and wealth building.",
-        "q39": "How many years can I work with PASIFLOW?",
-        "a39": "PASIFLOW offers a long-term investment partnership, not a one-time transaction.",
-        "q40": "Can I use a mortgage?",
-        "a40": "Yes, DSCR (Debt Service Coverage Ratio) loan options are available for foreign investors. You can use financing with 25-30% down payment."
+        "title": "Sıkça Sorulan Sorular",
+        "subtitle": "Aklınızdaki tüm soruları kategorilere ayırarak detaylıca yanıtladık.",
+        "categories": {
+            "general": "Genel & Hakkımızda",
+            "process": "Yatırım Süreci",
+            "property": "Mülk & Bölge",
+            "financial": "Finans & Getiri",
+            "legal": "Hukuk & Vergi"
+        },
+        "general": [
+            {
+                "q": "PASIFLOW nedir ve ne yapar?",
+                "a": "PASIFLOW, ABD gayrimenkul piyasasında; kira getirisi yüksek, profesyonel yönetilen ve %100 devlet garantili (Section 8) mülk yatırımlarını organize eden, uçtan uca bir teknoloji ve yatırım platformudur."
+            },
+            {
+                "q": "Neden diğer turnkey firmalardan farklı?",
+                "a": "Biz sadece satış yapmıyoruz, aldığımız mülkün yönetimini de bizzat üstleniyoruz. Kendi saha ekiplerimiz, size özel atanan hesap yöneticisi ve şeffaf panel teknolojimiz ile 'sat ve unut' değil, 'uzun vadeli ortaklık' modelini benimsiyoruz."
+            },
+            {
+                "q": "PASIFLOW'a neden güvenmeliyim?",
+                "a": "Kurucu ekibimiz ABD'de 20+ yıllık deneyime ve $250M+ gayrimenkul işlem hacmine sahiptir. Ayrıca sunduğumuz Section 8 yatırım modelini, kendi aile birikimlerimizi değerlendirmek için de kullanıyoruz. Size ne sunuyorsak, kendimiz de ona yatırım yapıyoruz."
+            },
+            {
+                "q": "Kimler için uygun?",
+                "a": "Özellikle yoğun çalışan profesyoneller, pasif gelir arayan yatırımcılar ve mülk yönetimi (kiracı, tadilat vs.) ile uğraşmadan dolar kazanmak isteyen herkes için idealdir."
+            }
+        ],
+        "process": [
+            {
+                "q": "Amerika'ya gelmem gerekiyor mu?",
+                "a": "Hayır. Tüm süreç (seçim, satın alma, tapu devri, yönetim) %100 uzaktan ve dijital olarak yürütülür. Dilerseniz elbette mülklerinizi yerinde görebilirsiniz."
+            },
+            {
+                "q": "Yatırımımı nasıl takip edeceğim?",
+                "a": "Size özel Pasiflow Yatırımcı Paneli üzerinden; kira ödemelerini, bakım raporlarını, finansal tabloları ve tapu belgelerinizi 7/24 anlık olarak takip edebilirsiniz. Ayrıca size özel atanan Hesap Yöneticiniz her sorunuzda yanınızdadır."
+            },
+            {
+                "q": "Süreç ne kadar sürüyor?",
+                "a": "Mülk seçimi sonrası, satın alma ve tapu devir işlemleri (closing) nakit alımlarda ortalama 14-21 gün sürer. Kredili alımlarda bu süre 45-60 günü bulabilir."
+            }
+        ],
+        "property": [
+            {
+                "q": "Mülkler nerede?",
+                "a": "Şu an en yüksek kira getirisi (ROI) ve değer artış potansiyeli sunan bölgelere odaklanıyoruz: Detroit (MI), Cleveland (OH), Memphis (TN) ve St. Louis (MO). Bu bölgeler, Section 8 sisteminin en verimli çalıştığı pazarlardır."
+            },
+            {
+                "q": "Evler satın alınmadan önce kontrol ediliyor mu?",
+                "a": "Kesinlikle. Her mülk; saha ekiplerimizce, lisanslı 'inspector'larca ve belediye denetimlerince 3 aşamalı kontrolden geçer. Sadece standartlarımıza uyan mülkleri portföye ekleriz."
+            },
+            {
+                "q": "Bakım ve onarım süreçleri nasıl işliyor?",
+                "a": "Kendi tam zamanlı bakım ekiplerimiz mevcuttur. Küçük onarımlar için dışarıdan fahiş fiyatlı servis çağırmak yerine, kendi ekiplerimizle piyasanın çok altında maliyetle ve hızla çözüm üretiriz. Tüm işlemler panelinizde fotoğraflı olarak raporlanır."
+            },
+            {
+                "q": "Kiracı çıkarsa ne olur?",
+                "a": "Section 8 kiracıları genellikle çok uzun süreli (ortalama 5-7 yıl) kalırlar. Eğer çıkarlarsa, PASIFLOW pazarlama ekibi hemen yeni kiracı adaylarını bulur, güvenlik soruşturmasından geçirir ve yerleştirir."
+            }
+        ],
+        "financial": [
+            {
+                "q": "Minimum yatırım tutarı nedir?",
+                "a": "Nakit alımlar için $85.000 - $120.000 bandından başlayan portföylerimiz mevcuttur. Kredi (Mortgage) kullanacaklar için minimum %30-35 peşinat (yaklaşık $30k-$40k) yeterlidir."
+            },
+            {
+                "q": "Getiri (ROI) beklentisi nedir?",
+                "a": "Bölgelerimize göre değişmekle birlikte, tüm masraflar düştükten sonra yıllık NET Dolar Bazlı Getiri (ROI) %10 - %14 arasındadır. Ayrıca yıllık %5-8 arası gayrimenkul değer artışı öngörülmektedir."
+            },
+            {
+                "q": "Kira garantisi var mı?",
+                "a": "Kiranızın büyük bir bölümü (%70-%100 arası) Amerikan Hükümeti (Section 8 programı) tarafından garanti altındadır ve her ayın 1'inde otomatik olarak yatar. Kiracı ödemese bile devlet payı hesabımıza girer."
+            },
+            {
+                "q": "Hizmet bedelleriniz nedir?",
+                "a": "Çok şeffafız: Mülk başına $3.500 danışmanlık/kapanış bedeli (tek seferlik) ve aylık kira gelirinin %10'u kadar yönetim bedeli (property management fee) alıyoruz. Gizli masraf yok."
+            },
+            {
+                "q": "Kiram ne zaman yatar?",
+                "a": "Her ayın 1'i ile 5'i arası kiralar toplanır, masraflar düşülür ve ayın 15'inde doğrudan Türkiye veya Amerika'daki banka hesabınıza Dolar olarak transfer edilir."
+            }
+        ],
+        "legal": [
+            {
+                "q": "Mülk benim üzerime mi oluyor?",
+                "a": "Evet. Tapu (Deed) doğrudan sizin veya kuracağımız LLC şirketinizin üzerine yapılır. ABD'de mülkiyet hakları çok güçlüdür ve tamamen sizin kontrolünüzdedir."
+            },
+            {
+                "q": "Şirket kurmak (LLC) zorunlu mu?",
+                "a": "Zorunlu değil ama şiddetle tavsiye ediyoruz. LLC; sizi yasal risklerden korur (Limited Liability) ve çok ciddi vergi avantajları sağlar. Kurulumu PASIFLOW olarak biz sizin adınıza yapıyoruz ($750 maliyet ile)."
+            },
+            {
+                "q": "Vergi ödeyecek miyim?",
+                "a": "Evet, ancak korkmayın. ABD ve Türkiye arasında 'Çifte Vergilendirmeyi Önleme Anlaşması' var. ABD'de ödediğiniz cüzi vergiyi Türkiye'de mahsup edebilirsiniz. Ayrıca amortisman (depreciation) gibi giderlerle, kağıt üzerinde kârınızı düşük gösterip yasal olarak $0 vergi ödeme imkanları mevcuttur. Yıllık vergi beyanınızı $99 karşılığında iş ortaklarımızla yapıyoruz."
+            },
+            {
+                "q": "ABD vatandaşı olmam gerekir mi?",
+                "a": "Hayır. Pasaportunuzun olması yeterlidir. ABD'ye gitmenize veya vizeniz olmasına bile gerek yoktur."
+            }
+        ]
     },
     "map": {
         "title": "Opportunity Regions",
-        "subtitle": "We target high rental yield areas like Memphis, Cleveland, Detroit, Montgomery, St Louis, and Columbus.",
-        "activeStates": "6+ Active States",
+        "subtitle": "We target high rental yield areas in Detroit.",
+        "description": "Discover Detroit's highest appreciating and high rental yield neighborhoods on our interactive map.",
+        "activeStates": "Detroit Focused",
         "tagline": "High Rental Yield & Value Appreciation Target",
         "ctaPrimary": "Explore Regions",
         "ctaSecondary": "Request State Reports"

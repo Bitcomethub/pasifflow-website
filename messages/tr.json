@@ -378,94 +378,110 @@
     },
     "faq": {
         "title": "Sıkça Sorulan Sorular",
-        "subtitle": "",
-        "showMore": "Tüm Soruları Göster",
-        "showLess": "Daha Az Göster",
-        "q1": "PASIFLOW nedir?",
-        "a1": "PASIFLOW, teknoloji destekli yatırım platformudur. ABD'de kira getirisi yüksek, profesyonel yönetilen ve anahtar teslim gayrimenkul yatırımlarını yatırımcı adına organize eder.",
-        "q2": "Yatırımımı uzaktan yönetebilir miyim?",
-        "a2": "Evet, tabii ki. İlk tanışmamızdan itibaren size Amerika'daki sağ kolunuz olacak özel bir hesap yöneticisi atanır. Tüm süreci tek muhatap üzerinden yürütürsünüz. Özel paneliniz üzerinden mülkün güncel değerini, kiracı bilgilerini, kira ödemelerini, bakım süreçlerini ve vergi dokümanlarını anlık takip edebilirsiniz.",
-        "q3": "PASIFLOW uzaktan yönetilen bir şirket mi?",
-        "a3": "Hayır. PASIFLOW sahada aktif çalışan bir yapıdır. Çalıştığımız tüm eyaletlerde kendi yönetim ekiplerimiz ve teknisyenlerimiz bulunur.",
-        "q4": "Kiracı bulma ve yönetim kime ait?",
-        "a4": "Kiracı yerleştirme, kira takibi, bakım ve onarım süreçleri PASIFLOW'un profesyonel ekipleri tarafından yönetilir. Siz sadece raporları takip edersiniz.",
-        "q5": "Hangi şehir ve eyaletlerde yatırım yapıyorsunuz?",
-        "a5": "PASIFLOW; kira talebi güçlü, yatırımcı dostu ve öngörülebilir nakit akışı sunan ABD şehirlerinde faaliyet gösterir: Memphis (TN), Cleveland (OH), Detroit (MI), Montgomery (AL), St Louis (MO), Columbus (GA) ve daha fazlası.",
-        "q6": "Minimum yatırım tutarı nedir?",
-        "a6": "Nakit yatırımlar genellikle $70.000 – $145.000 aralığından başlar. Daha yüksek bütçeler için finansman seçenekleri sunulur.",
-        "q7": "Kira gelirleri güvenli mi?",
-        "a7": "PASIFLOW, devlet destekli kira sistemleri (Section 8 gibi) ve güçlü kira piyasalarına odaklanarak tahsilat riskini SIFIR'A indirir.",
-        "q8": "Net kira getirisi ne kadar?",
-        "a8": "Net getiriler %10 – %14 NET aralığındadır. Bu rakam tüm masraflar düşüldükten sonraki net geliri ifade eder.",
-        "q9": "Vergi ve muhasebe konularında destek veriyor musunuz?",
-        "a9": "Evet. LLC kurulumu, muhasebe yönlendirmeleri ve vergi döneminde gerekli dokümanların hazırlanması konusunda rehberlik sağlanır. Vergi beyanı sadece $99 karşılığında yapılır.",
-        "q10": "PASIFLOW neden diğer turnkey firmalardan farklı?",
-        "a10": "Çünkü PASIFLOW: Sahada aktiftir, yatırımcıya özel hesap yöneticisi atar, tek muhatap ve tam şeffaflık sunar, kısa vadeli satış değil uzun vadeli pasif gelir hedefler ve kullandığı sistemi kendi yatırımlarında da uygular.",
-        "q11": "PASIFLOW'un amacı nedir?",
-        "a11": "PASIFLOW'un amacı; yatırımcılarına ve ailelerine uzun yıllar sürecek düzenli pasif gelir sağlamak ve nesiller boyu devam edecek bir servet yapısı oluşturmaktır.",
-        "q12": "PASIFLOW'a neden güvenmeliyim?",
-        "a12": "PASIFLOW ekibi, ABD'de 20+ yıl iş tecrübesine, $250M+ toplam işlem hacmine ve son 10 yılda Miami'de $250M+ gayrimenkul satışına sahiptir.",
-        "q13": "PASIFLOW kimler için uygundur?",
-        "a13": "PASIFLOW; yoğun çalışan profesyoneller, yurt dışından ABD'ye yatırım yapmak isteyenler ve mülk yönetimiyle uğraşmak istemeyen yatırımcılar için tasarlanmıştır.",
-        "q14": "ABD vatandaşı olmadan yatırım yapabilir miyim?",
-        "a14": "Evet. ABD vatandaşı veya oturum sahibi olmanız gerekmez. PASIFLOW, yabancı yatırımcılar için tüm süreci organize eder.",
-        "q15": "Amerika'ya gelmeden yatırım yapabilir miyim?",
-        "a15": "Evet. Tüm süreç uzaktan yönetilebilir. Dilerseniz Amerika'ya gelip yatırımlarınızı yerinde de inceleyebilirsiniz.",
-        "q16": "Hesap yöneticim tam olarak ne yapar?",
-        "a16": "Size atanan özel hesap yöneticisi; satın alma, kiralama, bakım, raporlama ve iletişim süreçlerinin tamamından sorumludur. Amerika'daki sağ kolunuz gibi çalışır.",
-        "q17": "Aynı anda birden fazla mülk alabilir miyim?",
-        "a17": "Evet. PASIFLOW, portföy oluşturarak birden fazla mülk ile pasif gelirinizi büyütmenizi destekler.",
-        "q18": "Mülkler PASIFLOW adına mı benim adıma mı alınır?",
-        "a18": "Tüm mülkler yatırımcı adına alınır. PASIFLOW yönetim ve operasyon tarafını yürütür.",
-        "q19": "Evler satın alma öncesi inceleniyor mu?",
-        "a19": "Evet. Tüm mülkler satın alma öncesi saha ekibi tarafından detaylı olarak incelenir.",
-        "q20": "Boş kalma (vacancy) riski var mı?",
-        "a20": "PASIFLOW, kiracısı hazır veya hızlı kiralanabilir mülkleri tercih ederek boş kalma riskini minimuma indirir.",
-        "q21": "Kiracı çıkarsa ne olur?",
-        "a21": "Kiracı değişimi olursa 1 kira komisyon alınır. PASIFLOW süreci yönetir, yeni kiracı bulunur ve yatırımcı bilgilendirilir.",
-        "q22": "Bakım ve onarım masrafları sürpriz olur mu?",
-        "a22": "Hayır. Tüm bakım ve onarım talepleri yatırımcı panelinde şeffaf şekilde paylaşılır.",
-        "q23": "Acil durumlarda nasıl bilgilendirilirim?",
-        "a23": "Acil durumlarda hesap yöneticiniz sizinle doğrudan iletişime geçer ve çözüm süreci yönetilir.",
-        "q24": "Kira ödemeleri bana nasıl iletilir?",
-        "a24": "Kiralar banka hesabınıza düzenli olarak aktarılır. Detaylar panel üzerinden takip edilir. Her ayın 15'inde ödeme hesabınızda.",
-        "q25": "PASIFLOW hizmet karşılığında ücret alıyor mu?",
-        "a25": "Evet. PASIFLOW sunduğu profesyonel hizmetler karşılığında şeffaf ve önceden netleştirilmiş ücretlerle çalışır. Gizli masraf yoktur.",
-        "q26": "Kapanış sonrası PASIFLOW ne kadar ücret alır?",
-        "a26": "Seçtiğiniz mülkün satın alma işlemi tamamlandığında, PASIFLOW kalan $2.500 hizmet bedelini alır. Toplam hizmet bedeli $3.500'dır.",
-        "q27": "Satın alma sonrası PASIFLOW'un devam eden ücreti var mı?",
-        "a27": "Evet. Satın alma sonrasında PASIFLOW yalnızca aylık kira gelirinin %10'u kadar bir yönetim bedeli alır. Bu ücret karşılığında tam bir operasyonel sistem kurulur.",
-        "q28": "%10 yönetim ücretine neler dahildir?",
-        "a28": "Bu ücretin içinde: PASIFLOW platformunun kullanımı, kira takibi ve raporlama, kiracı iletişimi, bakım ve onarım organizasyonu, yıl boyunca yatırımınızın aktif yönetimi yer alır.",
-        "q29": "Vergi ve muhasebe işlemleri nasıl yönetiliyor?",
-        "a29": "Yıl sonunda vergi evraklarınız hazırlanır, muhasebeci iş ortaklarımız aracılığıyla sadece $99 karşılığında ABD devleti nezdinde resmi beyanınız yapılır.",
-        "q30": "Bakım ve onarım masrafları nasıl kontrol ediliyor?",
-        "a30": "PASIFLOW'un kendi saha ekipleri ve teknisyenleri sayesinde: En hesaplı fiyatlar alınır, küçük sorunlar büyümeden çözülür, yüksek ve sürpriz masraflarla karşılaşılmaz.",
-        "q31": "PASIFLOW bu modelde neden kazan–kazan çalışır?",
-        "a31": "PASIFLOW'un kazancı, sizin kira gelirinizle doğrudan bağlantılıdır. Siz kazandıkça PASIFLOW kazanır. Bu nedenle sistem uzun vadeli, şeffaf ve yatırımcı odaklı şekilde kurulmuştur.",
-        "q32": "Yatırımımı istediğim zaman satabilir miyim?",
-        "a32": "Evet. Mülk size aittir. PASIFLOW satış sürecinde de destek sağlar.",
-        "q33": "Mülkler sigortalı mı?",
-        "a33": "Sigorta isteğe bağlıdır. Yatırımcı tercihine göre sigorta yapılabilir.",
-        "q34": "Tapu sistemi nasıldır?",
-        "a34": "Tapu (Deed) Türkiye adresinize postalanır. Tüm tapu ve sahiplik belgeleri size ait olur.",
-        "q35": "Vergi zamanı bana ne sunuluyor?",
-        "a35": "Vergi döneminde gerekli tüm dokümanlar hazırlanır ve yatırımcıyla paylaşılır.",
-        "q36": "PASIFLOW yatırımcıyı nasıl bilgilendirir?",
-        "a36": "Düzenli raporlar, panel güncellemeleri ve birebir iletişimle süreç şeffaf şekilde yönetilir.",
-        "q37": "PASIFLOW sistemi güvenli mi?",
-        "a37": "Evet. PASIFLOW'un sunduğu sistem, ekibin kendi yatırımlarında da birebir kullandığı yapıdır.",
-        "q38": "PASIFLOW uzun vadeli mi kısa vadeli mi çalışır?",
-        "a38": "PASIFLOW tamamen uzun vadeli pasif gelir ve servet oluşturma odaklıdır.",
-        "q39": "PASIFLOW ile kaç yıl çalışabilirim?",
-        "a39": "PASIFLOW, tek seferlik bir işlem değil; uzun yıllar sürecek bir yatırım ortaklığı sunar.",
-        "q40": "Mortgage kullanabilir miyim?",
-        "a40": "Evet, yabancı yatırımcılar için DSCR (Debt Service Coverage Ratio) kredisi seçenekleri mevcuttur. %25-30 peşinat ile kredi kullanabilirsiniz."
+        "subtitle": "Aklınızdaki tüm soruları kategorilere ayırarak detaylıca yanıtladık.",
+        "categories": {
+            "general": "Genel & Hakkımızda",
+            "process": "Yatırım Süreci",
+            "property": "Mülk & Bölge",
+            "financial": "Finans & Getiri",
+            "legal": "Hukuk & Vergi"
+        },
+        "general": [
+            {
+                "q": "PASIFLOW nedir ve ne yapar?",
+                "a": "PASIFLOW, ABD gayrimenkul piyasasında; kira getirisi yüksek, profesyonel yönetilen ve %100 devlet garantili (Section 8) mülk yatırımlarını organize eden, uçtan uca bir teknoloji ve yatırım platformudur."
+            },
+            {
+                "q": "Neden diğer turnkey firmalardan farklı?",
+                "a": "Biz sadece satış yapmıyoruz, aldığımız mülkün yönetimini de bizzat üstleniyoruz. Kendi saha ekiplerimiz, size özel atanan hesap yöneticisi ve şeffaf panel teknolojimiz ile 'sat ve unut' değil, 'uzun vadeli ortaklık' modelini benimsiyoruz."
+            },
+            {
+                "q": "PASIFLOW'a neden güvenmeliyim?",
+                "a": "Kurucu ekibimiz ABD'de 20+ yıllık deneyime ve $250M+ gayrimenkul işlem hacmine sahiptir. Ayrıca sunduğumuz Section 8 yatırım modelini, kendi aile birikimlerimizi değerlendirmek için de kullanıyoruz. Size ne sunuyorsak, kendimiz de ona yatırım yapıyoruz."
+            },
+            {
+                "q": "Kimler için uygun?",
+                "a": "Özellikle yoğun çalışan profesyoneller, pasif gelir arayan yatırımcılar ve mülk yönetimi (kiracı, tadilat vs.) ile uğraşmadan dolar kazanmak isteyen herkes için idealdir."
+            }
+        ],
+        "process": [
+            {
+                "q": "Amerika'ya gelmem gerekiyor mu?",
+                "a": "Hayır. Tüm süreç (seçim, satın alma, tapu devri, yönetim) %100 uzaktan ve dijital olarak yürütülür. Dilerseniz elbette mülklerinizi yerinde görebilirsiniz."
+            },
+            {
+                "q": "Yatırımımı nasıl takip edeceğim?",
+                "a": "Size özel Pasiflow Yatırımcı Paneli üzerinden; kira ödemelerini, bakım raporlarını, finansal tabloları ve tapu belgelerinizi 7/24 anlık olarak takip edebilirsiniz. Ayrıca size özel atanan Hesap Yöneticiniz her sorunuzda yanınızdadır."
+            },
+            {
+                "q": "Süreç ne kadar sürüyor?",
+                "a": "Mülk seçimi sonrası, satın alma ve tapu devir işlemleri (closing) nakit alımlarda ortalama 14-21 gün sürer. Kredili alımlarda bu süre 45-60 günü bulabilir."
+            }
+        ],
+        "property": [
+            {
+                "q": "Mülkler nerede?",
+                "a": "Şu an en yüksek kira getirisi (ROI) ve değer artış potansiyeli sunan bölgelere odaklanıyoruz: Detroit (MI), Cleveland (OH), Memphis (TN) ve St. Louis (MO). Bu bölgeler, Section 8 sisteminin en verimli çalıştığı pazarlardır."
+            },
+            {
+                "q": "Evler satın alınmadan önce kontrol ediliyor mu?",
+                "a": "Kesinlikle. Her mülk; saha ekiplerimizce, lisanslı 'inspector'larca ve belediye denetimlerince 3 aşamalı kontrolden geçer. Sadece standartlarımıza uyan mülkleri portföye ekleriz."
+            },
+            {
+                "q": "Bakım ve onarım süreçleri nasıl işliyor?",
+                "a": "Kendi tam zamanlı bakım ekiplerimiz mevcuttur. Küçük onarımlar için dışarıdan fahiş fiyatlı servis çağırmak yerine, kendi ekiplerimizle piyasanın çok altında maliyetle ve hızla çözüm üretiriz. Tüm işlemler panelinizde fotoğraflı olarak raporlanır."
+            },
+            {
+                "q": "Kiracı çıkarsa ne olur?",
+                "a": "Section 8 kiracıları genellikle çok uzun süreli (ortalama 5-7 yıl) kalırlar. Eğer çıkarlarsa, PASIFLOW pazarlama ekibi hemen yeni kiracı adaylarını bulur, güvenlik soruşturmasından geçirir ve yerleştirir."
+            }
+        ],
+        "financial": [
+            {
+                "q": "Minimum yatırım tutarı nedir?",
+                "a": "Nakit alımlar için $85.000 - $120.000 bandından başlayan portföylerimiz mevcuttur. Kredi (Mortgage) kullanacaklar için minimum %30-35 peşinat (yaklaşık $30k-$40k) yeterlidir."
+            },
+            {
+                "q": "Getiri (ROI) beklentisi nedir?",
+                "a": "Bölgelerimize göre değişmekle birlikte, tüm masraflar düştükten sonra yıllık NET Dolar Bazlı Getiri (ROI) %10 - %14 arasındadır. Ayrıca yıllık %5-8 arası gayrimenkul değer artışı öngörülmektedir."
+            },
+            {
+                "q": "Kira garantisi var mı?",
+                "a": "Kiranızın büyük bir bölümü (%70-%100 arası) Amerikan Hükümeti (Section 8 programı) tarafından garanti altındadır ve her ayın 1'inde otomatik olarak yatar. Kiracı ödemese bile devlet payı hesabımıza girer."
+            },
+            {
+                "q": "Hizmet bedelleriniz nedir?",
+                "a": "Çok şeffafız: Mülk başına $3.500 danışmanlık/kapanış bedeli (tek seferlik) ve aylık kira gelirinin %10'u kadar yönetim bedeli (property management fee) alıyoruz. Gizli masraf yok."
+            },
+            {
+                "q": "Kiram ne zaman yatar?",
+                "a": "Her ayın 1'i ile 5'i arası kiralar toplanır, masraflar düşülür ve ayın 15'inde doğrudan Türkiye veya Amerika'daki banka hesabınıza Dolar olarak transfer edilir."
+            }
+        ],
+        "legal": [
+            {
+                "q": "Mülk benim üzerime mi oluyor?",
+                "a": "Evet. Tapu (Deed) doğrudan sizin veya kuracağımız LLC şirketinizin üzerine yapılır. ABD'de mülkiyet hakları çok güçlüdür ve tamamen sizin kontrolünüzdedir."
+            },
+            {
+                "q": "Şirket kurmak (LLC) zorunlu mu?",
+                "a": "Zorunlu değil ama şiddetle tavsiye ediyoruz. LLC; sizi yasal risklerden korur (Limited Liability) ve çok ciddi vergi avantajları sağlar. Kurulumu PASIFLOW olarak biz sizin adınıza yapıyoruz ($750 maliyet ile)."
+            },
+            {
+                "q": "Vergi ödeyecek miyim?",
+                "a": "Evet, ancak korkmayın. ABD ve Türkiye arasında 'Çifte Vergilendirmeyi Önleme Anlaşması' var. ABD'de ödediğiniz cüzi vergiyi Türkiye'de mahsup edebilirsiniz. Ayrıca amortisman (depreciation) gibi giderlerle, kağıt üzerinde kârınızı düşük gösterip yasal olarak $0 vergi ödeme imkanları mevcuttur. Yıllık vergi beyanınızı $99 karşılığında iş ortaklarımızla yapıyoruz."
+            },
+            {
+                "q": "ABD vatandaşı olmam gerekir mi?",
+                "a": "Hayır. Pasaportunuzun olması yeterlidir. ABD'ye gitmenize veya vizeniz olmasına bile gerek yoktur."
+            }
+        ]
     },
     "map": {
         "title": "Fırsat Bölgeleri",
-        "subtitle": "Memphis, Cleveland, Detroit, Montgomery, St Louis ve Columbus gibi yüksek kira getirili bölgeleri hedefliyoruz.",
-        "activeStates": "6+ Aktif Eyalet",
+        "subtitle": "Detroit'in yüksek kira getirili bölgelerini hedefliyoruz.",
+        "description": "Detroit'in en hızlı değerlenen ve yüksek kira getirisi sunan mahallelerini interaktif haritamızda keşfedin.",
+        "activeStates": "Detroit Odaklı",
         "tagline": "Yüksek Kira Getirili & Değer Artışı Hedefli",
         "ctaPrimary": "Bölgeleri İncele",
         "ctaSecondary": "Eyalet Raporlarını İste"
