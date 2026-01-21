@@ -101,6 +101,7 @@ export function Header() {
   const extraLinks = [
     { name: tNav("whyUSA"), href: "/neden-amerika" },
     { name: tNav("taxLaw"), href: "/vergilendirme" },
+    { name: "Harita", href: "/harita" },
   ]
 
   return (
