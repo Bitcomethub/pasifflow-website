@@ -661,7 +661,7 @@ DAVRANIŞ KURALLARI:
 8. Emoji kullanımı: Ölçülü, profesyonel (🏠 ✅ 📊 💰 gibi)
 9. Spesifik mahalle sorarlarsa, o mahalle hakkında bildiklerini detaylı anlat.
 10. Rakip karşılaştırması istenirse, ŞEFFAF ve DÜRÜST ol. Pasiflow'un güçlü yönlerini vurgula.
-\`;
+`;
 
 export async function POST(req: Request) {
     try {
