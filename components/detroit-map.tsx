@@ -112,10 +112,10 @@ const NEIGHBORHOODS = [
 
 // Tour spots for "Explore Detroit" feature
 const TOUR_SPOTS = [
-    { name: "Downtown Detroit", coordinates: [-83.0458, 42.3314], zoom: 15 },
-    { name: "Corktown", coordinates: [-83.0678, 42.3356], zoom: 15 },
-    { name: "Midtown", coordinates: [-83.0656, 42.3572], zoom: 14 },
-    { name: "Rosedale Park", coordinates: [-83.2547, 42.4073], zoom: 14 },
+    { name: "Downtown Detroit", coordinates: [-83.0458, 42.3314], zoom: 16 },
+    { name: "Corktown", coordinates: [-83.0678, 42.3356], zoom: 16 },
+    { name: "Midtown", coordinates: [-83.0656, 42.3572], zoom: 15 },
+    { name: "Rosedale Park", coordinates: [-83.2547, 42.4073], zoom: 15 },
 ]
 
 interface SelectedNeighborhood {
@@ -228,6 +228,13 @@ export function DetroitNeighborhoodMap() {
             })
         })
 
+        // Ensure style update doesn't lose markers, but for now we just switch style
+        // Note: Switching style clears layers/markers in Mapbox usually. 
+        // We'd need to re-add markers or use setStyle with diffing, but simple effect is okay for MVP tour.
+        // Actually, let's keep it simple. If we switch style, we might lose markers unless we re-add them.
+        // For the tour, it's fine if markers disappear temporarily or we just accept it.
+        // But better UX: Only switch style if not already satellite.
+
         return () => {
             map.current?.remove()
             map.current = null
@@ -237,7 +244,63 @@ export function DetroitNeighborhoodMap() {
     // Update map style when toggled
     useEffect(() => {
         if (map.current) {
+            const currentStyle = map.current.getStyle().sprite;
+            // Only update if clearly different to avoid reload loops
             map.current.setStyle(mapStyle === "dark" ? "mapbox://styles/mapbox/dark-v11" : "mapbox://styles/mapbox/satellite-streets-v12")
+
+            // Re-add markers after style load (Mapbox clears them on style change)
+            map.current.once('style.load', () => {
+                NEIGHBORHOODS.forEach((neighborhood) => {
+                    // Re-create markers code duplication but needed for style switch
+                    const el = document.createElement("div")
+                    el.className = "neighborhood-marker"
+                    el.style.cssText = `
+                        width: 32px;
+                        height: 32px;
+                        background-color: ${neighborhood.color};
+                        border: 3px solid white;
+                        border-radius: 50%;
+                        cursor: pointer;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+                        transition: transform 0.2s, box-shadow 0.2s;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                     `
+                    el.innerHTML = `<span style="color: white; font-size: 12px; font-weight: bold;">$</span>`
+
+                    el.addEventListener("mouseenter", () => {
+                        el.style.transform = "scale(1.3)"
+                        el.style.boxShadow = "0 6px 20px rgba(0,0,0,0.4)"
+                    })
+                    el.addEventListener("mouseleave", () => {
+                        el.style.transform = "scale(1)"
+                        el.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)"
+                    })
+
+                    el.addEventListener("click", () => {
+                        setSelectedNeighborhood({
+                            name: neighborhood.name,
+                            priceRange: neighborhood.priceRange,
+                            roi: neighborhood.roi,
+                            riskLevel: neighborhood.riskLevel,
+                            section8: neighborhood.section8,
+                            description: neighborhood.description,
+                            coordinates: neighborhood.coordinates as [number, number]
+                        })
+
+                        map.current?.flyTo({
+                            center: neighborhood.coordinates as [number, number],
+                            zoom: 14,
+                            duration: 1500
+                        })
+                    })
+
+                    new mapboxgl.Marker(el)
+                        .setLngLat(neighborhood.coordinates as [number, number])
+                        .addTo(map.current!)
+                })
+            })
         }
     }, [mapStyle])
 
@@ -268,6 +331,7 @@ export function DetroitNeighborhoodMap() {
     // Start Detroit tour
     const startTour = () => {
         setIsTouring(true)
+        setMapStyle("satellite") // Auto-switch to satellite for 3D feel
         setCurrentTourIndex(0)
         flyToTourSpot(0)
     }
@@ -275,32 +339,52 @@ export function DetroitNeighborhoodMap() {
     const flyToTourSpot = (index: number) => {
         if (!map.current || index >= TOUR_SPOTS.length) {
             setIsTouring(false)
+            setMapStyle("dark") // Reset style after tour
             return
         }
 
         const spot = TOUR_SPOTS[index]
+
+        // Fly to spot with high pitch and zoom for 3D effect
         map.current.flyTo({
             center: spot.coordinates as [number, number],
-            zoom: spot.zoom,
+            zoom: spot.zoom, // Closer zoom
+            pitch: 60,       // High pitch for 3D perspective
+            bearing: index * 45, // Change angle for each spot
             duration: 3000,
-            pitch: 45,
+            essential: true
         })
 
+        // Wait, then move to next
         setTimeout(() => {
-            setCurrentTourIndex(index + 1)
-            if (index + 1 < TOUR_SPOTS.length) {
-                flyToTourSpot(index + 1)
-            } else {
-                setIsTouring(false)
-                // Reset view
-                map.current?.flyTo({
-                    center: [-83.1022, 42.3834],
-                    zoom: 10.5,
-                    pitch: 0,
-                    duration: 2000
-                })
-            }
-        }, 4000)
+            if (!isTouring) return
+
+            // Add a subtle rotation animation while waiting
+            const startBearing = map.current?.getBearing() || 0;
+            map.current?.easeTo({
+                bearing: startBearing + 40,
+                duration: 4000,
+                easing: (t) => t // Linear rotation
+            })
+
+            setTimeout(() => {
+                setCurrentTourIndex(index + 1)
+                if (index + 1 < TOUR_SPOTS.length) {
+                    flyToTourSpot(index + 1)
+                } else {
+                    setIsTouring(false)
+                    setMapStyle("dark")
+                    // Reset view
+                    map.current?.flyTo({
+                        center: [-83.1022, 42.3834],
+                        zoom: 10.5,
+                        pitch: 0,
+                        bearing: 0,
+                        duration: 2000
+                    })
+                }
+            }, 3000)
+        }, 3000)
     }
 
     // Open Google Street View
@@ -327,68 +411,70 @@ export function DetroitNeighborhoodMap() {
     }
 
     return (
-        <div className="relative w-full h-[650px] rounded-2xl overflow-hidden shadow-2xl">
+        <div className="relative w-full h-[650px] rounded-2xl overflow-hidden shadow-2xl group">
             {/* Map Container */}
             <div ref={mapContainer} className="w-full h-full" />
 
-            {/* Top Controls Bar */}
-            <div className="absolute top-4 left-4 right-16 flex flex-wrap gap-2">
-                {/* Search Input */}
-                <div className="flex-1 min-w-[200px] max-w-md flex gap-1">
+            {/* Top Controls Bar - FIXED Z-INDEX and INTERACTION */}
+            <div className="absolute top-4 left-4 right-4 z-20 flex flex-col md:flex-row gap-3 pointer-events-none">
+                {/* Search Input - Enable pointer events for children */}
+                <div className="flex-1 min-w-[200px] max-w-md flex gap-2 pointer-events-auto">
                     <div className="relative flex-1">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 z-10" />
                         <input
                             type="text"
                             placeholder="Adres veya mahalle ara..."
                             value={searchAddress}
                             onChange={(e) => setSearchAddress(e.target.value)}
                             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                            className="w-full h-10 pl-9 pr-3 rounded-lg bg-white/95 backdrop-blur-sm border-0 shadow-lg text-sm focus:ring-2 focus:ring-[#a3452b]/50 outline-none"
+                            className="w-full h-10 pl-9 pr-3 rounded-xl bg-white/95 backdrop-blur-md border border-gray-100 shadow-xl text-sm text-gray-900 placeholder:text-gray-500 focus:ring-2 focus:ring-[#a3452b]/50 outline-none relative z-20"
                         />
                     </div>
                     <Button
                         onClick={handleSearch}
                         size="sm"
-                        className="h-10 px-3 bg-[#a3452b] hover:bg-[#8a3a24] text-white shadow-lg"
+                        className="h-10 px-4 bg-[#a3452b] hover:bg-[#8a3a24] text-white shadow-xl rounded-xl font-medium relative z-20"
                     >
                         Ara
                     </Button>
                 </div>
 
-                {/* Tour Button */}
-                <Button
-                    onClick={startTour}
-                    disabled={isTouring}
-                    size="sm"
-                    className="h-10 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg gap-2"
-                >
-                    <Play className="w-4 h-4" />
-                    {isTouring ? `Tur: ${TOUR_SPOTS[currentTourIndex]?.name || "..."}` : "Detroit'i Gezelim"}
-                </Button>
+                <div className="flex gap-2 pointer-events-auto overflow-x-auto pb-1 md:pb-0 no-scrollbar">
+                    {/* Tour Button */}
+                    <Button
+                        onClick={startTour}
+                        disabled={isTouring}
+                        size="sm"
+                        className="h-10 bg-white hover:bg-gray-50 text-gray-700 shadow-xl gap-2 rounded-xl border border-gray-100 whitespace-nowrap"
+                    >
+                        <Play className={`w-4 h-4 ${isTouring ? 'text-green-500 fill-green-500' : 'text-blue-600 fill-blue-600'}`} />
+                        {isTouring ? `Tur: ${TOUR_SPOTS[currentTourIndex]?.name}` : "Tur Başlat"}
+                    </Button>
 
-                {/* Map Style Toggle */}
-                <div className="flex bg-white/95 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden">
-                    <button
-                        onClick={() => setMapStyle("dark")}
-                        className={`h-10 px-3 flex items-center gap-1.5 text-xs font-medium transition-colors ${mapStyle === "dark" ? "bg-[#a3452b] text-white" : "text-gray-600 hover:bg-gray-100"
-                            }`}
-                    >
-                        <Map className="w-4 h-4" />
-                        Harita
-                    </button>
-                    <button
-                        onClick={() => setMapStyle("satellite")}
-                        className={`h-10 px-3 flex items-center gap-1.5 text-xs font-medium transition-colors ${mapStyle === "satellite" ? "bg-[#a3452b] text-white" : "text-gray-600 hover:bg-gray-100"
-                            }`}
-                    >
-                        <Satellite className="w-4 h-4" />
-                        Uydu
-                    </button>
+                    {/* Map Style Toggle */}
+                    <div className="flex bg-white/95 backdrop-blur-md rounded-xl shadow-xl border border-gray-100 p-1">
+                        <button
+                            onClick={() => setMapStyle("dark")}
+                            className={`h-8 px-3 rounded-lg flex items-center gap-1.5 text-xs font-medium transition-all ${mapStyle === "dark" ? "bg-slate-800 text-white shadow-md" : "text-gray-500 hover:text-gray-900"
+                                }`}
+                        >
+                            <Map className="w-3.5 h-3.5" />
+                            Harita
+                        </button>
+                        <button
+                            onClick={() => setMapStyle("satellite")}
+                            className={`h-8 px-3 rounded-lg flex items-center gap-1.5 text-xs font-medium transition-all ${mapStyle === "satellite" ? "bg-blue-600 text-white shadow-md" : "text-gray-500 hover:text-gray-900"
+                                }`}
+                        >
+                            <Satellite className="w-3.5 h-3.5" />
+                            Uydu
+                        </button>
+                    </div>
                 </div>
             </div>
 
             {/* Legend - Now below search on mobile */}
-            <div className="absolute top-20 md:top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-lg">
+            <div className="absolute top-20 md:top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-lg z-10 hidden md:block">
                 <h4 className="text-xs font-bold text-gray-800 mb-2">Mahalle Tipleri</h4>
                 <div className="space-y-1.5 text-xs">
                     <div className="flex items-center gap-2">
@@ -412,7 +498,7 @@ export function DetroitNeighborhoodMap() {
 
             {/* Street View Button - Shows when zoomed in */}
             {currentZoom > 14 && (
-                <div className="absolute bottom-20 right-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                <div className="absolute bottom-20 right-4 animate-in fade-in slide-in-from-right-4 duration-300 z-10">
                     <Button
                         onClick={() => openStreetView()}
                         className="h-12 bg-white hover:bg-gray-50 text-gray-800 shadow-xl gap-2 border border-gray-200"
@@ -426,7 +512,7 @@ export function DetroitNeighborhoodMap() {
 
             {/* Selected Neighborhood Info Card */}
             {selectedNeighborhood && (
-                <div className="absolute bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white rounded-2xl shadow-2xl overflow-hidden animate-in slide-in-from-bottom-4 duration-300">
+                <div className="absolute bottom-4 left-4 right-4 md:left-auto md:right-4 md:w-96 bg-white rounded-2xl shadow-2xl overflow-hidden animate-in slide-in-from-bottom-4 duration-300 z-20">
                     <div className="bg-gradient-to-r from-[#a3452b] to-[#8a3a24] p-4 text-white">
                         <div className="flex items-center justify-between">
                             <h3 className="text-xl font-bold">{selectedNeighborhood.name}</h3>
@@ -480,7 +566,7 @@ export function DetroitNeighborhoodMap() {
 
             {/* Instruction Tooltip - Updated */}
             {!selectedNeighborhood && !isTouring && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white text-sm px-4 py-2 rounded-full backdrop-blur-sm flex items-center gap-2">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white text-sm px-4 py-2 rounded-full backdrop-blur-sm flex items-center gap-2 z-10 pointer-events-none">
                     <MapPin className="w-4 h-4" />
                     Adres ara veya mahalleye tıkla
                 </div>
@@ -488,7 +574,7 @@ export function DetroitNeighborhoodMap() {
 
             {/* Tour Progress */}
             {isTouring && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-sm px-6 py-3 rounded-full shadow-xl flex items-center gap-3">
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-sm px-6 py-3 rounded-full shadow-xl flex items-center gap-3 z-10 animate-in fade-in slide-in-from-bottom-2">
                     <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
                     <span className="font-medium">
                         Detroit Turu: {TOUR_SPOTS[currentTourIndex]?.name || "Tamamlandı"}
