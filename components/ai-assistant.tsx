@@ -73,7 +73,7 @@ export function AIAssistant() {
             setMessages([
                 {
                     role: "assistant",
-                    content: "Merhaba! Ben Pasi, Pasiflow'un akıllı yatırım danışmanı. 🏠\n\nABD gayrimenkul yatırımları, Detroit piyasası, Section 8 programı veya yatırım getirisi hesaplamaları hakkında tüm sorularınızı yanıtlamak için buradayım.\n\nSize nasıl yardımcı olabilirim?"
+                    content: "Merhaba! Ben Pasi, Pasiflow'un akıllı yatırım danışmanı. [PASI_ICON]\n\nABD gayrimenkul yatırımları, Detroit piyasası, Section 8 programı veya yatırım getirisi hesaplamaları hakkında tüm sorularınızı yanıtlamak için buradayım.\n\nSize nasıl yardımcı olabilirim?"
                 }
             ])
             setHasGreeted(true)
@@ -238,7 +238,20 @@ export function AIAssistant() {
                                             ? "bg-slate-900 text-white rounded-br-md"
                                             : "bg-white border border-slate-200 text-slate-700 shadow-sm rounded-bl-md"
                                     )}>
-                                        {msg.content}
+                                        {msg.content.split('[PASI_ICON]').map((part, idx, arr) => (
+                                            <span key={idx}>
+                                                {part}
+                                                {idx < arr.length - 1 && (
+                                                    <Image
+                                                        src="/pasi-mascot.png"
+                                                        alt="Pasi"
+                                                        width={20}
+                                                        height={20}
+                                                        className="inline-block align-middle mx-1 rounded-full"
+                                                    />
+                                                )}
+                                            </span>
+                                        ))}
                                     </div>
                                 </div>
                             ))}
