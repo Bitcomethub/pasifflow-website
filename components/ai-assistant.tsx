@@ -382,7 +382,7 @@ export function AIAssistant() {
                 {/* Toggle Button with Pasi Mascot - Now with shake animation */}
                 <motion.button
                     onClick={() => handleHookClick()}
-                    className="relative w-16 h-16 rounded-full shadow-[0_8px_30px_-4px_rgba(239,114,2,0.4)] bg-gradient-to-br from-[#EF7202] to-[#d86502] text-white transition-all duration-300 hover:scale-110 overflow-hidden border-2 border-white/20"
+                    className="relative w-16 h-16 rounded-full shadow-[0_8px_30px_-4px_rgba(239,114,2,0.4)] bg-gradient-to-br from-[#EF7202] to-[#d86502] text-white transition-all duration-300 hover:scale-110 border-2 border-white/20"
                     animate={isShaking ? {
                         rotate: [0, -15, 15, -15, 15, 0],
                         scale: [1, 1.1, 1.1, 1.1, 1.1, 1],
@@ -406,7 +406,7 @@ export function AIAssistant() {
                             src="/pasi-mascot.png"
                             alt="Pasi"
                             fill
-                            className="object-cover p-0.5"
+                            className="object-cover p-0.5 rounded-full"
                         />
                     )}
                     {/* Animated Notification Badge */}
