@@ -65,15 +65,20 @@ export function Logo({
     return content
 }
 
-// Inline logo version for use within paragraphs or titles
-export function PasiflowText({ className, height = 20 }: { className?: string; height?: number }) {
+// Inline hybrid logo: [P icon] + 'asiflow' text
+export function PasiflowText({ className, height = 24 }: { className?: string; height?: number }) {
     return (
-        <Image
-            src="/logo-new.png"
-            alt="Pasiflow"
-            width={Math.round(height * 2.76)} // maintain aspect ratio
-            height={height}
-            className={cn("inline-block align-middle", className)}
-        />
+        <span className={cn("inline-flex items-center gap-0.5", className)}>
+            <Image
+                src="/pasiflow-icon.svg"
+                alt="P"
+                width={height}
+                height={height}
+                className="inline-block"
+            />
+            <span className="font-bold text-[#001C32]" style={{ fontSize: `${height * 0.75}px` }}>
+                asiflow
+            </span>
+        </span>
     )
 }
