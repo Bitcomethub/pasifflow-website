@@ -25,7 +25,7 @@ export function DetroitNeighborhoodMap() {
 
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: "mapbox://styles/oliver2024/cm1y01932002h01pbdxo7f7y1",
+            style: "mapbox://styles/mapbox/light-v10",
             center: [-83.045753, 42.331429],
             zoom: 11,
             pitch: 45,
