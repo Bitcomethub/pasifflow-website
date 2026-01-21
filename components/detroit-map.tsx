@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import mapboxgl from "mapbox-gl"
 import "mapbox-gl/dist/mapbox-gl.css"
-import { X, TrendingUp, Home, Shield, DollarSign } from "lucide-react"
+import { X, TrendingUp, Home, Search, Map, Satellite, Navigation, ExternalLink, Play, MapPin } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 // Detroit neighborhood data with investment info
 const NEIGHBORHOODS = [
@@ -109,6 +110,14 @@ const NEIGHBORHOODS = [
     }
 ]
 
+// Tour spots for "Explore Detroit" feature
+const TOUR_SPOTS = [
+    { name: "Downtown Detroit", coordinates: [-83.0458, 42.3314], zoom: 15 },
+    { name: "Corktown", coordinates: [-83.0678, 42.3356], zoom: 15 },
+    { name: "Midtown", coordinates: [-83.0656, 42.3572], zoom: 14 },
+    { name: "Rosedale Park", coordinates: [-83.2547, 42.4073], zoom: 14 },
+]
+
 interface SelectedNeighborhood {
     name: string
     priceRange: string
@@ -116,12 +125,19 @@ interface SelectedNeighborhood {
     riskLevel: string
     section8: string
     description: string
+    coordinates?: [number, number]
 }
 
 export function DetroitNeighborhoodMap() {
     const mapContainer = useRef<HTMLDivElement>(null)
     const map = useRef<mapboxgl.Map | null>(null)
     const [selectedNeighborhood, setSelectedNeighborhood] = useState<SelectedNeighborhood | null>(null)
+    const [mapStyle, setMapStyle] = useState<"dark" | "satellite">("dark")
+    const [searchAddress, setSearchAddress] = useState("")
+    const [isTouring, setIsTouring] = useState(false)
+    const [currentTourIndex, setCurrentTourIndex] = useState(0)
+    const [currentZoom, setCurrentZoom] = useState(10.5)
+    const [currentCenter, setCurrentCenter] = useState<[number, number]>([-83.1022, 42.3834])
 
     useEffect(() => {
         if (!mapContainer.current || map.current) return
@@ -136,18 +152,32 @@ export function DetroitNeighborhoodMap() {
 
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
-            style: "mapbox://styles/mapbox/dark-v11",
-            center: [-83.1022, 42.3834], // Detroit center
+            style: mapStyle === "dark" ? "mapbox://styles/mapbox/dark-v11" : "mapbox://styles/mapbox/satellite-streets-v12",
+            center: [-83.1022, 42.3834],
             zoom: 10.5,
             pitch: 0,
         })
 
         map.current.addControl(new mapboxgl.NavigationControl(), "top-right")
 
+        // Track zoom level
+        map.current.on("zoom", () => {
+            if (map.current) {
+                setCurrentZoom(map.current.getZoom())
+            }
+        })
+
+        // Track center
+        map.current.on("move", () => {
+            if (map.current) {
+                const center = map.current.getCenter()
+                setCurrentCenter([center.lng, center.lat])
+            }
+        })
+
         // Add markers for each neighborhood
         map.current.on("load", () => {
             NEIGHBORHOODS.forEach((neighborhood) => {
-                // Create custom marker element
                 const el = document.createElement("div")
                 el.className = "neighborhood-marker"
                 el.style.cssText = `
@@ -181,13 +211,13 @@ export function DetroitNeighborhoodMap() {
                         roi: neighborhood.roi,
                         riskLevel: neighborhood.riskLevel,
                         section8: neighborhood.section8,
-                        description: neighborhood.description
+                        description: neighborhood.description,
+                        coordinates: neighborhood.coordinates as [number, number]
                     })
 
-                    // Fly to the neighborhood
                     map.current?.flyTo({
                         center: neighborhood.coordinates as [number, number],
-                        zoom: 13,
+                        zoom: 14,
                         duration: 1500
                     })
                 })
@@ -204,6 +234,85 @@ export function DetroitNeighborhoodMap() {
         }
     }, [])
 
+    // Update map style when toggled
+    useEffect(() => {
+        if (map.current) {
+            map.current.setStyle(mapStyle === "dark" ? "mapbox://styles/mapbox/dark-v11" : "mapbox://styles/mapbox/satellite-streets-v12")
+        }
+    }, [mapStyle])
+
+    // Search address using Mapbox Geocoding
+    const handleSearch = async () => {
+        if (!searchAddress.trim() || !map.current) return
+
+        try {
+            const query = encodeURIComponent(`${searchAddress}, Detroit, MI`)
+            const response = await fetch(
+                `https://api.mapbox.com/geocoding/v5/mapbox.places/${query}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_TOKEN}&limit=1`
+            )
+            const data = await response.json()
+
+            if (data.features && data.features.length > 0) {
+                const [lng, lat] = data.features[0].center
+                map.current.flyTo({
+                    center: [lng, lat],
+                    zoom: 17,
+                    duration: 2000
+                })
+            }
+        } catch (error) {
+            console.error("Geocoding error:", error)
+        }
+    }
+
+    // Start Detroit tour
+    const startTour = () => {
+        setIsTouring(true)
+        setCurrentTourIndex(0)
+        flyToTourSpot(0)
+    }
+
+    const flyToTourSpot = (index: number) => {
+        if (!map.current || index >= TOUR_SPOTS.length) {
+            setIsTouring(false)
+            return
+        }
+
+        const spot = TOUR_SPOTS[index]
+        map.current.flyTo({
+            center: spot.coordinates as [number, number],
+            zoom: spot.zoom,
+            duration: 3000,
+            pitch: 45,
+        })
+
+        setTimeout(() => {
+            setCurrentTourIndex(index + 1)
+            if (index + 1 < TOUR_SPOTS.length) {
+                flyToTourSpot(index + 1)
+            } else {
+                setIsTouring(false)
+                // Reset view
+                map.current?.flyTo({
+                    center: [-83.1022, 42.3834],
+                    zoom: 10.5,
+                    pitch: 0,
+                    duration: 2000
+                })
+            }
+        }, 4000)
+    }
+
+    // Open Google Street View
+    const openStreetView = (lat?: number, lng?: number) => {
+        const targetLat = lat || currentCenter[1]
+        const targetLng = lng || currentCenter[0]
+        window.open(
+            `https://www.google.com/maps/@${targetLat},${targetLng},3a,75y,90t/data=!3m6!1e1!3m4!1sCampaign`,
+            "_blank"
+        )
+    }
+
     const getRiskBadge = (level: string) => {
         switch (level) {
             case "low":
@@ -218,32 +327,102 @@ export function DetroitNeighborhoodMap() {
     }
 
     return (
-        <div className="relative w-full h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+        <div className="relative w-full h-[650px] rounded-2xl overflow-hidden shadow-2xl">
             {/* Map Container */}
             <div ref={mapContainer} className="w-full h-full" />
 
-            {/* Legend */}
-            <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl p-4 shadow-lg">
-                <h4 className="text-sm font-bold text-gray-800 mb-3">Mahalle Tipleri</h4>
-                <div className="space-y-2 text-xs">
+            {/* Top Controls Bar */}
+            <div className="absolute top-4 left-4 right-16 flex flex-wrap gap-2">
+                {/* Search Input */}
+                <div className="flex-1 min-w-[200px] max-w-md flex gap-1">
+                    <div className="relative flex-1">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <input
+                            type="text"
+                            placeholder="Adres veya mahalle ara..."
+                            value={searchAddress}
+                            onChange={(e) => setSearchAddress(e.target.value)}
+                            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                            className="w-full h-10 pl-9 pr-3 rounded-lg bg-white/95 backdrop-blur-sm border-0 shadow-lg text-sm focus:ring-2 focus:ring-[#a3452b]/50 outline-none"
+                        />
+                    </div>
+                    <Button
+                        onClick={handleSearch}
+                        size="sm"
+                        className="h-10 px-3 bg-[#a3452b] hover:bg-[#8a3a24] text-white shadow-lg"
+                    >
+                        Ara
+                    </Button>
+                </div>
+
+                {/* Tour Button */}
+                <Button
+                    onClick={startTour}
+                    disabled={isTouring}
+                    size="sm"
+                    className="h-10 bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white shadow-lg gap-2"
+                >
+                    <Play className="w-4 h-4" />
+                    {isTouring ? `Tur: ${TOUR_SPOTS[currentTourIndex]?.name || "..."}` : "Detroit'i Gezelim"}
+                </Button>
+
+                {/* Map Style Toggle */}
+                <div className="flex bg-white/95 backdrop-blur-sm rounded-lg shadow-lg overflow-hidden">
+                    <button
+                        onClick={() => setMapStyle("dark")}
+                        className={`h-10 px-3 flex items-center gap-1.5 text-xs font-medium transition-colors ${mapStyle === "dark" ? "bg-[#a3452b] text-white" : "text-gray-600 hover:bg-gray-100"
+                            }`}
+                    >
+                        <Map className="w-4 h-4" />
+                        Harita
+                    </button>
+                    <button
+                        onClick={() => setMapStyle("satellite")}
+                        className={`h-10 px-3 flex items-center gap-1.5 text-xs font-medium transition-colors ${mapStyle === "satellite" ? "bg-[#a3452b] text-white" : "text-gray-600 hover:bg-gray-100"
+                            }`}
+                    >
+                        <Satellite className="w-4 h-4" />
+                        Uydu
+                    </button>
+                </div>
+            </div>
+
+            {/* Legend - Now below search on mobile */}
+            <div className="absolute top-20 md:top-4 left-4 bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-lg">
+                <h4 className="text-xs font-bold text-gray-800 mb-2">Mahalle Tipleri</h4>
+                <div className="space-y-1.5 text-xs">
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-green-500" />
-                        <span className="text-gray-600">Premium (Düşük Risk)</span>
+                        <div className="w-2.5 h-2.5 rounded-full bg-green-500" />
+                        <span className="text-gray-600">Premium</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                        <span className="text-gray-600">Orta Segment</span>
+                        <div className="w-2.5 h-2.5 rounded-full bg-yellow-500" />
+                        <span className="text-gray-600">Orta</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-red-500" />
-                        <span className="text-gray-600">Yüksek Getiri</span>
+                        <div className="w-2.5 h-2.5 rounded-full bg-red-500" />
+                        <span className="text-gray-600">Yüksek ROI</span>
                     </div>
                     <div className="flex items-center gap-2">
-                        <div className="w-3 h-3 rounded-full bg-blue-500" />
-                        <span className="text-gray-600">Yükselen Bölgeler</span>
+                        <div className="w-2.5 h-2.5 rounded-full bg-blue-500" />
+                        <span className="text-gray-600">Yükselen</span>
                     </div>
                 </div>
             </div>
+
+            {/* Street View Button - Shows when zoomed in */}
+            {currentZoom > 14 && (
+                <div className="absolute bottom-20 right-4 animate-in fade-in slide-in-from-right-4 duration-300">
+                    <Button
+                        onClick={() => openStreetView()}
+                        className="h-12 bg-white hover:bg-gray-50 text-gray-800 shadow-xl gap-2 border border-gray-200"
+                    >
+                        <Navigation className="w-5 h-5 text-blue-600" />
+                        <span>Sokak Görünümü</span>
+                        <ExternalLink className="w-4 h-4 text-gray-400" />
+                    </Button>
+                </div>
+            )}
 
             {/* Selected Neighborhood Info Card */}
             {selectedNeighborhood && (
@@ -263,7 +442,13 @@ export function DetroitNeighborhoodMap() {
                     <div className="p-4 space-y-4">
                         <div className="flex items-center justify-between">
                             {getRiskBadge(selectedNeighborhood.riskLevel)}
-                            <span className="text-xs text-gray-500">Section 8: {selectedNeighborhood.section8}</span>
+                            <button
+                                onClick={() => selectedNeighborhood.coordinates && openStreetView(selectedNeighborhood.coordinates[1], selectedNeighborhood.coordinates[0])}
+                                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 font-medium"
+                            >
+                                <Navigation className="w-3 h-3" />
+                                Sokak Görünümü
+                            </button>
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="bg-gray-50 rounded-xl p-3">
@@ -293,10 +478,24 @@ export function DetroitNeighborhoodMap() {
                 </div>
             )}
 
-            {/* Instruction Tooltip */}
-            {!selectedNeighborhood && (
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white text-sm px-4 py-2 rounded-full backdrop-blur-sm">
-                    Detay için bir mahalleye tıklayın
+            {/* Instruction Tooltip - Updated */}
+            {!selectedNeighborhood && !isTouring && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white text-sm px-4 py-2 rounded-full backdrop-blur-sm flex items-center gap-2">
+                    <MapPin className="w-4 h-4" />
+                    Adres ara veya mahalleye tıkla
+                </div>
+            )}
+
+            {/* Tour Progress */}
+            {isTouring && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-blue-600 text-white text-sm px-6 py-3 rounded-full shadow-xl flex items-center gap-3">
+                    <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                    <span className="font-medium">
+                        Detroit Turu: {TOUR_SPOTS[currentTourIndex]?.name || "Tamamlandı"}
+                    </span>
+                    <span className="text-white/60">
+                        {currentTourIndex + 1}/{TOUR_SPOTS.length}
+                    </span>
                 </div>
             )}
         </div>
