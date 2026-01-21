@@ -13,9 +13,8 @@ import { PropertyManagementSection } from "@/components/property-management-sect
 import { AppFeaturesSection } from "@/components/app-features-section"
 import { WhyWorkSection } from "@/components/why-work-section"
 import { CityComparisonSection } from "@/components/city-comparison-section"
-// TestimonialsSection removed per client request
+import { TestimonialsSection } from "@/components/testimonials-section"
 import { FAQSection } from "@/components/faq-section"
-// MapSection removed per client request
 import { FinalCTASection } from "@/components/final-cta-section"
 import { Footer } from "@/components/footer"
 
@@ -35,9 +34,9 @@ export default function Home() {
                 <PropertyManagementSection />
                 <AppFeaturesSection />
                 <WhyWorkSection />
-                {/* TestimonialsSection removed per client request */}
+                <CityComparisonSection />
+                <TestimonialsSection />
                 <FAQSection />
-                {/* MapSection (Fırsat Bölgeleri) removed per client request */}
                 <FinalCTASection />
             </main>
         </div>
