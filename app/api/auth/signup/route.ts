@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { sendLeadNotification } from "@/lib/mail"
 
 // Use the Railway backend API for authentication
 const BACKEND_API_URL = process.env.BACKEND_API_URL || "https://pasiflow-api-production.up.railway.app"
@@ -21,6 +22,16 @@ export async function POST(req: Request) {
                 { error: data.error || "Registration failed" },
                 { status: response.status }
             )
+        }
+
+        if (response.ok) {
+            // Send notification to admin
+            await sendLeadNotification({
+                fullName: body.fullName,
+                email: body.email,
+                phone: body.phone,
+                source: "Signup Form"
+            }).catch(err => console.error("Notification error:", err))
         }
 
         return NextResponse.json(data, { status: 201 })

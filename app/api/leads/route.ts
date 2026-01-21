@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { prisma } from "@/lib/prisma"
+import { sendLeadNotification } from "@/lib/mail"
 import { z } from "zod"
 
 const leadSchema = z.object({
@@ -24,6 +25,15 @@ export async function POST(req: Request) {
                 source: validatedData.source || "Website Form",
             },
         })
+
+        // Send notification
+        await sendLeadNotification({
+            fullName: lead.fullName,
+            email: lead.email,
+            phone: lead.phone || undefined,
+            source: lead.source,
+            budget: lead.budget || undefined
+        }).catch(err => console.error("Notification error:", err))
 
         return NextResponse.json({ success: true, lead }, { status: 201 })
     } catch (error) {

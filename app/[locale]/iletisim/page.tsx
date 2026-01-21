@@ -164,7 +164,7 @@ export default function ContactPage() {
                                 </a>
 
                                 <a
-                                    href="mailto:hi@pasiflow.com"
+                                    href="mailto:info@pasiflow.com"
                                     className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-xl p-5 hover:bg-white/20 transition-colors group"
                                 >
                                     <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -172,7 +172,7 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <p className="text-white/60 text-sm mb-1">{t("email")}</p>
-                                        <p className="text-xl font-bold">hi@pasiflow.com</p>
+                                        <p className="text-xl font-bold">info@pasiflow.com</p>
                                     </div>
                                 </a>
 
