@@ -8,10 +8,10 @@ export function ServicePackagesSection() {
     const t = useTranslations("servicePackages")
 
     const packages = [
-        { icon: GraduationCap, titleKey: "package1Title", descKey: "package1Desc", gradient: "from-blue-500 to-cyan-500" },
-        { icon: Building2, titleKey: "package2Title", descKey: "package2Desc", gradient: "from-emerald-500 to-green-500" },
-        { icon: TrendingUp, titleKey: "package3Title", descKey: "package3Desc", gradient: "from-purple-500 to-indigo-500" },
-        { icon: DoorOpen, titleKey: "package4Title", descKey: "package4Desc", gradient: "from-amber-500 to-orange-500" },
+        { icon: GraduationCap, titleKey: "package1Title", descKey: "package1Desc", iconGradient: "from-blue-500 to-cyan-500", hoverGradient: "from-blue-500/5 to-cyan-500/5" },
+        { icon: Building2, titleKey: "package2Title", descKey: "package2Desc", iconGradient: "from-emerald-500 to-green-500", hoverGradient: "from-slate-500/5 to-gray-500/5" },
+        { icon: TrendingUp, titleKey: "package3Title", descKey: "package3Desc", iconGradient: "from-purple-500 to-indigo-500", hoverGradient: "from-purple-500/5 to-indigo-500/5" },
+        { icon: DoorOpen, titleKey: "package4Title", descKey: "package4Desc", iconGradient: "from-amber-500 to-orange-500", hoverGradient: "from-amber-500/5 to-orange-500/5" },
     ]
 
     return (
@@ -38,10 +38,10 @@ export function ServicePackagesSection() {
                             className="group relative bg-card rounded-2xl p-8 border border-border/50 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 overflow-hidden"
                         >
                             {/* Gradient border effect on hover */}
-                            <div className={`absolute inset-0 bg-gradient-to-br ${pkg.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                            <div className={`absolute inset-0 bg-gradient-to-br ${pkg.hoverGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                             <div className="relative">
-                                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${pkg.gradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                                <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${pkg.iconGradient} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                                     <pkg.icon className="h-7 w-7 text-white" />
                                 </div>
                                 <h3 className="font-bold text-xl mb-3 group-hover:text-primary transition-colors">{t(pkg.titleKey)}</h3>

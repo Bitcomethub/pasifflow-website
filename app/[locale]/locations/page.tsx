@@ -41,7 +41,7 @@ export default function LocationsPage() {
     // State colors for variety
     const stateColors = [
         { bg: "from-blue-500/10 to-indigo-500/10", accent: "bg-blue-500", text: "text-blue-600" },
-        { bg: "from-emerald-500/10 to-teal-500/10", accent: "bg-emerald-500", text: "text-emerald-600" },
+        { bg: "from-slate-500/10 to-gray-500/10", accent: "bg-slate-500", text: "text-slate-600" },
         { bg: "from-purple-500/10 to-pink-500/10", accent: "bg-purple-500", text: "text-purple-600" },
         { bg: "from-amber-500/10 to-orange-500/10", accent: "bg-amber-500", text: "text-amber-600" },
         { bg: "from-rose-500/10 to-red-500/10", accent: "bg-rose-500", text: "text-rose-600" },
