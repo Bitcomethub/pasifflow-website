@@ -26,8 +26,8 @@ export function TrustBadges() {
             icon: Users,
             value: "50+",
             label: t("happyInvestors"),
-            color: "text-green-500",
-            bg: "bg-green-500/10"
+            color: "text-slate-600",
+            bg: "bg-slate-100"
         },
         {
             icon: Trophy,

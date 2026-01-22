@@ -319,7 +319,7 @@ export function PortfolioSection() {
                           {property.address}
                         </h3>
                         {property.status === "New Listing" && (
-                          <Badge className="bg-green-500 text-white text-xs px-2 py-0.5 border-0">{t("new")}</Badge>
+                          <Badge className="bg-primary text-white text-xs px-2 py-0.5 border-0">{t("new")}</Badge>
                         )}
                       </div>
                       <p className="text-sm text-slate-500">
@@ -425,7 +425,7 @@ export function PortfolioSection() {
                   {selectedProperty.capRate} {t("capRate")}
                 </Badge>
                 {selectedProperty.status === "New Listing" && (
-                  <Badge className="absolute top-4 left-4 bg-green-500 text-white font-bold shadow-lg border-0 px-3 py-1">
+                  <Badge className="absolute top-4 left-4 bg-primary text-white font-bold shadow-lg border-0 px-3 py-1">
                     {t("new")}
                   </Badge>
                 )}

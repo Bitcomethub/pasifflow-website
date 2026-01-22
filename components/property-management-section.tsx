@@ -10,7 +10,7 @@ export function PropertyManagementSection() {
     const services = [
         { icon: Users, titleKey: "service1Title", descKey: "service1Desc", color: "text-blue-500", bg: "bg-blue-500/10" },
         { icon: Wrench, titleKey: "service2Title", descKey: "service2Desc", color: "text-amber-500", bg: "bg-amber-500/10" },
-        { icon: FileText, titleKey: "service3Title", descKey: "service3Desc", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+        { icon: FileText, titleKey: "service3Title", descKey: "service3Desc", color: "text-slate-600", bg: "bg-slate-100" },
         { icon: Scale, titleKey: "service4Title", descKey: "service4Desc", color: "text-purple-500", bg: "bg-purple-500/10" },
     ]
 
