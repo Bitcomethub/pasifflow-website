@@ -9,42 +9,44 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-{
-    id: 1,
+const DOCUMENTS = [
+    {
+        id: 1,
         name: "Tapu Senedi - 12152 Stout St",
-            type: "Tapu",
-                date: "12 Ocak 2025",
-                    size: "2.4 MB",
-                        icon: FileBadge,
-                            color: "text-secondary bg-secondary/10 dark:bg-secondary/20"
-},
-{
-    id: 2,
+        type: "Tapu",
+        date: "12 Ocak 2025",
+        size: "2.4 MB",
+        icon: FileBadge,
+        color: "text-secondary bg-secondary/10 dark:bg-secondary/20"
+    },
+    {
+        id: 2,
         name: "Kira Kontratı - 2025 Dönemi",
-            type: "Sözleşme",
-                date: "10 Ocak 2025",
-                    size: "1.8 MB",
-                        icon: FileText,
-                            color: "text-primary bg-primary/10 dark:bg-primary/20"
-},
-{
-    id: 3,
+        type: "Sözleşme",
+        date: "10 Ocak 2025",
+        size: "1.8 MB",
+        icon: FileText,
+        color: "text-primary bg-primary/10 dark:bg-primary/20"
+    },
+    {
+        id: 3,
         name: "Ekspertiz Raporu - Stout St",
-            type: "Rapor",
-                date: "05 Ocak 2025",
-                    size: "5.1 MB",
-                        icon: FileCheck,
-                            color: "text-slate-600 bg-slate-100 dark:bg-slate-700/50"
-},
-{
-    id: 4,
+        type: "Rapor",
+        date: "05 Ocak 2025",
+        size: "5.1 MB",
+        icon: FileCheck,
+        color: "text-slate-600 bg-slate-100 dark:bg-slate-700/50"
+    },
+    {
+        id: 4,
         name: "Vergi Beyannamesi 2024",
-            type: "Vergi",
-                date: "30 Aralık 2024",
-                    size: "1.2 MB",
-                        icon: FileText,
-                            color: "text-primary bg-primary/10 dark:bg-primary/20"
-}
+        type: "Vergi",
+        date: "30 Aralık 2024",
+        size: "1.2 MB",
+        icon: FileText,
+        color: "text-primary bg-primary/10 dark:bg-primary/20"
+    }
+];
 
 export default function DocumentsPage() {
     return (
