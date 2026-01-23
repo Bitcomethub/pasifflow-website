@@ -48,12 +48,11 @@
         "title": "Devlet Destekli",
         "titleAccent": "Dolar Kira Geliri",
         "rotatingTitles": [
-            "Devlet Destekli",
-            "Yüksek Kira Getirisi",
-            "Düşük Riskli",
-            "Tam Şeffaf"
+            "Düşük Riskli Yatırım",
+            "Tam Şeffaf Takip Paneli",
+            "Dolar Geliri"
         ],
-        "description": "Section 8 programı ile ABD hükümeti tarafından desteklenen kira ödemeleri sayesinde, her ay düzenli ve garantili dolar geliri elde edin.",
+        "description": "Section 8 programı ile ABD hükümeti tarafından desteklenen kira ödemeleri sayesinde her ay düzenli dolar geliri elde edin.",
         "stat1Label": "Hedef Net Getiri",
         "stat1Value": "%14-18",
         "stat2Label": "Doluluk Oranı",
