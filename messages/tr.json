@@ -368,10 +368,10 @@
         "col1Item3": "Kolay Portföy Büyütme İmkanı",
         "col1Item4": "Gerçek Pasif Gelir Modeli",
         "col2Title": "Devlet Destekli Kira Geliri",
-        "col2Desc": "Section 8 programı sayesinde uygun kiracılar için kira ödemeleri, ilgili kamu kurumu tarafından doğrudan aktarılır. Bu yapı, kira tahsilatı riskini önemli ölçüde azaltır.",
-        "col2Item1": "Uzun Süreli Kiracı Yapısı",
-        "col2Item2": "Boşluk Riskini Azaltmaya Yönelik Model",
-        "col2Item3": "Devlet Destekli Kira Ödeme Yapısı"
+        "col2Desc": "programı sayesinde uygun kiracılar için kira ödemeleri, ilgili kamu kurumu tarafından doğrudan aktarılır. Bu yapı, kira tahsilatı riskini önemli ölçüde azaltır ve dolar bazlı gelir akışını daha öngörülebilir hâle getirir.",
+        "col2Item1": "Minimum Kiracı Sirkülasyonu",
+        "col2Item2": "Minimum Boşluk Riski",
+        "col2Item3": "Düzenli ve %100 Garantili Ödemeler"
     },
     "faq": {
         "title": "Sıkça Sorulan Sorular",
