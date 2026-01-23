@@ -10,15 +10,15 @@ export default function PrivacyPage() {
         <div className="min-h-screen bg-[#F6F7F9] py-24 md:py-32">
             <div className="container mx-auto px-4 md:px-6">
                 <Card className="max-w-4xl mx-auto p-8 md:p-12 shadow-sm border border-[#E5E6E8]">
-                    <h1 className="text-3xl md:text-4xl font-bold text-[#001C32] mb-8">
+                    <h1 className="text-3xl md:text-4xl font-bold text-secondary mb-8">
                         Gizlilik Politikası
                     </h1>
                     <p className="text-sm text-[#535454] mb-8 font-medium">Son Güncelleme: Aralık 2025</p>
 
-                    <div className="prose prose-lg max-w-none space-y-8 text-[#535454]">
+                    <div className="prose prose-lg max-w-none space-y-8 text-slate-600">
 
                         <section>
-                            <h2 className="text-xl font-bold text-[#1F2328] mb-3">1. Giriş</h2>
+                            <h2 className="text-xl font-bold text-slate-900 mb-3">1. Giriş</h2>
                             <p>
                                 Pasiflow Property Management Group, LLC (“Pasiflow”, “Şirket” veya “Biz”) olarak, gizliliğinizi ve kişisel verilerinizin korunmasını ciddiyetle ele alıyoruz. Bu Gizlilik Politikası; web sitemizi ziyaret ettiğinizde, formlarımızı doldurduğunuzda veya hizmetlerimizden yararlandığınızda hangi bilgileri topladığımızı, bu bilgileri nasıl kullandığımızı ve nasıl koruduğumuzu açıklamaktadır.
                             </p>
@@ -107,7 +107,7 @@ export default function PrivacyPage() {
                             <p>
                                 Bu Gizlilik Politikası veya kişisel verilerinizle ilgili sorularınız için bizimle aşağıdaki adresten iletişime geçebilirsiniz:
                             </p>
-                            <p className="mt-4 font-semibold text-[#EF7202]">
+                            <p className="mt-4 font-semibold text-primary">
                                 📧 info@pasiflow.com
                             </p>
                         </section>

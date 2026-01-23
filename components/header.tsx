@@ -194,7 +194,7 @@ export function Header() {
                 <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-[#E5E6E8]">
                   <DropdownMenuItem
                     onClick={handleLogout}
-                    className="cursor-pointer text-red-600 focus:bg-red-50"
+                    className="cursor-pointer text-destructive focus:bg-destructive/10"
                   >
                     Çıkış Yap
                   </DropdownMenuItem>

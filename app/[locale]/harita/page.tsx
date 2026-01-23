@@ -17,7 +17,7 @@ export default function MapPage() {
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-12"
                 >
-                    <div className="inline-flex items-center gap-2 bg-[#a3452b]/10 text-[#a3452b] px-4 py-2 rounded-full text-sm font-medium mb-4">
+                    <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
                         <MapPin size={16} />
                         İnteraktif Harita
                     </div>
@@ -44,7 +44,7 @@ export default function MapPage() {
                         { icon: MapPin, label: "Gerçek Zamanlı", desc: "Veri" },
                     ].map((stat, i) => (
                         <div key={i} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
-                            <stat.icon className="w-6 h-6 text-[#a3452b] mx-auto mb-2" />
+                            <stat.icon className="w-6 h-6 text-primary mx-auto mb-2" />
                             <p className="font-bold text-gray-900">{stat.label}</p>
                             <p className="text-xs text-gray-500">{stat.desc}</p>
                         </div>
@@ -65,12 +65,12 @@ export default function MapPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3 }}
-                    className="mt-8 bg-blue-50 border border-blue-100 rounded-xl p-6 flex items-start gap-4"
+                    className="mt-8 bg-primary/5 border border-primary/10 rounded-xl p-6 flex items-start gap-4"
                 >
-                    <Info className="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <Info className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                        <h3 className="font-semibold text-blue-900 mb-1">Harita Nasıl Kullanılır?</h3>
-                        <p className="text-sm text-blue-700">
+                        <h3 className="font-semibold text-secondary mb-1">Harita Nasıl Kullanılır?</h3>
+                        <p className="text-sm text-muted-foreground">
                             Haritadaki renkli işaretçilere tıklayarak her mahallenin detaylı yatırım bilgilerine ulaşabilirsiniz.
                             Yeşil işaretçiler düşük riskli premium mahalleleri, sarı orta segmenti, kırmızı yüksek getirili bölgeleri
                             ve mavi yükselen/trendy alanları temsil eder.

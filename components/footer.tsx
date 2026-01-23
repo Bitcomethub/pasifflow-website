@@ -15,7 +15,7 @@ export function Footer() {
       {/* Decorative Background */}
       <div className="absolute inset-0 opacity-40 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#EF7202]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
-        <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-[#009688]/5 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3" />
+        <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-secondary/5 rounded-full blur-3xl -translate-x-1/3 -translate-y-1/3" />
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -84,7 +84,7 @@ export function Footer() {
               <a
                 href="https://wa.me/13056903146?text=Merhaba%2C%20Pasiflow%20ile%20ilgili%20bilgi%20almak%20istiyorum."
                 target="_blank"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#25D366] hover:bg-[#128C7E] text-white rounded-lg font-bold text-sm transition-all mt-2 shadow-lg shadow-green-500/20"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-secondary hover:bg-secondary/90 text-white rounded-lg font-bold text-sm transition-all mt-2 shadow-lg shadow-secondary/20"
               >
                 {t("whatsapp")}
               </a>

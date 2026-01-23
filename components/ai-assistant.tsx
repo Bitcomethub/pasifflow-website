@@ -361,7 +361,7 @@ export function AIAssistant() {
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-1">
                                             <span className="font-bold text-[#001C32] text-sm">Pasi</span>
-                                            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                                            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
                                         </div>
                                         <p className="text-slate-700 text-sm leading-relaxed font-medium">
                                             {hookMessage}
@@ -425,7 +425,7 @@ export function AIAssistant() {
                     {/* Animated Notification Badge */}
                     {!isOpen && (
                         <motion.div
-                            className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-[10px] font-bold border-2 border-white"
+                            className="absolute -top-1 -right-1 w-6 h-6 bg-primary rounded-full flex items-center justify-center text-[10px] font-bold border-2 border-white text-white"
                             animate={{
                                 scale: [1, 1.3, 1],
                                 boxShadow: [
@@ -451,7 +451,7 @@ export function AIAssistant() {
                         onClick={() => setIsMinimized(false)}
                         className="fixed bottom-24 right-6 bg-slate-900 text-white px-5 py-3 rounded-xl shadow-xl flex items-center gap-3 cursor-pointer hover:bg-slate-800 transition-colors"
                     >
-                        <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                         <span className="text-sm font-semibold">Danışman Aktif</span>
                         <Maximize2 size={14} className="ml-1 text-white/60" />
                     </motion.div>

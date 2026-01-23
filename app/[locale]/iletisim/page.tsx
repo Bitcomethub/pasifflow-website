@@ -179,7 +179,7 @@ export default function ContactPage() {
                                 <a
                                     href="https://wa.me/13056903146?text=Hello%2C%20I%20would%20like%20to%20learn%20more%20about%20Pasiflow."
                                     target="_blank"
-                                    className="flex items-center gap-4 bg-green-600/80 backdrop-blur-sm rounded-xl p-5 hover:bg-green-600 transition-colors group"
+                                    className="flex items-center gap-4 bg-secondary/90 backdrop-blur-sm rounded-xl p-5 hover:bg-secondary transition-colors group"
                                 >
                                     <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                         <MessageCircle className="h-6 w-6 text-white" />
@@ -194,7 +194,7 @@ export default function ContactPage() {
                                 <a
                                     href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89"
                                     target="_blank"
-                                    className="flex items-center gap-4 bg-amber-500/90 backdrop-blur-sm rounded-xl p-5 hover:bg-amber-500 transition-colors group"
+                                    className="flex items-center gap-4 bg-primary/90 backdrop-blur-sm rounded-xl p-5 hover:bg-primary transition-colors group"
                                 >
                                     <div className="w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                         <Clock className="h-6 w-6 text-white" />
@@ -272,7 +272,7 @@ export default function ContactPage() {
                             <p className="text-muted-foreground">{t("transactionVolume")}</p>
                         </div>
                         <div className="space-y-2">
-                            <div className="text-4xl font-bold text-emerald-500">98%+</div>
+                            <div className="text-4xl font-bold text-primary">98%+</div>
                             <p className="text-muted-foreground">{t("occupancyRate")}</p>
                         </div>
                     </div>

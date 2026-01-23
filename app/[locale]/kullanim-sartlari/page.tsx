@@ -35,7 +35,7 @@ export default function TermsPage() {
                     <p>
                         Pasiflow, Amerika Birleşik Devletleri’nde gayrimenkul yatırımı süreçlerine ilişkin bilgilendirme, eğitim, analiz ve operasyonel koordinasyon odaklı hizmetler sunar.
                     </p>
-                    <div className="p-4 bg-slate-50 border-l-4 border-orange-500 rounded-r-lg mt-4">
+                    <div className="p-4 bg-slate-50 border-l-4 border-primary rounded-r-lg mt-4">
                         <p className="text-sm">
                             <strong>Önemli:</strong> Site’de yer alan içerikler, hesaplamalar, örnek senaryolar ve paylaşılan tüm bilgiler yatırım tavsiyesi değildir; yalnızca bilgilendirme amaçlıdır. Pasiflow, hukuki, vergi veya finansal danışmanlık hizmeti sunmaz. Yatırım kararlarınızı vermeden önce bağımsız profesyonel danışmanlardan destek almanız önerilir.
                         </p>

@@ -9,44 +9,42 @@ import {
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-const DOCUMENTS = [
-    {
-        id: 1,
+{
+    id: 1,
         name: "Tapu Senedi - 12152 Stout St",
-        type: "Tapu",
-        date: "12 Ocak 2025",
-        size: "2.4 MB",
-        icon: FileBadge,
-        color: "text-purple-600 bg-purple-100 dark:bg-purple-900/20"
-    },
-    {
-        id: 2,
+            type: "Tapu",
+                date: "12 Ocak 2025",
+                    size: "2.4 MB",
+                        icon: FileBadge,
+                            color: "text-secondary bg-secondary/10 dark:bg-secondary/20"
+},
+{
+    id: 2,
         name: "Kira Kontratı - 2025 Dönemi",
-        type: "Sözleşme",
-        date: "10 Ocak 2025",
-        size: "1.8 MB",
-        icon: FileText,
-        color: "text-blue-600 bg-blue-100 dark:bg-blue-900/20"
-    },
-    {
-        id: 3,
+            type: "Sözleşme",
+                date: "10 Ocak 2025",
+                    size: "1.8 MB",
+                        icon: FileText,
+                            color: "text-primary bg-primary/10 dark:bg-primary/20"
+},
+{
+    id: 3,
         name: "Ekspertiz Raporu - Stout St",
-        type: "Rapor",
-        date: "05 Ocak 2025",
-        size: "5.1 MB",
-        icon: FileCheck,
-        color: "text-green-600 bg-green-100 dark:bg-green-900/20"
-    },
-    {
-        id: 4,
+            type: "Rapor",
+                date: "05 Ocak 2025",
+                    size: "5.1 MB",
+                        icon: FileCheck,
+                            color: "text-slate-600 bg-slate-100 dark:bg-slate-700/50"
+},
+{
+    id: 4,
         name: "Vergi Beyannamesi 2024",
-        type: "Vergi",
-        date: "30 Aralık 2024",
-        size: "1.2 MB",
-        icon: FileText,
-        color: "text-orange-600 bg-orange-100 dark:bg-orange-900/20"
-    }
-];
+            type: "Vergi",
+                date: "30 Aralık 2024",
+                    size: "1.2 MB",
+                        icon: FileText,
+                            color: "text-primary bg-primary/10 dark:bg-primary/20"
+}
 
 export default function DocumentsPage() {
     return (
@@ -70,7 +68,7 @@ export default function DocumentsPage() {
                         <input
                             type="text"
                             placeholder="Dosya ara..."
-                            className="pl-9 pr-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="pl-9 pr-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-lg text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary"
                         />
                     </div>
                 </div>
@@ -85,7 +83,7 @@ export default function DocumentsPage() {
                                 <doc.icon className="w-6 h-6" />
                             </div>
                             <div>
-                                <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 transition-colors">
+                                <h4 className="font-semibold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
                                     {doc.name}
                                 </h4>
                                 <div className="flex items-center gap-3 mt-1">
@@ -100,7 +98,7 @@ export default function DocumentsPage() {
                             </div>
                         </div>
 
-                        <button className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all">
+                        <button className="p-2 text-gray-400 hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/20 rounded-lg transition-all">
                             <Download className="w-5 h-5" />
                         </button>
                     </div>

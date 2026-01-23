@@ -59,10 +59,10 @@ export default function LocationPage({ params: paramsPromise }: LocationPageProp
     }
 
     const stats = [
-        { label: t("stats.medianPrice"), value: location.stats.medianHomePrice, icon: Home, color: "from-blue-500 to-blue-600" },
-        { label: t("stats.rentYield"), value: location.stats.avgRentYield, icon: TrendingUp, color: "from-green-500 to-green-600" },
-        { label: t("stats.section8Rate"), value: location.stats.section8Rate, icon: ShieldCheck, color: "from-purple-500 to-purple-600" },
-        { label: t("stats.capRate"), value: location.stats.avgCapRate, icon: DollarSign, color: "from-amber-500 to-amber-600" },
+        { label: t("stats.medianPrice"), value: location.stats.medianHomePrice, icon: Home, color: "from-secondary to-slate-800" },
+        { label: t("stats.rentYield"), value: location.stats.avgRentYield, icon: TrendingUp, color: "from-primary to-primary/90" },
+        { label: t("stats.section8Rate"), value: location.stats.section8Rate, icon: ShieldCheck, color: "from-slate-600 to-slate-700" },
+        { label: t("stats.capRate"), value: location.stats.avgCapRate, icon: DollarSign, color: "from-primary/80 to-primary/60" },
     ]
 
     const benefits = [
@@ -70,29 +70,29 @@ export default function LocationPage({ params: paramsPromise }: LocationPageProp
             icon: DollarSign,
             title: t("benefits.affordability.title"),
             description: t("benefits.affordability.description", { city: location.city }),
-            gradient: "from-emerald-500/20 to-teal-500/20",
-            iconBg: "bg-emerald-500",
+            gradient: "from-slate-50 to-slate-100",
+            iconBg: "bg-primary",
         },
         {
             icon: ShieldCheck,
             title: t("benefits.section8.title"),
             description: t("benefits.section8.description"),
-            gradient: "from-blue-500/20 to-indigo-500/20",
-            iconBg: "bg-blue-500",
+            gradient: "from-secondary/5 to-secondary/10",
+            iconBg: "bg-secondary",
         },
         {
             icon: TrendingUp,
             title: t("benefits.returns.title"),
             description: t("benefits.returns.description", { capRate: location.stats.avgCapRate }),
-            gradient: "from-amber-500/20 to-orange-500/20",
-            iconBg: "bg-amber-500",
+            gradient: "from-primary/5 to-primary/10",
+            iconBg: "bg-primary",
         },
         {
             icon: Building2,
             title: t("benefits.management.title"),
             description: t("benefits.management.description"),
-            gradient: "from-purple-500/20 to-pink-500/20",
-            iconBg: "bg-purple-500",
+            gradient: "from-slate-50 to-white",
+            iconBg: "bg-secondary",
         },
     ]
 
@@ -344,7 +344,7 @@ export default function LocationPage({ params: paramsPromise }: LocationPageProp
                                 className="absolute -bottom-8 -left-8 bg-white rounded-2xl shadow-2xl p-6 border border-gray-100"
                             >
                                 <div className="flex items-center gap-4">
-                                    <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                                    <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-primary to-primary/80 flex items-center justify-center">
                                         <TrendingUp className="h-7 w-7 text-white" />
                                     </div>
                                     <div>
@@ -363,7 +363,7 @@ export default function LocationPage({ params: paramsPromise }: LocationPageProp
                                 className="absolute -top-6 -right-6 bg-white rounded-2xl shadow-2xl p-4 border border-gray-100"
                             >
                                 <div className="flex items-center gap-3">
-                                    <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                                    <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-secondary to-slate-700 flex items-center justify-center">
                                         <ShieldCheck className="h-5 w-5 text-white" />
                                     </div>
                                     <div>

@@ -112,7 +112,7 @@ export default function TaxationPage() {
                         <Button
                             size="lg"
                             variant="outline"
-                            className="font-semibold text-lg h-14 border-2 gap-2 bg-green-500 text-white hover:bg-green-600 border-green-500 hover:border-green-600"
+                            className="font-semibold text-lg h-14 border-2 gap-2 bg-secondary text-white hover:bg-secondary/90 border-secondary hover:border-secondary"
                             asChild
                         >
                             <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer">
