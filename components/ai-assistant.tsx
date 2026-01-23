@@ -342,21 +342,23 @@ export function AIAssistant() {
                                 </motion.div>
 
                                 {/* Content */}
-                                <div className="flex items-start gap-3">
+                                <div className="flex items-center gap-3">
                                     <motion.div
                                         animate={{
                                             rotate: [0, -10, 10, -10, 0],
                                             y: [0, -3, 0]
                                         }}
                                         transition={{ duration: 0.5, repeat: 3, repeatDelay: 2 }}
+                                        className="flex-shrink-0"
                                     >
-                                        <Image
-                                            src="/pasi-mascot.png"
-                                            alt="Pasi"
-                                            width={44}
-                                            height={44}
-                                            className="rounded-full border-2 border-[#EF7202] shadow-lg flex-shrink-0"
-                                        />
+                                        <div className="relative w-11 h-11 rounded-full border-2 border-[#EF7202] shadow-lg overflow-hidden">
+                                            <Image
+                                                src="/pasi-clean.png"
+                                                alt="Pasi"
+                                                fill
+                                                className="object-cover"
+                                            />
+                                        </div>
                                     </motion.div>
                                     <div className="flex-1">
                                         <div className="flex items-center gap-2 mb-1">
@@ -416,7 +418,7 @@ export function AIAssistant() {
                         <X size={24} className="absolute inset-0 m-auto" />
                     ) : (
                         <Image
-                            src="/pasi-mascot.png"
+                            src="/pasi-with-bubble.png"
                             alt="Pasi"
                             fill
                             className="object-cover p-0.5 rounded-full"
