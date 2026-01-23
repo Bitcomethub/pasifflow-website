@@ -169,7 +169,7 @@ export function AIAssistant() {
                                             className="relative z-10"
                                         >
                                             <Image
-                                                src="/pasi-mascot.png"
+                                                src={isLoading ? "/pasi-typing.png" : "/pasi-idle.png"}
                                                 alt="Pasi"
                                                 width={40}
                                                 height={40}
@@ -192,14 +192,14 @@ export function AIAssistant() {
                                         />
 
                                         {/* Online status indicator */}
-                                        <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 border-2 border-[#001C32] rounded-full z-20 shadow-sm">
-                                            <div className="absolute inset-0 bg-green-400 rounded-full animate-ping opacity-75"></div>
+                                        <div className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-primary border-2 border-[#001C32] rounded-full z-20 shadow-sm">
+                                            <div className="absolute inset-0 bg-orange-400 rounded-full animate-ping opacity-75"></div>
                                         </div>
                                     </div>
                                     <div>
                                         <h3 className="font-bold text-sm tracking-tight">Pasi | Akıllı Danışman</h3>
                                         <div className="flex items-center gap-1.5 mt-0.5">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></span>
+                                            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
                                             <span className="text-xs text-[#EF7202] font-medium">Çevrimiçi</span>
                                         </div>
                                     </div>
@@ -243,7 +243,7 @@ export function AIAssistant() {
                                                 {part}
                                                 {idx < arr.length - 1 && (
                                                     <Image
-                                                        src="/pasi-mascot.png"
+                                                        src="/pasi-idle.png"
                                                         alt="Pasi"
                                                         width={20}
                                                         height={20}

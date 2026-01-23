@@ -152,9 +152,7 @@ export function Header() {
 
           {/* RIGHT: Language + CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <Button variant="outline" size="sm" asChild className="border-blue-600 text-blue-600 hover:bg-blue-50">
-              <Link href="/dashboard">Panel (Demo)</Link>
-            </Button>
+
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="gap-2 h-9 px-3 text-[#1F2328] hover:bg-[#E5E6E8] rounded-lg">
@@ -207,11 +205,11 @@ export function Header() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="flex border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
+                  className="flex border-secondary text-secondary hover:bg-secondary hover:text-white font-semibold gap-2"
                   asChild
                 >
-                  <Link href={`/${currentLocale}/login`}>
-                    Giriş Yap / Üye Ol
+                  <Link href="/dashboard">
+                    Panel Giriş
                   </Link>
                 </Button>
 

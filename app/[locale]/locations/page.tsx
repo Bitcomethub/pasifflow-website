@@ -40,11 +40,11 @@ export default function LocationsPage() {
 
     // State colors for variety
     const stateColors = [
-        { bg: "from-blue-500/10 to-indigo-500/10", accent: "bg-blue-500", text: "text-blue-600" },
+        { bg: "from-secondary/10 to-[#1A344B]/10", accent: "bg-secondary", text: "text-secondary" },
         { bg: "from-slate-500/10 to-gray-500/10", accent: "bg-slate-500", text: "text-slate-600" },
-        { bg: "from-purple-500/10 to-pink-500/10", accent: "bg-purple-500", text: "text-purple-600" },
-        { bg: "from-amber-500/10 to-orange-500/10", accent: "bg-amber-500", text: "text-amber-600" },
-        { bg: "from-rose-500/10 to-red-500/10", accent: "bg-rose-500", text: "text-rose-600" },
+        { bg: "from-primary/10 to-orange-400/10", accent: "bg-primary", text: "text-primary" },
+        { bg: "from-secondary/5 to-slate-800/5", accent: "bg-secondary", text: "text-secondary" },
+        { bg: "from-slate-400/10 to-gray-400/10", accent: "bg-slate-500", text: "text-slate-600" },
     ]
 
     return (

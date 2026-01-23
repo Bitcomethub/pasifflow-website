@@ -12,7 +12,7 @@ export function CityComparisonSection() {
         {
             id: "detroit",
             icon: TrendingUp,
-            color: "from-orange-500 to-red-500",
+            color: "from-primary to-orange-400",
             ratings: {
                 cashFlow: 5,
                 security: 3,
@@ -23,7 +23,7 @@ export function CityComparisonSection() {
         {
             id: "cleveland",
             icon: Shield,
-            color: "from-blue-500 to-cyan-500",
+            color: "from-secondary to-slate-700",
             ratings: {
                 cashFlow: 4,
                 security: 4,
@@ -34,7 +34,7 @@ export function CityComparisonSection() {
         {
             id: "memphis",
             icon: Building2,
-            color: "from-green-500 to-emerald-500",
+            color: "from-secondary to-slate-700",
             ratings: {
                 cashFlow: 4,
                 security: 4,

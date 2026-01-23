@@ -138,7 +138,7 @@ export function RoiCalculator() {
                 <div className="grid grid-cols-2 gap-3">
                     <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
                         <p className="text-xs text-[#6b6b67] mb-1">Aylık Nakit Akışı</p>
-                        <p className={`text-2xl font-bold ${monthlyNetIncome >= 0 ? 'text-[#22c55e]' : 'text-red-500'}`}>
+                        <p className={`text-2xl font-bold ${monthlyNetIncome >= 0 ? 'text-primary' : 'text-secondary'}`}>
                             ${Math.round(monthlyNetIncome)}
                         </p>
                     </div>

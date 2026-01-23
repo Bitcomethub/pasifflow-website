@@ -63,8 +63,8 @@ export default function PropertiesPage() {
                         Aktif portföyünüzdeki mülklerin detayları ve güncel durumları.
                     </p>
                 </div>
-                <div className="bg-blue-50 dark:bg-blue-900/20 px-4 py-2 rounded-lg border border-blue-100 dark:border-blue-900/30">
-                    <span className="text-sm font-medium text-blue-800 dark:text-blue-300">
+                <div className="bg-primary/10 dark:bg-primary/20 px-4 py-2 rounded-lg border border-primary/20 dark:border-primary/30">
+                    <span className="text-sm font-medium text-secondary dark:text-slate-100">
                         Toplam 3 Mülk
                     </span>
                 </div>
@@ -82,11 +82,11 @@ export default function PropertiesPage() {
                                 className="object-cover"
                             />
                             <div className="absolute top-4 right-4 flex gap-2">
-                                <Badge className={property.status === 'occupied' ? "bg-green-500 hover:bg-green-600" : "bg-yellow-500"}>
+                                <Badge className={property.status === 'occupied' ? "bg-primary hover:bg-primary/90" : "bg-slate-500"}>
                                     {property.status === 'occupied' ? 'Kiracılı' : 'Boş'}
                                 </Badge>
                                 {property.section8 && (
-                                    <Badge variant="secondary" className="bg-blue-600 text-white border-none">
+                                    <Badge variant="secondary" className="bg-secondary text-white border-none">
                                         Section 8
                                     </Badge>
                                 )}
@@ -113,17 +113,17 @@ export default function PropertiesPage() {
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-500 uppercase">Kira Geliri</p>
-                                    <p className="font-semibold text-green-600 dark:text-green-400">{property.monthlyRent}</p>
+                                    <p className="font-semibold text-primary dark:text-primary">{property.monthlyRent}</p>
                                 </div>
                             </div>
 
                             {/* Footer Info */}
                             <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-slate-700">
                                 <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                                    <Calendar className="w-4 h-4 text-blue-500" />
+                                    <Calendar className="w-4 h-4 text-primary" />
                                     <span>Ödeme: <strong>{property.nextPaymentDate}</strong></span>
                                 </div>
-                                <button className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline">
+                                <button className="text-sm font-medium text-primary dark:text-primary hover:underline">
                                     Detaylar →
                                 </button>
                             </div>

@@ -89,7 +89,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                 <div className="bg-slate-900 px-8 py-6">
                     <div className="flex items-center justify-center gap-3">
                         <div className="p-2.5 bg-white/10 rounded-xl">
-                            {step === "form" ? <Lock className="w-5 h-5 text-white" /> : <Check className="w-5 h-5 text-green-400" />}
+                            {step === "form" ? <Lock className="w-5 h-5 text-white" /> : <Check className="w-5 h-5 text-primary" />}
                         </div>
                         <div>
                             <h3 className="text-white font-bold text-lg tracking-tight">
@@ -205,7 +205,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                 </div>
 
                                 {error && (
-                                    <div className="p-3 rounded-lg bg-red-50 text-red-600 text-xs font-medium border border-red-100">
+                                    <div className="p-3 rounded-lg bg-slate-100 text-secondary text-xs font-medium border border-slate-200">
                                         {error}
                                     </div>
                                 )}
@@ -253,8 +253,8 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                         </div>
                     ) : (
                         <div className="py-8 flex flex-col items-center justify-center gap-4">
-                            <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center">
-                                <Check className="w-8 h-8 text-green-600" />
+                            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+                                <Check className="w-8 h-8 text-primary" />
                             </div>
                             <div className="text-slate-600 font-medium text-sm">Yönlendiriliyorsunuz...</div>
                         </div>

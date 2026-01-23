@@ -12,15 +12,15 @@ export function TrustBadges() {
             icon: ShieldCheck,
             value: "20+",
             label: t("yearsExperience"),
-            color: "text-blue-500",
-            bg: "bg-blue-500/10"
+            color: "text-secondary",
+            bg: "bg-secondary/10"
         },
         {
             icon: Star,
             value: "4.9/5",
             label: t("googleRating"), // Will update key in translation to be generic 'Score'
-            color: "text-yellow-500",
-            bg: "bg-yellow-500/10"
+            color: "text-primary",
+            bg: "bg-primary/10"
         },
         {
             icon: Users,
@@ -33,8 +33,8 @@ export function TrustBadges() {
             icon: Trophy,
             value: "$100M+",
             label: t("transactionsValue"),
-            color: "text-purple-500",
-            bg: "bg-purple-500/10"
+            color: "text-secondary",
+            bg: "bg-secondary/10"
         }
     ]
 

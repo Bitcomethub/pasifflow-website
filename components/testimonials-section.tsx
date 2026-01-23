@@ -48,7 +48,7 @@ export function TestimonialsSection() {
                             variant="outline"
                             size="icon"
                             onClick={scrollPrev}
-                            className="rounded-full w-10 h-10 border-2 hover:bg-[#a3452b]/5 hover:border-[#a3452b]/30"
+                            className="rounded-full w-10 h-10 border-2 hover:bg-primary/5 hover:border-primary/30"
                         >
                             <ChevronLeft className="h-5 w-5" />
                         </Button>
@@ -56,7 +56,7 @@ export function TestimonialsSection() {
                             variant="outline"
                             size="icon"
                             onClick={scrollNext}
-                            className="rounded-full w-10 h-10 border-2 hover:bg-[#a3452b]/5 hover:border-[#a3452b]/30"
+                            className="rounded-full w-10 h-10 border-2 hover:bg-primary/5 hover:border-primary/30"
                         >
                             <ChevronRight className="h-5 w-5" />
                         </Button>
@@ -71,11 +71,11 @@ export function TestimonialsSection() {
                                 key={testimonial.nameKey}
                                 className="flex-[0_0_85%] sm:flex-[0_0_45%] lg:flex-[0_0_30%] min-w-0"
                             >
-                                <Card className="p-6 h-full border-slate-100 bg-white hover:shadow-lg hover:border-[#a3452b]/20 transition-all duration-300 group">
+                                <Card className="p-6 h-full border-slate-100 bg-white hover:shadow-lg hover:border-primary/20 transition-all duration-300 group">
                                     {/* Stars */}
                                     <div className="flex gap-0.5 mb-4">
                                         {[...Array(testimonial.rating)].map((_, i) => (
-                                            <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+                                            <Star key={i} size={14} className="fill-primary text-primary" />
                                         ))}
                                     </div>
 
@@ -86,7 +86,7 @@ export function TestimonialsSection() {
 
                                     {/* Author */}
                                     <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#a3452b] to-[#8a3a24] text-white flex items-center justify-center font-bold text-sm">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-orange-600 text-white flex items-center justify-center font-bold text-sm">
                                             {t(testimonial.nameKey).charAt(0)}
                                         </div>
                                         <div>

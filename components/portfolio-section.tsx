@@ -298,7 +298,7 @@ export function PortfolioSection() {
                     </div>
 
                     {property.discount && (
-                      <Badge className="absolute bottom-4 left-4 bg-red-500 text-white font-bold shadow-lg border-0 px-3 py-1.5 flex items-center gap-1.5 animate-pulse">
+                      <Badge className="absolute bottom-4 left-4 bg-primary text-white font-bold shadow-lg border-0 px-3 py-1.5 flex items-center gap-1.5 animate-pulse">
                         <Tag size={14} />
                         {property.discount}
                       </Badge>
