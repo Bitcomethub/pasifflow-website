@@ -351,7 +351,7 @@ export function AIAssistant() {
                                         transition={{ duration: 0.5, repeat: 3, repeatDelay: 2 }}
                                         className="flex-shrink-0"
                                     >
-                                        <div className="relative w-11 h-11 rounded-full border-2 border-[#EF7202] shadow-lg overflow-hidden">
+                                        <div className="relative w-12 h-12 rounded-full border-2 border-[#EF7202] shadow-lg overflow-hidden bg-white flex items-center justify-center">
                                             <Image
                                                 src="/pasi-clean.png"
                                                 alt="Pasi"
