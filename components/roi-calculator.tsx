@@ -85,8 +85,8 @@ export function RoiCalculator() {
         <Card className="p-6 sm:p-8 bg-white border-[#e5e4df] shadow-lg relative overflow-hidden rounded-2xl">
             {/* Header */}
             <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-[#a3452b]/10 rounded-lg flex items-center justify-center">
-                    <Calculator className="text-[#a3452b] w-5 h-5" />
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Calculator className="text-primary w-5 h-5" />
                 </div>
                 <div>
                     <h3 className="text-xl font-semibold text-[#151513]">{t("title")}</h3>
@@ -99,10 +99,10 @@ export function RoiCalculator() {
                 <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                         <span className="flex items-center gap-2 text-[#6b6b67]">
-                            <Building2 size={14} className="text-[#a3452b]" />
+                            <Building2 size={14} className="text-primary" />
                             {t("purchasePrice")}
                         </span>
-                        <span className="text-[#a3452b] font-semibold">${purchasePrice.toLocaleString()}</span>
+                        <span className="text-primary font-semibold">${purchasePrice.toLocaleString()}</span>
                     </div>
                     <Slider
                         value={[purchasePrice]}
@@ -117,7 +117,7 @@ export function RoiCalculator() {
                 {/* Holding Period - Compact */}
                 <div className="flex items-center gap-3 flex-wrap">
                     <span className="text-sm text-[#6b6b67] flex items-center gap-1">
-                        <Calendar size={14} className="text-[#a3452b]" />
+                        <Calendar size={14} className="text-primary" />
                         Süre:
                     </span>
                     {holdingPeriods.map((years) => (
@@ -125,7 +125,7 @@ export function RoiCalculator() {
                             key={years}
                             onClick={() => setHoldingPeriod(years)}
                             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${holdingPeriod === years
-                                ? "bg-[#a3452b] text-white"
+                                ? "bg-primary text-white"
                                 : "bg-[#f5f3ed] text-[#151513] hover:bg-[#e5e4df]"
                                 }`}
                         >
@@ -150,7 +150,7 @@ export function RoiCalculator() {
                         <p className="text-xs text-[#6b6b67] mb-1">{holdingPeriod}Y Değer Artışı</p>
                         <p className="text-2xl font-bold text-[#22c55e]">+${Math.round(appreciationAmount / 1000)}K</p>
                     </div>
-                    <div className="bg-[#a3452b] rounded-xl p-4 text-center">
+                    <div className="bg-primary rounded-xl p-4 text-center">
                         <p className="text-xs text-white/70 mb-1">{holdingPeriod}Y Toplam ROI</p>
                         <p className="text-2xl font-bold text-white">{totalRoiPercent.toFixed(0)}%</p>
                     </div>
@@ -166,15 +166,15 @@ export function RoiCalculator() {
                 {isGuest && (
                     <div className="absolute inset-0 z-50 bg-white/60 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 rounded-2xl">
                         <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm border border-[#e5e4df]">
-                            <div className="w-14 h-14 bg-[#a3452b]/10 rounded-xl flex items-center justify-center mx-auto mb-5">
-                                <Lock className="w-7 h-7 text-[#a3452b]" />
+                            <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-5">
+                                <Lock className="w-7 h-7 text-primary" />
                             </div>
                             <h3 className="text-xl font-semibold mb-2 text-[#151513]">Hesaplayıcıyı Açın</h3>
                             <p className="text-[#6b6b67] text-sm mb-6">
                                 ROI analizlerini görmek için ücretsiz üye olun.
                             </p>
                             <Button
-                                className="w-full h-12 font-medium bg-[#a3452b] hover:bg-[#8a3a24] text-white rounded-lg"
+                                className="w-full h-12 font-medium bg-primary hover:bg-primary/90 text-white rounded-lg"
                                 asChild
                             >
                                 <Link href={`/${locale}/signup`}>

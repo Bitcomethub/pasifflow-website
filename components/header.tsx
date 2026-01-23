@@ -126,27 +126,74 @@ export function Header() {
               <Logo size="md" theme="light" showMotto={false} />
             </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-medium text-[#1F2328] hover:text-[#EF7202] transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <span className="w-px h-4 bg-[#E5E6E8]" />
-              {extraLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-medium text-[#535454] hover:text-[#EF7202] transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
+            {/* Desktop Nav with Dropdowns */}
+            <nav className="hidden md:flex items-center gap-6">
+              {/* Platform Group */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#EF7202] transition-colors outline-none cursor-pointer">
+                  Platform <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                  <DropdownMenuItem asChild>
+                    <Link href="#nasil-calisir" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {t("howItWorks")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/about" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      Hakkımızda
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="#faq" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {t("faq")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/iletisim" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      İletişim
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Investment Group */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#EF7202] transition-colors outline-none cursor-pointer">
+                  Yatırım <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                  <DropdownMenuItem asChild>
+                    <Link href="#portfoy" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-[#EF7202]">
+                      {t("portfolio")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/harita" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      Harita & Konumlar
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Resources Group */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#EF7202] transition-colors outline-none cursor-pointer">
+                  Kaynaklar <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                  <DropdownMenuItem asChild>
+                    <Link href="/neden-amerika" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("whyUSA")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/vergilendirme" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("taxLaw")}
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </nav>
           </div>
 
