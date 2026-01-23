@@ -169,7 +169,7 @@ export function AIAssistant() {
                                             className="relative z-10"
                                         >
                                             <Image
-                                                src={isLoading ? "/pasi-typing.png" : "/pasi-idle.png"}
+                                                src="/pasi-mascot.png"
                                                 alt="Pasi"
                                                 width={40}
                                                 height={40}
@@ -243,7 +243,7 @@ export function AIAssistant() {
                                                 {part}
                                                 {idx < arr.length - 1 && (
                                                     <Image
-                                                        src="/pasi-idle.png"
+                                                        src="/pasi-mascot.png"
                                                         alt="Pasi"
                                                         width={20}
                                                         height={20}
@@ -353,7 +353,7 @@ export function AIAssistant() {
                                     >
                                         <div className="relative w-12 h-12 rounded-full border-2 border-[#EF7202] shadow-lg overflow-hidden bg-white flex items-center justify-center">
                                             <Image
-                                                src="/pasi-clean.png"
+                                                src="/pasi-mascot.png"
                                                 alt="Pasi"
                                                 fill
                                                 className="object-cover"
@@ -418,7 +418,7 @@ export function AIAssistant() {
                         <X size={24} className="absolute inset-0 m-auto" />
                     ) : (
                         <Image
-                            src="/pasi-with-bubble.png"
+                            src="/pasi-mascot.png"
                             alt="Pasi"
                             fill
                             className="object-cover p-0.5 rounded-full"
