@@ -6,10 +6,6 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { locales } from '@/i18n/request';
-import { AIAssistant } from "@/components/ai-assistant"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { ExitIntentPopup } from "@/components/exit-intent-popup"
 import "../globals.css"
 
 const inter = Inter({
@@ -54,11 +50,7 @@ export default async function LocaleLayout({
         <html lang={locale} dir={dir}>
             <body className={`${inter.variable} font-sans antialiased`}>
                 <NextIntlClientProvider messages={messages}>
-                    <Header />
                     {children}
-                    <Footer />
-                    <AIAssistant />
-                    <ExitIntentPopup />
                 </NextIntlClientProvider>
                 <Analytics />
             </body>

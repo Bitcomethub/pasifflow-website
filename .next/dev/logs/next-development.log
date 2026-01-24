@@ -1,70 +1,10 @@
-[00:00:01.346] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.529] Server  LOG     ✓ Ready in 1298ms
-[00:00:25.537] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:26.192] Browser WARN    Image with src "http://localhost:3000/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:00:26.192] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:26.192] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/en","route":"/[locale]"}
-[00:00:26.192] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/en color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/en","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1769028960301}
-[00:01:49.204] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:49.771] Browser ERROR   A tree hydrated but some attributes of the server rendered HTML didn't match the client properties. This won't be patched up. This can happen if a SSR-ed Client Component used:
-
-- A server/client branch `if (typeof window !== 'undefined')`.
-- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
-- Date formatting in a user's locale which doesn't match the server.
-- External changing data without sending a snapshot of it along with the HTML.
-- Invalid HTML tag nesting.
-
-It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
-
-%s%s https://react.dev/link/hydration-mismatch 
-
-  ...
-    <RenderFromTemplateContext>
-      <ScrollAndFocusHandler segmentPath={[...]}>
-        <InnerScrollAndFocusHandler segmentPath={[...]} focusAndScrollRef={{apply:false, ...}}>
-          <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
-            <LoadingBoundary name="/" loading={null}>
-              <HTTPAccessFallbackBoundary notFound={<SegmentViewNode>} forbidden={undefined} unauthorized={undefined}>
-                <HTTPAccessFallbackErrorBoundary pathname="/tr" notFound={<SegmentViewNode>} forbidden={undefined} ...>
-                  <RedirectBoundary>
-                    <RedirectErrorBoundary router={{...}}>
-                      <InnerLayoutRouter url="/tr" tree={[...]} params={{locale:"tr"}} cacheNode={{...}} ...>
-                        <SegmentViewNode type="layout" pagePath="/Desktop/p...">
-                          <SegmentTrieNode>
-                          <link>
-                          <script>
-                          <script>
-                          <script>
-                          <script>
-                          <script>
-                          <script>
-                          <LocaleLayout>
-                            <html lang="tr" dir="ltr">
-                              <body
-+                               className="inter_c15e96cb-module__0bjUvq__variable font-sans antialiased"
--                               className="inter_c15e96cb-module__0bjUvq__variable font-sans antialiased antigravity-s..."
-                              >
-                      ...
-          ...
-
-[00:01:49.936] Browser WARN    Image with src "http://localhost:3000/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
-[00:01:49.936] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:01:49.936] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr","route":"/[locale]"}
-[00:01:49.936] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/tr color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]","o":"http://localhost:3000/tr","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1769029044034}
-[00:05:15.731] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
-
-If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
-
-For more information, see https://radix-ui.com/primitives/docs/components/dialog
-[00:05:15.733] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:05:15.734] Browser ERROR   `DialogContent` requires a `DialogTitle` for the component to be accessible for screen reader users.
-
-If you want to hide the `DialogTitle`, you can wrap it with our VisuallyHidden component.
-
-For more information, see https://radix-ui.com/primitives/docs/components/dialog
-[00:05:15.734] Browser WARN    Warning: Missing `Description` or `aria-describedby={undefined}` for {DialogContent}.
-[00:09:25.781] Server  LOG     ✓ Compiled in 196ms
-[00:11:00.878] Server  LOG     ✓ Compiled in 154ms
-[00:12:19.512] Server  LOG     ✓ Compiled in 180ms
-[00:16:53.664] Server  LOG     ✓ Compiled in 261ms
-[01:34:15.749] Server  LOG     ✓ Compiled in 1622ms
+[00:00:01.694] Server  WARN    ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:02.250] Server  LOG     ✓ Ready in 1972ms
+[00:00:44.506] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:44.938] Browser WARN    Image with src "http://localhost:3000/logo-new.png" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+[00:00:44.939] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:44.939] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/tr/login","route":"/[locale]/login"}
+[00:00:44.939] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/tr/login color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/login","o":"http://localhost:3000/tr/login","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1769270056683}
+[00:01:16.973] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/tr/dashboard color: rgb(120, 120, 120) color: inherit {"dp":"/[locale]/dashboard","o":"http://localhost:3000/tr/dashboard","sdkn":"@vercel/analytics/next","sdkv":"1.6.1","sv":"0.1.3","ts":1769270088652}
+[00:01:35.954] Server  LOG     ✓ Finished filesystem cache database compaction in 12.8s
+[00:01:36.796] Server  LOG     ✓ Finished writing to filesystem cache in 11.7s
