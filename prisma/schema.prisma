@@ -1,5 +1,5 @@
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -8,18 +8,115 @@ generator client {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           String   @id @default(uuid())
   email        String   @unique
   passwordHash String   @map("password_hash")
   fullName     String?  @map("full_name")
   phone        String?
+  role         String   @default("USER") // USER, ADMIN
   isVerified   Boolean  @default(false) @map("is_verified")
   createdAt    DateTime @default(now()) @map("created_at")
-  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  llcs      LLC[]
+  documents Document[] @relation("UserDocuments")
 
   @@map("users")
 }
 
+model LLC {
+  id             String   @id @default(uuid())
+  name           String
+  formationState String?  @map("formation_state") // e.g. Wyoming, Delaware
+  ein            String? // Tax ID
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  ownerId String
+  owner   User   @relation(fields: [ownerId], references: [id])
+
+  properties Property[]
+  documents  Document[] @relation("LLCDocuments")
+
+  @@map("llcs")
+}
+
+model Property {
+  id            String   @id @default(uuid())
+  address       String
+  city          String
+  state         String
+  zipCode       String   @map("zip_code")
+  purchasePrice Float    @map("purchase_price")
+  currentValue  Float?   @map("current_value")
+  monthlyRent   Float    @map("monthly_rent")
+  status        String   @default("OCCUPIED") // OCCUPIED, VACANT, MAINTENANCE
+  tenantName    String?  @map("tenant_name")
+  leaseEnd      DateTime? @map("lease_end")
+  paymentDay    Int?     @map("payment_day") // e.g., 1 or 5
+  imageUrl      String?  @map("image_url")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  llcId String
+  llc   LLC    @relation(fields: [llcId], references: [id])
+
+  payments  Payment[]
+  leases    Lease[]
+  maintenanceRequests MaintenanceRequest[]
+  ledgers   Ledger[]
+  documents Document[] @relation("PropertyDocuments")
+
+  @@map("properties")
+}
+
+model Payment {
+  id          String   @id @default(uuid())
+  amount      Float
+  date        DateTime
+  period      String // e.g. "January 2026"
+  status      String   @default("PENDING") // PAID, LATE, PENDING
+  description String?
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  // Relations
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+
+  @@map("payments")
+}
+
+model Document {
+  id        String   @id @default(uuid())
+  title     String
+  type      String // e.g., "Tax", "Deed", "Contract", "Invoice"
+  url       String
+  size      String? // e.g. "2.4 MB"
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Polymorphic-ish relations (Optional FKs)
+  userId String?
+  user   User?   @relation("UserDocuments", fields: [userId], references: [id])
+
+  llcId String?
+  llc   LLC?    @relation("LLCDocuments", fields: [llcId], references: [id])
+
+  propertyId String?
+  property   Property? @relation("PropertyDocuments", fields: [propertyId], references: [id])
+  
+  leaseId    String?
+  lease      Lease?    @relation("LeaseDocuments", fields: [leaseId], references: [id])
+  
+  maintenanceRequestId String?
+  maintenanceRequest   MaintenanceRequest? @relation("MaintenanceInvoices", fields: [maintenanceRequestId], references: [id])
+
+  @@map("documents")
+}
+
+// Keep the Lead model for the landing page
 model Lead {
   id        String   @id @default(uuid())
   fullName  String
@@ -29,4 +126,84 @@ model Lead {
   source    String   @default("Website")
   message   String?
   createdAt DateTime @default(now())
+}
+
+// ---------------------------------------------------------
+// PHASE 2: Rentvine & Latchel Integration Models
+// ---------------------------------------------------------
+
+model Lease {
+  id        String   @id @default(uuid())
+  startDate DateTime @map("start_date")
+  endDate   DateTime @map("end_date")
+  rentAmount Float   @map("rent_amount")
+  securityDeposit Float @default(0) @map("security_deposit")
+  status    String   @default("ACTIVE") // ACTIVE, TERMINATED, RENEWING
+  
+  // Tenant Info (Simplified for now)
+  tenantName  String @map("tenant_name")
+  tenantEmail String? @map("tenant_email")
+  tenantPhone String? @map("tenant_phone")
+  
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+  
+  documents Document[] @relation("LeaseDocuments")
+
+  @@map("leases")
+}
+
+model Vendor {
+  id        String   @id @default(uuid())
+  name      String   // e.g. "Detroit Plumbing Pros"
+  category  String   // e.g. "Plumbing", "HVAC"
+  rating    Float?   // e.g. 4.8
+  phone     String?
+  email     String?
+  
+  maintenanceRequests MaintenanceRequest[]
+
+  @@map("vendors")
+}
+
+model MaintenanceRequest {
+  id          String   @id @default(uuid())
+  title       String   // e.g. "Leaking Sink"
+  description String
+  priority    String   @default("NORMAL") // NORMAL, URGENT, EMERGENCY (Latchel)
+  status      String   @default("PENDING") // PENDING, SCHEDULED, IN_PROGRESS, COMPLETED
+  
+  reportedAt  DateTime @default(now()) @map("reported_at")
+  scheduledAt DateTime? @map("scheduled_at")
+  completedAt DateTime? @map("completed_at")
+  
+  // Cost tracking
+  estimatedCost Float? @map("estimated_cost")
+  finalCost     Float? @map("final_cost")
+  
+  // Relations
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+  
+  vendorId    String?
+  vendor      Vendor?  @relation(fields: [vendorId], references: [id])
+  
+  images      String?  // JSON string array of URLs
+  invoices    Document[] @relation("MaintenanceInvoices")
+
+  @@map("maintenance_requests")
+}
+
+model Ledger {
+  id          String   @id @default(uuid())
+  type        String   // INCOME (Credit), EXPENSE (Debit)
+  category    String   // Rent, Repair, Management Fee, Utility
+  amount      Float
+  description String
+  postedDate  DateTime @map("posted_date")
+  
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id])
+
+  @@map("ledgers")
 }
