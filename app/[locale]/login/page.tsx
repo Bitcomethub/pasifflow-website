@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -23,10 +24,46 @@ export default function LoginPage() {
     const [password, setPassword] = useState("")
     const [rememberMe, setRememberMe] = useState(false)
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const router = useRouter()
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // Handle login
-        console.log({ email, password, rememberMe })
+        setLoading(true)
+        setError("")
+
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            })
+
+            const data = await res.json()
+
+            if (!res.ok) {
+                throw new Error(data.error || "Giriş başarısız")
+            }
+
+            // Login Success
+            localStorage.setItem("pasiflow_token", data.token)
+            localStorage.setItem("pasiflow_user", JSON.stringify(data.user))
+
+            // Force reload or event dispatch to update Header immediately if needed, 
+            // but router.push should trigger re-render on new page.
+
+            // Redirect to Dashboard (Localized)
+            const locale = window.location.pathname.split('/')[1] || 'tr'
+            router.push(`/${locale}/dashboard`)
+            router.refresh()
+
+        } catch (err: any) {
+            console.error(err)
+            setError(err.message || "Bir hata oluştu")
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -49,6 +86,11 @@ export default function LoginPage() {
                                 </div>
 
                                 <form onSubmit={handleSubmit} className="space-y-5">
+                                    {error && (
+                                        <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-md text-sm">
+                                            {error}
+                                        </div>
+                                    )}
                                     <div className="space-y-2">
                                         <Label htmlFor="email">{t("email")}</Label>
                                         <div className="relative">
