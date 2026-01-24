@@ -1,7 +1,14 @@
 import { NextResponse } from "next/server"
-import { PrismaClient } from "@prisma/client"
 
-const prisma = new PrismaClient()
+// Demo user for client presentations (works without database)
+const DEMO_USER = {
+    id: "demo-user-001",
+    email: "demo@pasiflow.com",
+    password: "Demo123!",
+    fullName: "Demo Client",
+    role: "USER",
+    isVerified: true
+}
 
 export async function POST(req: Request) {
     try {
@@ -10,56 +17,60 @@ export async function POST(req: Request) {
 
         if (!email || !password) {
             return NextResponse.json(
-                { error: "Email and password are required" },
+                { error: "Email ve şifre gereklidir" },
                 { status: 400 }
             )
         }
 
-        // Find user
-        const user = await prisma.user.findUnique({
-            where: { email }
-        })
-
-        if (!user) {
-            return NextResponse.json(
-                { error: "User not found" },
-                { status: 401 }
-            )
+        // Check Demo User First (Always works, no database needed)
+        if (email === DEMO_USER.email && password === DEMO_USER.password) {
+            return NextResponse.json({
+                user: {
+                    id: DEMO_USER.id,
+                    email: DEMO_USER.email,
+                    fullName: DEMO_USER.fullName,
+                    role: DEMO_USER.role,
+                    isVerified: DEMO_USER.isVerified
+                },
+                token: "demo-jwt-token-pasiflow-2026"
+            })
         }
 
-        // Verify password (Simple check for Demo/Dev environment)
-        // In detailed production, we would use bcrypt.compare(password, user.passwordHash)
-        // But for this 'Demo123!' seed, we compare the string or hash.
-        // Seed uses: passwordHash: 'Demo123!' or 'hashed_password_placeholder'
-        // We will accept if matches literal hash OR if it matches a known "master" password for demo.
+        // For non-demo users, try database (optional - may fail on Vercel)
+        try {
+            const { PrismaClient } = await import("@prisma/client")
+            const prisma = new PrismaClient()
 
-        const isValid = user.passwordHash === password || password === 'Demo123!'
+            const user = await prisma.user.findUnique({
+                where: { email }
+            })
 
-        if (!isValid) {
-            return NextResponse.json(
-                { error: "Invalid credentials" },
-                { status: 401 }
-            )
+            if (user && (user.passwordHash === password)) {
+                return NextResponse.json({
+                    user: {
+                        id: user.id,
+                        email: user.email,
+                        fullName: user.fullName,
+                        role: user.role,
+                        isVerified: user.isVerified
+                    },
+                    token: `jwt-${user.id}-${Date.now()}`
+                })
+            }
+        } catch (dbError) {
+            console.error("Database not available:", dbError)
+            // Continue to return invalid credentials
         }
 
-        // Return User Data (exclude password)
-        const userData = {
-            id: user.id,
-            email: user.email,
-            fullName: user.fullName,
-            role: user.role,
-            isVerified: user.isVerified
-        }
-
-        return NextResponse.json({
-            user: userData,
-            token: "mock-jwt-token-for-demo" // In real app, sign JWT here
-        })
+        return NextResponse.json(
+            { error: "Geçersiz email veya şifre" },
+            { status: 401 }
+        )
 
     } catch (error) {
         console.error("Login error:", error)
         return NextResponse.json(
-            { error: "Internal server error" },
+            { error: "Sunucu hatası" },
             { status: 500 }
         )
     }
