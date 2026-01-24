@@ -2,10 +2,10 @@ import { NextResponse } from "next/server"
 
 // Demo user for client presentations (works without database)
 const DEMO_USER = {
-    id: "demo-user-001",
-    email: "demo@pasiflow.com",
-    password: "Demo123!",
-    fullName: "Demo Client",
+    id: "erman-adanir-001",
+    email: "erman@pasiflow.com",
+    password: "Pasiflow2026!",
+    fullName: "Erman Adanır",
     role: "USER",
     isVerified: true
 }
