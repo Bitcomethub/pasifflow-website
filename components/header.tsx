@@ -255,7 +255,7 @@ export function Header() {
                   className="flex border-secondary text-secondary hover:bg-secondary hover:text-white font-semibold gap-2"
                   asChild
                 >
-                  <Link href="/dashboard">
+                  <Link href={`/${currentLocale}/login`}>
                     Panel Giriş
                   </Link>
                 </Button>
