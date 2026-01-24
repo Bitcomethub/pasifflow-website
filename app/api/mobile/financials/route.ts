@@ -38,6 +38,7 @@ export async function GET() {
                     description: item.description,
                     date: item.postedDate,
                     propertyAddress: property.address,
+                    propertyId: property.id,
                     llcName: llc.name
                 }))
             )
