@@ -42,7 +42,7 @@ export default function LocationsPage() {
     const stateColors = [
         { bg: "from-secondary/10 to-[#1A344B]/10", accent: "bg-secondary", text: "text-secondary" },
         { bg: "from-slate-500/10 to-gray-500/10", accent: "bg-slate-500", text: "text-slate-600" },
-        { bg: "from-primary/10 to-orange-400/10", accent: "bg-primary", text: "text-primary" },
+        { bg: "from-primary/10 to-[#B8A074]/10", accent: "bg-primary", text: "text-primary" },
         { bg: "from-secondary/5 to-slate-800/5", accent: "bg-secondary", text: "text-secondary" },
         { bg: "from-slate-400/10 to-gray-400/10", accent: "bg-slate-500", text: "text-slate-600" },
     ]

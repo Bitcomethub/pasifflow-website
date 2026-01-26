@@ -18,8 +18,20 @@
         "whatsapp": "WhatsApp'tan Yaz"
     },
     "nav": {
-        "whyUSA": "Neden Amerika?",
-        "taxLaw": "Vergi & Hukuk"
+        "howItWorks": "Nasıl Çalışır?",
+        "portfolio": "Portföyümüz",
+        "faq": "S.S.S.",
+        "whyUSA": "Neden ABD?",
+        "taxLaw": "Vergilendirme",
+        "about": "Hakkımızda",
+        "map": "Harita",
+        "mapAndLocations": "Harita & Konumlar",
+        "platform": "Platform",
+        "investment": "Yatırım",
+        "resources": "Kaynaklar",
+        "contact": "İletişim",
+        "logout": "Çıkış Yap",
+        "panelLogin": "Panel Giriş"
     },
     "footer": {
         "description": "Amerika'da devlet destekli (Section 8) kira gelirli gayrimenkul yatırımı ile dolar bazında pasif gelir elde etmenin en güvenli yolu.",
@@ -205,7 +217,7 @@
         "appreciation": "değer artışı",
         "totalRentalIncome": "Toplam Kira Geliri",
         "totalReturn": "TOPLAM GETİRİ",
-        "totalRoi": "toplam ROI",
+        "totalRoi": "Toplam ROI",
         "annualizedRoi": "Yıllık ortalama",
         "costBreakdown": "Maliyet Detayları",
         "propertyPrice": "Mülk Fiyatı",
@@ -225,7 +237,6 @@
         "duration": "Süre:",
         "monthlyCashFlow": "Aylık Nakit Akışı",
         "appreciationLabel": "Değer Artışı",
-        "totalRoi": "Toplam ROI",
         "totalInvestmentLabel": "Toplam Yatırım:",
         "unlockTitle": "Hesaplayıcıyı Açın",
         "unlockDesc": "ROI analizlerini görmek için ücretsiz üye olun.",
@@ -571,22 +582,6 @@
             "portfolio": "Portföy"
         }
     },
-    "nav": {
-        "howItWorks": "Nasıl Çalışır?",
-        "portfolio": "Portföyümüz",
-        "faq": "S.S.S.",
-        "whyUSA": "Neden ABD?",
-        "taxLaw": "Vergilendirme",
-        "about": "Hakkımızda",
-        "map": "Harita",
-        "mapAndLocations": "Harita & Konumlar",
-        "platform": "Platform",
-        "investment": "Yatırım",
-        "resources": "Kaynaklar",
-        "contact": "İletişim",
-        "logout": "Çıkış Yap",
-        "panelLogin": "Panel Giriş"
-    },
     "logo": {
         "motto": "Şeffaf süreç, sağlam yatırım."
     },
@@ -602,26 +597,6 @@
         ],
         "cta": "Ücretsiz Randevu Al",
         "noThanks": "Hayır, teşekkürler"
-    },
-    "aboutSection": {
-        "label": "HAKKIMIZDA",
-        "title": "ABD'de pasif gelir yatırımının geleceğine hoş geldiniz.",
-        "opening": "Pasiflow'u tek bir fikirle kurduk: ABD'de kira gelirine dayalı gayrimenkul yatırımını, yurt dışındaki yatırımcı için <bold>anlaşılır, şeffaf ve yönetilebilir</bold> hâle getirmek.",
-        "p1": "Gayrimenkul, doğru kurgulandığında servet inşa etmenin en güçlü araçlarından biri. Fakat iş pratiğe gelince, özellikle ABD gibi uzaktan yönetilen bir pazarda süreç; doğru mülk seçimi, kiracı yerleştirme, bakım–onarım, mevzuat, sigorta, vergi ve profesyonel yönetim gibi birçok parçadan oluşur.",
-        "p2": "Gerçekte yatırım, sadece \"ev almak\" değildir; başından sonuna iyi kurgulanmış bir operasyon gerektirir.",
-        "p3": "Pasiflow tam bu noktada devreye girer.",
-        "p4": "Amacımız, yabancı yatırımcının en çok zorlandığı noktaları tek bir yapılandırılmış sistem altında toplamak. Nakit akışı ve kira potansiyeli odaklı fırsat analizi ve mülk seçimi yapıyor, Section 8 gibi kamu destekli kira programlarına uyum sürecini ve uygunluk kontrollerini yönetiyoruz. Kiracı iletişimi, detaylı raporlama ile bakım–onarım takibini kapsayan profesyonel mülk yönetimi sunarken, teknolojik altyapımız sayesinde yatırımcının portföyündeki her detayı tek bir panel üzerinden şeffaf biçimde izlemesini sağlıyoruz.",
-        "questionIntro": "Başlangıçta kendimize şu soruyu sorduk:",
-        "question": "\"Yurt dışındaki yatırımcı Amerika'da ev aldıktan sonra 'Şimdi ne olacak?' kaygısını yaşamadan bu süreci nasıl yönetebilir?\"",
-        "focus": "Bu yüzden <semibold>ölçülebilir nakit akışı, süreç standardı, düzenli raporlama ve şeffaf iletişim</semibold> üzerine odaklandık.",
-        "method": "Pasiflow'u, uzaktan anlatan bir aracı firma gibi değil; <bold>sahayı bilen ve süreci gerçekten yöneten</bold> bir ekip olarak kurguladık. Florida'da aktif broker tecrübesi +100M ve ABD piyasasındaki saha deneyimiyle, modelimizi \"kâğıt üzerinde güzel görünen\" değil, <bold>sahada gerçekten işleyen</bold> bir sistem üzerine inşa ediyoruz.",
-        "quote1": "\"Bugün Pasiflow'da en çok gurur duyduğum şey, yatırımcılarımızın panelde gördüğü her rakamın, sahada çalışan gerçek bir sistemin sonucu olması.\"",
-        "vision": "Bugün Pasiflow'daki hedefimiz net: Yurt dışındaki yatırımcının ABD'de <bold>kira geliri odaklı mülk portföyünü</bold>, adım adım ve <bold>kontrol edilebilir risklerle</bold> kurabileceği bir sistem sunmak.",
-        "visionIntro": "Yatırımcıya her zaman şu hissi vermek istiyoruz:",
-        "quote2": "\"Ben uzaktayım ama her şey gözümün önünde.\"",
-        "welcome": "Pasiflow'a hoş geldiniz.",
-        "closing": "ABD'de pasif gelir yatırımı için, güvenilir, şeffaf ve sistemli bir yol inşa ediyoruz.",
-        "founderRole": "Kurucu Ortak & CEO"
     },
     "aboutSection": {
         "label": "HAKKIMIZDA",

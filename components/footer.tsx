@@ -23,7 +23,7 @@ export function Footer() {
 
           <div className="space-y-6">
             <div className="flex justify-start">
-              <Logo size="xl" linkTo="/" theme="light" />
+              <Logo size="md" linkTo="/" theme="light" />
             </div>
 
             <div className="flex gap-4">
