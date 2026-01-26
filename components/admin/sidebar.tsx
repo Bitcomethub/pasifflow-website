@@ -62,12 +62,12 @@ export function AdminSidebar() {
                 <Link href="/admin" className="flex items-center pl-3 mb-14">
                     <div className="relative w-8 h-8 mr-4">
                         {/* Placeholder for Logo */}
-                        <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center font-bold text-white">
+                        <div className="w-8 h-8 bg-[#B8A074] rounded-lg flex items-center justify-center font-bold text-white">
                             P
                         </div>
                     </div>
                     <h1 className="text-2xl font-bold">
-                        Pasiflow <span className="text-orange-500 text-xs align-top">Admin</span>
+                        Pasiflow <span className="text-[#B8A074] text-xs align-top">Admin</span>
                     </h1>
                 </Link>
                 <div className="space-y-1">
@@ -81,7 +81,7 @@ export function AdminSidebar() {
                             )}
                         >
                             <div className="flex items-center flex-1">
-                                <route.icon className={cn("h-5 w-5 mr-3", route.active ? "text-orange-500" : "text-zinc-400")} />
+                                <route.icon className={cn("h-5 w-5 mr-3", route.active ? "text-[#B8A074]" : "text-zinc-400")} />
                                 {route.label}
                             </div>
                         </Link>

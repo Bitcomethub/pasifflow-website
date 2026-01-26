@@ -55,7 +55,7 @@ export function FinalCTASection() {
           >
             <Button
               size="lg"
-              className="h-16 px-10 text-lg rounded-xl bg-[#B8A074] hover:bg-[#d86502] text-white font-bold shadow-xl shadow-orange-900/20 transition-all duration-300 hover:scale-105"
+              className="h-16 px-10 text-lg rounded-xl bg-[#B8A074] hover:bg-[#a38d5d] text-white font-bold shadow-xl shadow-[#B8A074]/20 transition-all duration-300 hover:scale-105"
               asChild
             >
               <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">

@@ -79,7 +79,7 @@ export function FoundersSection() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-4 shadow-lg"
           >
-            <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+            <span className="w-2 h-2 rounded-full bg-[#B8A074] animate-pulse"></span>
             Pasiflow Team
           </motion.div>
           <h2 className="text-3xl font-bold text-foreground">
@@ -110,7 +110,7 @@ export function FoundersSection() {
               }}
               className="text-center p-4 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-shadow"
             >
-              <stat.icon className="h-6 w-6 text-orange-500 mx-auto mb-2" />
+              <stat.icon className="h-6 w-6 text-[#B8A074] mx-auto mb-2" />
               <div className="text-2xl md:text-3xl font-bold text-slate-900">{stat.value}</div>
               <div className="text-xs md:text-sm text-slate-600">{stat.label}</div>
             </motion.div>
@@ -130,7 +130,7 @@ export function FoundersSection() {
               variants={cardVariants}
             >
               <Card className="group relative p-8 bg-white border-slate-200 hover:border-slate-300 transition-all duration-500 hover:shadow-xl hover:-translate-y-2 overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-900 via-orange-500 to-slate-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-slate-900 via-[#B8A074] to-slate-900 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out" />
 
                 <div className="flex flex-col items-center gap-6">
                   <motion.div
@@ -138,7 +138,7 @@ export function FoundersSection() {
                     whileHover={{ scale: 1.08 }}
                     transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <div className="absolute -inset-1 bg-gradient-to-br from-slate-900 via-orange-500 to-slate-900 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                    <div className="absolute -inset-1 bg-gradient-to-br from-slate-900 via-[#B8A074] to-slate-900 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
                     <Avatar className="h-32 w-32 border-4 border-white relative z-10 shadow-xl group-hover:shadow-2xl transition-shadow duration-500">
                       <AvatarImage
                         src={founder.image}
@@ -153,7 +153,7 @@ export function FoundersSection() {
 
                   <div className="text-center space-y-2">
                     <h3 className="font-bold text-xl text-slate-900">{founder.name}</h3>
-                    <p className="text-sm font-medium text-orange-600 uppercase tracking-wide">{founder.title}</p>
+                    <p className="text-sm font-medium text-[#B8A074] uppercase tracking-wide">{founder.title}</p>
                   </div>
 
                   <p className="text-slate-600 leading-relaxed text-center text-sm">

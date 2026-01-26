@@ -44,7 +44,7 @@ export function BuybackSection() {
                         <span>{t("badge")}</span>
                     </div>
                     <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-                        {t("title")} <span className="text-orange-600">{t("titleAccent")}</span>
+                        {t("title")} <span className="text-[#B8A074]">{t("titleAccent")}</span>
                     </h2>
                     <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                         {t("subtitle")}
@@ -120,7 +120,7 @@ export function BuybackSection() {
                                 <div className="relative z-10">
                                     <div className="flex items-center justify-between mb-4">
                                         <h3 className="text-xl font-bold text-slate-900">{t("pricingTitle")}</h3>
-                                        <span className="px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-semibold">
+                                        <span className="px-3 py-1 rounded-full bg-[#B8A074]/10 text-[#B8A074] text-sm font-semibold">
                                             {t("optional")}
                                         </span>
                                     </div>

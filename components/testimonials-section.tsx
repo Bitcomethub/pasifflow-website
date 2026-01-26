@@ -86,7 +86,7 @@ export function TestimonialsSection() {
 
                                     {/* Author */}
                                     <div className="flex items-center gap-3 pt-4 border-t border-slate-100">
-                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-orange-600 text-white flex items-center justify-center font-bold text-sm">
+                                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-[#B8A074] text-white flex items-center justify-center font-bold text-sm">
                                             {t(testimonial.nameKey).charAt(0)}
                                         </div>
                                         <div>

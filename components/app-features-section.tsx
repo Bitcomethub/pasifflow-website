@@ -21,7 +21,7 @@ export function AppFeaturesSection() {
         <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
             {/* Decorative background */}
             <div className="absolute inset-0">
-                <div className="absolute top-20 right-20 w-64 h-64 bg-orange-500/20 rounded-full blur-3xl" />
+                <div className="absolute top-20 right-20 w-64 h-64 bg-[#B8A074]/20 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 left-20 w-80 h-80 bg-slate-700/50 rounded-full blur-3xl" />
             </div>
 

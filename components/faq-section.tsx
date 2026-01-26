@@ -40,7 +40,7 @@ export function FAQSection() {
                 "px-6 py-3 rounded-full text-sm md:text-base font-semibold transition-all duration-300 border",
                 activeCategory === category.id
                   ? "bg-[#B8A074] text-white border-[#B8A074] shadow-lg scale-105"
-                  : "bg-white text-[#535454] border-gray-200 hover:border-[#B8A074] hover:text-[#B8A074] hover:bg-orange-50"
+                  : "bg-white text-[#535454] border-gray-200 hover:border-[#B8A074] hover:text-[#B8A074] hover:bg-[#B8A074]/5"
               )}
             >
               {category.label}

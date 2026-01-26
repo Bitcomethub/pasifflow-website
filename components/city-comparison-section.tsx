@@ -12,7 +12,7 @@ export function CityComparisonSection() {
         {
             id: "detroit",
             icon: TrendingUp,
-            color: "from-primary to-orange-400",
+            color: "from-primary to-[#B8A074]",
             ratings: {
                 cashFlow: 5,
                 security: 3,
@@ -61,7 +61,7 @@ export function CityComparisonSection() {
                         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                         className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-4 shadow-lg"
                     >
-                        <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse"></span>
+                        <span className="w-2 h-2 rounded-full bg-[#B8A074] animate-pulse"></span>
                         {t("badge")}
                     </motion.div>
                     <h2 className="text-3xl md:text-5xl font-bold text-slate-900">
