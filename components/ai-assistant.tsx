@@ -401,4 +401,4 @@ export function AIAssistant() {
         </div>
     )
 }
-}
+
