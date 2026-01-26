@@ -235,7 +235,9 @@ export function Header() {
                     <span className="w-6 h-6 rounded-full bg-[#B8A074] text-white flex items-center justify-center text-xs font-bold">
                       {currentUser.fullName?.charAt(0).toUpperCase() || currentUser.email.charAt(0).toUpperCase()}
                     </span>
-                    <span className="max-w-[100px] truncate">{currentUser.fullName || currentUser.email}</span>
+                    <span className="max-w-[100px] truncate">
+                      {currentUser.fullName === "Demo Client" ? "Erman Adanır" : (currentUser.fullName || currentUser.email)}
+                    </span>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-[#E5E6E8]">
