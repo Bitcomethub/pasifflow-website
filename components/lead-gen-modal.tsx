@@ -76,7 +76,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-lg bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl overflow-hidden p-0 relative">
+            <DialogContent className="w-[95%] sm:max-w-lg max-h-[90vh] flex flex-col bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl p-0 relative outline-none overflow-hidden">
                 {/* Close Button */}
                 <button
                     onClick={() => onOpenChange(false)}
@@ -87,7 +87,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                 </button>
 
                 {/* Premium Header Bar */}
-                <div className="bg-slate-900 px-8 py-6">
+                <div className="bg-slate-900 px-6 py-5 sm:px-8 sm:py-6 flex-shrink-0">
                     <div className="flex items-center justify-center gap-3">
                         <div className="p-2.5 bg-white/10 rounded-xl">
                             {step === "form" ? <Lock className="w-5 h-5 text-white" /> : <Check className="w-5 h-5 text-primary" />}
@@ -101,7 +101,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                     </div>
                 </div>
 
-                <div className="p-8">
+                <div className="p-5 sm:p-8 overflow-y-auto">
                     <DialogHeader className="mb-6">
                         <DialogTitle className="text-center text-2xl font-bold tracking-tight text-slate-900">
                             {step === "form"
