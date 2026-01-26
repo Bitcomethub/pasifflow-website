@@ -35,10 +35,8 @@ export function Logo({
 
     // Theme-based logo selection
     // Assuming logo-1.png is the primary Charcoal logo (for light backgrounds)
-    // Assuming logo-5.png (or similar) is the White logo (for dark backgrounds) based on typical export order
-    // But since I can't see, I will default to logo-1 which is likely the main one.
-    // Ideally, we'd use SVGs.
-    const logoSrc = theme === "dark" ? "/brand/logo-user-white.png" : "/logo-transparent.png"
+    // Using the final logo provided by the user (logo-final.png)
+    const logoSrc = "/brand/logo-final.png"
 
     const content = (
         <div className={cn("flex flex-col", className)}>
