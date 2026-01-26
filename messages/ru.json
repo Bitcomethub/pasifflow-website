@@ -119,7 +119,7 @@
         "transactionVolume": "Более $250M объём сделок",
         "miamiSales": "Более $100M продаж недвижимости в Майами"
     },
-    "section8": {
+    "section8Info": {
         "title": "Что такое Section 8?",
         "subtitle": "Самая надёжная жилищная программа Америки",
         "description": "Section 8 — федеральная программа, помогающая семьям с низким доходом получить доступ к качественному жилью. 70-100% арендных платежей выплачивается непосредственно владельцу правительством США.",
@@ -511,18 +511,6 @@
         "ctaSecondary": "Написать в WhatsApp сейчас",
         "disclaimer": "* Информация, представленная здесь, предназначена для того, чтобы помочь вам лучше понять мир инвестиций. Каждая инвестиция может иметь различные риски и результаты. Pasiflow представляет процесс максимально прозрачно; инвестиционное решение остается полностью за вами."
     },
-    "contact": {
-        "title": "Свяжитесь с нами",
-        "subtitle": "Мы с вами 24/7 для любых вопросов",
-        "nameLabel": "Полное имя",
-        "emailLabel": "Электронная почта",
-        "phoneLabel": "Номер телефона",
-        "messageLabel": "Ваше сообщение",
-        "submitButton": "Отправить сообщение",
-        "whatsappButton": "Написать в WhatsApp",
-        "successMessage": "Ваше сообщение успешно отправлено!",
-        "errorMessage": "Произошла ошибка, попробуйте ещё раз."
-    },
     "privacy": {
         "title": "Политика конфиденциальности",
         "lastUpdated": "Последнее обновление"
@@ -903,6 +891,62 @@
         "citiesLabel": "Городов",
         "exploreCity": "Исследовать {city}",
         "indexCtaTitle": "Какой город вам подходит?",
-        "indexCtaDescription": "Давайте вместе определим лучший регион для ваших инвестиционных целей"
+        "indexCtaDescription": "Давайте вместе определим лучший регион для ваших инвестиционных целей",
+        "leadGenModal": {
+            "titleFree": "Free Consultation",
+            "titleSuccess": "Registration Complete",
+            "subTitle": "US Real Estate Investment",
+            "headerForm": "Discover Exclusive Opportunities",
+            "headerGated": "Access Premium Content",
+            "headerSuccess": "Thank You!",
+            "descForm": "Get instant access to detailed portfolio analysis and high-yield investment opportunities.",
+            "descSuccess": "Registration received successfully. Redirecting to portfolio.",
+            "login": "Log In",
+            "signup": "Sign Up",
+            "googleLogin": "Continue with Google",
+            "orEmail": "or with email",
+            "namePlaceholder": "Full Name",
+            "emailPlaceholder": "Email Address",
+            "passwordPlaceholder": "Password",
+            "phonePlaceholder": "Phone Number (Optional)",
+            "submitAccess": "Get Access Now",
+            "submitLogin": "Log In",
+            "processing": "Processing...",
+            "securityNote": "Your data is protected with 256-bit SSL.",
+            "redirecting": "Redirecting...",
+            "benefits": {
+                "roi": "ROI Analysis",
+                "section8": "Section 8",
+                "portfolio": "Portfolio"
+            }
+        },
+        "leadGen": {
+            "titleFree": "Free Consultation",
+            "titleSuccess": "Registration Complete",
+            "subTitle": "US Real Estate Investment",
+            "headerForm": "Discover Exclusive Opportunities",
+            "headerGated": "Access Premium Content",
+            "headerSuccess": "Thank You!",
+            "descForm": "Get instant access to detailed portfolio analysis and high-yield investment opportunities.",
+            "descSuccess": "Registration received successfully. Redirecting to portfolio.",
+            "login": "Log In",
+            "signup": "Sign Up",
+            "googleLogin": "Continue with Google",
+            "orEmail": "or with email",
+            "namePlaceholder": "Full Name",
+            "emailPlaceholder": "Email Address",
+            "passwordPlaceholder": "Password",
+            "phonePlaceholder": "Phone Number (Optional)",
+            "submitAccess": "Get Access Now",
+            "submitLogin": "Log In",
+            "processing": "Processing...",
+            "securityNote": "Your data is protected with 256-bit SSL.",
+            "redirecting": "Redirecting...",
+            "benefits": {
+                "roi": "ROI Analysis",
+                "section8": "Section 8",
+                "portfolio": "Portfolio"
+            }
+        }
     }
 }

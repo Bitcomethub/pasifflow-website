@@ -119,7 +119,7 @@
         "transactionVolume": "$250M+ transaction volume",
         "miamiSales": "$250M+ Miami real estate sales"
     },
-    "section8": {
+    "section8Info": {
         "title": "What is Section 8?",
         "subtitle": "America's most reliable housing program",
         "description": "Section 8 (Housing Choice Voucher Program) is a federal program that helps low-income families access quality housing. 70-100% of rent payments are paid directly to the landlord by the U.S. government.",
@@ -532,6 +532,34 @@
             "Shall we prepare a custom investment analysis for you? 📊"
         ]
     },
+    "leadGenModal": {
+        "titleFree": "Free Consultation",
+        "titleSuccess": "Registration Complete",
+        "subTitle": "US Real Estate Investment",
+        "headerForm": "Discover Exclusive Opportunities",
+        "headerGated": "Access Premium Content",
+        "headerSuccess": "Thank You!",
+        "descForm": "Get instant access to detailed portfolio analysis and high-yield investment opportunities.",
+        "descSuccess": "Registration received successfully. Redirecting to portfolio.",
+        "login": "Log In",
+        "signup": "Sign Up",
+        "googleLogin": "Continue with Google",
+        "orEmail": "or with email",
+        "namePlaceholder": "Full Name",
+        "emailPlaceholder": "Email Address",
+        "passwordPlaceholder": "Password",
+        "phonePlaceholder": "Phone Number (Optional)",
+        "submitAccess": "Get Access Now",
+        "submitLogin": "Log In",
+        "processing": "Processing...",
+        "securityNote": "Your data is protected with 256-bit SSL.",
+        "redirecting": "Redirecting...",
+        "benefits": {
+            "roi": "ROI Analysis",
+            "section8": "Section 8",
+            "portfolio": "Portfolio"
+        }
+    },
     "leadGen": {
         "titleFree": "Free Consultation",
         "titleSuccess": "Registration Complete",
@@ -622,18 +650,6 @@
         "ctaPrimary": "Get Free Consultation",
         "ctaSecondary": "Write on WhatsApp Now",
         "disclaimer": "* The information shared here is intended to help you better understand the world of investment. Every investment can have different risks and outcomes. Pasiflow presents the process transparently; the investment decision is entirely yours."
-    },
-    "contact": {
-        "title": "Contact Us",
-        "subtitle": "We're available 24/7 for your questions",
-        "nameLabel": "Your Name",
-        "emailLabel": "Your Email",
-        "phoneLabel": "Your Phone Number",
-        "messageLabel": "Your Message",
-        "submitButton": "Send Message",
-        "whatsappButton": "Write on WhatsApp",
-        "successMessage": "Your message has been sent successfully!",
-        "errorMessage": "An error occurred, please try again."
     },
     "privacy": {
         "title": "Privacy Policy",

@@ -16,7 +16,7 @@ interface LeadGenModalProps {
 }
 
 export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, initialAuthMode = "signup" }: LeadGenModalProps) {
-    const t = useTranslations("leadGen")
+    const t = useTranslations("leadGenModal")
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")

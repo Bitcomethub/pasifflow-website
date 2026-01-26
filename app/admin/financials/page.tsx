@@ -21,6 +21,9 @@ export default async function FinancialsPage() {
             postedDate: 'desc'
         },
         take: 50
+    }).catch((e) => {
+        console.error("Failed to fetch transactions:", e)
+        return []
     })
 
     return (

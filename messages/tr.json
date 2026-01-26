@@ -231,7 +231,7 @@
         "unlockDesc": "ROI analizlerini görmek için ücretsiz üye olun.",
         "unlockButton": "Ücretsiz Başla"
     },
-    "section8": {
+    "section8Info": {
         "badge": "Devlet Destekli",
         "title": "Section 8 ile",
         "titleHighlight": "Riskleri Azaltın",
@@ -514,6 +514,34 @@
             "Türkiye'den uzaktan yönetilen mülkler hakkında bilgi almak ister misiniz?",
             "Size özel yatırım analizi hazırlayalım mı? 📊"
         ]
+    },
+    "leadGenModal": {
+        "titleFree": "Ücretsiz Danışmanlık",
+        "titleSuccess": "Kayıt Tamamlandı",
+        "subTitle": "ABD Gayrimenkul Yatırımı",
+        "headerForm": "Özel Fırsatları Keşfedin",
+        "headerGated": "Premium İçeriğe Erişin",
+        "headerSuccess": "Teşekkürler!",
+        "descForm": "Detaylı portföy analizleri ve yüksek getirili yatırım fırsatlarına anında erişim sağlayın.",
+        "descSuccess": "Kaydınız başarıyla alındı. Portföye yönlendiriliyorsunuz.",
+        "login": "Giriş Yap",
+        "signup": "Kayıt Ol",
+        "googleLogin": "Google ile Devam Et",
+        "orEmail": "veya e-posta ile",
+        "namePlaceholder": "Adınız Soyadınız",
+        "emailPlaceholder": "E-posta Adresiniz",
+        "passwordPlaceholder": "Şifreniz",
+        "phonePlaceholder": "Telefon Numarası (Opsiyonel)",
+        "submitAccess": "Hemen Erişim Sağla",
+        "submitLogin": "Giriş Yap",
+        "processing": "İşleniyor...",
+        "securityNote": "Bilgileriniz 256-bit SSL ile korunmaktadır.",
+        "redirecting": "Yönlendiriliyorsunuz...",
+        "benefits": {
+            "roi": "ROI Analizi",
+            "section8": "Section 8",
+            "portfolio": "Portföy"
+        }
     },
     "leadGen": {
         "titleFree": "Ücretsiz Danışmanlık",

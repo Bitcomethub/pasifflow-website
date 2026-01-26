@@ -119,7 +119,7 @@
         "transactionVolume": "أكثر من 250 مليون دولار حجم معاملات",
         "miamiSales": "أكثر من 100 مليون دولار مبيعات عقارية في ميامي"
     },
-    "section8": {
+    "section8Info": {
         "title": "ما هو Section 8؟",
         "subtitle": "أكثر برامج الإسكان موثوقية في أمريكا",
         "description": "Section 8 هو برنامج فيدرالي يساعد الأسر ذات الدخل المنخفض على الوصول إلى مساكن عالية الجودة. يتم دفع 70-100٪ من الإيجار مباشرة لصاحب العقار من قبل الحكومة الأمريكية.",
@@ -511,18 +511,6 @@
         "ctaSecondary": "راسلنا عبر واتساب الآن",
         "disclaimer": "* المعلومات المقدمة هنا تهدف لمساعدتكم على فهم عالم الاستثمار بشكل أفضل. كل استثمار له مخاطر ونتائج مختلفة. Pasiflow تقدم العملية بكل شفافية؛ قرار الاستثمار يعود لكم بالكامل."
     },
-    "contact": {
-        "title": "تواصل معنا",
-        "subtitle": "نحن معك على مدار الساعة لأي استفسارات",
-        "nameLabel": "الاسم الكامل",
-        "emailLabel": "البريد الإلكتروني",
-        "phoneLabel": "رقم الهاتف",
-        "messageLabel": "رسالتك",
-        "submitButton": "إرسال الرسالة",
-        "whatsappButton": "راسلنا عبر واتساب",
-        "successMessage": "تم إرسال رسالتك بنجاح!",
-        "errorMessage": "حدث خطأ، يرجى المحاولة مرة أخرى."
-    },
     "privacy": {
         "title": "سياسة الخصوصية",
         "lastUpdated": "آخر تحديث"
@@ -903,6 +891,62 @@
         "citiesLabel": "مدن",
         "exploreCity": "استكشف {city}",
         "indexCtaTitle": "أي مدينة تناسبك؟",
-        "indexCtaDescription": "دعنا نحدد معاً أفضل منطقة لأهدافك الاستثمارية"
+        "indexCtaDescription": "دعنا نحدد معاً أفضل منطقة لأهدافك الاستثمارية",
+        "leadGenModal": {
+            "titleFree": "Free Consultation",
+            "titleSuccess": "Registration Complete",
+            "subTitle": "US Real Estate Investment",
+            "headerForm": "Discover Exclusive Opportunities",
+            "headerGated": "Access Premium Content",
+            "headerSuccess": "Thank You!",
+            "descForm": "Get instant access to detailed portfolio analysis and high-yield investment opportunities.",
+            "descSuccess": "Registration received successfully. Redirecting to portfolio.",
+            "login": "Log In",
+            "signup": "Sign Up",
+            "googleLogin": "Continue with Google",
+            "orEmail": "or with email",
+            "namePlaceholder": "Full Name",
+            "emailPlaceholder": "Email Address",
+            "passwordPlaceholder": "Password",
+            "phonePlaceholder": "Phone Number (Optional)",
+            "submitAccess": "Get Access Now",
+            "submitLogin": "Log In",
+            "processing": "Processing...",
+            "securityNote": "Your data is protected with 256-bit SSL.",
+            "redirecting": "Redirecting...",
+            "benefits": {
+                "roi": "ROI Analysis",
+                "section8": "Section 8",
+                "portfolio": "Portfolio"
+            }
+        },
+        "leadGen": {
+            "titleFree": "Free Consultation",
+            "titleSuccess": "Registration Complete",
+            "subTitle": "US Real Estate Investment",
+            "headerForm": "Discover Exclusive Opportunities",
+            "headerGated": "Access Premium Content",
+            "headerSuccess": "Thank You!",
+            "descForm": "Get instant access to detailed portfolio analysis and high-yield investment opportunities.",
+            "descSuccess": "Registration received successfully. Redirecting to portfolio.",
+            "login": "Log In",
+            "signup": "Sign Up",
+            "googleLogin": "Continue with Google",
+            "orEmail": "or with email",
+            "namePlaceholder": "Full Name",
+            "emailPlaceholder": "Email Address",
+            "passwordPlaceholder": "Password",
+            "phonePlaceholder": "Phone Number (Optional)",
+            "submitAccess": "Get Access Now",
+            "submitLogin": "Log In",
+            "processing": "Processing...",
+            "securityNote": "Your data is protected with 256-bit SSL.",
+            "redirecting": "Redirecting...",
+            "benefits": {
+                "roi": "ROI Analysis",
+                "section8": "Section 8",
+                "portfolio": "Portfolio"
+            }
+        }
     }
 }
