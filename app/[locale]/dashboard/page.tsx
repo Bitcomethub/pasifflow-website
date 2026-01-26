@@ -14,7 +14,7 @@ export default function DashboardPage() {
             {/* Welcome Section */}
             <div>
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                    Tekrar Hoş Geldiniz, <span className="text-primary">Erman Adanır</span>
+                    Hoş Geldiniz, <span className="text-primary">Erman Adanır</span>
                 </h1>
                 <p className="text-gray-500 dark:text-gray-400 mt-2">
                     Portföy durumunuz ve güncel piyasa verileri aşağıda özetlenmiştir.

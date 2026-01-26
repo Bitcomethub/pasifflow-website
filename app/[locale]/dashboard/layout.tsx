@@ -1,4 +1,7 @@
+"use client"
+
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { User, Home, FileText, Settings, LogOut, LayoutDashboard, Building } from 'lucide-react';
 
 export default function DashboardLayout({
@@ -6,6 +9,19 @@ export default function DashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+
+  const handleLogout = () => {
+    // Clear auth data
+    localStorage.removeItem("pasiflow_token");
+    localStorage.removeItem("pasiflow_user");
+
+    // Redirect to login (localized)
+    const locale = window.location.pathname.split('/')[1] || 'tr';
+    router.push(`/${locale}/login`);
+    router.refresh();
+  };
+
   return (
     <div className="flex h-screen bg-gray-50 dark:bg-slate-900">
       {/* Sidebar */}
@@ -53,7 +69,10 @@ export default function DashboardLayout({
         </nav>
 
         <div className="p-4 border-t border-gray-200 dark:border-slate-700">
-          <button className="flex items-center gap-3 px-4 py-3 w-full text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700/50 rounded-lg transition-colors">
+          <button
+            onClick={handleLogout}
+            className="flex items-center gap-3 px-4 py-3 w-full text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-700/50 rounded-lg transition-colors text-left"
+          >
             <LogOut className="w-5 h-5" />
             <span className="font-medium">Çıkış Yap</span>
           </button>
