@@ -5,8 +5,10 @@ import { Dialog, DialogContent } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { X, Calendar, Gift, ArrowRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 export function ExitIntentPopup() {
+    const t = useTranslations("exitPopup")
     const [showPopup, setShowPopup] = useState(false)
     const [hasTriggered, setHasTriggered] = useState(false)
 
@@ -76,7 +78,7 @@ export function ExitIntentPopup() {
                                 transition={{ delay: 0.2 }}
                                 className="text-2xl font-bold mb-2"
                             >
-                                Bekle! Gitmeden Önce...
+                                {t("title")}
                             </motion.h2>
                             <motion.p
                                 initial={{ opacity: 0 }}
@@ -84,7 +86,7 @@ export function ExitIntentPopup() {
                                 transition={{ delay: 0.3 }}
                                 className="text-white/80 text-sm"
                             >
-                                Size özel bir fırsat hazırladık
+                                {t("subtitle")}
                             </motion.p>
                         </div>
 
@@ -92,21 +94,16 @@ export function ExitIntentPopup() {
                         <div className="p-6 bg-white">
                             <div className="text-center mb-6">
                                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                                    Ücretsiz Yatırım Danışmanlığı
+                                    {t("consultationTitle")}
                                 </h3>
                                 <p className="text-gray-600 text-sm leading-relaxed">
-                                    ABD gayrimenkul piyasası hakkında tüm sorularınızı yanıtlayalım.
-                                    30 dakikalık ücretsiz danışmanlık görüşmesi için hemen randevu alın.
+                                    {t("consultationDesc")}
                                 </p>
                             </div>
 
                             {/* Benefits */}
                             <div className="space-y-3 mb-6">
-                                {[
-                                    "Kişisel yatırım stratejisi önerisi",
-                                    "Bütçenize uygun mülk analizi",
-                                    "Section 8 ve ROI hesaplaması"
-                                ].map((benefit, i) => (
+                                {(t.raw("benefits") as string[]).map((benefit, i) => (
                                     <motion.div
                                         key={i}
                                         initial={{ opacity: 0, x: -10 }}
@@ -130,7 +127,7 @@ export function ExitIntentPopup() {
                                 className="w-full h-12 bg-[#a3452b] hover:bg-[#8a3a24] text-white font-semibold text-base rounded-xl shadow-lg shadow-[#a3452b]/20 group"
                             >
                                 <Calendar className="w-5 h-5 mr-2" />
-                                Ücretsiz Randevu Al
+                                {t("cta")}
                                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </Button>
 
@@ -139,7 +136,7 @@ export function ExitIntentPopup() {
                                 onClick={handleClose}
                                 className="w-full mt-3 text-sm text-gray-400 hover:text-gray-600 transition-colors"
                             >
-                                Hayır, teşekkürler
+                                {t("noThanks")}
                             </button>
                         </div>
                     </DialogContent>

@@ -77,14 +77,14 @@ export function DetroitNeighborhoodMap() {
             const el = document.createElement('div');
             el.className = 'marker';
             el.style.backgroundImage = 'url(/pin.svg)'; // Fallback-ish, but let's use CSS or built-in
-            el.innerHTML = `<div style="background-color: #EF7202; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.3); cursor: pointer;"></div>`;
+            el.innerHTML = `<div style="background-color: #B8A074; width: 20px; height: 20px; border-radius: 50%; border: 2px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.3); cursor: pointer;"></div>`;
 
             const marker = new mapboxgl.Marker({ element: el })
                 .setLngLat(landmark.coordinates)
                 .setPopup(
                     new mapboxgl.Popup({ offset: 25, closeButton: false }) // add popups
                         .setHTML(`
-                            <h3 style="font-weight:bold; color:#001C32;">${landmark.title}</h3>
+                            <h3 style="font-weight:bold; color:#3D4852;">${landmark.title}</h3>
                             <p style="font-size:12px; margin-top:4px;">${landmark.category}</p>
                         `)
                 )
@@ -174,18 +174,18 @@ export function DetroitNeighborhoodMap() {
                         className="absolute top-4 left-4 bottom-4 w-80 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl overflow-hidden flex flex-col z-10 border border-white/50"
                     >
                         {/* Sidebar Header */}
-                        <div className="p-5 bg-[#001C32] text-white">
+                        <div className="p-5 bg-[#3D4852] text-white">
                             <div className="flex justify-between items-center mb-4">
                                 <h3 className="font-bold text-lg flex items-center gap-2">
-                                    <MapPin className="text-[#EF7202]" size={20} />
-                                    Detroit Rehberi
+                                    <MapPin className="text-[#B8A074]" size={20} />
+                                    {t("sidebarTitle")}
                                 </h3>
                                 <button onClick={() => setIsSidebarOpen(false)} className="text-white/60 hover:text-white">
                                     <X size={18} />
                                 </button>
                             </div>
                             <p className="text-xs text-white/70 leading-relaxed">
-                                Motor City'nin tarihi dokusunu, müzelerini ve yatırım bölgelerini 3D haritada keşfedin.
+                                {t("sidebarDesc")}
                             </p>
                         </div>
 
@@ -195,16 +195,16 @@ export function DetroitNeighborhoodMap() {
                                 <button
                                     key={landmark.id}
                                     onClick={() => handleLandmarkClick(landmark)}
-                                    className={`w-full text-left p-3 rounded-xl transition-all border ${activeLandmark?.id === landmark.id ? 'bg-[#EF7202]/10 border-[#EF7202] shadow-sm' : 'hover:bg-slate-50 border-transparent hover:border-slate-200'}`}
+                                    className={`w-full text-left p-3 rounded-xl transition-all border ${activeLandmark?.id === landmark.id ? 'bg-[#B8A074]/10 border-[#B8A074] shadow-sm' : 'hover:bg-slate-50 border-transparent hover:border-slate-200'}`}
                                 >
-                                    <h4 className={`font-bold text-sm mb-1 ${activeLandmark?.id === landmark.id ? 'text-[#EF7202]' : 'text-slate-800'}`}>
+                                    <h4 className={`font-bold text-sm mb-1 ${activeLandmark?.id === landmark.id ? 'text-[#B8A074]' : 'text-slate-800'}`}>
                                         {landmark.title}
                                     </h4>
                                     <div className="flex items-center justify-between">
                                         <span className="text-[10px] uppercase font-bold tracking-wider text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">
                                             {landmark.category}
                                         </span>
-                                        {activeLandmark?.id === landmark.id && <ChevronRight size={14} className="text-[#EF7202]" />}
+                                        {activeLandmark?.id === landmark.id && <ChevronRight size={14} className="text-[#B8A074]" />}
                                     </div>
                                 </button>
                             ))}
@@ -220,10 +220,10 @@ export function DetroitNeighborhoodMap() {
                         initial={{ y: 100, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         exit={{ y: 100, opacity: 0 }}
-                        className="absolute bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-96 bg-white rounded-2xl shadow-2xl p-5 z-20 border-l-4 border-[#EF7202]"
+                        className="absolute bottom-6 left-6 right-6 md:left-auto md:right-6 md:w-96 bg-white rounded-2xl shadow-2xl p-5 z-20 border-l-4 border-[#B8A074]"
                     >
                         <div className="flex justify-between items-start mb-2">
-                            <h3 className="font-bold text-xl text-[#001C32] pr-4">{activeLandmark.title}</h3>
+                            <h3 className="font-bold text-xl text-[#3D4852] pr-4">{activeLandmark.title}</h3>
                             <button onClick={() => setActiveLandmark(null)} className="text-slate-400 hover:text-slate-600">
                                 <X size={20} />
                             </button>
@@ -234,17 +234,17 @@ export function DetroitNeighborhoodMap() {
                         <div className="flex gap-2">
                             <button
                                 onClick={zoomInToLandmark}
-                                className="flex-1 bg-[#001C32] text-white text-xs font-bold py-2.5 rounded-lg hover:bg-[#002a4a] transition-colors flex items-center justify-center gap-2"
+                                className="flex-1 bg-[#3D4852] text-white text-xs font-bold py-2.5 rounded-lg hover:bg-[#002a4a] transition-colors flex items-center justify-center gap-2"
                             >
                                 <Navigation size={14} />
-                                Oraya Git
+                                {t("goTo")}
                             </button>
                             <button
                                 onClick={openGoogleMaps}
-                                className="flex-1 bg-[#EF7202]/10 text-[#EF7202] text-xs font-bold py-2.5 rounded-lg hover:bg-[#EF7202]/20 transition-colors flex items-center justify-center gap-2"
+                                className="flex-1 bg-[#B8A074]/10 text-[#B8A074] text-xs font-bold py-2.5 rounded-lg hover:bg-[#B8A074]/20 transition-colors flex items-center justify-center gap-2"
                             >
                                 <Info size={14} />
-                                Detaylar
+                                {t("details")}
                             </button>
                         </div>
                     </motion.div>
@@ -255,7 +255,7 @@ export function DetroitNeighborhoodMap() {
             {!isSidebarOpen && (
                 <button
                     onClick={() => setIsSidebarOpen(true)}
-                    className="absolute top-4 left-4 bg-white p-3 rounded-xl shadow-lg z-10 text-[#001C32] hover:text-[#EF7202] hover:shadow-xl transition-all"
+                    className="absolute top-4 left-4 bg-white p-3 rounded-xl shadow-lg z-10 text-[#3D4852] hover:text-[#B8A074] hover:shadow-xl transition-all"
                 >
                     <Building2 size={24} />
                 </button>
@@ -264,8 +264,8 @@ export function DetroitNeighborhoodMap() {
             {/* Map Style Toggle */}
             <button
                 onClick={toggleMapStyle}
-                className="absolute bottom-32 right-2.5 md:right-12 md:bottom-8 bg-white p-3 rounded-lg shadow-lg z-10 text-[#001C32] hover:text-[#EF7202] transition-all border border-slate-200"
-                title={mapStyle === 'light' ? "Uydu Görünümü" : "Harita Görünümü"}
+                className="absolute bottom-32 right-2.5 md:right-12 md:bottom-8 bg-white p-3 rounded-lg shadow-lg z-10 text-[#3D4852] hover:text-[#B8A074] transition-all border border-slate-200"
+                title={mapStyle === 'light' ? t("satelliteView") : t("mapView")}
             >
                 <Layers size={20} />
             </button>

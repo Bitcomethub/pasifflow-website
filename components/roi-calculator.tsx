@@ -118,7 +118,7 @@ export function RoiCalculator() {
                 <div className="flex items-center gap-3 flex-wrap">
                     <span className="text-sm text-[#6b6b67] flex items-center gap-1">
                         <Calendar size={14} className="text-primary" />
-                        Süre:
+                        {t("duration")}
                     </span>
                     {holdingPeriods.map((years) => (
                         <button
@@ -137,7 +137,7 @@ export function RoiCalculator() {
                 {/* Main Metrics - 2x2 Compact Grid */}
                 <div className="grid grid-cols-2 gap-3">
                     <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
-                        <p className="text-xs text-[#6b6b67] mb-1">Aylık Nakit Akışı</p>
+                        <p className="text-xs text-[#6b6b67] mb-1">{t("monthlyCashFlow")}</p>
                         <p className={`text-2xl font-bold ${monthlyNetIncome >= 0 ? 'text-primary' : 'text-secondary'}`}>
                             ${Math.round(monthlyNetIncome)}
                         </p>
@@ -147,18 +147,18 @@ export function RoiCalculator() {
                         <p className="text-2xl font-bold text-[#151513]">{netRoi.toFixed(1)}%</p>
                     </div>
                     <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
-                        <p className="text-xs text-[#6b6b67] mb-1">{holdingPeriod}Y Değer Artışı</p>
+                        <p className="text-xs text-[#6b6b67] mb-1">{holdingPeriod}Y {t("appreciationLabel")}</p>
                         <p className="text-2xl font-bold text-[#22c55e]">+${Math.round(appreciationAmount / 1000)}K</p>
                     </div>
                     <div className="bg-primary rounded-xl p-4 text-center">
-                        <p className="text-xs text-white/70 mb-1">{holdingPeriod}Y Toplam ROI</p>
+                        <p className="text-xs text-white/70 mb-1">{holdingPeriod}Y {t("totalRoi")}</p>
                         <p className="text-2xl font-bold text-white">{totalRoiPercent.toFixed(0)}%</p>
                     </div>
                 </div>
 
                 {/* Investment Summary - Single Line */}
                 <div className="bg-[#f5f3ed] rounded-lg p-3 flex items-center justify-between text-sm">
-                    <span className="text-[#6b6b67]">Toplam Yatırım:</span>
+                    <span className="text-[#6b6b67]">{t("totalInvestmentLabel")}</span>
                     <span className="font-semibold text-[#151513]">${Math.round(totalInvestment).toLocaleString()}</span>
                 </div>
 
@@ -169,16 +169,16 @@ export function RoiCalculator() {
                             <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-5">
                                 <Lock className="w-7 h-7 text-primary" />
                             </div>
-                            <h3 className="text-xl font-semibold mb-2 text-[#151513]">Hesaplayıcıyı Açın</h3>
+                            <h3 className="text-xl font-semibold mb-2 text-[#151513]">{t("unlockTitle")}</h3>
                             <p className="text-[#6b6b67] text-sm mb-6">
-                                ROI analizlerini görmek için ücretsiz üye olun.
+                                {t("unlockDesc")}
                             </p>
                             <Button
                                 className="w-full h-12 font-medium bg-primary hover:bg-primary/90 text-white rounded-lg"
                                 asChild
                             >
                                 <Link href={`/${locale}/signup`}>
-                                    Ücretsiz Başla
+                                    {t("unlockButton")}
                                 </Link>
                             </Button>
                         </div>

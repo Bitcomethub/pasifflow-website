@@ -28,7 +28,7 @@ export function ProcessSection() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-left"
           >
-            <p className="text-[#EF7202] font-semibold mb-4 uppercase tracking-wider text-sm">
+            <p className="text-[#B8A074] font-semibold mb-4 uppercase tracking-wider text-sm">
               {t("subtitle")}
             </p>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1F2328] mb-6">
@@ -49,14 +49,14 @@ export function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="text-left p-6 bg-white rounded-xl border border-[#E5E6E8] hover:border-[#EF7202]/30 hover:shadow-lg transition-all duration-300 group"
+              className="text-left p-6 bg-white rounded-xl border border-[#E5E6E8] hover:border-[#B8A074]/30 hover:shadow-lg transition-all duration-300 group"
             >
               <div className="flex items-center gap-4 mb-5">
-                <div className="w-10 h-10 rounded-lg bg-[#001C32] flex items-center justify-center text-white font-bold">
+                <div className="w-10 h-10 rounded-lg bg-[#3D4852] flex items-center justify-center text-white font-bold">
                   {i + 1}
                 </div>
-                <div className="w-10 h-10 rounded-lg bg-[#EF7202]/10 flex items-center justify-center group-hover:bg-[#EF7202]/20 transition-colors">
-                  <step.icon className="h-5 w-5 text-[#EF7202]" />
+                <div className="w-10 h-10 rounded-lg bg-[#B8A074]/10 flex items-center justify-center group-hover:bg-[#B8A074]/20 transition-colors">
+                  <step.icon className="h-5 w-5 text-[#B8A074]" />
                 </div>
               </div>
               <h3 className="font-semibold text-lg text-[#1F2328] mb-2">{t(step.titleKey)}</h3>
@@ -77,7 +77,7 @@ export function ProcessSection() {
             href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#EF7202] font-medium hover:underline group"
+            className="inline-flex items-center gap-2 text-[#B8A074] font-medium hover:underline group"
           >
             Ücretsiz Danışmanlık Alın
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

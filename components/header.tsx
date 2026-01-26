@@ -92,16 +92,16 @@ export function Header() {
   }
 
   const navLinks = [
-    { name: t("howItWorks"), href: "#nasil-calisir" },
-    { name: "Hakkımızda", href: "/about" },
-    { name: t("portfolio"), href: "#portfoy" },
-    { name: t("faq"), href: "#faq" },
+    { name: tNav("howItWorks"), href: "#nasil-calisir" },
+    { name: tNav("about"), href: "/about" },
+    { name: tNav("portfolio"), href: "#portfoy" },
+    { name: tNav("faq"), href: "#faq" },
   ]
 
   const extraLinks = [
     { name: tNav("whyUSA"), href: "/neden-amerika" },
     { name: tNav("taxLaw"), href: "/vergilendirme" },
-    { name: "Harita", href: "/harita" },
+    { name: tNav("map"), href: "/harita" },
   ]
 
   return (
@@ -130,28 +130,28 @@ export function Header() {
             <nav className="hidden md:flex items-center gap-6">
               {/* Platform Group */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#EF7202] transition-colors outline-none cursor-pointer">
-                  Platform <ChevronDown size={14} />
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
+                  {tNav("platform")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
                     <Link href="#nasil-calisir" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                      {t("howItWorks")}
+                      {tNav("howItWorks")}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/about" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                      Hakkımızda
+                      {tNav("about")}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="#faq" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                      {t("faq")}
+                      {tNav("faq")}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/iletisim" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                      İletişim
+                      {tNav("contact")}
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -159,18 +159,18 @@ export function Header() {
 
               {/* Investment Group */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#EF7202] transition-colors outline-none cursor-pointer">
-                  Yatırım <ChevronDown size={14} />
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
+                  {tNav("investment")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
-                    <Link href="#portfoy" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-[#EF7202]">
-                      {t("portfolio")}
+                    <Link href="#portfoy" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-[#B8A074]">
+                      {tNav("portfolio")}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/harita" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                      Harita & Konumlar
+                      {tNav("mapAndLocations")}
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -178,8 +178,8 @@ export function Header() {
 
               {/* Resources Group */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#EF7202] transition-colors outline-none cursor-pointer">
-                  Kaynaklar <ChevronDown size={14} />
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
+                  {tNav("resources")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
@@ -230,9 +230,9 @@ export function Header() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="hidden lg:flex gap-2 border-[#001C32] text-[#001C32] hover:bg-[#001C32] hover:text-white"
+                    className="hidden lg:flex gap-2 border-[#3D4852] text-[#3D4852] hover:bg-[#3D4852] hover:text-white"
                   >
-                    <span className="w-6 h-6 rounded-full bg-[#EF7202] text-white flex items-center justify-center text-xs font-bold">
+                    <span className="w-6 h-6 rounded-full bg-[#B8A074] text-white flex items-center justify-center text-xs font-bold">
                       {currentUser.fullName?.charAt(0).toUpperCase() || currentUser.email.charAt(0).toUpperCase()}
                     </span>
                     <span className="max-w-[100px] truncate">{currentUser.fullName || currentUser.email}</span>
@@ -243,7 +243,7 @@ export function Header() {
                     onClick={handleLogout}
                     className="cursor-pointer text-destructive focus:bg-destructive/10"
                   >
-                    Çıkış Yap
+                    {tNav("logout")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -256,12 +256,12 @@ export function Header() {
                   asChild
                 >
                   <Link href={`/${currentLocale}/login`}>
-                    Panel Giriş
+                    {tNav("panelLogin")}
                   </Link>
                 </Button>
 
                 <Button
-                  className="bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold px-5 h-9 rounded-lg transition-all"
+                  className="bg-[#B8A074] hover:bg-[#d86502] text-white font-semibold px-5 h-9 rounded-lg transition-all"
                   onClick={() => openAuthModal("signup")}
                 >
                   {t("getConsultation")}
@@ -302,7 +302,7 @@ export function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="block text-xl font-medium text-[#1F2328] hover:text-[#EF7202] py-2"
+                className="block text-xl font-medium text-[#1F2328] hover:text-[#B8A074] py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
@@ -313,7 +313,7 @@ export function Header() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="block text-lg text-[#535454] hover:text-[#EF7202] py-2"
+                className="block text-lg text-[#535454] hover:text-[#B8A074] py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
@@ -331,7 +331,7 @@ export function Header() {
                 }}
                 className={cn(
                   "text-2xl p-3 rounded-lg hover:bg-[#E5E6E8] transition-colors border border-[#E5E6E8]",
-                  currentLocale === lang.code && "bg-[#EF7202]/10 border-[#EF7202]/30"
+                  currentLocale === lang.code && "bg-[#B8A074]/10 border-[#B8A074]/30"
                 )}
               >
                 {lang.flag}
@@ -340,7 +340,7 @@ export function Header() {
           </div>
 
           <Button
-            className="mt-8 bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold py-6 text-lg rounded-lg"
+            className="mt-8 bg-[#B8A074] hover:bg-[#d86502] text-white font-semibold py-6 text-lg rounded-lg"
             asChild
           >
             <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">

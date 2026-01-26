@@ -11,7 +11,7 @@ export function FinalCTASection() {
   const benefits = ["benefit1", "benefit2", "benefit3"]
 
   return (
-    <section className="py-24 relative overflow-hidden bg-[#001C32]">
+    <section className="py-24 relative overflow-hidden bg-[#3D4852]">
       <div className="container mx-auto px-6 md:px-12 lg:px-16 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
@@ -22,7 +22,7 @@ export function FinalCTASection() {
         >
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
             {t("title")} <br />
-            <span className="text-[#EF7202]">{t("titleAccent")}</span>
+            <span className="text-[#B8A074]">{t("titleAccent")}</span>
           </h2>
           <p className="text-lg md:text-xl text-[#C7CBD3] leading-relaxed mb-10 max-w-2xl mx-auto">
             {t("description")}
@@ -55,7 +55,7 @@ export function FinalCTASection() {
           >
             <Button
               size="lg"
-              className="h-16 px-10 text-lg rounded-xl bg-[#EF7202] hover:bg-[#d86502] text-white font-bold shadow-xl shadow-orange-900/20 transition-all duration-300 hover:scale-105"
+              className="h-16 px-10 text-lg rounded-xl bg-[#B8A074] hover:bg-[#d86502] text-white font-bold shadow-xl shadow-orange-900/20 transition-all duration-300 hover:scale-105"
               asChild
             >
               <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">

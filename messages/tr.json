@@ -221,7 +221,15 @@
         "yoyAppreciation": "Yıllık Değer Artışı",
         "cashFlowMonth": "Aylık Nakit Akışı",
         "downPayment": "Peşinat (%30)",
-        "disclaimer": "* Yıllık %5 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir."
+        "disclaimer": "* Yıllık %5 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir.",
+        "duration": "Süre:",
+        "monthlyCashFlow": "Aylık Nakit Akışı",
+        "appreciationLabel": "Değer Artışı",
+        "totalRoi": "Toplam ROI",
+        "totalInvestmentLabel": "Toplam Yatırım:",
+        "unlockTitle": "Hesaplayıcıyı Açın",
+        "unlockDesc": "ROI analizlerini görmek için ücretsiz üye olun.",
+        "unlockButton": "Ücretsiz Başla"
     },
     "section8": {
         "badge": "Devlet Destekli",
@@ -481,7 +489,111 @@
         "activeStates": "Detroit Odaklı",
         "tagline": "Yüksek Kira Getirili & Değer Artışı Hedefli",
         "ctaPrimary": "Bölgeleri İncele",
-        "ctaSecondary": "Eyalet Raporlarını İste"
+        "ctaSecondary": "Eyalet Raporlarını İste",
+        "sidebarTitle": "Detroit Rehberi",
+        "sidebarDesc": "Motor City'nin tarihi dokusunu, müzelerini ve yatırım bölgelerini 3D haritada keşfedin.",
+        "goTo": "Oraya Git",
+        "details": "Detaylar",
+        "satelliteView": "Uydu Görünümü",
+        "mapView": "Harita Görünümü",
+        "searchPlaceholder": "Adres veya Yer Ara..."
+    },
+    "aiAssistant": {
+        "title": "Pasi | Akıllı Danışman",
+        "online": "Çevrimiçi",
+        "writing": "Yazıyor",
+        "inputPlaceholder": "Mesajınızı yazın...",
+        "moreInfo": "Daha Fazla Bilgi Al",
+        "new": "YENİ",
+        "advisorActive": "Danışman Aktif",
+        "greeting": "Merhaba! Ben Pasi, Pasiflow'un akıllı yatırım danışmanı. [PASI_ICON]\n\nABD gayrimenkul yatırımları, Detroit piyasası, Section 8 programı veya yatırım getirisi hesaplamaları hakkında tüm sorularınızı yanıtlamak için buradayım.\n\nSize nasıl yardımcı olabilirim?",
+        "hooks": [
+            "Detroit'te %12 getiri sağlayan mülkler var, görmek ister misiniz? 🏠",
+            "Section 8 ile devlet garantili kira almak ister misiniz? 💰",
+            "100.000$'a ABD'de mülk sahibi olabileceğinizi biliyor muydunuz?",
+            "Türkiye'den uzaktan yönetilen mülkler hakkında bilgi almak ister misiniz?",
+            "Size özel yatırım analizi hazırlayalım mı? 📊"
+        ]
+    },
+    "leadGen": {
+        "titleFree": "Ücretsiz Danışmanlık",
+        "titleSuccess": "Kayıt Tamamlandı",
+        "subTitle": "ABD Gayrimenkul Yatırımı",
+        "headerForm": "Özel Fırsatları Keşfedin",
+        "headerGated": "Premium İçeriğe Erişin",
+        "headerSuccess": "Teşekkürler!",
+        "descForm": "Detaylı portföy analizleri ve yüksek getirili yatırım fırsatlarına anında erişim sağlayın.",
+        "descSuccess": "Kaydınız başarıyla alındı. Portföye yönlendiriliyorsunuz.",
+        "login": "Giriş Yap",
+        "signup": "Kayıt Ol",
+        "googleLogin": "Google ile Devam Et",
+        "orEmail": "veya e-posta ile",
+        "namePlaceholder": "Adınız Soyadınız",
+        "emailPlaceholder": "E-posta Adresiniz",
+        "passwordPlaceholder": "Şifreniz",
+        "phonePlaceholder": "Telefon Numarası (Opsiyonel)",
+        "submitAccess": "Hemen Erişim Sağla",
+        "submitLogin": "Giriş Yap",
+        "processing": "İşleniyor...",
+        "securityNote": "Bilgileriniz 256-bit SSL ile korunmaktadır.",
+        "redirecting": "Yönlendiriliyorsunuz...",
+        "benefits": {
+            "roi": "ROI Analizi",
+            "section8": "Section 8",
+            "portfolio": "Portföy"
+        }
+    },
+    "nav": {
+        "howItWorks": "Nasıl Çalışır?",
+        "portfolio": "Portföyümüz",
+        "faq": "S.S.S.",
+        "whyUSA": "Neden ABD?",
+        "taxLaw": "Vergilendirme",
+        "about": "Hakkımızda",
+        "map": "Harita",
+        "mapAndLocations": "Harita & Konumlar",
+        "platform": "Platform",
+        "investment": "Yatırım",
+        "resources": "Kaynaklar",
+        "contact": "İletişim",
+        "logout": "Çıkış Yap",
+        "panelLogin": "Panel Giriş"
+    },
+    "logo": {
+        "motto": "Şeffaf süreç, sağlam yatırım."
+    },
+    "exitPopup": {
+        "title": "Bekle! Gitmeden Önce...",
+        "subtitle": "Size özel bir fırsat hazırladık",
+        "consultationTitle": "Ücretsiz Yatırım Danışmanlığı",
+        "consultationDesc": "ABD gayrimenkul piyasası hakkında tüm sorularınızı yanıtlayalım. 30 dakikalık ücretsiz danışmanlık görüşmesi için hemen randevu alın.",
+        "benefits": [
+            "Kişisel yatırım stratejisi önerisi",
+            "Bütçenize uygun mülk analizi",
+            "Section 8 ve ROI hesaplaması"
+        ],
+        "cta": "Ücretsiz Randevu Al",
+        "noThanks": "Hayır, teşekkürler"
+    },
+    "aboutSection": {
+        "label": "HAKKIMIZDA",
+        "title": "ABD'de pasif gelir yatırımının geleceğine hoş geldiniz.",
+        "opening": "Pasiflow'u tek bir fikirle kurduk: ABD'de kira gelirine dayalı gayrimenkul yatırımını, yurt dışındaki yatırımcı için <bold>anlaşılır, şeffaf ve yönetilebilir</bold> hâle getirmek.",
+        "p1": "Gayrimenkul, doğru kurgulandığında servet inşa etmenin en güçlü araçlarından biri. Fakat iş pratiğe gelince, özellikle ABD gibi uzaktan yönetilen bir pazarda süreç; doğru mülk seçimi, kiracı yerleştirme, bakım–onarım, mevzuat, sigorta, vergi ve profesyonel yönetim gibi birçok parçadan oluşur.",
+        "p2": "Gerçekte yatırım, sadece \"ev almak\" değildir; başından sonuna iyi kurgulanmış bir operasyon gerektirir.",
+        "p3": "Pasiflow tam bu noktada devreye girer.",
+        "p4": "Amacımız, yabancı yatırımcının en çok zorlandığı noktaları tek bir yapılandırılmış sistem altında toplamak. Nakit akışı ve kira potansiyeli odaklı fırsat analizi ve mülk seçimi yapıyor, Section 8 gibi kamu destekli kira programlarına uyum sürecini ve uygunluk kontrollerini yönetiyoruz. Kiracı iletişimi, detaylı raporlama ile bakım–onarım takibini kapsayan profesyonel mülk yönetimi sunarken, teknolojik altyapımız sayesinde yatırımcının portföyündeki her detayı tek bir panel üzerinden şeffaf biçimde izlemesini sağlıyoruz.",
+        "questionIntro": "Başlangıçta kendimize şu soruyu sorduk:",
+        "question": "\"Yurt dışındaki yatırımcı Amerika'da ev aldıktan sonra 'Şimdi ne olacak?' kaygısını yaşamadan bu süreci nasıl yönetebilir?\"",
+        "focus": "Bu yüzden <semibold>ölçülebilir nakit akışı, süreç standardı, düzenli raporlama ve şeffaf iletişim</semibold> üzerine odaklandık.",
+        "method": "Pasiflow'u, uzaktan anlatan bir aracı firma gibi değil; <bold>sahayı bilen ve süreci gerçekten yöneten</bold> bir ekip olarak kurguladık. Florida'da aktif broker tecrübesi +100M ve ABD piyasasındaki saha deneyimiyle, modelimizi \"kâğıt üzerinde güzel görünen\" değil, <bold>sahada gerçekten işleyen</bold> bir sistem üzerine inşa ediyoruz.",
+        "quote1": "\"Bugün Pasiflow'da en çok gurur duyduğum şey, yatırımcılarımızın panelde gördüğü her rakamın, sahada çalışan gerçek bir sistemin sonucu olması.\"",
+        "vision": "Bugün Pasiflow'daki hedefimiz net: Yurt dışındaki yatırımcının ABD'de <bold>kira geliri odaklı mülk portföyünü</bold>, adım adım ve <bold>kontrol edilebilir risklerle</bold> kurabileceği bir sistem sunmak.",
+        "visionIntro": "Yatırımcıya her zaman şu hissi vermek istiyoruz:",
+        "quote2": "\"Ben uzaktayım ama her şey gözümün önünde.\"",
+        "welcome": "Pasiflow'a hoş geldiniz.",
+        "closing": "ABD'de pasif gelir yatırımı için, güvenilir, şeffaf ve sistemli bir yol inşa ediyoruz.",
+        "founderRole": "Kurucu Ortak & CEO"
     },
     "cta": {
         "title": "Geleceğinizi",

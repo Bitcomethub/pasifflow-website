@@ -40,7 +40,7 @@ export function ValuePropsSection() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1F2328] mb-6">
               {t("title")}
               <br />
-              <span className="text-[#EF7202]">{t("subtitle")}</span>
+              <span className="text-[#B8A074]">{t("subtitle")}</span>
             </h2>
             <p className="text-lg text-[#535454] leading-relaxed max-w-lg">
               Pasiflow ile Amerika'da ev sahibi olmak artık hayal değil.
@@ -60,10 +60,10 @@ export function ValuePropsSection() {
             <motion.div
               key={i}
               variants={item}
-              className="group text-left p-6 bg-[#F6F7F9] rounded-xl border border-[#E5E6E8] hover:border-[#EF7202]/30 hover:shadow-lg transition-all duration-300"
+              className="group text-left p-6 bg-[#F6F7F9] rounded-xl border border-[#E5E6E8] hover:border-[#B8A074]/30 hover:shadow-lg transition-all duration-300"
             >
-              <div className="w-12 h-12 rounded-lg bg-[#EF7202]/10 flex items-center justify-center mb-5 group-hover:bg-[#EF7202]/20 transition-colors">
-                <benefit.icon className="h-6 w-6 text-[#EF7202]" />
+              <div className="w-12 h-12 rounded-lg bg-[#B8A074]/10 flex items-center justify-center mb-5 group-hover:bg-[#B8A074]/20 transition-colors">
+                <benefit.icon className="h-6 w-6 text-[#B8A074]" />
               </div>
               <h3 className="font-semibold text-lg text-[#1F2328] mb-2">{benefit.title}</h3>
               <p className="text-[#535454] leading-relaxed text-sm">{benefit.description}</p>
@@ -79,7 +79,7 @@ export function ValuePropsSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-10 text-left"
         >
-          <a href="#portfoy" className="inline-flex items-center gap-2 text-[#EF7202] font-medium hover:underline group">
+          <a href="#portfoy" className="inline-flex items-center gap-2 text-[#B8A074] font-medium hover:underline group">
             Portföyümüzü Keşfedin
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </a>

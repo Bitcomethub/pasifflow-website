@@ -70,7 +70,7 @@ export function HeroSection() {
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: -40, opacity: 0 }}
                       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                      className="text-[#EF7202] inline-block"
+                      className="text-[#B8A074] inline-block"
                     >
                       {rotatingTitles[currentTitleIndex]}
                     </motion.span>
@@ -86,7 +86,7 @@ export function HeroSection() {
             <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 max-w-md">
               <Button
                 size="lg"
-                className="h-14 px-8 text-base rounded-lg bg-[#EF7202] hover:bg-[#d86502] text-white font-semibold shadow-lg transition-all duration-300"
+                className="h-14 px-8 text-base rounded-lg bg-[#B8A074] hover:bg-[#d86502] text-white font-semibold shadow-lg transition-all duration-300"
                 asChild
               >
                 <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
@@ -122,7 +122,7 @@ export function HeroSection() {
                 alt="Amerika Yatırım"
                 className="w-full h-full object-cover object-[center_20%]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#001C32]/50 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#3D4852]/50 via-transparent to-transparent" />
 
 
             </div>

@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { PhoneInput } from "@/components/ui/input" // Assuming usage of standard input for now
 import { Check, Lock, Sparkles, Shield, TrendingUp, X, Mail } from "lucide-react"
+import { useTranslations } from "next-intl"
 
 interface LeadGenModalProps {
     open: boolean
@@ -16,6 +16,7 @@ interface LeadGenModalProps {
 }
 
 export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, initialAuthMode = "signup" }: LeadGenModalProps) {
+    const t = useTranslations("leadGen")
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
@@ -93,9 +94,9 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                         </div>
                         <div>
                             <h3 className="text-white font-bold text-lg tracking-tight">
-                                {step === "form" ? "Ücretsiz Danışmanlık" : "Kayıt Tamamlandı"}
+                                {step === "form" ? t("titleFree") : t("titleSuccess")}
                             </h3>
-                            <p className="text-slate-400 text-xs font-medium">ABD Gayrimenkul Yatırımı</p>
+                            <p className="text-slate-400 text-xs font-medium">{t("subTitle")}</p>
                         </div>
                     </div>
                 </div>
@@ -104,13 +105,13 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                     <DialogHeader className="mb-6">
                         <DialogTitle className="text-center text-2xl font-bold tracking-tight text-slate-900">
                             {step === "form"
-                                ? (triggerSource === "gated-content" ? "Premium İçeriğe Erişin" : "Özel Fırsatları Keşfedin")
-                                : "Teşekkürler!"}
+                                ? (triggerSource === "gated-content" ? t("headerGated") : t("headerForm"))
+                                : t("headerSuccess")}
                         </DialogTitle>
                         <DialogDescription className="text-center text-slate-500 pt-2 text-sm leading-relaxed">
                             {step === "form"
-                                ? "Detaylı portföy analizleri ve yüksek getirili yatırım fırsatlarına anında erişim sağlayın."
-                                : "Kaydınız başarıyla alındı. Portföye yönlendiriliyorsunuz."}
+                                ? t("descForm")
+                                : t("descSuccess")}
                         </DialogDescription>
                     </DialogHeader>
 
@@ -123,14 +124,14 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                     onClick={() => setAuthMode("signup")}
                                     className={`flex-1 text-sm font-semibold py-2 rounded-md transition-all ${authMode === "signup" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
                                 >
-                                    Kayıt Ol
+                                    {t("signup")}
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setAuthMode("login")}
                                     className={`flex-1 text-sm font-semibold py-2 rounded-md transition-all ${authMode === "login" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
                                 >
-                                    Giriş Yap
+                                    {t("login")}
                                 </button>
                             </div>
 
@@ -154,7 +155,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                         fill="#EA4335"
                                     />
                                 </svg>
-                                Google ile Devam Et
+                                {t("googleLogin")}
                             </Button>
 
                             <div className="relative">
@@ -162,7 +163,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                     <span className="w-full border-t border-slate-200" />
                                 </div>
                                 <div className="relative flex justify-center text-xs uppercase">
-                                    <span className="bg-white px-2 text-slate-500">veya e-posta ile</span>
+                                    <span className="bg-white px-2 text-slate-500">{t("orEmail")}</span>
                                 </div>
                             </div>
 
@@ -170,7 +171,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                 <div className="space-y-3">
                                     {authMode === "signup" && (
                                         <Input
-                                            placeholder="Adınız Soyadınız"
+                                            placeholder={t("namePlaceholder")}
                                             value={name}
                                             onChange={(e) => setName(e.target.value)}
                                             required
@@ -179,7 +180,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                     )}
                                     <Input
                                         type="email"
-                                        placeholder="E-posta Adresiniz"
+                                        placeholder={t("emailPlaceholder")}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
@@ -187,7 +188,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                     />
                                     <Input
                                         type="password"
-                                        placeholder="Şifreniz"
+                                        placeholder={t("passwordPlaceholder")}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
@@ -196,7 +197,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                     {authMode === "signup" && (
                                         <Input
                                             type="tel"
-                                            placeholder="Telefon Numarası (Opsiyonel)"
+                                            placeholder={t("phonePlaceholder")}
                                             value={phone}
                                             onChange={(e) => setPhone(e.target.value)}
                                             className="h-12 bg-slate-50 border-slate-200 focus:border-slate-900 focus:ring-slate-900/10 rounded-xl text-sm font-medium placeholder:text-slate-400"
@@ -215,17 +216,17 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                     <div className="flex items-center justify-center gap-4 py-2 border-y border-slate-100">
                                         <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
                                             <TrendingUp size={14} className="text-slate-900" />
-                                            <span>ROI Analizi</span>
+                                            <span>{t("benefits.roi")}</span>
                                         </div>
                                         <div className="w-1 h-1 rounded-full bg-slate-300" />
                                         <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
                                             <Shield size={14} className="text-slate-900" />
-                                            <span>Section 8</span>
+                                            <span>{t("benefits.section8")}</span>
                                         </div>
                                         <div className="w-1 h-1 rounded-full bg-slate-300" />
                                         <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
                                             <Sparkles size={14} className="text-slate-900" />
-                                            <span>Portföy</span>
+                                            <span>{t("benefits.portfolio")}</span>
                                         </div>
                                     </div>
                                 )}
@@ -238,16 +239,16 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                                     {loading ? (
                                         <div className="flex items-center gap-2">
                                             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                            İşleniyor...
+                                            {t("processing")}
                                         </div>
                                     ) : (
-                                        authMode === "form" || authMode === "signup" ? "Hemen Erişim Sağla" : "Giriş Yap"
+                                        authMode === "signup" ? t("submitAccess") : t("submitLogin")
                                     )}
                                 </Button>
 
                                 <p className="text-xs text-center text-slate-400 pt-2">
                                     <Lock size={10} className="inline mr-1" />
-                                    Bilgileriniz 256-bit SSL ile korunmaktadır.
+                                    {t("securityNote")}
                                 </p>
                             </form>
                         </div>
@@ -256,7 +257,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                             <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
                                 <Check className="w-8 h-8 text-primary" />
                             </div>
-                            <div className="text-slate-600 font-medium text-sm">Yönlendiriliyorsunuz...</div>
+                            <div className="text-slate-600 font-medium text-sm">{t("redirecting")}</div>
                         </div>
                     )}
                 </div>

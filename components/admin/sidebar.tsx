@@ -87,10 +87,17 @@ export function AdminSidebar() {
                 </div>
             </div>
             <div className="px-3 py-2">
-                <div className="p-3 w-full flex items-center text-zinc-400 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition">
+                <button
+                    onClick={() => {
+                        localStorage.removeItem("pasiflow_token")
+                        localStorage.removeItem("pasiflow_user")
+                        window.location.href = "/tr/login" // Refresh to clear state
+                    }}
+                    className="w-full flex items-center p-3 text-zinc-400 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition text-left"
+                >
                     <LogOut className="h-5 w-5 mr-3" />
                     Logout
-                </div>
+                </button>
             </div>
         </div>
     )

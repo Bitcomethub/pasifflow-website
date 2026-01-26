@@ -19,14 +19,14 @@ async function main() {
         },
     })
 
-    // 1b. Create Demo User for Client
+    // 1b. Create Client User for Presentation
     const demoUser = await prisma.user.upsert({
-        where: { email: 'demo@pasiflow.com' },
+        where: { email: 'erman@pasiflow.com' },
         update: {},
         create: {
-            email: 'demo@pasiflow.com',
-            fullName: 'Demo Client',
-            passwordHash: 'Demo123!', // This will be handled by auth service validation
+            email: 'erman@pasiflow.com',
+            fullName: 'Erman Adanır',
+            passwordHash: 'Pasiflow2026!', // This will be handled by auth service validation
             role: 'USER',
             isVerified: true,
             phone: '+1 (555) 000-0000'

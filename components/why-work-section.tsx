@@ -47,10 +47,10 @@ export function WhyWorkSection() {
                             { label: t("stat4Label"), value: t("stat4Value"), icon: Headphones },
                         ].map((stat, index) => (
                             <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-[#E5E6E8] hover:shadow-md transition-all group text-center">
-                                <div className="w-16 h-16 rounded-2xl bg-[#FEEBE5] text-[#EF7202] flex items-center justify-center mx-auto mb-4 transition-transform group-hover:scale-110">
+                                <div className="w-16 h-16 rounded-2xl bg-[#FEEBE5] text-[#B8A074] flex items-center justify-center mx-auto mb-4 transition-transform group-hover:scale-110">
                                     <stat.icon className="w-8 h-8" />
                                 </div>
-                                <p className="text-2xl font-bold text-[#001C32] mb-1">{stat.value}</p>
+                                <p className="text-2xl font-bold text-[#3D4852] mb-1">{stat.value}</p>
                                 <p className="text-sm text-[#535454] font-medium uppercase tracking-wider">{stat.label}</p>
                             </div>
                         ))}

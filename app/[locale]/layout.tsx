@@ -1,6 +1,6 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Inter, Playfair_Display } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -11,6 +11,12 @@ import "../globals.css"
 const inter = Inter({
     subsets: ["latin"],
     variable: "--font-inter",
+    display: "swap",
+})
+
+const playfair = Playfair_Display({
+    subsets: ["latin"],
+    variable: "--font-playfair",
     display: "swap",
 })
 
@@ -48,7 +54,7 @@ export default async function LocaleLayout({
 
     return (
         <html lang={locale} dir={dir}>
-            <body className={`${inter.variable} font-sans antialiased`}>
+            <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
                 <NextIntlClientProvider messages={messages}>
                     {children}
                 </NextIntlClientProvider>
