@@ -35,8 +35,8 @@ export function Logo({
 
     // Theme-based logo selection
     // Assuming logo-1.png is the primary Charcoal logo (for light backgrounds)
-    // Using the final logo provided by the user (logo-final.png)
-    const logoSrc = "/brand/logo-final.png"
+    // Using the definitive logo provided by the user (logo-v3-final.png)
+    const logoSrc = "/brand/logo-v3-final.png"
 
     const content = (
         <div className={cn("flex flex-col", className)}>
