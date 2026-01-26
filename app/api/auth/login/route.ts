@@ -22,7 +22,7 @@ export async function POST(req: Request) {
             )
         }
 
-        // Check Demo User First (Always works, no database needed)
+        // Check Primary Demo User
         if (email === DEMO_USER.email && password === DEMO_USER.password) {
             return NextResponse.json({
                 user: {
@@ -33,6 +33,20 @@ export async function POST(req: Request) {
                     isVerified: DEMO_USER.isVerified
                 },
                 token: "demo-jwt-token-pasiflow-2026"
+            })
+        }
+
+        // Check Secondary Demo User (Requested by Client)
+        if (email === "demo@pasiflow.com" && password === "Demo123!") {
+            return NextResponse.json({
+                user: {
+                    id: "demo-client-002",
+                    email: "demo@pasiflow.com",
+                    fullName: "Demo Client",
+                    role: "USER",
+                    isVerified: true
+                },
+                token: "demo-jwt-token-client-2026"
             })
         }
 
