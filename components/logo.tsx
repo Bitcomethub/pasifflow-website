@@ -38,7 +38,7 @@ export function Logo({
     // Assuming logo-5.png (or similar) is the White logo (for dark backgrounds) based on typical export order
     // But since I can't see, I will default to logo-1 which is likely the main one.
     // Ideally, we'd use SVGs.
-    const logoSrc = theme === "dark" ? "/brand/logo-5.png" : "/logo-main.png"
+    const logoSrc = theme === "dark" ? "/brand/logo-1.png" : "/brand/logo-1.png" // User can swap logo-x if needed.
 
     const content = (
         <div className={cn("flex flex-col", className)}>
