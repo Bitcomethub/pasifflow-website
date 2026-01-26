@@ -50,7 +50,7 @@ export default async function PropertiesPage() {
                                 <TableCell>{property.city}, {property.state}</TableCell>
                                 <TableCell>${property.monthlyRent.toLocaleString()}</TableCell>
                                 <TableCell>
-                                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${property.status === 'OCCUPIED' ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'
+                                    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${property.status === 'OCCUPIED' ? 'bg-[#B8A074]/10 text-[#B8A074]' : 'bg-yellow-100 text-yellow-700'
                                         }`}>
                                         {property.status}
                                     </span>

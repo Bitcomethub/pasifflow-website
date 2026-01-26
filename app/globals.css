@@ -16,6 +16,14 @@
   --primary: #3D4852;
   /* Charcoal */
   --primary-foreground: #FFFFFF;
+  --secondary: #B8A074;
+  /* Changed Silver to Gold for Buttons if needed, OR keep Silver and override buttons. 
+     If the user wants "all greens to gold", and "whatsapp to gold". 
+     I'll keep secondary as #B8A074 (Gold) effectively making secondary buttons Gold too? 
+     No, let's keep secondary as Silver for text (A8B0B8) if possible, but the user wants "all greens to gold".
+     Let's stick to component-level replacements first to be safe, or just make a new variable if needed. 
+     Actually, let's just make Secondary Gold if that fits the "Brand" better, but Silver is also brand.
+     Let's leave globals alone for now unless I see a green definition. */
   --secondary: #A8B0B8;
   /* Silver */
   --secondary-foreground: #F5F5F5;

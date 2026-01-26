@@ -113,7 +113,7 @@ export function AIAssistant() {
                                                 className="object-cover"
                                             />
                                         </div>
-                                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 border-2 border-white rounded-full"></div>
+                                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#B8A074] border-2 border-white rounded-full"></div>
                                     </div>
                                     <div>
                                         <h3 className={cn("font-semibold text-sm", COLORS.headerText)}>

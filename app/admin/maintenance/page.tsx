@@ -27,7 +27,7 @@ export default async function MaintenancePage() {
         switch (status) {
             case 'PENDING': return 'bg-yellow-100 text-yellow-700'
             case 'IN_PROGRESS': return 'bg-blue-100 text-blue-700'
-            case 'COMPLETED': return 'bg-green-100 text-green-700'
+            case 'COMPLETED': return 'bg-[#B8A074]/10 text-[#B8A074]'
             default: return 'bg-gray-100 text-gray-700'
         }
     }

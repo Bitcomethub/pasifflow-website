@@ -57,7 +57,7 @@ export default async function FinancialsPage() {
                                         {tx.category}
                                     </span>
                                 </TableCell>
-                                <TableCell className={`text-right font-medium ${tx.type === 'INCOME' ? 'text-green-600' : 'text-red-600'}`}>
+                                <TableCell className={`text-right font-medium ${tx.type === 'INCOME' ? 'text-[#B8A074]' : 'text-red-600'}`}>
                                     {tx.type === 'INCOME' ? '+' : '-'}${tx.amount.toLocaleString()}
                                 </TableCell>
                             </TableRow>

@@ -39,7 +39,7 @@ export function FinalCTASection() {
                 transition={{ delay: 0.1 + i * 0.08, duration: 0.5 }}
                 className="flex items-center gap-2"
               >
-                <CheckCircle2 className="h-5 w-5 text-[#009688] flex-shrink-0" />
+                <CheckCircle2 className="h-5 w-5 text-[#B8A074] flex-shrink-0" />
                 <span className="text-white font-medium text-lg">{t(key)}</span>
               </motion.div>
             ))}
@@ -65,7 +65,7 @@ export function FinalCTASection() {
             </Button>
             <Button
               size="lg"
-              className="h-16 px-10 text-lg rounded-xl bg-[#009688] hover:bg-[#00796b] text-white font-bold transition-all duration-300 gap-2 hover:scale-105"
+              className="h-16 px-10 text-lg rounded-xl bg-[#B8A074] hover:bg-[#a38d5d] text-white font-bold transition-all duration-300 gap-2 hover:scale-105"
               asChild
             >
               <a href="https://wa.me/13056903146" target="_blank" rel="noopener noreferrer">

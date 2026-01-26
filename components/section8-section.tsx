@@ -43,7 +43,7 @@ export function Section8Section() {
                 "Pandemi sürecinde dahi ödeme sürekliliği gösteren yapı"
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
-                  <div className="h-6 w-6 rounded-full bg-[#009688] flex items-center justify-center text-white shrink-0">
+                  <div className="h-6 w-6 rounded-full bg-[#B8A074] flex items-center justify-center text-white shrink-0">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="20 6 9 17 4 12"></polyline>
                     </svg>
@@ -79,7 +79,7 @@ export function Section8Section() {
                 <p className="text-[#C7CBD3] text-sm">{t("stat2Label")}</p>
               </div>
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                <div className="text-2xl sm:text-3xl font-bold text-[#009688] mb-2">%100</div>
+                <div className="text-2xl sm:text-3xl font-bold text-[#B8A074] mb-2">%100</div>
                 <p className="text-[#C7CBD3] text-sm">{t("stat3Label")}</p>
               </div>
             </motion.div>
