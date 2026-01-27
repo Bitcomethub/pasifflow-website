@@ -120,92 +120,90 @@ export function Header() {
               : ""
           )}
         >
-          <div className="container mx-auto px-6 md:px-12 lg:px-16 h-16 flex items-center justify-between">
-            {/* LEFT: Logo + Nav Links - ALL ALIGNED ON SAME ROW */}
-            <div className="flex items-center gap-8">
-              <Link href="/" className="flex items-center">
-                <Logo size="sm" theme="dark" showMotto={false} />
-              </Link>
+          <div className="container mx-auto px-6 md:px-12 lg:px-16 h-20 flex items-center justify-between">
+            {/* LEFT: Logo only */}
+            <Link href="/" className="flex items-center flex-shrink-0">
+              <Logo size="md" theme="dark" showMotto={false} />
+            </Link>
 
-              {/* Desktop Nav with Dropdowns */}
-              <nav className="hidden md:flex items-center gap-6">
-                {/* Platform Group */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger className={cn(
-                    "flex items-center gap-1 text-sm font-medium transition-colors outline-none cursor-pointer text-[#3D4852] hover:text-[#C1A05E]"
-                  )}>
-                    {tNav("platform")} <ChevronDown size={14} />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
-                    <DropdownMenuItem asChild>
-                      <Link href="/#nasil-calisir" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                        {tNav("howItWorks")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/about" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                        {tNav("about")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/#faq" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                        {tNav("faq")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/iletisim" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                        {tNav("contact")}
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+            {/* CENTER: Nav Links - spread to the right */}
+            <nav className="hidden md:flex items-center gap-8 ml-auto mr-8">
+              {/* Platform Group */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className={cn(
+                  "flex items-center gap-1 text-sm font-medium transition-colors outline-none cursor-pointer text-[#3D4852] hover:text-[#C1A05E]"
+                )}>
+                  {tNav("platform")} <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
+                  <DropdownMenuItem asChild>
+                    <Link href="/#nasil-calisir" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("howItWorks")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/about" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("about")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/#faq" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("faq")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/iletisim" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("contact")}
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-                {/* Investment Group */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger className={cn(
-                    "flex items-center gap-1 text-sm font-medium transition-colors outline-none cursor-pointer text-[#3D4852] hover:text-[#C1A05E]"
-                  )}>
-                    {tNav("investment")} <ChevronDown size={14} />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
-                    <DropdownMenuItem asChild>
-                      <Link href="/#portfoy" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-[#B8A074]">
-                        {tNav("portfolio")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/harita" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                        {tNav("mapAndLocations")}
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+              {/* Investment Group */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className={cn(
+                  "flex items-center gap-1 text-sm font-medium transition-colors outline-none cursor-pointer text-[#3D4852] hover:text-[#C1A05E]"
+                )}>
+                  {tNav("investment")} <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
+                  <DropdownMenuItem asChild>
+                    <Link href="/#portfoy" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-[#B8A074]">
+                      {tNav("portfolio")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/harita" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("mapAndLocations")}
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-                {/* Resources Group */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger className={cn(
-                    "flex items-center gap-1 text-sm font-medium transition-colors outline-none cursor-pointer text-[#3D4852] hover:text-[#C1A05E]"
-                  )}>
-                    {tNav("resources")} <ChevronDown size={14} />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
-                    <DropdownMenuItem asChild>
-                      <Link href="/neden-amerika" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                        {tNav("whyUSA")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
-                      <Link href="/vergilendirme" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
-                        {tNav("taxLaw")}
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </nav>
-            </div>
+              {/* Resources Group */}
+              <DropdownMenu>
+                <DropdownMenuTrigger className={cn(
+                  "flex items-center gap-1 text-sm font-medium transition-colors outline-none cursor-pointer text-[#3D4852] hover:text-[#C1A05E]"
+                )}>
+                  {tNav("resources")} <ChevronDown size={14} />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
+                  <DropdownMenuItem asChild>
+                    <Link href="/neden-amerika" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("whyUSA")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/vergilendirme" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                      {tNav("taxLaw")}
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </nav>
 
-            {/* RIGHT: Language + CTA */}
-            <div className="hidden md:flex items-center gap-4">
+            {/* RIGHT: Language + CTA Buttons */}
+            <div className="hidden md:flex items-center gap-4 flex-shrink-0">
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
