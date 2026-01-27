@@ -12,7 +12,7 @@ export function Footer() {
   const tFooter = useTranslations("footer")
 
   return (
-    <footer className="bg-[#1A1A1A] text-white pt-32 pb-16 relative overflow-hidden mt-8">
+    <footer className="bg-white text-[#3D4852] pt-32 pb-16 relative overflow-hidden mt-8 border-t border-slate-200">
       {/* Decorative Background */}
       <div className="absolute inset-0 opacity-40 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#B8A074]/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
@@ -24,7 +24,7 @@ export function Footer() {
 
           <div className="space-y-6">
             <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
-              <div className="relative w-[280px] h-[105px]">
+              <div className="relative w-[400px] h-[150px]">
                 <Image
                   src="/footer-logo-large.png"
                   alt="Pasiflow"
@@ -36,21 +36,21 @@ export function Footer() {
             </Link>
 
             <div className="flex gap-4">
-              <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white hover:text-[#B8A074] border border-white/20">
+              <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
                 <Instagram size={18} />
               </Link>
-              <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white hover:text-[#B8A074] border border-white/20">
+              <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
                 <Linkedin size={18} />
               </Link>
-              <Link href="https://youtube.com/@pasiflow" target="_blank" className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white hover:text-[#B8A074] border border-white/20">
+              <Link href="https://youtube.com/@pasiflow" target="_blank" className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
                 <Youtube size={18} />
               </Link>
             </div>
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-white">{tFooter("quickLinks")}</h4>
-            <ul className="space-y-3 text-sm text-white/70">
+            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{tFooter("quickLinks")}</h4>
+            <ul className="space-y-3 text-sm text-slate-600">
               <li><Link href="#nasil-calisir" className="hover:text-[#B8A074] transition-colors font-medium">{t("howItWorks")}</Link></li>
               <li><Link href="#portfoy" className="hover:text-[#B8A074] transition-colors font-medium">{t("portfolio")}</Link></li>
               <li><Link href="#faq" className="hover:text-[#B8A074] transition-colors font-medium">{t("faq")}</Link></li>
@@ -60,8 +60,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-white">{tFooter("legal")}</h4>
-            <ul className="space-y-3 text-sm text-white/70">
+            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{tFooter("legal")}</h4>
+            <ul className="space-y-3 text-sm text-slate-600">
               <li><Link href="/gizlilik" className="hover:text-[#B8A074] transition-colors font-medium">{t("privacyPolicy")}</Link></li>
               <li><Link href="/kullanim-sartlari" className="hover:text-[#B8A074] transition-colors font-medium">{t("termsOfService")}</Link></li>
               <li><Link href="/kvkk" className="hover:text-[#B8A074] transition-colors font-medium">{t("kvkk")}</Link></li>
@@ -69,8 +69,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-white">{t("contact")}</h4>
-            <div className="space-y-4 text-sm text-white/70">
+            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{t("contact")}</h4>
+            <div className="space-y-4 text-sm text-slate-600">
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-[#B8A074]" />
                 <a href="mailto:info@pasiflow.com" className="hover:text-[#B8A074] transition-colors font-medium">
@@ -86,8 +86,8 @@ export function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin size={16} className="text-[#B8A074] mt-0.5" />
                 <div>
-                  <p className="text-white font-medium">Miami, Florida, USA</p>
-                  <p className="text-xs text-white/60 mt-1">{tFooter("istanbulOffice")}</p>
+                  <p className="text-[#1F2328] font-medium">Miami, Florida, USA</p>
+                  <p className="text-xs text-slate-500 mt-1">{tFooter("istanbulOffice")}</p>
                 </div>
               </div>
               <a

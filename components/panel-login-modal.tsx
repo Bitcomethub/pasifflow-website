@@ -82,7 +82,16 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
 
     return (
         <Dialog open={open} onOpenChange={handleClose}>
-            <DialogContent className="w-[95%] sm:max-w-md max-h-[90vh] flex flex-col bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl p-0 relative outline-none overflow-hidden">
+            <DialogContent
+                className="w-[95%] sm:max-w-md max-h-[90vh] flex flex-col bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl p-0 outline-none overflow-hidden"
+                showCloseButton={false}
+            >
+                {/* Visually hidden title and description for accessibility */}
+                <DialogTitle className="sr-only">Panel Girişi</DialogTitle>
+                <DialogDescription className="sr-only">
+                    Yatırımcı veya Agent olarak giriş yapın
+                </DialogDescription>
+
                 {/* Close Button */}
                 <button
                     onClick={handleClose}
@@ -102,7 +111,7 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                             <h3 className="text-white font-bold text-lg tracking-tight">
                                 Panel Girişi
                             </h3>
-                            <p className="text-slate-400 text-xs font-medium">Yatırımcı veya Acente olarak giriş yapın</p>
+                            <p className="text-slate-400 text-xs font-medium">Yatırımcı veya Agent olarak giriş yapın</p>
                         </div>
                     </div>
                 </div>
@@ -132,7 +141,7 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                                     )}
                                 >
                                     <Briefcase size={16} className={activeTab === "agent" ? "text-[#C1A05E]" : "text-slate-400"} />
-                                    Acente Girişi
+                                    Agent Girişi
                                 </button>
                             </div>
 

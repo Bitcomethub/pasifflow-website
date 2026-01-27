@@ -73,7 +73,10 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
 
     return (
         <Dialog open={open} onOpenChange={handleClose}>
-            <DialogContent className="w-[95%] sm:max-w-lg max-h-[90vh] flex flex-col bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl p-0 relative outline-none overflow-hidden">
+            <DialogContent
+                className="w-[95%] sm:max-w-lg max-h-[90vh] flex flex-col bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl p-0 outline-none overflow-hidden"
+                showCloseButton={false}
+            >
                 {/* Close Button */}
                 <button
                     onClick={handleClose}
