@@ -11,7 +11,7 @@ export default function MarketingLayout({
     return (
         <>
             <Header />
-            <main className="min-h-screen">
+            <main className="min-h-screen pt-28">
                 {children}
             </main>
             <Footer />

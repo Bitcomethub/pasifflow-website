@@ -14,8 +14,8 @@ export function ComparisonSection() {
     <section className="py-24 bg-[#1F2328] relative overflow-hidden">
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         <div className="text-center space-y-4 mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold text-slate-900">{t("title")}</h2>
-          <p className="text-slate-500 text-lg">{t("subtitle")}</p>
+          <h2 className="text-3xl md:text-5xl font-bold text-[#C1A05E]">{t("title")}</h2>
+          <p className="text-white/70 text-lg">{t("subtitle")}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
