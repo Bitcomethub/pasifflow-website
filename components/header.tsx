@@ -260,7 +260,7 @@ export function Header() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="flex font-semibold gap-2 border-white/20 text-white hover:bg-white/10"
+                  className="flex font-semibold gap-2 border-[#C1A05E] text-[#C1A05E] hover:bg-[#C1A05E] hover:text-white transition-all rounded-lg h-9 px-4"
                   asChild
                 >
                   <Link href={`/${currentLocale}/login`}>

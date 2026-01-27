@@ -1,11 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useRouter, usePathname } from "next/navigation"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Check, Lock, Sparkles, Shield, TrendingUp, X, Mail } from "lucide-react"
+import { Check, Lock, Sparkles, Shield, TrendingUp, X, Mail, Briefcase } from "lucide-react"
 import { useTranslations } from "next-intl"
+import { cn } from "@/lib/utils"
 
 interface LeadGenModalProps {
     open: boolean
@@ -17,6 +19,10 @@ interface LeadGenModalProps {
 
 export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, initialAuthMode = "signup" }: LeadGenModalProps) {
     const t = useTranslations("leadGenModal")
+    const router = useRouter()
+    const pathname = usePathname()
+    const currentLocale = pathname.split('/')[1] || 'tr'
+
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
@@ -26,10 +32,14 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
     const [authMode, setAuthMode] = useState<"signup" | "login">(initialAuthMode)
     const [error, setError] = useState<string | null>(null)
 
+    const [activeTab, setActiveTab] = useState<"client" | "agent">("client")
+
     // Reset auth mode when modal opens
     useEffect(() => {
         if (open) {
             setAuthMode(initialAuthMode)
+            // Reset activeTab to client when modal opens, unless it's specifically for agent login
+            setActiveTab("client")
         }
     }, [open, initialAuthMode])
 
@@ -65,6 +75,15 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                 onSuccess()
                 onOpenChange(false)
                 setStep("form")
+
+                // Smart Redirect for Header Auth
+                if (triggerSource === "Header Auth") {
+                    if (data.user.role === "AGENT") {
+                        router.push(`/${currentLocale}/agent/dashboard`)
+                    } else {
+                        router.push(`/${currentLocale}/dashboard`)
+                    }
+                }
             }, 2000)
         } catch (err: any) {
             console.error("Auth error:", err)
@@ -117,23 +136,57 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
 
                     {step === "form" ? (
                         <div className="space-y-6">
-                            {/* Auth Mode Toggle */}
-                            <div className="flex p-1 bg-slate-100 rounded-lg">
+                            {/* Role Tabs - Only show when in Login mode or generally? Let's show always for clear entry */}
+                            <div className="flex p-1 bg-slate-100/50 rounded-xl mb-2">
                                 <button
-                                    type="button"
-                                    onClick={() => setAuthMode("signup")}
-                                    className={`flex-1 text-sm font-semibold py-2 rounded-md transition-all ${authMode === "signup" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                                    onClick={() => { setActiveTab("client"); setAuthMode("login"); }}
+                                    className={cn(
+                                        "flex-1 py-2 text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2",
+                                        activeTab === "client" ? "bg-white text-slate-900 shadow-sm ring-1 ring-black/5" : "text-slate-500 hover:text-slate-700"
+                                    )}
                                 >
-                                    {t("signup")}
+                                    <Sparkles size={16} className={activeTab === "client" ? "text-slate-900" : "text-slate-400"} />
+                                    Yatırımcı
                                 </button>
                                 <button
-                                    type="button"
-                                    onClick={() => setAuthMode("login")}
-                                    className={`flex-1 text-sm font-semibold py-2 rounded-md transition-all ${authMode === "login" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                                    onClick={() => { setActiveTab("agent"); setAuthMode("login"); }}
+                                    className={cn(
+                                        "flex-1 py-2 text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2",
+                                        activeTab === "agent" ? "bg-white text-[#C1A05E] shadow-sm ring-1 ring-black/5" : "text-slate-500 hover:text-slate-700"
+                                    )}
                                 >
-                                    {t("login")}
+                                    <Briefcase size={16} className={activeTab === "agent" ? "text-[#C1A05E]" : "text-slate-400"} />
+                                    Acente
                                 </button>
                             </div>
+
+                            {/* Auth Mode Toggle - Only for Client (Agents are login only usually) */}
+                            {activeTab === "client" && (
+                                <div className="flex p-1 bg-slate-100 rounded-lg">
+                                    <button
+                                        type="button"
+                                        onClick={() => setAuthMode("signup")}
+                                        className={`flex-1 text-sm font-semibold py-2 rounded-md transition-all ${authMode === "signup" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                                    >
+                                        {t("signup")}
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setAuthMode("login")}
+                                        className={`flex-1 text-sm font-semibold py-2 rounded-md transition-all ${authMode === "login" ? "bg-white text-slate-900 shadow-sm" : "text-slate-500 hover:text-slate-700"}`}
+                                    >
+                                        {t("login")}
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* Agent Title Override */}
+                            {activeTab === "agent" && (
+                                <div className="text-center py-2">
+                                    <h4 className="text-lg font-bold text-slate-900">Acente Girişi</h4>
+                                    <p className="text-xs text-slate-500">Partner panelinize erişmek için giriş yapın.</p>
+                                </div>
+                            )}
 
                             {/* Social Login - Auto Login Option */}
                             <Button variant="outline" className="w-full h-12 bg-white border-slate-200 text-slate-700 font-medium hover:bg-slate-50 relative" onClick={() => console.log("Social login clicked")}>

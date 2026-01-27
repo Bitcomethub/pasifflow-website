@@ -51,6 +51,20 @@ export async function POST(req: Request) {
             })
         }
 
+        // Check Agent Demo User (New Request)
+        if (email === "agent@pasiflow.com" && password === "Agent123!") {
+            return NextResponse.json({
+                user: {
+                    id: "demo-agent-003",
+                    email: "agent@pasiflow.com",
+                    fullName: "Pasiflow Agent",
+                    role: "AGENT",
+                    isVerified: true
+                },
+                token: "demo-jwt-token-agent-2026"
+            })
+        }
+
         // For non-demo users, try database (optional - may fail on Vercel)
         try {
             const user = await prisma.user.findUnique({
