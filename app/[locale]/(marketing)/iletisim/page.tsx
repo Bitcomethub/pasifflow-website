@@ -8,8 +8,6 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
 import Link from "next/link"
 
 export default function ContactPage() {
@@ -25,8 +23,8 @@ export default function ContactPage() {
     ]
 
     return (
-        <div className="min-h-screen">
-            <Header />
+        <>
+
 
             {/* Hero Section with Contact Form */}
             <section className="relative pt-24 pb-32 overflow-hidden">
@@ -279,7 +277,6 @@ export default function ContactPage() {
                 </div>
             </section>
 
-            <Footer />
-        </div>
+        </>
     )
 }

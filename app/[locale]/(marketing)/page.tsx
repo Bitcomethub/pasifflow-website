@@ -1,4 +1,3 @@
-import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
 import { TrustBadges } from "@/components/trust-badges"
 import { ValuePropsSection } from "@/components/value-props-section"
@@ -15,7 +14,6 @@ import { WhyWorkSection } from "@/components/why-work-section"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { FAQSection } from "@/components/faq-section"
 import { FinalCTASection } from "@/components/final-cta-section"
-import { Footer } from "@/components/footer"
 
 export default function Home() {
     return (
