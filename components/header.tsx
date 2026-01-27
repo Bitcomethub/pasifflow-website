@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { LeadGenModal } from "@/components/lead-gen-modal"
+import { PanelLoginModal } from "@/components/panel-login-modal"
 
 const languages = [
   { code: 'tr', name: 'Türkçe', flag: '🇹🇷' },
@@ -29,6 +30,7 @@ export function Header() {
 
   // Auth Modal State
   const [showLeadModal, setShowLeadModal] = useState(false)
+  const [showPanelLoginModal, setShowPanelLoginModal] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "signup">("signup")
   const [currentUser, setCurrentUser] = useState<{ email: string; fullName?: string } | null>(null)
 
@@ -261,11 +263,9 @@ export function Header() {
                   variant="outline"
                   size="sm"
                   className="flex font-semibold gap-2 border-[#C1A05E] text-[#C1A05E] hover:bg-[#C1A05E] hover:text-white transition-all rounded-lg h-9 px-4"
-                  asChild
+                  onClick={() => setShowPanelLoginModal(true)}
                 >
-                  <Link href={`/${currentLocale}/login`}>
-                    {tNav("panelLogin")}
-                  </Link>
+                  {tNav("panelLogin")}
                 </Button>
 
                 <Button
@@ -282,8 +282,11 @@ export function Header() {
             open={showLeadModal}
             onOpenChange={setShowLeadModal}
             onSuccess={() => setShowLeadModal(false)}
-            triggerSource="Header Auth"
-            initialAuthMode={authMode}
+          />
+
+          <PanelLoginModal
+            open={showPanelLoginModal}
+            onOpenChange={setShowPanelLoginModal}
           />
 
 
