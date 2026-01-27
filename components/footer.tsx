@@ -24,7 +24,7 @@ export function Footer() {
 
           <div className="space-y-6">
             <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
-              <Logo size="xl" theme="dark" showMotto={false} />
+              <Logo size="xl" theme="light" showMotto={false} />
             </Link>
 
             <div className="flex gap-4">
