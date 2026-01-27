@@ -1,8 +1,9 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react"
-import { Logo } from "@/components/logo"
+
 import { useTranslations } from "next-intl"
 
 export function Footer() {
@@ -22,9 +23,17 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12 mb-12 items-start">
 
           <div className="space-y-6">
-            <div className="flex justify-start">
-              <Logo size="md" linkTo="/" theme="dark" />
-            </div>
+            <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
+              <div className="relative w-[210px] h-[76px]">
+                <Image
+                  src="/footer-logo.jpg"
+                  alt="Pasiflow"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+            </Link>
 
             <div className="flex gap-4">
               <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white hover:text-[#B8A074] border border-white/20">
