@@ -8,10 +8,10 @@ export function ServicePackagesSection() {
     const t = useTranslations("servicePackages")
 
     const packages = [
-        { icon: GraduationCap, titleKey: "package1Title", descKey: "package1Desc", iconGradient: "from-secondary to-[#1A344B]", hoverGradient: "from-secondary/5 to-[#1A344B]/5" },
+        { icon: GraduationCap, titleKey: "package1Title", descKey: "package1Desc", iconGradient: "from-secondary to-[#3D4852]", hoverGradient: "from-secondary/5 to-[#3D4852]/5" },
         { icon: Building2, titleKey: "package2Title", descKey: "package2Desc", iconGradient: "from-slate-600 to-gray-500", hoverGradient: "from-slate-500/5 to-gray-500/5" },
-        { icon: TrendingUp, titleKey: "package3Title", descKey: "package3Desc", iconGradient: "from-primary to-[#FF8534]", hoverGradient: "from-primary/5 to-[#FF8534]/5" },
-        { icon: DoorOpen, titleKey: "package4Title", descKey: "package4Desc", iconGradient: "from-secondary to-[#1A344B]", hoverGradient: "from-secondary/5 to-[#1A344B]/5" },
+        { icon: TrendingUp, titleKey: "package3Title", descKey: "package3Desc", iconGradient: "from-primary to-[#B8A074]", hoverGradient: "from-primary/5 to-[#B8A074]/5" },
+        { icon: DoorOpen, titleKey: "package4Title", descKey: "package4Desc", iconGradient: "from-secondary to-[#3D4852]", hoverGradient: "from-secondary/5 to-[#3D4852]/5" },
     ]
 
     return (

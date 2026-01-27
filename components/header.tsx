@@ -133,7 +133,7 @@ export function Header() {
                 )}>
                   {tNav("platform")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
                     <Link href="#nasil-calisir" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("howItWorks")}
@@ -164,7 +164,7 @@ export function Header() {
                 )}>
                   {tNav("investment")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
                     <Link href="#portfoy" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-[#B8A074]">
                       {tNav("portfolio")}
@@ -185,7 +185,7 @@ export function Header() {
                 )}>
                   {tNav("resources")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
                     <Link href="/neden-amerika" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("whyUSA")}
@@ -213,14 +213,14 @@ export function Header() {
                   <ChevronDown className={cn("h-3 w-3 text-white/70")} />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="min-w-[140px] bg-white border-[#E5E6E8]">
+              <DropdownMenuContent align="end" className="min-w-[140px] bg-white border-[#E5E5E5]">
                 {languages.map((lang) => (
                   <DropdownMenuItem
                     key={lang.code}
                     onClick={() => switchLocale(lang.code)}
                     className={cn(
-                      "gap-3 cursor-pointer text-[#1F2328] focus:bg-[#F6F7F9] py-2",
-                      currentLocale === lang.code && "bg-[#F6F7F9]"
+                      "gap-3 cursor-pointer text-[#3D4852] focus:bg-[#F5F5F5] py-2",
+                      currentLocale === lang.code && "bg-[#F5F5F5]"
                     )}
                   >
                     <span className="text-lg">{lang.flag}</span>
@@ -246,7 +246,7 @@ export function Header() {
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-[#E5E6E8]">
+                <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-[#E5E5E5]">
                   <DropdownMenuItem
                     onClick={handleLogout}
                     className="cursor-pointer text-destructive focus:bg-destructive/10"
@@ -289,7 +289,7 @@ export function Header() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden z-[70] p-2 rounded-lg text-[#1F2328] hover:bg-[#E5E6E8] transition-colors"
+            className="md:hidden z-[70] p-2 rounded-lg text-[#3D4852] hover:bg-[#E5E5E5] transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

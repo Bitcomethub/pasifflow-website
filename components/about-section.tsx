@@ -10,7 +10,7 @@ export function AboutSection() {
     return (
         <section className="relative w-full bg-white">
             {/* Hero Section - Clean, Minimal, Fundrise-style */}
-            <div className="relative w-full py-32 md:py-40 bg-[#F6F7F9] overflow-hidden">
+            <div className="relative w-full py-32 md:py-40 bg-[#F5F5F5] overflow-hidden">
                 <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}

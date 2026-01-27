@@ -18,11 +18,11 @@ export function AppFeaturesSection() {
     ]
 
     return (
-        <section className="py-24 bg-slate-900 text-white relative overflow-hidden">
+        <section className="py-24 bg-[#1A1A1A] text-white relative overflow-hidden">
             {/* Decorative background */}
             <div className="absolute inset-0">
                 <div className="absolute top-20 right-20 w-64 h-64 bg-[#B8A074]/20 rounded-full blur-3xl" />
-                <div className="absolute bottom-20 left-20 w-80 h-80 bg-slate-700/50 rounded-full blur-3xl" />
+                <div className="absolute bottom-20 left-20 w-80 h-80 bg-[#3D4852]/30 rounded-full blur-3xl" />
             </div>
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -33,13 +33,13 @@ export function AppFeaturesSection() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                     >
-                        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white text-slate-900 font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
+                        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#B8A074] text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
                             <Smartphone className="w-4 h-4" />
                             <span>Mobil Uygulama</span>
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">{t("title")}</h2>
-                        <p className="text-xl text-slate-300 mb-8">{t("subtitle")}</p>
-                        <p className="text-slate-400 mb-8">{t("description")}</p>
+                        <p className="text-xl text-white/80 mb-8">{t("subtitle")}</p>
+                        <p className="text-white/60 mb-8">{t("description")}</p>
 
                         <div className="grid gap-4">
                             {features.map((feature, i) => (
@@ -51,8 +51,8 @@ export function AppFeaturesSection() {
                                     transition={{ delay: i * 0.1 }}
                                     className="flex items-start gap-4 bg-white/5 border border-white/10 rounded-xl p-4 hover:bg-white/10 hover:border-white/20 transition-all"
                                 >
-                                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-white flex items-center justify-center shadow-md">
-                                        <feature.icon className="h-5 w-5 text-slate-900" />
+                                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#B8A074] flex items-center justify-center shadow-md">
+                                        <feature.icon className="h-5 w-5 text-white" />
                                     </div>
                                     <p className="text-white text-sm leading-relaxed pt-2 font-medium">{t(feature.key)}</p>
                                 </motion.div>
@@ -67,9 +67,9 @@ export function AppFeaturesSection() {
                         viewport={{ once: true }}
                         className="flex flex-col items-center order-first lg:order-last mb-8 lg:mb-0"
                     >
-                        <div className="relative w-48 h-96 lg:w-[300px] lg:h-[600px] bg-black rounded-[2rem] lg:rounded-[3rem] border-4 border-gray-800 shadow-2xl overflow-hidden">
+                        <div className="relative w-48 h-96 lg:w-[300px] lg:h-[600px] bg-[#3D4852] rounded-[2rem] lg:rounded-[3rem] border-4 border-[#B8A074]/30 shadow-2xl overflow-hidden">
                             {/* Phone notch */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-black rounded-b-2xl z-10" />
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-[#3D4852] rounded-b-2xl z-10" />
 
                             {/* App Screenshot */}
                             <Image

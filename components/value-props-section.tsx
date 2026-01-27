@@ -37,7 +37,7 @@ export function ValuePropsSection() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-left"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1F2328] mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#3D4852] mb-6">
               {t("title")}
               <br />
               <span className="text-[#C1A05E]">{t("subtitle")}</span>
