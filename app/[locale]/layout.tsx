@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     description:
         "Amerika'da %12'ye kadar net kira getirisi ile her ay düzenli pasif gelir. Section 8 devlet garantili yatırım evleri.",
     icons: {
-        icon: "/icon.png",
+        icon: "/icon.svg",
         apple: "/apple-icon.png",
     },
 }
