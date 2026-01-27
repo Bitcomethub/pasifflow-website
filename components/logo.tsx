@@ -40,7 +40,7 @@ export function Logo({
     // Let's assume the new logo.png provided is the one to use.
 
     // The user moved uploaded_media_2 to public/brand/logo.png.
-    const logoSrc = "/brand/logo.png"
+    const logoSrc = "/logo.png"
 
     const content = (
         <div className={cn("flex flex-col", className)}>
@@ -51,8 +51,7 @@ export function Logo({
                     width={styles.width}
                     height={styles.height}
                     className={cn(
-                        "object-contain",
-                        theme === "dark" && "brightness-0 invert"
+                        "object-contain"
                     )}
                     priority
                 />
