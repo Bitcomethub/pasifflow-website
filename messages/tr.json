@@ -521,6 +521,7 @@
         "new": "YENİ",
         "advisorActive": "Danışman Aktif",
         "greeting": "Merhaba! Ben Pasi, Pasiflow'un akıllı yatırım danışmanı. [PASI_ICON]\n\nABD gayrimenkul yatırımları, Detroit piyasası, Section 8 programı veya yatırım getirisi hesaplamaları hakkında tüm sorularınızı yanıtlamak için buradayım.\n\nSize nasıl yardımcı olabilirim?",
+        "poweredBy": "Pasiflow AI tarafından desteklenmektedir",
         "hooks": [
             "Detroit'te %12 getiri sağlayan mülkler var, görmek ister misiniz? 🏠",
             "Section 8 ile devlet garantili kira almak ister misiniz? 💰",
@@ -556,6 +557,21 @@
             "section8": "Section 8",
             "portfolio": "Portföy"
         }
+    },
+    "panelLoginModal": {
+        "title": "Panel Girişi",
+        "subTitle": "Yatırımcı veya Agent olarak giriş yapın",
+        "tabClient": "Yatırımcı Girişi",
+        "tabAgent": "Agent Girişi",
+        "descClient": "Yatırım panelinize erişmek için giriş yapın.",
+        "descAgent": "Partner panelinize erişmek için giriş yapın.",
+        "emailPlaceholder": "E-posta Adresiniz",
+        "passwordPlaceholder": "Şifreniz",
+        "loginButton": "Giriş Yap",
+        "processing": "Giriş yapılıyor...",
+        "securityNote": "Bilgileriniz 256-bit SSL ile korunmaktadır.",
+        "redirecting": "Yönlendiriliyorsunuz...",
+        "errorDefault": "Giriş başarısız"
     },
     "leadGen": {
         "titleFree": "Ücretsiz Danışmanlık",

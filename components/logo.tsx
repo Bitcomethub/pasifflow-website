@@ -39,8 +39,8 @@ export function Logo({
     // However, the user provided ONE logo file for the logo update.
     // Let's assume the new logo.png provided is the one to use.
 
-    // The user moved uploaded_media_2 to public/brand/logo.png.
-    const logoSrc = "/logo.png"
+    // Use white logo for dark backgrounds (theme="dark"), default logo for light backgrounds
+    const logoSrc = theme === "dark" ? "/brand/logo-user-white.png" : "/logo.png"
 
     const content = (
         <div className={cn("flex flex-col", className)}>

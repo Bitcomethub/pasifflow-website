@@ -224,9 +224,15 @@ export function AIAssistant() {
                                         <Send size={14} />
                                     </Button>
                                 </div>
-                                <div className="text-center mt-2 text-[10px] text-muted-foreground/60">
-                                    Powered by Pasiflow AI
-                                </div>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className="p-2 text-center"
+                                >
+                                    <p className="text-[10px] text-slate-400 font-medium">
+                                        {t("poweredBy")}
+                                    </p>
+                                </motion.div>
                             </div>
                         </motion.div>
                     )}

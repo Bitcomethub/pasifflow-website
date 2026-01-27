@@ -158,7 +158,7 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                                 <div className="space-y-3">
                                     <Input
                                         type="email"
-                                        placeholder="E-posta Adresiniz"
+                                        placeholder={t("emailPlaceholder")}
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
@@ -166,7 +166,7 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                                     />
                                     <Input
                                         type="password"
-                                        placeholder="Şifreniz"
+                                        placeholder={t("passwordPlaceholder")}
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         required
@@ -188,16 +188,16 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                                     {loading ? (
                                         <div className="flex items-center gap-2">
                                             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                            Giriş yapılıyor...
+                                            {t("processing")}
                                         </div>
                                     ) : (
-                                        "Giriş Yap"
+                                        t("loginButton")
                                     )}
                                 </Button>
 
                                 <p className="text-xs text-center text-slate-400 pt-2">
                                     <Lock size={10} className="inline mr-1" />
-                                    Bilgileriniz 256-bit SSL ile korunmaktadır.
+                                    {t("securityNote")}
                                 </p>
                             </form>
                         </div>

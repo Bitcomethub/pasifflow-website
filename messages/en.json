@@ -525,6 +525,7 @@
         "new": "NEW",
         "advisorActive": "Advisor Active",
         "greeting": "Hello! I'm Pasi, Pasiflow's smart investment advisor. [PASI_ICON]\n\nI'm here to answer all your questions about US real estate investments, Detroit market, Section 8 program, or ROI calculations.\n\nHow can I help you?",
+        "poweredBy": "Powered by Pasiflow AI",
         "hooks": [
             "There are properties in Detroit with 12% yield, want to see them? 🏠",
             "Want to get government-guaranteed rent with Section 8? 💰",
@@ -560,6 +561,21 @@
             "section8": "Section 8",
             "portfolio": "Portfolio"
         }
+    },
+    "panelLoginModal": {
+        "title": "Panel Login",
+        "subTitle": "Login as Investor or Agent",
+        "tabClient": "Investor Login",
+        "tabAgent": "Agent Login",
+        "descClient": "Log in to access your investment panel.",
+        "descAgent": "Log in to access your partner panel.",
+        "emailPlaceholder": "Email Address",
+        "passwordPlaceholder": "Password",
+        "loginButton": "Log In",
+        "processing": "Logging in...",
+        "securityNote": "Your data is protected with 256-bit SSL.",
+        "redirecting": "Redirecting...",
+        "errorDefault": "Login failed"
     },
     "leadGen": {
         "titleFree": "Free Consultation",
