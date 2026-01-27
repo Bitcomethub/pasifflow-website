@@ -24,7 +24,7 @@ export function Footer() {
 
           <div className="space-y-6">
             <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
-              <div className="relative w-[300px] h-[110px]">
+              <div className="relative w-[280px] h-[105px]">
                 <Image
                   src="/footer-logo-large.png"
                   alt="Pasiflow"
