@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { prisma } from "@/lib/prisma"
 
 // Demo user for client presentations (works without database)
 const DEMO_USER = {
@@ -52,9 +53,6 @@ export async function POST(req: Request) {
 
         // For non-demo users, try database (optional - may fail on Vercel)
         try {
-            const { PrismaClient } = await import("@prisma/client")
-            const prisma = new PrismaClient()
-
             const user = await prisma.user.findUnique({
                 where: { email }
             })

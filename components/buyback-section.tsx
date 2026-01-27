@@ -68,8 +68,8 @@ export function BuybackSection() {
 
                             <div className="relative z-10">
                                 <h3 className="text-2xl font-bold text-foreground mb-6 flex items-center gap-3">
-                                    <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center">
-                                        <DollarSign className="w-6 h-6 text-primary" />
+                                    <div className="w-12 h-12 rounded-xl bg-[#B8A074]/20 flex items-center justify-center">
+                                        <DollarSign className="w-6 h-6 text-[#B8A074]" />
                                     </div>
                                     {t("corePromiseTitle")}
                                 </h3>
@@ -103,45 +103,8 @@ export function BuybackSection() {
                         </Card>
                     </motion.div>
 
-                    {/* Right - Pricing & Eligibility */}
+                    {/* Right - Eligibility & Time Window */}
                     <div className="space-y-6">
-                        {/* Pricing Card */}
-                        <motion.div
-                            initial={{ opacity: 0, x: 30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: 0.3 }}
-                        >
-                            <Card className="p-8 border-accent/30 bg-gradient-to-br from-accent/20 to-accent/10 shadow-xl relative overflow-hidden">
-                                <div className="absolute -right-4 -top-4 opacity-20">
-                                    <Shield className="w-24 h-24 text-accent" />
-                                </div>
-
-                                <div className="relative z-10">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <h3 className="text-xl font-bold text-slate-900">{t("pricingTitle")}</h3>
-                                        <span className="px-3 py-1 rounded-full bg-[#B8A074]/10 text-[#B8A074] text-sm font-semibold">
-                                            {t("optional")}
-                                        </span>
-                                    </div>
-
-                                    <div className="flex items-baseline gap-2 mb-4">
-                                        <span className="text-5xl font-bold text-slate-900">$3,500</span>
-                                        <span className="text-slate-600">{t("oneTime")}</span>
-                                    </div>
-
-                                    <p className="text-muted-foreground mb-6">
-                                        {t("pricingDesc")}
-                                    </p>
-
-                                    <Button className="w-full bg-slate-900 hover:bg-slate-800 text-white font-semibold py-6 text-lg group shadow-lg">
-                                        {t("ctaButton")}
-                                        <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
-                                    </Button>
-                                </div>
-                            </Card>
-                        </motion.div>
-
                         {/* Time Window */}
                         <motion.div
                             initial={{ opacity: 0, x: 30 }}
@@ -151,8 +114,8 @@ export function BuybackSection() {
                         >
                             <Card className="p-6 border-muted bg-card/50">
                                 <div className="flex items-start gap-4">
-                                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                        <Clock className="w-6 h-6 text-primary" />
+                                    <div className="w-12 h-12 rounded-xl bg-[#B8A074]/10 flex items-center justify-center flex-shrink-0">
+                                        <Clock className="w-6 h-6 text-[#B8A074]" />
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-foreground mb-2">{t("timeWindowTitle")}</h4>
@@ -176,8 +139,8 @@ export function BuybackSection() {
                                 <div className="space-y-3">
                                     {eligibilityItems.map((item, i) => (
                                         <div key={i} className="flex items-center gap-3">
-                                            <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                                                <item.icon className="w-4 h-4 text-primary" />
+                                            <div className="w-8 h-8 rounded-lg bg-[#B8A074]/10 flex items-center justify-center">
+                                                <item.icon className="w-4 h-4 text-[#B8A074]" />
                                             </div>
                                             <span className="text-sm text-muted-foreground">{item.text}</span>
                                         </div>

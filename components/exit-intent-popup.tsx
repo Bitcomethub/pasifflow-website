@@ -63,7 +63,7 @@ export function ExitIntentPopup() {
                         </button>
 
                         {/* Header with gradient */}
-                        <div className="bg-gradient-to-br from-[#a3452b] via-[#8a3a24] to-[#6d2e1c] p-6 text-white text-center">
+                        <div className="bg-gradient-to-br from-[#3D4852] via-[#3D4852] to-[#1A1A1A] p-6 text-white text-center">
                             <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
@@ -124,7 +124,7 @@ export function ExitIntentPopup() {
                             {/* CTA Button */}
                             <Button
                                 onClick={handleCTA}
-                                className="w-full h-12 bg-[#a3452b] hover:bg-[#8a3a24] text-white font-semibold text-base rounded-xl shadow-lg shadow-[#a3452b]/20 group"
+                                className="w-full h-12 bg-accent hover:bg-accent/90 text-white font-semibold text-base rounded-xl shadow-lg shadow-accent/20 group"
                             >
                                 <Calendar className="w-5 h-5 mr-2" />
                                 {t("cta")}

@@ -8,10 +8,10 @@ export function PropertyManagementSection() {
     const t = useTranslations("propertyManagement")
 
     const services = [
-        { icon: Users, titleKey: "service1Title", descKey: "service1Desc", color: "text-secondary", bg: "bg-secondary/10" },
-        { icon: Wrench, titleKey: "service2Title", descKey: "service2Desc", color: "text-primary", bg: "bg-primary/10" },
-        { icon: FileText, titleKey: "service3Title", descKey: "service3Desc", color: "text-slate-600", bg: "bg-slate-100" },
-        { icon: Scale, titleKey: "service4Title", descKey: "service4Desc", color: "text-secondary", bg: "bg-secondary/10" },
+        { icon: Users, titleKey: "service1Title", descKey: "service1Desc", color: "text-[#B8A074]", bg: "bg-[#B8A074]/10" },
+        { icon: Wrench, titleKey: "service2Title", descKey: "service2Desc", color: "text-[#B8A074]", bg: "bg-[#B8A074]/10" },
+        { icon: FileText, titleKey: "service3Title", descKey: "service3Desc", color: "text-[#B8A074]", bg: "bg-[#B8A074]/10" },
+        { icon: Scale, titleKey: "service4Title", descKey: "service4Desc", color: "text-[#B8A074]", bg: "bg-[#B8A074]/10" },
     ]
 
     return (

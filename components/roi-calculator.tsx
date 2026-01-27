@@ -82,15 +82,15 @@ export function RoiCalculator() {
     const totalRoiPercent = (totalReturn / totalInvestment) * 100
 
     return (
-        <Card className="p-6 sm:p-8 bg-white border-[#e5e4df] shadow-lg relative overflow-hidden rounded-2xl">
+        <Card className="p-6 sm:p-8 bg-white border-border shadow-lg relative overflow-hidden rounded-2xl">
             {/* Header */}
             <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <Calculator className="text-primary w-5 h-5" />
+                <div className="w-10 h-10 bg-[#B8A074]/10 rounded-lg flex items-center justify-center">
+                    <Calculator className="text-[#B8A074] w-5 h-5" />
                 </div>
                 <div>
-                    <h3 className="text-xl font-semibold text-[#151513]">{t("title")}</h3>
-                    <p className="text-sm text-[#6b6b67]">Detroit, MI</p>
+                    <h3 className="text-xl font-semibold text-foreground">{t("title")}</h3>
+                    <p className="text-sm text-muted-foreground">Detroit, MI</p>
                 </div>
             </div>
 
@@ -98,7 +98,7 @@ export function RoiCalculator() {
                 {/* Purchase Price Slider */}
                 <div className="space-y-3">
                     <div className="flex justify-between text-sm">
-                        <span className="flex items-center gap-2 text-[#6b6b67]">
+                        <span className="flex items-center gap-2 text-muted-foreground">
                             <Building2 size={14} className="text-primary" />
                             {t("purchasePrice")}
                         </span>
@@ -116,7 +116,7 @@ export function RoiCalculator() {
 
                 {/* Holding Period - Compact */}
                 <div className="flex items-center gap-3 flex-wrap">
-                    <span className="text-sm text-[#6b6b67] flex items-center gap-1">
+                    <span className="text-sm text-muted-foreground flex items-center gap-1">
                         <Calendar size={14} className="text-primary" />
                         {t("duration")}
                     </span>
@@ -126,7 +126,7 @@ export function RoiCalculator() {
                             onClick={() => setHoldingPeriod(years)}
                             className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${holdingPeriod === years
                                 ? "bg-primary text-white"
-                                : "bg-[#f5f3ed] text-[#151513] hover:bg-[#e5e4df]"
+                                : "bg-background text-foreground hover:bg-muted"
                                 }`}
                         >
                             {years}Y
@@ -136,19 +136,19 @@ export function RoiCalculator() {
 
                 {/* Main Metrics - 2x2 Compact Grid */}
                 <div className="grid grid-cols-2 gap-3">
-                    <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
-                        <p className="text-xs text-[#6b6b67] mb-1">{t("monthlyCashFlow")}</p>
+                    <div className="bg-background rounded-xl p-4 text-center border border-border">
+                        <p className="text-xs text-muted-foreground mb-1">{t("monthlyCashFlow")}</p>
                         <p className={`text-2xl font-bold ${monthlyNetIncome >= 0 ? 'text-primary' : 'text-secondary'}`}>
                             ${Math.round(monthlyNetIncome)}
                         </p>
                     </div>
-                    <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
-                        <p className="text-xs text-[#6b6b67] mb-1">Cash-on-Cash</p>
-                        <p className="text-2xl font-bold text-[#151513]">{netRoi.toFixed(1)}%</p>
+                    <div className="bg-background rounded-xl p-4 text-center border border-border">
+                        <p className="text-xs text-muted-foreground mb-1">Cash-on-Cash</p>
+                        <p className="text-2xl font-bold text-foreground">{netRoi.toFixed(1)}%</p>
                     </div>
-                    <div className="bg-[#faf9f6] rounded-xl p-4 text-center border border-[#e5e4df]">
-                        <p className="text-xs text-[#6b6b67] mb-1">{holdingPeriod}Y {t("appreciationLabel")}</p>
-                        <p className="text-2xl font-bold text-[#22c55e]">+${Math.round(appreciationAmount / 1000)}K</p>
+                    <div className="bg-background rounded-xl p-4 text-center border border-border">
+                        <p className="text-xs text-muted-foreground mb-1">{holdingPeriod}Y {t("appreciationLabel")}</p>
+                        <p className="text-2xl font-bold text-[#B8A074]">+${Math.round(appreciationAmount / 1000)}K</p>
                     </div>
                     <div className="bg-primary rounded-xl p-4 text-center">
                         <p className="text-xs text-white/70 mb-1">{holdingPeriod}Y {t("totalRoi")}</p>
@@ -157,24 +157,24 @@ export function RoiCalculator() {
                 </div>
 
                 {/* Investment Summary - Single Line */}
-                <div className="bg-[#f5f3ed] rounded-lg p-3 flex items-center justify-between text-sm">
-                    <span className="text-[#6b6b67]">{t("totalInvestmentLabel")}</span>
-                    <span className="font-semibold text-[#151513]">${Math.round(totalInvestment).toLocaleString()}</span>
+                <div className="bg-background rounded-lg p-3 flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">{t("totalInvestmentLabel")}</span>
+                    <span className="font-semibold text-foreground">${Math.round(totalInvestment).toLocaleString()}</span>
                 </div>
 
                 {/* GUEST OVERLAY */}
                 {isGuest && (
                     <div className="absolute inset-0 z-50 bg-white/60 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 rounded-2xl">
-                        <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm border border-[#e5e4df]">
-                            <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-5">
-                                <Lock className="w-7 h-7 text-primary" />
+                        <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm border border-border">
+                            <div className="w-14 h-14 bg-[#B8A074]/10 rounded-xl flex items-center justify-center mx-auto mb-5">
+                                <Lock className="w-7 h-7 text-[#B8A074]" />
                             </div>
-                            <h3 className="text-xl font-semibold mb-2 text-[#151513]">{t("unlockTitle")}</h3>
-                            <p className="text-[#6b6b67] text-sm mb-6">
+                            <h3 className="text-xl font-semibold mb-2 text-foreground">{t("unlockTitle")}</h3>
+                            <p className="text-muted-foreground text-sm mb-6">
                                 {t("unlockDesc")}
                             </p>
                             <Button
-                                className="w-full h-12 font-medium bg-primary hover:bg-primary/90 text-white rounded-lg"
+                                className="w-full h-12 font-medium bg-[#B8A074] hover:bg-[#B8A074]/90 text-white rounded-lg"
                                 asChild
                             >
                                 <Link href={`/${locale}/signup`}>
@@ -185,7 +185,7 @@ export function RoiCalculator() {
                     </div>
                 )}
 
-                <p className="text-xs text-center text-[#9b9b97]">
+                <p className="text-xs text-center text-muted-foreground">
                     {t("disclaimer")}
                 </p>
             </div>
