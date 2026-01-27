@@ -120,11 +120,11 @@ export function Header() {
               : ""
           )}
         >
-          <div className="container mx-auto px-6 md:px-12 lg:px-16 h-20 flex items-center justify-between">
-            {/* LEFT: Logo + Nav Links */}
-            <div className="flex items-center gap-10">
-              <Link href="/" className="flex items-center relative z-50">
-                <Logo size="md" theme="dark" showMotto={false} className="h-12 w-auto" />
+          <div className="container mx-auto px-6 md:px-12 lg:px-16 h-16 flex items-center justify-between">
+            {/* LEFT: Logo + Nav Links - ALL ALIGNED ON SAME ROW */}
+            <div className="flex items-center gap-8">
+              <Link href="/" className="flex items-center">
+                <Logo size="sm" theme="dark" showMotto={false} />
               </Link>
 
               {/* Desktop Nav with Dropdowns */}

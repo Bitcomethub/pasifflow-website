@@ -1,8 +1,8 @@
 "use client"
 
 import Link from "next/link"
-import Image from "next/image"
 import { Instagram, Linkedin, Youtube, Mail, Phone, MapPin } from "lucide-react"
+import { Logo } from "@/components/logo"
 
 import { useTranslations } from "next-intl"
 
@@ -24,15 +24,7 @@ export function Footer() {
 
           <div className="space-y-6">
             <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
-              <div className="relative w-[400px] h-[150px]">
-                <Image
-                  src="/footer-logo-large.png"
-                  alt="Pasiflow"
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
+              <Logo size="xl" theme="dark" showMotto={false} />
             </Link>
 
             <div className="flex gap-4">
