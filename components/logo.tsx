@@ -18,8 +18,8 @@ interface LogoProps {
 const sizeStyles = {
     sm: { width: 160, height: 58 },
     md: { width: 210, height: 76 },
-    lg: { width: 260, height: 95 },
-    xl: { width: 320, height: 115 },
+    lg: { width: 280, height: 105 }, // increased from 260/95
+    xl: { width: 340, height: 125 }, // increased from 320/115
 }
 
 export function Logo({
@@ -34,9 +34,13 @@ export function Logo({
     const t = useTranslations("logo")
 
     // Theme-based logo selection
-    // Assuming logo-1.png is the primary Charcoal logo (for light backgrounds)
-    // Using the definitive logo provided by the user (logo-v3-final.png)
-    const logoSrc = "/brand/logo-v3-final.png"
+    // Always use the main logo.png as it works for both light and dark backgrounds (based on user request for "logo-2" style but provided new "logo.png")
+    // Or if the new logo provided is a dark-on-light logo, we might need to check if it has a white version.
+    // However, the user provided ONE logo file for the logo update.
+    // Let's assume the new logo.png provided is the one to use.
+
+    // The user moved uploaded_media_2 to public/brand/logo.png.
+    const logoSrc = "/brand/logo.png"
 
     const content = (
         <div className={cn("flex flex-col", className)}>

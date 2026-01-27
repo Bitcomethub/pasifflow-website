@@ -87,10 +87,10 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                 </button>
 
                 {/* Premium Header Bar */}
-                <div className="bg-slate-900 px-6 py-5 sm:px-8 sm:py-6 flex-shrink-0">
+                <div className="bg-[#1F2328] px-6 py-5 sm:px-8 sm:py-6 flex-shrink-0">
                     <div className="flex items-center justify-center gap-3">
-                        <div className="p-2.5 bg-white/10 rounded-xl">
-                            {step === "form" ? <Lock className="w-5 h-5 text-white" /> : <Check className="w-5 h-5 text-primary" />}
+                        <div className="p-2.5 bg-[#C1A05E]/10 rounded-xl">
+                            {step === "form" ? <Lock className="w-5 h-5 text-white" /> : <Check className="w-5 h-5 text-[#C1A05E]" />}
                         </div>
                         <div>
                             <h3 className="text-white font-bold text-lg tracking-tight">
@@ -233,7 +233,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
 
                                 <Button
                                     type="submit"
-                                    className="w-full h-12 text-base font-bold bg-slate-900 hover:bg-slate-800 text-white rounded-xl transition-all"
+                                    className="w-full h-12 text-base font-bold bg-[#1F2328] hover:bg-[#1F2328]/90 text-white rounded-xl transition-all"
                                     disabled={loading}
                                 >
                                     {loading ? (
@@ -254,8 +254,8 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource, ini
                         </div>
                     ) : (
                         <div className="py-8 flex flex-col items-center justify-center gap-4">
-                            <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-                                <Check className="w-8 h-8 text-primary" />
+                            <div className="w-16 h-16 bg-[#C1A05E]/10 rounded-full flex items-center justify-center">
+                                <Check className="w-8 h-8 text-[#C1A05E]" />
                             </div>
                             <div className="text-slate-600 font-medium text-sm">{t("redirecting")}</div>
                         </div>

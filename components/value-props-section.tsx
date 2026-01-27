@@ -22,7 +22,7 @@ export function ValuePropsSection() {
 
   const item = {
     hidden: { opacity: 0, y: 25 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } as any }
   }
 
   return (
@@ -40,7 +40,7 @@ export function ValuePropsSection() {
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1F2328] mb-6">
               {t("title")}
               <br />
-              <span className="text-[#B8A074]">{t("subtitle")}</span>
+              <span className="text-[#C1A05E]">{t("subtitle")}</span>
             </h2>
             <p className="text-lg text-[#535454] leading-relaxed max-w-lg">
               Pasiflow ile Amerika'da ev sahibi olmak artık hayal değil.
@@ -48,7 +48,6 @@ export function ValuePropsSection() {
           </motion.div>
         </div>
 
-        {/* Benefits Grid */}
         <motion.div
           variants={container}
           initial="hidden"
@@ -60,13 +59,13 @@ export function ValuePropsSection() {
             <motion.div
               key={i}
               variants={item}
-              className="group text-left p-6 bg-[#F6F7F9] rounded-xl border border-[#E5E6E8] hover:border-[#B8A074]/30 hover:shadow-lg transition-all duration-300"
+              className="group text-left p-8 bg-[#1F2328] rounded-[2rem] border border-white/5 hover:border-[#C1A05E]/30 hover:shadow-2xl hover:shadow-[#C1A05E]/10 transition-all duration-500 hover:-translate-y-1"
             >
-              <div className="w-12 h-12 rounded-lg bg-[#B8A074]/10 flex items-center justify-center mb-5 group-hover:bg-[#B8A074]/20 transition-colors">
-                <benefit.icon className="h-6 w-6 text-[#B8A074]" />
+              <div className="w-14 h-14 rounded-2xl bg-[#C1A05E]/20 flex items-center justify-center mb-6 group-hover:bg-[#C1A05E] transition-all duration-300">
+                <benefit.icon className="h-7 w-7 text-[#C1A05E] group-hover:text-white transition-colors" />
               </div>
-              <h3 className="font-semibold text-lg text-[#1F2328] mb-2">{benefit.title}</h3>
-              <p className="text-[#535454] leading-relaxed text-sm">{benefit.description}</p>
+              <h3 className="font-bold text-xl text-white mb-3 tracking-tight group-hover:text-[#C1A05E] transition-colors">{benefit.title}</h3>
+              <p className="text-slate-400 leading-relaxed group-hover:text-slate-300 transition-colors">{benefit.description}</p>
             </motion.div>
           ))}
         </motion.div>
@@ -79,7 +78,7 @@ export function ValuePropsSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-10 text-left"
         >
-          <a href="#portfoy" className="inline-flex items-center gap-2 text-[#B8A074] font-medium hover:underline group">
+          <a href="#portfoy" className="inline-flex items-center gap-2 text-[#C1A05E] font-medium hover:underline group">
             Portföyümüzü Keşfedin
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </a>

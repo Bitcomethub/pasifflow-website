@@ -217,7 +217,7 @@ export function PortfolioSection() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div className="space-y-4 max-w-2xl">
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 tracking-tight">{t("title")}</h2>
-            <p className="text-slate-600 text-lg">
+            <p className="text-[#C1A05E] text-xl md:text-2xl font-bold tracking-tight">
               {t("subtitle")}
             </p>
           </div>

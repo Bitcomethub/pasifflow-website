@@ -102,7 +102,7 @@ export function AIAssistant() {
                             )}
                         >
                             {/* Header */}
-                            <div className="px-4 py-3 bg-white border-b border-[#E8EAED] flex items-center justify-between">
+                            <div className="px-4 py-3 bg-[#C1A05E] border-b border-[#C1A05E]/20 flex items-center justify-between">
                                 <div className="flex items-center gap-3">
                                     <div className="relative">
                                         <div className="w-10 h-10 rounded-full overflow-hidden border border-[#E8EAED]">
@@ -116,12 +116,12 @@ export function AIAssistant() {
                                         <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#B8A074] border-2 border-white rounded-full"></div>
                                     </div>
                                     <div>
-                                        <h3 className={cn("font-semibold text-sm", COLORS.headerText)}>
+                                        <h3 className={cn("font-semibold text-sm text-white")}>
                                             {t("title")}
                                         </h3>
                                         <div className="flex items-center gap-1.5">
-                                            <Sparkles size={10} className="text-[#B8A074]" />
-                                            <span className="text-xs text-muted-foreground font-medium">
+                                            <Sparkles size={10} className="text-white" />
+                                            <span className="text-xs text-white/80 font-medium">
                                                 {t("online")}
                                             </span>
                                         </div>
@@ -131,7 +131,7 @@ export function AIAssistant() {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-8 w-8 text-muted-foreground hover:bg-gray-100 rounded-lg"
+                                        className="h-8 w-8 text-white/80 hover:bg-white/10 rounded-lg"
                                         onClick={() => setIsMinimized(true)}
                                     >
                                         <Minimize2 size={16} />
@@ -139,7 +139,7 @@ export function AIAssistant() {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-8 w-8 text-muted-foreground hover:bg-gray-100 rounded-lg"
+                                        className="h-8 w-8 text-white/80 hover:bg-white/10 rounded-lg"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         <X size={18} />

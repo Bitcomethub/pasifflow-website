@@ -18,10 +18,8 @@ export function AboutSection() {
                         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                         className="max-w-4xl"
                     >
-                        <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-primary mb-6">
-                            {t("label")}
-                        </h2>
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-secondary leading-[1.15]">
+
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#C1A05E] leading-[1.15]">
                             {t("title")}
                         </h1>
                     </motion.div>
@@ -67,11 +65,7 @@ export function AboutSection() {
 
                         {/* Focus Areas */}
                         <div className="space-y-8 text-lg text-muted-foreground leading-relaxed">
-                            <p>
-                                {t.rich("focus", {
-                                    semibold: (chunks) => <span className="font-semibold text-secondary">{chunks}</span>
-                                })}
-                            </p>
+
                             <p>
                                 {t.rich("method", {
                                     bold: (chunks) => <span className="font-bold text-secondary">{chunks}</span>
@@ -80,8 +74,8 @@ export function AboutSection() {
                         </div>
 
                         {/* Blockquote - Featured Quote */}
-                        <blockquote className="my-16 pl-6 border-l-4 border-primary bg-muted/30 py-6 pr-6 rounded-r-lg">
-                            <p className="text-xl md:text-2xl font-medium text-secondary italic leading-relaxed">
+                        <blockquote className="my-16 pl-6 border-l-4 border-[#C1A05E] bg-[#3D4852] py-8 pr-8 rounded-r-lg shadow-xl">
+                            <p className="text-xl md:text-2xl font-medium text-white italic leading-relaxed">
                                 {t("quote1")}
                             </p>
                         </blockquote>

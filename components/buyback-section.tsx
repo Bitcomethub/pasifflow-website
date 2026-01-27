@@ -188,19 +188,17 @@ export function BuybackSection() {
                     </div>
                 </div>
 
-                {/* Bottom Quote */}
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.6 }}
-                    className="mt-16 text-center"
+                    className="mt-20 text-center"
                 >
-                    <Card className="inline-block p-6 md:p-8 border-primary/10 bg-gradient-to-r from-primary/5 via-transparent to-accent/5">
-                        <p className="text-xl md:text-2xl font-medium text-foreground italic">
+                    <div className="inline-block px-12 py-8 bg-[#C1A05E] rounded-[4rem] shadow-2xl shadow-[#C1A05E]/20 max-w-4xl border-2 border-white/20">
+                        <p className="text-xl md:text-2xl font-bold text-white italic leading-relaxed">
                             "{t("quote")}"
                         </p>
-                    </Card>
+                    </div>
                 </motion.div>
 
                 {/* Disclaimer */}

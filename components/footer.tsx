@@ -88,14 +88,18 @@ export function Footer() {
               >
                 {t("whatsapp")}
               </a>
-              <p className="pt-4 text-xs text-[#535454] leading-relaxed opacity-80">
-                {tFooter("disclaimer")}
-              </p>
+
             </div>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-[#E5E6E8] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="mt-12 pt-8 border-t border-[#E5E6E8]">
+          <p className="text-xs text-[#535454] leading-relaxed opacity-80 text-left md:text-right max-w-5xl ml-auto">
+            {tFooter("disclaimer")}
+          </p>
+        </div>
+
+        <div className="pt-8 border-t border-[#E5E6E8] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-8">
           <p className="font-medium">Pasiflow LLC — Powered by Pasiflow®️</p>
           <p className="text-xs flex items-center gap-1">
             Designed with <span className="text-[#B8A074] max-w-4">♥</span> for Global Investors

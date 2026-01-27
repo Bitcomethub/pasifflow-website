@@ -63,14 +63,14 @@ export function ExitIntentPopup() {
                         </button>
 
                         {/* Header with gradient */}
-                        <div className="bg-gradient-to-br from-[#a3452b] via-[#8a3a24] to-[#6d2e1c] p-6 text-white text-center">
+                        <div className="bg-[#1F2328] p-6 text-white text-center">
                             <motion.div
                                 initial={{ scale: 0 }}
                                 animate={{ scale: 1 }}
                                 transition={{ type: "spring", delay: 0.1 }}
-                                className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4"
+                                className="w-16 h-16 bg-[#C1A05E]/10 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-4"
                             >
-                                <Gift className="w-8 h-8 text-white" />
+                                <Gift className="w-8 h-8 text-[#C1A05E]" />
                             </motion.div>
                             <motion.h2
                                 initial={{ opacity: 0, y: 10 }}
@@ -111,8 +111,8 @@ export function ExitIntentPopup() {
                                         transition={{ delay: 0.4 + i * 0.1 }}
                                         className="flex items-center gap-3 text-sm text-gray-700"
                                     >
-                                        <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
-                                            <svg className="w-3 h-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div className="w-5 h-5 rounded-full bg-[#C1A05E]/10 flex items-center justify-center flex-shrink-0">
+                                            <svg className="w-3 h-3 text-[#C1A05E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                                             </svg>
                                         </div>
@@ -124,7 +124,7 @@ export function ExitIntentPopup() {
                             {/* CTA Button */}
                             <Button
                                 onClick={handleCTA}
-                                className="w-full h-12 bg-[#a3452b] hover:bg-[#8a3a24] text-white font-semibold text-base rounded-xl shadow-lg shadow-[#a3452b]/20 group"
+                                className="w-full h-12 bg-[#C1A05E] hover:bg-[#a38d5d] text-white font-semibold text-base rounded-xl shadow-lg shadow-[#C1A05E]/20 group"
                             >
                                 <Calendar className="w-5 h-5 mr-2" />
                                 {t("cta")}
