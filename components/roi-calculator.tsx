@@ -85,8 +85,8 @@ export function RoiCalculator() {
         <Card className="p-6 sm:p-8 bg-white border-border shadow-lg relative overflow-hidden rounded-2xl">
             {/* Header */}
             <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                    <Calculator className="text-primary w-5 h-5" />
+                <div className="w-10 h-10 bg-[#B8A074]/10 rounded-lg flex items-center justify-center">
+                    <Calculator className="text-[#B8A074] w-5 h-5" />
                 </div>
                 <div>
                     <h3 className="text-xl font-semibold text-foreground">{t("title")}</h3>
@@ -166,15 +166,15 @@ export function RoiCalculator() {
                 {isGuest && (
                     <div className="absolute inset-0 z-50 bg-white/60 backdrop-blur-md flex flex-col items-center justify-center text-center p-6 rounded-2xl">
                         <div className="bg-white p-8 rounded-2xl shadow-xl max-w-sm border border-border">
-                            <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-5">
-                                <Lock className="w-7 h-7 text-primary" />
+                            <div className="w-14 h-14 bg-[#B8A074]/10 rounded-xl flex items-center justify-center mx-auto mb-5">
+                                <Lock className="w-7 h-7 text-[#B8A074]" />
                             </div>
                             <h3 className="text-xl font-semibold mb-2 text-foreground">{t("unlockTitle")}</h3>
                             <p className="text-muted-foreground text-sm mb-6">
                                 {t("unlockDesc")}
                             </p>
                             <Button
-                                className="w-full h-12 font-medium bg-primary hover:bg-primary/90 text-white rounded-lg"
+                                className="w-full h-12 font-medium bg-[#B8A074] hover:bg-[#B8A074]/90 text-white rounded-lg"
                                 asChild
                             >
                                 <Link href={`/${locale}/signup`}>

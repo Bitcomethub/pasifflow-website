@@ -79,8 +79,8 @@ export function Section8Section() {
                 <p className="text-[#A8B0B8] text-sm">{t("stat2Label")}</p>
               </div>
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                <div className="text-2xl sm:text-3xl font-bold text-[#B8A074] mb-2">%100</div>
-                <p className="text-[#A8B0B8] text-sm">{t("stat3Label")}</p>
+                <div className="text-2xl sm:text-3xl font-bold text-[#B8A074] mb-1">Kira Tahsilatlarında</div>
+                <p className="text-white/80 text-sm font-normal">Yüksek Güvence</p>
               </div>
             </motion.div>
           </div>

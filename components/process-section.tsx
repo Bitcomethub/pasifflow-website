@@ -51,15 +51,10 @@ export function ProcessSection() {
               transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="text-left p-6 bg-white rounded-xl border border-[#E5E5E5] hover:border-[#B8A074]/30 hover:shadow-lg transition-all duration-300 group"
             >
-              <div className="flex items-center gap-4 mb-5">
-                <div className="w-10 h-10 rounded-lg bg-[#3D4852] flex items-center justify-center text-white font-bold">
-                  {i + 1}
-                </div>
-                <div className="w-10 h-10 rounded-lg bg-[#B8A074]/10 flex items-center justify-center group-hover:bg-[#B8A074]/20 transition-colors">
-                  <step.icon className="h-5 w-5 text-[#B8A074]" />
-                </div>
+              <div className="w-12 h-12 rounded-xl bg-[#B8A074]/10 flex items-center justify-center group-hover:bg-[#B8A074]/20 transition-colors mb-5">
+                <step.icon className="h-6 w-6 text-[#B8A074]" />
               </div>
-              <h3 className="font-semibold text-lg text-[#3D4852] mb-2">{t(step.titleKey)}</h3>
+              <h3 className="font-semibold text-lg text-[#3D4852] mb-2">{i + 1}- {t(step.titleKey)}</h3>
               <p className="text-[#535454] leading-relaxed text-sm">{t(step.descKey)}</p>
             </motion.div>
           ))}

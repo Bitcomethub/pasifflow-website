@@ -33,9 +33,9 @@ export default function Home() {
                 <PropertyManagementSection />
                 <AppFeaturesSection />
                 <WhyWorkSection />
+                <FinalCTASection />
                 <TestimonialsSection />
                 <FAQSection />
-                <FinalCTASection />
             </main>
         </div>
     )
