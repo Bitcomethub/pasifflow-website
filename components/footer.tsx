@@ -11,7 +11,7 @@ export function Footer() {
   const tFooter = useTranslations("footer")
 
   return (
-    <footer className="bg-white text-[#1F2328] pt-32 pb-16 border-t border-[#E5E6E8] relative overflow-hidden mt-8">
+    <footer className="bg-white text-[#3D4852] pt-32 pb-16 border-t border-[#E5E5E5] relative overflow-hidden mt-8">
       {/* Decorative Background */}
       <div className="absolute inset-0 opacity-40 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#B8A074]/5 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{tFooter("quickLinks")}</h4>
+            <h4 className="font-bold text-lg mb-6 text-[#3D4852]">{tFooter("quickLinks")}</h4>
             <ul className="space-y-3 text-sm text-[#535454]">
               <li><Link href="#nasil-calisir" className="hover:text-[#B8A074] transition-colors font-medium">{t("howItWorks")}</Link></li>
               <li><Link href="#portfoy" className="hover:text-[#B8A074] transition-colors font-medium">{t("portfolio")}</Link></li>
@@ -51,7 +51,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{tFooter("legal")}</h4>
+            <h4 className="font-bold text-lg mb-6 text-[#3D4852]">{tFooter("legal")}</h4>
             <ul className="space-y-3 text-sm text-[#535454]">
               <li><Link href="/gizlilik" className="hover:text-[#B8A074] transition-colors font-medium">{t("privacyPolicy")}</Link></li>
               <li><Link href="/kullanim-sartlari" className="hover:text-[#B8A074] transition-colors font-medium">{t("termsOfService")}</Link></li>
@@ -60,7 +60,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{t("contact")}</h4>
+            <h4 className="font-bold text-lg mb-6 text-[#3D4852]">{t("contact")}</h4>
             <div className="space-y-4 text-sm text-[#535454]">
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-[#B8A074]" />
@@ -77,7 +77,7 @@ export function Footer() {
               <div className="flex items-start gap-3">
                 <MapPin size={16} className="text-[#B8A074] mt-0.5" />
                 <div>
-                  <p className="text-[#1F2328] font-medium">Miami, Florida, USA</p>
+                  <p className="text-[#3D4852] font-medium">Miami, Florida, USA</p>
                   <p className="text-xs text-[#535454] mt-1">{tFooter("istanbulOffice")}</p>
                 </div>
               </div>
@@ -95,7 +95,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-[#E5E6E8] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="pt-8 border-t border-[#E5E5E5] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <p className="font-medium">Pasiflow LLC — Powered by Pasiflow®️</p>
           <p className="text-xs flex items-center gap-1">
             Designed with <span className="text-[#B8A074] max-w-4">♥</span> for Global Investors

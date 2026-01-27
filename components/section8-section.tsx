@@ -31,7 +31,7 @@ export function Section8Section() {
               {t("title")} <br />
               <span className="text-[#B8A074]">{t("titleHighlight")}</span>
             </h2>
-            <p className="text-[#C7CBD3] text-lg leading-relaxed mb-8">
+            <p className="text-[#A8B0B8] text-lg leading-relaxed mb-8">
               {t("description")}
             </p>
 
@@ -64,7 +64,7 @@ export function Section8Section() {
               className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-colors group"
             >
               <div className="text-5xl font-bold text-white mb-2 group-hover:text-[#B8A074] transition-colors">{t("stat1Value")}</div>
-              <p className="text-[#C7CBD3] font-medium">{t("stat1Label")}</p>
+              <p className="text-[#A8B0B8] font-medium">{t("stat1Label")}</p>
             </motion.div>
 
             <motion.div
@@ -76,11 +76,11 @@ export function Section8Section() {
             >
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors group">
                 <div className="text-2xl sm:text-3xl font-bold text-white mb-2 group-hover:text-[#B8A074] transition-colors">{t("stat2Value")}</div>
-                <p className="text-[#C7CBD3] text-sm">{t("stat2Label")}</p>
+                <p className="text-[#A8B0B8] text-sm">{t("stat2Label")}</p>
               </div>
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors group">
                 <div className="text-2xl sm:text-3xl font-bold text-[#B8A074] mb-2">%100</div>
-                <p className="text-[#C7CBD3] text-sm">{t("stat3Label")}</p>
+                <p className="text-[#A8B0B8] text-sm">{t("stat3Label")}</p>
               </div>
             </motion.div>
           </div>

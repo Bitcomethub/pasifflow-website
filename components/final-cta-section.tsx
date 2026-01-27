@@ -24,7 +24,7 @@ export function FinalCTASection() {
             {t("title")} <br />
             <span className="text-[#B8A074]">{t("titleAccent")}</span>
           </h2>
-          <p className="text-lg md:text-xl text-[#C7CBD3] leading-relaxed mb-10 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-[#A8B0B8] leading-relaxed mb-10 max-w-2xl mx-auto">
             {t("description")}
           </p>
 
@@ -75,7 +75,7 @@ export function FinalCTASection() {
             </Button>
           </motion.div>
 
-          <p className="text-sm text-[#C7CBD3]/60 mt-10">
+          <p className="text-sm text-[#A8B0B8]/60 mt-10">
             {t("disclaimer")}
           </p>
         </motion.div>

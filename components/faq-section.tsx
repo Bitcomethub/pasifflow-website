@@ -63,7 +63,7 @@ export function FAQSection() {
                   <AccordionItem
                     key={index}
                     value={`item-${index}`}
-                    className="bg-white border border-[#E5E6E8] rounded-2xl px-2 shadow-sm transition-all duration-200 data-[state=open]:border-[#B8A074]/30 data-[state=open]:shadow-md overflow-hidden"
+                    className="bg-white border border-[#E5E5E5] rounded-2xl px-2 shadow-sm transition-all duration-200 data-[state=open]:border-[#B8A074]/30 data-[state=open]:shadow-md overflow-hidden"
                   >
                     <AccordionTrigger className="text-base md:text-lg font-semibold px-4 hover:no-underline hover:text-[#B8A074] transition-colors py-5 text-left text-[#3D4852]">
                       {item.q}

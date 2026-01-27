@@ -130,10 +130,10 @@ export function Header() {
             <nav className="hidden md:flex items-center gap-6">
               {/* Platform Group */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#3D4852] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
                   {tNav("platform")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
                     <Link href="#nasil-calisir" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("howItWorks")}
@@ -159,10 +159,10 @@ export function Header() {
 
               {/* Investment Group */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#3D4852] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
                   {tNav("investment")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
                     <Link href="#portfoy" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-[#B8A074]">
                       {tNav("portfolio")}
@@ -178,10 +178,10 @@ export function Header() {
 
               {/* Resources Group */}
               <DropdownMenu>
-                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#1F2328] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
+                <DropdownMenuTrigger className="flex items-center gap-1 text-sm font-medium text-[#3D4852] hover:text-[#B8A074] transition-colors outline-none cursor-pointer">
                   {tNav("resources")} <ChevronDown size={14} />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E6E8] p-2 shadow-lg rounded-xl">
+                <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
                     <Link href="/neden-amerika" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("whyUSA")}
@@ -202,19 +202,19 @@ export function Header() {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-2 h-9 px-3 text-[#1F2328] hover:bg-[#E5E6E8] rounded-lg">
+                <Button variant="ghost" size="sm" className="gap-2 h-9 px-3 text-[#3D4852] hover:bg-[#E5E5E5] rounded-lg">
                   <span className="text-base">{currentLang.flag}</span>
                   <ChevronDown className="h-3 w-3 text-[#535454]" />
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="min-w-[140px] bg-white border-[#E5E6E8]">
+              <DropdownMenuContent align="end" className="min-w-[140px] bg-white border-[#E5E5E5]">
                 {languages.map((lang) => (
                   <DropdownMenuItem
                     key={lang.code}
                     onClick={() => switchLocale(lang.code)}
                     className={cn(
-                      "gap-3 cursor-pointer text-[#1F2328] focus:bg-[#F6F7F9] py-2",
-                      currentLocale === lang.code && "bg-[#F6F7F9]"
+                      "gap-3 cursor-pointer text-[#3D4852] focus:bg-[#F5F5F5] py-2",
+                      currentLocale === lang.code && "bg-[#F5F5F5]"
                     )}
                   >
                     <span className="text-lg">{lang.flag}</span>
@@ -240,7 +240,7 @@ export function Header() {
                     </span>
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-[#E5E6E8]">
+                <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-[#E5E5E5]">
                   <DropdownMenuItem
                     onClick={handleLogout}
                     className="cursor-pointer text-destructive focus:bg-destructive/10"
@@ -263,7 +263,7 @@ export function Header() {
                 </Button>
 
                 <Button
-                  className="bg-[#B8A074] hover:bg-[#d86502] text-white font-semibold px-5 h-9 rounded-lg transition-all"
+                  className="bg-[#B8A074] hover:bg-[#a38d5d] text-white font-semibold px-5 h-9 rounded-lg transition-all"
                   onClick={() => openAuthModal("signup")}
                 >
                   {t("getConsultation")}
@@ -283,7 +283,7 @@ export function Header() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden z-[70] p-2 rounded-lg text-[#1F2328] hover:bg-[#E5E6E8] transition-colors"
+            className="md:hidden z-[70] p-2 rounded-lg text-[#3D4852] hover:bg-[#E5E5E5] transition-colors"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -297,20 +297,20 @@ export function Header() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
-          className="fixed inset-0 top-16 bg-[#F6F7F9] z-[60] flex flex-col p-6"
+          className="fixed inset-0 top-16 bg-[#F5F5F5] z-[60] flex flex-col p-6"
         >
           <div className="space-y-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
-                className="block text-xl font-medium text-[#1F2328] hover:text-[#B8A074] py-2"
+                className="block text-xl font-medium text-[#3D4852] hover:text-[#B8A074] py-2"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {link.name}
               </Link>
             ))}
-            <div className="h-px bg-[#E5E6E8] my-4" />
+            <div className="h-px bg-[#E5E5E5] my-4" />
             {extraLinks.map((link) => (
               <Link
                 key={link.name}
@@ -332,7 +332,7 @@ export function Header() {
                   setMobileMenuOpen(false)
                 }}
                 className={cn(
-                  "text-2xl p-3 rounded-lg hover:bg-[#E5E6E8] transition-colors border border-[#E5E6E8]",
+                  "text-2xl p-3 rounded-lg hover:bg-[#E5E5E5] transition-colors border border-[#E5E5E5]",
                   currentLocale === lang.code && "bg-[#B8A074]/10 border-[#B8A074]/30"
                 )}
               >
@@ -342,7 +342,7 @@ export function Header() {
           </div>
 
           <Button
-            className="mt-8 bg-[#B8A074] hover:bg-[#d86502] text-white font-semibold py-6 text-lg rounded-lg"
+            className="mt-8 bg-[#B8A074] hover:bg-[#a38d5d] text-white font-semibold py-6 text-lg rounded-lg"
             asChild
           >
             <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">

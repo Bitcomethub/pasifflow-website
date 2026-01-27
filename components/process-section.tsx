@@ -17,7 +17,7 @@ export function ProcessSection() {
   ]
 
   return (
-    <section id="nasil-calisir" className="py-24 bg-[#F6F7F9] overflow-hidden">
+    <section id="nasil-calisir" className="py-24 bg-[#F5F5F5] overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 lg:px-16">
         {/* Header */}
         <div className="grid lg:grid-cols-2 gap-16 items-start mb-16">
@@ -31,7 +31,7 @@ export function ProcessSection() {
             <p className="text-[#B8A074] font-semibold mb-4 uppercase tracking-wider text-sm">
               {t("subtitle")}
             </p>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1F2328] mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#3D4852] mb-6">
               {t("title")}
             </h2>
             <p className="text-lg text-[#535454] leading-relaxed">
@@ -49,7 +49,7 @@ export function ProcessSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="text-left p-6 bg-white rounded-xl border border-[#E5E6E8] hover:border-[#B8A074]/30 hover:shadow-lg transition-all duration-300 group"
+              className="text-left p-6 bg-white rounded-xl border border-[#E5E5E5] hover:border-[#B8A074]/30 hover:shadow-lg transition-all duration-300 group"
             >
               <div className="flex items-center gap-4 mb-5">
                 <div className="w-10 h-10 rounded-lg bg-[#3D4852] flex items-center justify-center text-white font-bold">
@@ -59,7 +59,7 @@ export function ProcessSection() {
                   <step.icon className="h-5 w-5 text-[#B8A074]" />
                 </div>
               </div>
-              <h3 className="font-semibold text-lg text-[#1F2328] mb-2">{t(step.titleKey)}</h3>
+              <h3 className="font-semibold text-lg text-[#3D4852] mb-2">{t(step.titleKey)}</h3>
               <p className="text-[#535454] leading-relaxed text-sm">{t(step.descKey)}</p>
             </motion.div>
           ))}

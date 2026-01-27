@@ -37,7 +37,7 @@ export function ValuePropsSection() {
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             className="text-left"
           >
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#1F2328] mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#3D4852] mb-6">
               {t("title")}
               <br />
               <span className="text-[#B8A074]">{t("subtitle")}</span>
@@ -60,12 +60,12 @@ export function ValuePropsSection() {
             <motion.div
               key={i}
               variants={item}
-              className="group text-left p-6 bg-[#F6F7F9] rounded-xl border border-[#E5E6E8] hover:border-[#B8A074]/30 hover:shadow-lg transition-all duration-300"
+              className="group text-left p-6 bg-[#F5F5F5] rounded-xl border border-[#E5E5E5] hover:border-[#B8A074]/30 hover:shadow-lg transition-all duration-300"
             >
               <div className="w-12 h-12 rounded-lg bg-[#B8A074]/10 flex items-center justify-center mb-5 group-hover:bg-[#B8A074]/20 transition-colors">
                 <benefit.icon className="h-6 w-6 text-[#B8A074]" />
               </div>
-              <h3 className="font-semibold text-lg text-[#1F2328] mb-2">{benefit.title}</h3>
+              <h3 className="font-semibold text-lg text-[#3D4852] mb-2">{benefit.title}</h3>
               <p className="text-[#535454] leading-relaxed text-sm">{benefit.description}</p>
             </motion.div>
           ))}

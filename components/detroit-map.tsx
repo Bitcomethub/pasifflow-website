@@ -234,7 +234,7 @@ export function DetroitNeighborhoodMap() {
                         <div className="flex gap-2">
                             <button
                                 onClick={zoomInToLandmark}
-                                className="flex-1 bg-[#3D4852] text-white text-xs font-bold py-2.5 rounded-lg hover:bg-[#002a4a] transition-colors flex items-center justify-center gap-2"
+                                className="flex-1 bg-[#3D4852] text-white text-xs font-bold py-2.5 rounded-lg hover:bg-[#3D4852] transition-colors flex items-center justify-center gap-2"
                             >
                                 <Navigation size={14} />
                                 {t("goTo")}
