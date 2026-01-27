@@ -45,7 +45,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[#F5F5F5] pt-24 pb-16 md:pt-32 md:pb-24">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F5F5F5] pt-32 pb-16 md:pt-40 md:pb-24">
       <div className="container mx-auto px-6 md:px-12 lg:px-16 z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* LEFT-ALIGNED Text Content */}
