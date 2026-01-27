@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
-        const email = searchParams.get('email') || 'erman@pasiflow.com';
+        const email = searchParams.get('email') || 'demo@pasiflow.com';
 
         // Fetch user based on the query param (or default/token in future)
         let user = await prisma.user.findUnique({
@@ -27,11 +27,14 @@ export async function GET(request: Request) {
             await prisma.lLC.create({
                 data: {
                     name: 'Pasiflow Demo LLC',
-                    userId: user.id,
+                    ownerId: user.id,
                     properties: {
                         create: [
                             {
-                                address: '12152 Stout St, Detroit, MI 48228',
+                                address: '12152 Stout St',
+                                city: 'Detroit',
+                                state: 'MI',
+                                zipCode: '48228',
                                 purchasePrice: 85900,
                                 currentValue: 92000,
                                 monthlyRent: 1160,
@@ -39,7 +42,10 @@ export async function GET(request: Request) {
                                 purchaseDate: new Date('2024-01-15')
                             },
                             {
-                                address: '9977 Evergreen Ave, Detroit, MI 48228',
+                                address: '9977 Evergreen Ave',
+                                city: 'Detroit',
+                                state: 'MI',
+                                zipCode: '48228',
                                 purchasePrice: 89900,
                                 currentValue: 95000,
                                 monthlyRent: 1350,

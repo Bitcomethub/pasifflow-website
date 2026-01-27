@@ -123,7 +123,7 @@ export function Header() {
           <div className="container mx-auto px-6 md:px-12 lg:px-16 h-24 flex items-center justify-between">
             {/* LEFT: Logo - vertically centered */}
             <Link href="/" className="flex items-center flex-shrink-0 h-full">
-              <Logo size="md" theme="dark" showMotto={false} />
+              <Logo size="md" theme="light" showMotto={false} />
             </Link>
 
             {/* CENTER: Nav Links - spread to the right */}
