@@ -60,7 +60,7 @@ export function HeroSection() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] font-bold tracking-tight text-[#3D4852] leading-[1.15]">
                 {t("title")} <br />
                 <span className="text-2xl sm:text-3xl md:text-4xl font-medium text-[#535454] block mt-3 mb-4">
-                  {t("subtitle")}
+                  {t("subText")}
                 </span>
                 <span className="relative inline-block h-[1.2em] overflow-hidden">
                   <AnimatePresence mode="wait">
