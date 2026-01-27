@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0e3a5c"/>
-  <text x="16" y="24" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="700" fill="#00d4aa">P</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Pasiflow Brand Symbol - 2x2 Grid -->
+  <!-- Top Left - Silver Square -->
+  <rect x="40" y="40" width="200" height="200" rx="32" fill="#A8B0B8"/>
+  <!-- Top Right - Charcoal Square -->
+  <rect x="272" y="40" width="200" height="200" rx="32" fill="#3D4852"/>
+  <!-- Bottom Left - Silver Square -->
+  <rect x="40" y="272" width="200" height="200" rx="32" fill="#A8B0B8"/>
+  <!-- Bottom Right - Gold Circle -->
+  <circle cx="372" cy="372" r="100" fill="#B8A074"/>
 </svg>
