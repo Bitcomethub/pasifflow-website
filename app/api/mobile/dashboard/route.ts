@@ -1,12 +1,14 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export async function GET() {
+export async function GET(request: Request) {
     try {
-        // In a real app, we would get the userId from the session/token.
-        // For this demo, we'll fetch the main demo user "Erman Adanır".
-        const user = await prisma.user.findUnique({
-            where: { email: 'erman@pasiflow.com' },
+        const { searchParams } = new URL(request.url);
+        const email = searchParams.get('email') || 'erman@pasiflow.com';
+
+        // Fetch user based on the query param (or default/token in future)
+        let user = await prisma.user.findUnique({
+            where: { email },
             include: {
                 llcs: {
                     include: {
@@ -18,6 +20,52 @@ export async function GET() {
 
         if (!user) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
+        }
+
+        // AUTO-SEED: If demo user has no LLCs, create mock data for display
+        if (user.llcs.length === 0 && email === 'demo@pasiflow.com') {
+            await prisma.lLC.create({
+                data: {
+                    name: 'Pasiflow Demo LLC',
+                    userId: user.id,
+                    properties: {
+                        create: [
+                            {
+                                address: '12152 Stout St, Detroit, MI 48228',
+                                purchasePrice: 85900,
+                                currentValue: 92000,
+                                monthlyRent: 1160,
+                                status: 'Occupied',
+                                purchaseDate: new Date('2024-01-15')
+                            },
+                            {
+                                address: '9977 Evergreen Ave, Detroit, MI 48228',
+                                purchasePrice: 89900,
+                                currentValue: 95000,
+                                monthlyRent: 1350,
+                                status: 'Occupied',
+                                purchaseDate: new Date('2024-03-10')
+                            }
+                        ]
+                    }
+                }
+            });
+
+            // Re-fetch user with new data
+            const updatedUser = await prisma.user.findUnique({
+                where: { email },
+                include: {
+                    llcs: {
+                        include: {
+                            properties: true
+                        }
+                    }
+                }
+            });
+
+            if (updatedUser) {
+                user = updatedUser;
+            }
         }
 
         // Calculate Totals

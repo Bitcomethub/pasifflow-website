@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -21,6 +21,7 @@ model User {
   // Relations
   llcs      LLC[]
   documents Document[] @relation("UserDocuments")
+  agentProfile AgentProfile?
 
   @@map("users")
 }
@@ -57,6 +58,7 @@ model Property {
   leaseEnd      DateTime? @map("lease_end")
   paymentDay    Int?     @map("payment_day") // e.g., 1 or 5
   imageUrl      String?  @map("image_url")
+  purchaseDate  DateTime? @map("purchase_date")
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
 
@@ -69,6 +71,7 @@ model Property {
   maintenanceRequests MaintenanceRequest[]
   ledgers   Ledger[]
   documents Document[] @relation("PropertyDocuments")
+  agentSales AgentSale[]
 
   @@map("properties")
 }
@@ -206,4 +209,64 @@ model Ledger {
   property    Property @relation(fields: [propertyId], references: [id])
 
   @@map("ledgers")
+}
+// ---------------------------------------------------------
+// PHASE 3: Agent System Integration
+// ---------------------------------------------------------
+
+model AgentProfile {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id])
+  
+  // Stats (Denormalized for performance or calculated)
+  level           String   @default("STARTER") // STARTER, GROWTH, ELITE, MASTER
+  
+  sales           AgentSale[]
+  commissions     AgentCommission[]
+  
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("agent_profiles")
+}
+
+model AgentSale {
+  id              String   @id @default(uuid())
+  agentId         String
+  agent           AgentProfile @relation(fields: [agentId], references: [id])
+  
+  // Optional link to property if it exists in system
+  propertyId      String?
+  property        Property? @relation(fields: [propertyId], references: [id])
+  
+  // Stores snapshot of data in case property record changes/deleted
+  propertyAddress String   @map("property_address")
+  salePrice       Float    @map("sale_price")
+  monthlyRent     Float?   @map("monthly_rent")
+  
+  saleDate        DateTime @default(now()) @map("sale_date")
+  status          String   @default("COMPLETED") // COMPLETED, PENDING
+  
+  commission      Float
+  
+  clientName      String   @map("client_name") 
+  
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@map("agent_sales")
+}
+
+model AgentCommission {
+  id              String   @id @default(uuid())
+  agentId         String
+  agent           AgentProfile @relation(fields: [agentId], references: [id])
+  
+  amount          Float
+  type            String   // REFERRAL, PASSIVE, BONUS
+  description     String
+  
+  createdAt       DateTime @default(now()) @map("created_at")
+  
+  @@map("agent_commissions")
 }
