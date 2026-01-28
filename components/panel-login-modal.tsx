@@ -119,34 +119,46 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                 <div className="p-5 sm:p-8 overflow-y-auto">
                     {step === "form" ? (
                         <div className="space-y-6">
-                            {/* Role Tabs */}
-                            <div className="flex p-1 bg-slate-100/50 rounded-xl">
+                            {/* Role Tabs - More Prominent */}
+                            <div className="grid grid-cols-2 gap-3">
                                 <button
                                     type="button"
                                     onClick={() => setActiveTab("client")}
                                     className={cn(
-                                        "flex-1 py-3 text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2",
-                                        activeTab === "client" ? "bg-white text-slate-900 shadow-sm ring-1 ring-black/5" : "text-slate-500 hover:text-slate-700"
+                                        "py-4 px-4 rounded-xl transition-all flex flex-col items-center justify-center gap-2 border-2",
+                                        activeTab === "client"
+                                            ? "bg-[#1F2328] text-white border-[#1F2328] shadow-lg"
+                                            : "bg-slate-50 text-slate-500 border-slate-200 hover:border-slate-300 hover:bg-slate-100"
                                     )}
                                 >
-                                    <Sparkles size={16} className={activeTab === "client" ? "text-slate-900" : "text-slate-400"} />
-                                    Yatırımcı Girişi
+                                    <Sparkles size={24} className={activeTab === "client" ? "text-[#C1A05E]" : "text-slate-400"} />
+                                    <span className="font-bold text-sm">Yatırımcı Girişi</span>
+                                    <span className={cn(
+                                        "text-xs",
+                                        activeTab === "client" ? "text-slate-400" : "text-slate-400"
+                                    )}>Müşteri Paneli</span>
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => setActiveTab("agent")}
                                     className={cn(
-                                        "flex-1 py-3 text-sm font-bold rounded-lg transition-all flex items-center justify-center gap-2",
-                                        activeTab === "agent" ? "bg-white text-[#C1A05E] shadow-sm ring-1 ring-black/5" : "text-slate-500 hover:text-slate-700"
+                                        "py-4 px-4 rounded-xl transition-all flex flex-col items-center justify-center gap-2 border-2",
+                                        activeTab === "agent"
+                                            ? "bg-[#C1A05E] text-white border-[#C1A05E] shadow-lg"
+                                            : "bg-slate-50 text-slate-500 border-slate-200 hover:border-[#C1A05E]/50 hover:bg-[#C1A05E]/5"
                                     )}
                                 >
-                                    <Briefcase size={16} className={activeTab === "agent" ? "text-[#C1A05E]" : "text-slate-400"} />
-                                    Agent Girişi
+                                    <Briefcase size={24} className={activeTab === "agent" ? "text-white" : "text-slate-400"} />
+                                    <span className="font-bold text-sm">Agent Girişi</span>
+                                    <span className={cn(
+                                        "text-xs",
+                                        activeTab === "agent" ? "text-white/80" : "text-slate-400"
+                                    )}>Partner Paneli</span>
                                 </button>
                             </div>
 
                             {/* Info Text */}
-                            <div className="text-center py-2">
+                            <div className="text-center py-1">
                                 <p className="text-xs text-slate-500">
                                     {activeTab === "client"
                                         ? "Yatırım panelinize erişmek için giriş yapın."
@@ -188,10 +200,10 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                                     {loading ? (
                                         <div className="flex items-center gap-2">
                                             <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                            {t("processing")}
+                                            Giriş yapılıyor...
                                         </div>
                                     ) : (
-                                        t("loginButton")
+                                        "Giriş Yap"
                                     )}
                                 </Button>
 

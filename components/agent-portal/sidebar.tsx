@@ -65,6 +65,11 @@ export function AgentSidebar() {
                     Ayarlar
                 </Link>
                 <button
+                    onClick={() => {
+                        localStorage.removeItem("pasiflow_token");
+                        localStorage.removeItem("pasiflow_user");
+                        window.location.href = "/";
+                    }}
                     className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-destructive hover:bg-destructive/5 transition-all"
                 >
                     <LogOut className="w-5 h-5" />
