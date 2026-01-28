@@ -269,9 +269,11 @@ export function Header() {
 
                   <Button
                     className="font-semibold px-5 h-9 rounded-lg transition-all bg-[#C1A05E] hover:bg-[#a38d5d] text-white"
-                    onClick={() => openAuthModal("signup")}
+                    asChild
                   >
-                    {t("getConsultation")}
+                    <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
+                      {t("getConsultation")}
+                    </a>
                   </Button>
                 </>
               )}
