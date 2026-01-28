@@ -5,6 +5,7 @@ import { ValuePropsSection } from "@/components/value-props-section"
 import { ComparisonSection } from "@/components/comparison-section"
 import { AdvantagesSection } from "@/components/advantages-section"
 import { PortfolioSection } from "@/components/portfolio-section"
+import { InvestmentCalculator } from "@/components/investment-calculator"
 import { BuybackSection } from "@/components/buyback-section"
 import { ProcessSection } from "@/components/process-section"
 import { Section8Section } from "@/components/section8-section"
@@ -25,6 +26,7 @@ export default function Home() {
                 <ComparisonSection />
                 <AdvantagesSection />
                 <PortfolioSection />
+                <InvestmentCalculator />
                 <BuybackSection />
                 <ProcessSection />
                 <Section8Section />

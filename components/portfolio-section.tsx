@@ -98,9 +98,33 @@ export function PortfolioSection() {
     }
   }
 
-  // Real listings from OneHome MLS - Updated December 2024
+  // Real listings from OneHome MLS - Updated January 2025
   // All data verified from portal.onehome.com
   const properties: Property[] = [
+    {
+      address: "10468 Nottingham St",
+      city: "Detroit, MI 48224",
+      rooms: "3",
+      bathrooms: "1",
+      sqft: "1,200",
+      price: "$130,000",
+      monthlyRent: "$1,500",
+      netMonthly: "$423",
+      netYearly: "$5,076",
+      capRate: "%13.3",
+      image: "/properties/nottingham-hd.jpg",
+      images: ["/properties/nottingham-hd.jpg"],
+      status: "Featured",
+      mls: "20251070001",
+      yearBuilt: "1950",
+      lotSize: "0.10 acres",
+      propertyType: t("singleFamily"),
+      description: "Section 8 destekli, tam kiracılı, anahtar teslim yatırım fırsatı. Devlet garantili kira ödemesi ile düşük tahsilat riski.",
+      features: [t("feature_section8"), t("feature_tenant"), t("feature_turnKey"), t("feature_kitchen"), t("feature_renovated"), t("feature_basement")],
+      discount: "FEATURED",
+      investorsWatching: 18,
+      neighborhoodScore: "B+",
+    },
     {
       address: "12152 Stout Street",
       city: "Detroit, MI 48228",
