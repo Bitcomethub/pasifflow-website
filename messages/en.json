@@ -18,7 +18,7 @@
         "whatsapp": "Write on WhatsApp"
     },
     "footer": {
-        "description": "The safest way to earn passive dollar income through government-guaranteed (Section 8) rental real estate investment in America.",
+        "description": "The safest way to earn passive dollar income through government-backed (Section 8) rental real estate investment in America.",
         "quickLinks": "Quick Links",
         "legal": "Legal",
         "istanbulOffice": "Istanbul office opening May 2026",
@@ -41,11 +41,11 @@
     },
     "hero": {
         "badge": "Secure Investment from Turkey to USA",
-        "title": "Government Guaranteed",
+        "title": "Government Backed",
         "titleAccent": "Rental Income",
         "subText": "Regular cash flow with Section 8",
         "rotatingTitles": [
-            "Government Guaranteed",
+            "Government Backed",
             "High Rental Yield",
             "Low Risk",
             "Fully Transparent"
@@ -363,7 +363,7 @@
         "trad5": "Uncontrollable Expenses",
         "trad6": "Vacancy Periods Between Tenants",
         "pasif1": "Payback Period 6-7 Years",
-        "pasif2": "100% Section 8 Government Guarantee",
+        "pasif2": "100% Section 8 Government Backed",
         "pasif3": "Minimum Maintenance Costs",
         "pasif4": "Regular Rent on 1st-5th of Each Month",
         "pasif5": "Long-Term Tenants (3-4 Years+)",
@@ -379,110 +379,110 @@
         "col1Item2": "30–50% Value Appreciation (5-Year Average)",
         "col1Item3": "Easy Portfolio Expansion",
         "col1Item4": "Zero Effort: Completely Passive Income Model",
-        "col2Title": "100% Government Guarantee",
-        "col2Desc": "Thanks to the Section 8 program, your rent payments are guaranteed directly by the U.S. government.",
+        "col2Title": "100% Government Backed",
+        "col2Desc": "Thanks to the Section 8 program, your rent payments are backed directly by the U.S. government.",
         "col2Item1": "Low Tenant Turnover",
         "col2Item2": "Minimum Vacancy Risk",
         "col2Item3": "Regular and 100% Guaranteed Payments"
     },
     "faq": {
-        "title": "Sıkça Sorulan Sorular",
-        "subtitle": "Aklınızdaki tüm soruları kategorilere ayırarak detaylıca yanıtladık.",
+        "title": "Frequently Asked Questions",
+        "subtitle": "We have answered all your questions in detail, categorized for your convenience.",
         "categories": {
-            "general": "Genel & Hakkımızda",
-            "process": "Yatırım Süreci",
-            "property": "Mülk & Bölge",
-            "financial": "Finans & Getiri",
-            "legal": "Hukuk & Vergi"
+            "general": "General & About Us",
+            "process": "Investment Process",
+            "property": "Property & Location",
+            "financial": "Finance & Returns",
+            "legal": "Legal & Tax"
         },
         "general": [
             {
-                "q": "PASIFLOW nedir ve ne yapar?",
-                "a": "PASIFLOW, ABD gayrimenkul piyasasında; kira getirisi yüksek, profesyonel yönetilen ve %100 devlet garantili (Section 8) mülk yatırımlarını organize eden, uçtan uca bir teknoloji ve yatırım platformudur."
+                "q": "What is PASIFLOW and what does it do?",
+                "a": "PASIFLOW is an end-to-end technology and investment platform that organizes high-yield, professionally managed, and 100% government-backed (Section 8) real estate investments in the US real estate market."
             },
             {
-                "q": "Neden diğer turnkey firmalardan farklı?",
-                "a": "Biz sadece satış yapmıyoruz, aldığımız mülkün yönetimini de bizzat üstleniyoruz. Kendi saha ekiplerimiz, size özel atanan hesap yöneticisi ve şeffaf panel teknolojimiz ile 'sat ve unut' değil, 'uzun vadeli ortaklık' modelini benimsiyoruz."
+                "q": "How is it different from other turnkey companies?",
+                "a": "We don't just sell; we also personally handle the management of the property we acquire. With our own field teams, your dedicated account manager, and our transparent panel technology, we adopt a 'long-term partnership' model, not a 'sell and forget' one."
             },
             {
-                "q": "PASIFLOW'a neden güvenmeliyim?",
-                "a": "Kurucu ekibimiz ABD'de 20+ yıllık deneyime ve $250M+ gayrimenkul işlem hacmine sahiptir. Ayrıca sunduğumuz Section 8 yatırım modelini, kendi aile birikimlerimizi değerlendirmek için de kullanıyoruz. Size ne sunuyorsak, kendimiz de ona yatırım yapıyoruz."
+                "q": "Why should I trust PASIFLOW?",
+                "a": "Our founding team has 20+ years of experience and over $250M in real estate transaction volume in the US. Also, we use the Section 8 investment model we offer to evaluate our own family savings. We invest in exactly what we offer you."
             },
             {
-                "q": "Kimler için uygun?",
-                "a": "Özellikle yoğun çalışan profesyoneller, pasif gelir arayan yatırımcılar ve mülk yönetimi (kiracı, tadilat vs.) ile uğraşmadan dolar kazanmak isteyen herkes için idealdir."
+                "q": "Who is it suitable for?",
+                "a": "It is ideal for busy professionals, investors seeking passive income, and anyone who wants to earn dollars without dealing with property management (tenants, renovations, etc.)."
             }
         ],
         "process": [
             {
-                "q": "Amerika'ya gelmem gerekiyor mu?",
-                "a": "Hayır. Tüm süreç (seçim, satın alma, tapu devri, yönetim) %100 uzaktan ve dijital olarak yürütülür. Dilerseniz elbette mülklerinizi yerinde görebilirsiniz."
+                "q": "Do I need to come to America?",
+                "a": "No. The entire process (selection, purchase, title transfer, management) is conducted 100% remotely and digitally. Of course, you can visit your properties in person if you wish."
             },
             {
-                "q": "Yatırımımı nasıl takip edeceğim?",
-                "a": "Size özel Pasiflow Yatırımcı Paneli üzerinden; kira ödemelerini, bakım raporlarını, finansal tabloları ve tapu belgelerinizi 7/24 anlık olarak takip edebilirsiniz. Ayrıca size özel atanan Hesap Yöneticiniz her sorunuzda yanınızdadır."
+                "q": "How will I track my investment?",
+                "a": "Through your private Pasiflow Investor Panel, you can track rent payments, maintenance reports, financial statements, and title deeds instantly 24/7. Also, your dedicated Account Manager is there for every question."
             },
             {
-                "q": "Süreç ne kadar sürüyor?",
-                "a": "Mülk seçimi sonrası, satın alma ve tapu devir işlemleri (closing) nakit alımlarda ortalama 14-21 gün sürer. Kredili alımlarda bu süre 45-60 günü bulabilir."
+                "q": "How long does the process take?",
+                "a": "After property selection, purchase and title transfer (closing) takes an average of 14-21 days for cash purchases. For financed purchases, this period can take 45-60 days."
             }
         ],
         "property": [
             {
-                "q": "Mülkler nerede?",
-                "a": "Şu an en yüksek kira getirisi (ROI) ve değer artış potansiyeli sunan bölgelere odaklanıyoruz: Detroit (MI), Cleveland (OH), Memphis (TN) ve St. Louis (MO). Bu bölgeler, Section 8 sisteminin en verimli çalıştığı pazarlardır."
+                "q": "Where are the properties?",
+                "a": "We currently focus on regions offering the highest rental yield (ROI) and appreciation potential: Detroit (MI), Cleveland (OH), Memphis (TN), and St. Louis (MO). These regions are markets where the Section 8 system works most efficiently."
             },
             {
-                "q": "Evler satın alınmadan önce kontrol ediliyor mu?",
-                "a": "Kesinlikle. Her mülk; saha ekiplerimizce, lisanslı 'inspector'larca ve belediye denetimlerince 3 aşamalı kontrolden geçer. Sadece standartlarımıza uyan mülkleri portföye ekleriz."
+                "q": "Are homes inspected before purchase?",
+                "a": "Absolutely. Every property goes through a 3-stage check by our field teams, licensed 'inspectors', and municipal inspections. We only add properties to the portfolio that meet our standards."
             },
             {
-                "q": "Bakım ve onarım süreçleri nasıl işliyor?",
-                "a": "Kendi tam zamanlı bakım ekiplerimiz mevcuttur. Küçük onarımlar için dışarıdan fahiş fiyatlı servis çağırmak yerine, kendi ekiplerimizle piyasanın çok altında maliyetle ve hızla çözüm üretiriz. Tüm işlemler panelinizde fotoğraflı olarak raporlanır."
+                "q": "How do maintenance and repair processes work?",
+                "a": "We have our own full-time maintenance teams. Instead of calling expensive outside services for small repairs, we produce solutions quickly and at costs well below market rates with our own teams. All transactions are reported with photos in your panel."
             },
             {
-                "q": "Kiracı çıkarsa ne olur?",
-                "a": "Section 8 kiracıları genellikle çok uzun süreli (ortalama 5-7 yıl) kalırlar. Eğer çıkarlarsa, PASIFLOW pazarlama ekibi hemen yeni kiracı adaylarını bulur, güvenlik soruşturmasından geçirir ve yerleştirir."
+                "q": "What happens if the tenant leaves?",
+                "a": "Section 8 tenants typically stay for very long periods (average 5-7 years). If they leave, the PASIFLOW marketing team immediately finds new tenant candidates, passes them through security clearance, and places them."
             }
         ],
         "financial": [
             {
-                "q": "Minimum yatırım tutarı nedir?",
-                "a": "Nakit alımlar için $85.000 - $120.000 bandından başlayan portföylerimiz mevcuttur. Kredi (Mortgage) kullanacaklar için minimum %30-35 peşinat (yaklaşık $30k-$40k) yeterlidir."
+                "q": "What is the minimum investment amount?",
+                "a": "We have portfolios starting from the $85,000 - $120,000 range for cash purchases. For those using financing (Mortgage), a minimum 30-35% down payment (approx. $30k-$40k) is sufficient."
             },
             {
-                "q": "Getiri (ROI) beklentisi nedir?",
-                "a": "Bölgelerimize göre değişmekle birlikte, tüm masraflar düştükten sonra yıllık NET Dolar Bazlı Getiri (ROI) %10 - %14 arasındadır. Ayrıca yıllık %5-8 arası gayrimenkul değer artışı öngörülmektedir."
+                "q": "What is the expected Return on Investment (ROI)?",
+                "a": "Depending on our regions, annual NET Dollar-Based Return (ROI) is between 10% - 14% after all expenses are deducted. Additionally, 5-8% annual real estate appreciation is projected."
             },
             {
-                "q": "Kira garantisi var mı?",
-                "a": "Kiranızın büyük bir bölümü (%70-%100 arası) Amerikan Hükümeti (Section 8 programı) tarafından garanti altındadır ve her ayın 1'inde otomatik olarak yatar. Kiracı ödemese bile devlet payı hesabımıza girer."
+                "q": "Is there a rent guarantee?",
+                "a": "A large portion of your rent (between 70%-100%) is backed by the US Government (Section 8 program) and is deposited automatically on the 1st of every month. Even if the tenant doesn't pay, the government share enters our account."
             },
             {
-                "q": "Hizmet bedelleriniz nedir?",
-                "a": "Çok şeffafız: Mülk başına $3.500 danışmanlık/kapanış bedeli (tek seferlik) ve aylık kira gelirinin %10'u kadar yönetim bedeli (property management fee) alıyoruz. Gizli masraf yok."
+                "q": "What are your service fees?",
+                "a": "We are very transparent: We charge a one-time consulting/closing fee of $3,500 per property and a management fee (property management fee) of 10% of monthly rental income. No hidden costs."
             },
             {
-                "q": "Kiram ne zaman yatar?",
-                "a": "Her ayın 1'i ile 5'i arası kiralar toplanır, masraflar düşülür ve ayın 15'inde doğrudan Türkiye veya Amerika'daki banka hesabınıza Dolar olarak transfer edilir."
+                "q": "When is my rent deposited?",
+                "a": "Rent is collected between the 1st and 5th of every month, expenses are deducted, and it is directly transferred to your bank account in Turkey or the US in Dollars on the 15th."
             }
         ],
         "legal": [
             {
-                "q": "Mülk benim üzerime mi oluyor?",
-                "a": "Evet. Tapu (Deed) doğrudan sizin veya kuracağımız LLC şirketinizin üzerine yapılır. ABD'de mülkiyet hakları çok güçlüdür ve tamamen sizin kontrolünüzdedir."
+                "q": "Is the property in my name?",
+                "a": "Yes. The title deed (Deed) is made directly in your name or the name of the LLC company we will establish. Property rights in the US are very strong and completely under your control."
             },
             {
-                "q": "Şirket kurmak (LLC) zorunlu mu?",
-                "a": "Zorunlu değil ama şiddetle tavsiye ediyoruz. LLC; sizi yasal risklerden korur (Limited Liability) ve çok ciddi vergi avantajları sağlar. Kurulumu PASIFLOW olarak biz sizin adınıza yapıyoruz ($750 maliyet ile)."
+                "q": "Is it mandatory to form a company (LLC)?",
+                "a": "It is not mandatory but we strongly recommend it. An LLC protects you from legal risks (Limited Liability) and provides significant tax advantages. We handle the establishment on your behalf as PASIFLOW (at a cost of $750)."
             },
             {
-                "q": "Vergi ödeyecek miyim?",
-                "a": "Evet, ancak korkmayın. ABD ve Türkiye arasında 'Çifte Vergilendirmeyi Önleme Anlaşması' var. ABD'de ödediğiniz cüzi vergiyi Türkiye'de mahsup edebilirsiniz. Ayrıca amortisman (depreciation) gibi giderlerle, kağıt üzerinde kârınızı düşük gösterip yasal olarak $0 vergi ödeme imkanları mevcuttur. Yıllık vergi beyanınızı $99 karşılığında iş ortaklarımızla yapıyoruz."
+                "q": "Will I pay taxes?",
+                "a": "Yes, but don't worry. There is a 'Double Taxation Prevention Treaty'. You can deduct the tax paid in the US in your home country. Also, with expenses like depreciation, there are opportunities to show lower profit on paper and legally pay $0 tax. We handle your annual tax filing for $99 with our partners."
             },
             {
-                "q": "ABD vatandaşı olmam gerekir mi?",
-                "a": "Hayır. Pasaportunuzun olması yeterlidir. ABD'ye gitmenize veya vizeniz olmasına bile gerek yoktur."
+                "q": "Do I need to be a US citizen?",
+                "a": "No. Having a passport is sufficient. You don't even need to go to the US or have a visa."
             }
         ]
     },
@@ -514,7 +514,7 @@
         "poweredBy": "Powered by Pasiflow AI",
         "hooks": [
             "There are properties in Detroit with 12% yield, want to see them? 🏠",
-            "Want to get government-guaranteed rent with Section 8? 💰",
+            "Want to get government-backed rent with Section 8? 💰",
             "Did you know you can own property in the US for $100k?",
             "Want to learn about remote-managed properties from Turkey?",
             "Shall we prepare a custom investment analysis for you? 📊"
@@ -963,7 +963,7 @@
     },
     "locations": {
         "heroTitle": "{city} Section 8 Investment Opportunities",
-        "heroSubtitle": "Earn passive income with government-guaranteed rental income in {state}",
+        "heroSubtitle": "Earn passive income with government-backed rental income in {state}",
         "ctaSchedule": "Free Consultation",
         "viewProperties": "View Properties",
         "viewAllProperties": "View All Properties",
