@@ -37,10 +37,10 @@ export function Section8Section() {
 
             <ul className="space-y-4">
               {[
-                "Ekonomik dalgalanmalara karşı dayanıklı",
-                "Durgunluk dönemlerinde talebini koruyan",
-                "Kriz dönemlerinde dayanıklılık",
-                "Pandemi sürecinde dahi ödeme sürekliliği gösteren yapı"
+                t("list1"),
+                t("list2"),
+                t("list3"),
+                t("list4")
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
                   <div className="h-6 w-6 rounded-full bg-[#B8A074] flex items-center justify-center text-white shrink-0">
@@ -79,8 +79,8 @@ export function Section8Section() {
                 <p className="text-[#A8B0B8] text-sm">{t("stat2Label")}</p>
               </div>
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors group">
-                <div className="text-2xl sm:text-3xl font-bold text-[#B8A074] mb-1">Kira Tahsilatlarında</div>
-                <p className="text-white/80 text-sm font-normal">Yüksek Güvence</p>
+                <div className="text-xl sm:text-2xl font-bold text-[#B8A074] mb-1">{t("securityTitle")}</div>
+                <p className="text-white/80 text-sm font-normal">{t("securityDesc")}</p>
               </div>
             </motion.div>
           </div>
