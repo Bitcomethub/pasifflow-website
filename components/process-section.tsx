@@ -68,12 +68,17 @@ export function ProcessSection() {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="mt-10 text-left"
         >
+          <a
+            href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[#B8A074] font-medium hover:underline group"
           >
-          {t("cta")}
-          <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-        </a>
-      </motion.div>
-    </div>
+            {t("cta")}
+            <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </motion.div>
+      </div>
     </section >
   )
 }
