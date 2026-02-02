@@ -106,7 +106,7 @@ export default function TaxationPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                         <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform" asChild>
                             <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
-                                Ücretsiz Danışmanlık Al
+                                {t("ctaButton")}
                             </a>
                         </Button>
                         <Button
@@ -116,7 +116,7 @@ export default function TaxationPage() {
                             asChild
                         >
                             <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer">
-                                WhatsApp'tan Yaz
+                                {t("whatsapp")}
                             </a>
                         </Button>
                     </div>
@@ -141,7 +141,7 @@ export default function TaxationPage() {
                                 </Button>
                                 <Link href="/neden-amerika" passHref>
                                     <Button size="lg" variant="outline" className="font-semibold text-lg h-14 border-2">
-                                        Neden Amerika?
+                                        {t("whyUSA")}
                                     </Button>
                                 </Link>
                             </div>

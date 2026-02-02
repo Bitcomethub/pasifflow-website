@@ -725,8 +725,10 @@
         "lifecycle4": "Vergi sezonunda beyanınızı hazırlar ve sunar",
         "lifecycle5": "Gerektiğinde Türkiye'de mahsup için rapor sağlar",
         "ctaTitle": "Hemen Başlayın",
-        "ctaDesc": "Amerika'daki vergi sistemi ilk bakışta karmaşık olabilir. Ancak şeffaf süreç, profesyonel destek ve doğru planlamayla yatırımdan maksimum faydayı elde edebilirsiniz.",
-        "ctaButton": "Ücretsiz Danışmanlık Al"
+        "ctaDesc": "Amerikan vergi sistemi başlarda karmaşık görünebilir. Ancak şeffaf süreç, profesyonel destek ve doğru planlama ile yatırımınızdan maksimum faydayı elde edebilirsiniz.",
+        "ctaButton": "Ücretsiz Danışmanlık Al",
+        "whyUSA": "Neden Amerika?",
+        "whatsapp": "WhatsApp'tan Yaz"
     },
     "propertyManagement": {
         "title": "Profesyonel Mülk Yönetimi",
