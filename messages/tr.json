@@ -126,6 +126,8 @@
     },
     "valueProps": {
         "title": "Neden Pasiflow?",
+        "intro": "Pasiflow ile Amerika'da ev sahibi olmak artık hayal değil.",
+        "discoverPortfolio": "Portföyümüzü Keşfedin",
         "subtitle": "Amerika'da gayrimenkul yatırımının en güvenli ve karlı yolu",
         "description": "İlk tanışmamızdan itibaren size Amerika'daki sağ kolunuz olacak özel bir hesap yöneticisi atanır. Tüm süreci tek bir kişi üzerinden yürütürsünüz.",
         "prop1Title": "Özel Hesap Yöneticisi",

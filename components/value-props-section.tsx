@@ -43,7 +43,7 @@ export function ValuePropsSection() {
               <span className="text-[#C1A05E]">{t("subtitle")}</span>
             </h2>
             <p className="text-lg text-[#535454] leading-relaxed max-w-lg">
-              Pasiflow ile Amerika'da ev sahibi olmak artık hayal değil.
+              {t("intro")}
             </p>
           </motion.div>
         </div>
@@ -79,7 +79,7 @@ export function ValuePropsSection() {
           className="mt-10 text-left"
         >
           <a href="#portfoy" className="inline-flex items-center gap-2 text-[#C1A05E] font-medium hover:underline group">
-            Portföyümüzü Keşfedin
+            {t("discoverPortfolio")}
             <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
           </a>
         </motion.div>
