@@ -238,7 +238,11 @@
         "netMonthlyCashFlow": "Net Monthly Income:",
         "unlockTitle": "Unlock Calculator",
         "unlockDesc": "Sign up for free to see ROI analysis.",
-        "unlockButton": "Start Free"
+        "unlockButton": "Start Free",
+        "yoyAppreciation": "Annual Appreciation",
+        "equity": "Equity",
+        "saleCost": "Sale Cost",
+        "monthlyMortgage": "Monthly Mortgage"
     },
     "section8": {
         "badge": "State Guarantee",

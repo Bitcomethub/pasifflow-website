@@ -361,7 +361,7 @@ export function InvestmentCalculator({
                                 <p className="text-xl font-bold text-[#C1A05E]">{formatCurrency(property.initialMonthlyRent)}</p>
                             </div>
                             <div>
-                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">Aylık Mortgage</p>
+                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">{t("monthlyMortgage")}</p>
                                 <p className="text-xl font-bold">{formatCurrency(results.monthlyMortgage)}</p>
                             </div>
                         </div>
@@ -420,21 +420,21 @@ export function InvestmentCalculator({
                                 </Dialog>
                             </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                                <div className="flex justify-between border-b border-white/5 pb-2">
-                                    <span className="text-white/50">{t("closingCosts")}</span>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                <div className="flex justify-between md:block border-b border-white/5 pb-2 md:border-0 md:pb-0">
+                                    <span className="text-white/50 block mb-1">{t("closingCosts")}</span>
                                     <span className="font-medium">{formatCurrency(results.closingCosts)}</span>
                                 </div>
-                                <div className="flex justify-between border-b border-white/5 pb-2">
-                                    <span className="text-white/50">{t("yoyAppreciation")}</span>
+                                <div className="flex justify-between md:block border-b border-white/5 pb-2 md:border-0 md:pb-0">
+                                    <span className="text-white/50 block mb-1">{t("yoyAppreciation")}</span>
                                     <span className="font-medium">%3.5</span>
                                 </div>
-                                <div className="flex justify-between border-b border-white/5 pb-2">
-                                    <span className="text-white/50">{t("payback")}</span>
-                                    <span className="font-medium">6-8 Yıl</span>
+                                <div className="flex justify-between md:block border-b border-white/5 pb-2 md:border-0 md:pb-0">
+                                    <span className="text-white/50 block mb-1">{t("payback")}</span>
+                                    <span className="font-medium">6-8 {t("years")}</span>
                                 </div>
-                                <div className="flex justify-between border-b border-white/5 pb-2">
-                                    <span className="text-white/50">Satış Masrafı</span>
+                                <div className="flex justify-between md:block border-b border-white/5 pb-2 md:border-0 md:pb-0">
+                                    <span className="text-white/50 block mb-1">{t("saleCost")}</span>
                                     <span className="font-medium">%6</span>
                                 </div>
                             </div>

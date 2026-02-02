@@ -262,7 +262,11 @@
         "totalInvestmentLabel": "Toplam Yatırım:",
         "unlockTitle": "Hesaplayıcıyı Açın",
         "unlockDesc": "ROI analizlerini görmek için ücretsiz üye olun.",
-        "unlockButton": "Ücretsiz Başla"
+        "unlockButton": "Ücretsiz Başla",
+        "yoyAppreciation": "Yıllık Değer Artışı",
+        "equity": "Özsermaye",
+        "saleCost": "Satış Masrafı",
+        "monthlyMortgage": "Aylık Mortgage"
     },
     "section8": {
         "badge": "Devlet Garantisi",

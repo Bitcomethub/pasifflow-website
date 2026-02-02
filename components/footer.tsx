@@ -12,7 +12,7 @@ export function Footer() {
   const tFooter = useTranslations("footer")
 
   return (
-    <footer className="bg-white text-[#3D4852] pt-32 pb-16 relative overflow-hidden mt-8 border-t border-slate-200">
+    <footer className="bg-white text-[#3D4852] pt-16 pb-8 relative overflow-hidden mt-8 border-t border-slate-200">
       {/* Decorative Background */}
       <div className="absolute inset-0 opacity-40 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#B8A074]/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
@@ -20,10 +20,11 @@ export function Footer() {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-12 mb-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8 mb-8 items-start">
 
           <div className="space-y-6">
-            <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
+            {/* Added -mt-4 to pull logo up to align with text headers */}
+            <Link href="/" className="flex items-center hover:opacity-90 transition-opacity -mt-4">
               <Logo size="xl" theme="light" showMotto={false} />
             </Link>
 
@@ -94,13 +95,13 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-[#E5E6E8]">
+        <div className="mt-8 pt-6 border-t border-[#E5E6E8]">
           <p className="text-xs text-[#535454] leading-relaxed opacity-80 text-left md:text-right max-w-5xl ml-auto">
             {tFooter("disclaimer")}
           </p>
         </div>
 
-        <div className="pt-8 border-t border-[#E5E6E8] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-8">
+        <div className="pt-6 border-t border-[#E5E6E8] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-4">
           <p className="font-medium">Pasiflow LLC — Powered by Pasiflow®️</p>
           <p className="text-xs flex items-center gap-1">
             Designed with <span className="text-[#B8A074] max-w-4">♥</span> for Global Investors
