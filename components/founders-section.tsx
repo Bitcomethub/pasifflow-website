@@ -143,7 +143,8 @@ export function FoundersSection() {
                       <AvatarImage
                         src={founder.image}
                         alt={founder.name}
-                        className="object-cover object-top"
+                        className="object-cover"
+                        style={{ objectPosition: 'center 10%' }}
                       />
                       <AvatarFallback className="text-2xl font-bold bg-slate-100 text-slate-600">
                         {founder.initials}

@@ -31,7 +31,16 @@
         "resources": "Kaynaklar",
         "contact": "İletişim",
         "logout": "Çıkış Yap",
-        "panelLogin": "Panel Giriş"
+        "panelLogin": "Panel Giriş",
+        "agentPortal": "Agent Portal",
+        "investorPanel": "Yatırımcı Paneli",
+        "dashboard": "Genel Bakış",
+        "myPortfolio": "Portföyüm",
+        "financials": "Finansal",
+        "documents": "Dokümanlar",
+        "support": "Destek",
+        "settings": "Ayarlar",
+        "account": "Hesap"
     },
     "footer": {
         "description": "Amerika'da devlet destekli (Section 8) kira gelirli gayrimenkul yatırımı ile dolar bazında pasif gelir elde etmenin en güvenli yolu.",
@@ -158,6 +167,13 @@
         "description": "Açıklama",
         "features": "Özellikler",
         "singleFamily": "Tek Aile Evi",
+        "investorsWatchingLabel": "yatırımcı izliyor",
+        "featured": "FEATURED",
+        "detailsCta": "Detaylı Bilgi Al",
+        "whatsappCta": "WhatsApp",
+        "gatedTitle": "Daha Fazla Fırsat",
+        "gatedDesc": "Tüm portföyü, detaylı analizleri ve yeni fırsatları görmek için ücretsiz üye olun.",
+        "gatedButton": "Hemen Üye Ol",
         "property1Desc": "Detroit'te Section 8 kiracılı, bakımlı tek aile evi. Yenilenmiş mutfak ve banyo, yeni çatı ve tam bodrum. Garantili kira geliri ile mükemmel yatırım fırsatı.",
         "property2Desc": "Orijinal meşe parke ve karakteristik detaylara sahip geniş 3 yatak odalı ev. Tarihi detaylar korunarak modern olanaklarla yakın zamanda yenilendi. Harika kira geçmişi ve Section 8 onaylı.",
         "property3Desc": "Mükemmel nakit akışı potansiyeli ile taşınmaya hazır yatırım mülkü. Güncellenmiş tesisat, yeni şofben ve yeni boyalı iç mekan. Yerleşik bir mahallede konumlanmış.",
@@ -201,7 +217,7 @@
         "city_memphis_name": "Memphis, TN",
         "grossIncome": "Aylık Brüt Gelir",
         "expensesHeader": "Aylık Giderler",
-        "closingCosts": "Kapanış / LLC Kurulumu",
+        "closingCostsSetup": "Kapanış / LLC Kurulumu",
         "maintenanceReserve": "Bakım Rezervi",
         "totalCapital": "Toplam Sermaye",
         "purchasePrice": "Satın Alma Fiyatı",
@@ -228,11 +244,15 @@
         "perYear": "/yıl",
         "totalInvestment": "Toplam Yatırım",
         "investorHighlights": "Yatırımcı Özeti",
-        "cashOnCash": "Cash on Cash",
-        "capRateMetric": "CAP Oranı",
-        "yoyAppreciation": "Yıllık Değer Artışı",
-        "cashFlowMonth": "Aylık Nakit Akışı",
-        "downPayment": "Peşinat (%30)",
+        "cashOnCash": "Cash on Cash (Nakite Nakit)",
+        "cashOnCashDesc": "Yıllık nakit akışının toplam yatırılan nakde oranı.",
+        "pasiflowFee": "Pasiflow İşlem Ücreti",
+        "pasiflowFeeInfo": "Ücret detaylarını görmek için tıklayın",
+        "upfrontCash": "Toplam Başlangıç Nakdi",
+        "closingCosts": "Kapanış Masrafları (%7)",
+        "downPaymentAmount": "Peşinat Tutarı (%20)",
+        "monthlyRentLabel": "Aylık Kira:",
+        "netMonthlyCashFlow": "Net Aylık Gelir:",
         "disclaimer": "* Yıllık %5 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir.",
         "duration": "Süre:",
         "monthlyCashFlow": "Aylık Nakit Akışı",
@@ -635,8 +655,7 @@
         "visionIntro": "Yatırımcıya her zaman şu hissi vermek istiyoruz:",
         "quote2": "\"Uzaktayım ama her şey gözümün önünde.\"",
         "welcome": "Pasiflow'a hoş geldiniz.",
-        "closing": "ABD'de pasif gelir yatırımı için güvenilir, şeffaf ve yapılandırılmış bir yol inşa ediyoruz.",
-        "founderRole": "Co-founder & Ceo"
+        "closing": "ABD'de pasif gelir yatırımı için güvenilir, şeffaf ve yapılandırılmış bir yol inşa ediyoruz."
     },
     "cta": {
         "title": "Geleceğinizi",
@@ -1028,7 +1047,22 @@
         "city": "Şehir",
         "citiesLabel": "Şehir",
         "exploreCity": "{city} İncele",
-        "indexCtaTitle": "Hangi Şehir Size Uygun?",
         "indexCtaDescription": "Yatırım hedeflerinize en uygun bölgeyi birlikte belirleyelim"
+    },
+    "pasiflowFeeModal": {
+        "title": "Pasiflow İşlem Ücreti Detayları",
+        "description": "Pasiflow.com, uzun vadeli kiralama işlemlerinde mülk başına $5,000 tutarında tek seferlik Pasiflow işlem ücreti almaktadır. Bu ücret; yatırımcının satın alma sürecini uçtan uca yönetmenin yanında, yatırımın operasyonel olarak sorunsuz başlaması için gerekli kurulum ve koordinasyon hizmetlerini de kapsar.",
+        "scopeTitle": "Kapsam Dahilinde:",
+        "items": [
+            "LLC kurulumu koordinasyonu",
+            "ABD banka hesabı kurulumu / bankacılık onboarding desteği",
+            "Konsolosluk randevu yönlendirmesi ve gerekli evrak akışı (gerekli durumlarda)",
+            "Uygulama kullanım ücreti ve dashboard erişimi (yatırım takibi, gelir-gider, kira akışı, raporlama)",
+            "Government / Section 8 süreç yönetimi: denetimler (inspections) koordinasyonu ve takip",
+            "Kiracı screening süreci: başvuru toplama, doğrulamalar, uygunluk kontrolleri, evrak yönetimi",
+            "Yatırım analizi: müşteri adına en iyi fırsatın (deal) seçimi için nakit akışı, kira potansiyeli, risk ve getiri analizleri"
+        ],
+        "footer": "Bu ücret, “masraflar düşüldükten sonraki net getiri” yapısının bir parçasıdır; yani yatırımcıya yansıtılan net getiri / temettü, bu masraflar ödendikten sonra hesaplanır.",
+        "close": "Kapat"
     }
 }

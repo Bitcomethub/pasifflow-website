@@ -3,7 +3,17 @@
 import { useState, useMemo } from "react"
 import { Slider } from "@/components/ui/slider"
 import { Card } from "@/components/ui/card"
-import { TrendingUp, DollarSign, Calendar, Percent, Home, PiggyBank, Calculator } from "lucide-react"
+import { TrendingUp, DollarSign, Calendar, Percent, Home, PiggyBank, Calculator, Info } from "lucide-react"
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts'
+import { useTranslations } from "next-intl"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
 
 interface PropertyConfig {
     purchasePrice: number
@@ -74,6 +84,8 @@ export function InvestmentCalculator({
     holdYearsDefault = 5
 }: InvestmentCalculatorProps) {
     const [holdYears, setHoldYears] = useState(holdYearsDefault)
+    const t = useTranslations("roiCalculator")
+    const tFee = useTranslations("pasiflowFeeModal")
 
     const results = useMemo(() => {
         const P = property.purchasePrice
@@ -99,26 +111,17 @@ export function InvestmentCalculator({
         let cumulativeCashFlow = 0
         const yearlyData: { year: number; rent: number; cashFlow: number; propertyValue: number; equity: number; cumulative: number }[] = []
 
-        for (let t = 1; t <= holdYears; t++) {
-            // Rent for this year (linear increase)
+        for (let t = 1; t <= 30; t++) {
             const monthlyRent = R0 + assumptions.rentIncreaseAnnualFlat * (t - 1)
             const grossRent = 12 * monthlyRent
-
-            // Operating expenses
             const pmFee = assumptions.pmPct * grossRent
             const opEx = 12 * fixedMonthly + pmFee
-
-            // Debt service
             const debtService = assumptions.loan.enabled ? 12 * monthlyMortgage : 0
-
-            // Net cash flow for this year
             const netCF = grossRent - opEx - debtService
-            cumulativeCashFlow += netCF
 
-            // Property value with appreciation
+            cumulativeCashFlow += netCF
             const propertyValue = P * Math.pow(1 + assumptions.appreciationAnnualPct, t)
 
-            // Calculate loan balance after t years (simplified)
             if (assumptions.loan.enabled) {
                 for (let m = 0; m < 12; m++) {
                     const interest = loanBalance * monthlyRate
@@ -139,23 +142,24 @@ export function InvestmentCalculator({
             })
         }
 
-        // Exit scenario
-        const finalYear = yearlyData[holdYears - 1]
+        const chartData = yearlyData.slice(0, holdYears);
+        const finalYear = chartData[chartData.length - 1]
+        const cumulativeCF_at_Hold = finalYear.cumulative;
         const salePrice = finalYear.propertyValue
         const sellingCosts = assumptions.sellCostPct * salePrice
-        const netProceeds = salePrice - sellingCosts - loanBalance
-
-        // Total profit
-        const totalProfit = cumulativeCashFlow + netProceeds - totalCash
-
-        // Total return %
+        const loanBalanceAtExit = finalYear.propertyValue - finalYear.equity
+        const netProceeds = salePrice - sellingCosts - loanBalanceAtExit
+        const totalProfit = cumulativeCF_at_Hold + netProceeds - totalCash
         const totalReturnPct = (totalProfit / totalCash) * 100
-
-        // CAGR
         const cagr = (Math.pow((totalCash + totalProfit) / totalCash, 1 / holdYears) - 1) * 100
+        const avgMonthlyCashFlow = cumulativeCF_at_Hold / holdYears / 12
 
-        // Average monthly cash flow
-        const avgMonthlyCashFlow = cumulativeCashFlow / holdYears / 12
+        // Cash on Cash Calculation
+        // Yearly Net Cash Flow / Total Cash Invested
+        // Using Year 1 cash flow for standard Coc, or average? User said "above like" which meant Nottingham card.
+        // Nottingham card usually shows current Coc.
+        const year1CashFlow = yearlyData[0].cashFlow;
+        const cashOnCash = (year1CashFlow / totalCash) * 100;
 
         return {
             totalCash,
@@ -166,19 +170,25 @@ export function InvestmentCalculator({
             totalProfit,
             totalReturnPct,
             cagr,
-            yearlyData,
+            chartData,
             finalEquity: finalYear.equity,
-            finalPropertyValue: finalYear.propertyValue
+            finalPropertyValue: finalYear.propertyValue,
+            cashOnCash
         }
     }, [holdYears, property, assumptions])
 
     const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('tr-TR', {
+        return new Intl.NumberFormat('en-US', {
             style: 'currency',
             currency: 'USD',
             minimumFractionDigits: 0,
             maximumFractionDigits: 0
         }).format(value)
+    }
+
+    const formatK = (value: number) => {
+        if (value >= 1000) return `$${(value / 1000).toFixed(0)}k`
+        return `$${value}`
     }
 
     return (
@@ -188,14 +198,11 @@ export function InvestmentCalculator({
                 <div className="text-center mb-12">
                     <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C1A05E]/10 text-[#C1A05E] font-bold text-sm mb-4">
                         <Calculator className="w-4 h-4" />
-                        Yatırım Hesaplayıcı
+                        {t("title")}
                     </div>
                     <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                        Potansiyel Getirinizi Hesaplayın
+                        {t("subtitle")}
                     </h2>
-                    <p className="text-slate-600 max-w-2xl mx-auto">
-                        Section 8 garantili kira geliri ile yatırımınızın uzun vadeli getirisini görün
-                    </p>
                 </div>
 
                 {/* Hold Time Slider */}
@@ -207,12 +214,12 @@ export function InvestmentCalculator({
                                     <Calendar className="w-6 h-6 text-[#C1A05E]" />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-slate-500 font-medium">Yatırım Süresi</p>
-                                    <p className="text-2xl font-bold text-slate-900">{holdYears} Yıl</p>
+                                    <p className="text-sm text-slate-500 font-medium">{t("duration")}</p>
+                                    <p className="text-2xl font-bold text-slate-900">{holdYears} {t("years")}</p>
                                 </div>
                             </div>
                             <div className="text-right">
-                                <p className="text-sm text-slate-500">Yıllık Getiri (CAGR)</p>
+                                <p className="text-sm text-slate-500">{t("annualizedRoi")}</p>
                                 <p className="text-3xl font-bold text-[#C1A05E]">%{results.cagr.toFixed(1)}</p>
                             </div>
                         </div>
@@ -225,8 +232,8 @@ export function InvestmentCalculator({
                             className="w-full"
                         />
                         <div className="flex justify-between mt-2 text-xs text-slate-400">
-                            <span>{holdYearsMin} yıl</span>
-                            <span>{holdYearsMax} yıl</span>
+                            <span>{holdYearsMin} {t("years")}</span>
+                            <span>{holdYearsMax} {t("years")}</span>
                         </div>
                     </Card>
                 </div>
@@ -238,7 +245,7 @@ export function InvestmentCalculator({
                             <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
                                 <PiggyBank className="w-5 h-5 text-slate-600" />
                             </div>
-                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Toplam Yatırım</p>
+                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("upfrontCash")}</p>
                         </div>
                         <p className="text-2xl font-bold text-slate-900">{formatCurrency(results.totalCash)}</p>
                     </Card>
@@ -248,7 +255,7 @@ export function InvestmentCalculator({
                             <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
                                 <DollarSign className="w-5 h-5 text-green-600" />
                             </div>
-                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Ort. Aylık Gelir</p>
+                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("cashFlowMonth")}</p>
                         </div>
                         <p className="text-2xl font-bold text-green-600">{formatCurrency(results.avgMonthlyCashFlow)}</p>
                     </Card>
@@ -258,46 +265,99 @@ export function InvestmentCalculator({
                             <div className="w-10 h-10 rounded-lg bg-[#C1A05E]/10 flex items-center justify-center">
                                 <TrendingUp className="w-5 h-5 text-[#C1A05E]" />
                             </div>
-                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Toplam Kâr ({holdYears} yıl)</p>
+                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("totalReturn")} ({holdYears} {t("years")})</p>
                         </div>
                         <p className="text-2xl font-bold text-[#C1A05E]">{formatCurrency(results.totalProfit)}</p>
                     </Card>
 
-                    <Card className="p-6 bg-white border-slate-200 shadow-sm hover:shadow-md transition-shadow">
+                    <Card className="p-6 bg-white border-slate-200 shadow-sm hover:shadow-md transition-shadow border-primary/20">
                         <div className="flex items-center gap-3 mb-3">
                             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                                 <Percent className="w-5 h-5 text-primary" />
                             </div>
-                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">Toplam Getiri</p>
+                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("cashOnCash")}</p>
                         </div>
-                        <p className="text-2xl font-bold text-primary">%{results.totalReturnPct.toFixed(0)}</p>
+                        <p className="text-2xl font-bold text-primary">%{results.cashOnCash.toFixed(1)}</p>
+                    </Card>
+                </div>
+
+                {/* Charts Section */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                    {/* Chart 1: Property Value vs Equity */}
+                    <Card className="p-6 border-slate-200 shadow-sm">
+                        <h3 className="text-lg font-bold text-slate-900 mb-6">{t("propertyValue")} & {t("equity")}</h3>
+                        <div className="h-[300px] w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart data={results.chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                    <defs>
+                                        <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#1F2328" stopOpacity={0.8} />
+                                            <stop offset="95%" stopColor="#1F2328" stopOpacity={0} />
+                                        </linearGradient>
+                                        <linearGradient id="colorEquity" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="5%" stopColor="#C1A05E" stopOpacity={0.8} />
+                                            <stop offset="95%" stopColor="#C1A05E" stopOpacity={0} />
+                                        </linearGradient>
+                                    </defs>
+                                    <XAxis dataKey="year" />
+                                    <YAxis tickFormatter={formatK} />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                    <Tooltip formatter={(value: number) => formatCurrency(value)} />
+                                    <Legend />
+                                    <Area type="monotone" dataKey="propertyValue" name={t("propertyValue")} stroke="#1F2328" fillOpacity={1} fill="url(#colorValue)" />
+                                    <Area type="monotone" dataKey="equity" name={t("equity")} stroke="#C1A05E" fillOpacity={1} fill="url(#colorEquity)" />
+                                </AreaChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </Card>
+
+                    {/* Chart 2: Net Cash Flow */}
+                    <Card className="p-6 border-slate-200 shadow-sm">
+                        <h3 className="text-lg font-bold text-slate-900 mb-6">{t("monthlyCashFlow")}</h3>
+                        <div className="h-[300px] w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <BarChart data={results.chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+                                    <XAxis dataKey="year" />
+                                    <YAxis tickFormatter={formatK} />
+                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
+                                    <Tooltip formatter={(value: number) => formatCurrency(value)} cursor={{ fill: '#f1f5f9' }} />
+                                    <Bar dataKey="cashFlow" name={t("cashFlowMonth")} fill="#22c55e" radius={[4, 4, 0, 0]} />
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
                     </Card>
                 </div>
 
                 {/* Property Summary Card */}
                 <div className="max-w-4xl mx-auto">
                     <Card className="p-8 bg-gradient-to-br from-[#1F2328] to-[#2a3038] text-white border-0 shadow-xl">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
-                                <Home className="w-6 h-6 text-[#C1A05E]" />
+                        <div className="flex items-center justify-between mb-8">
+                            <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
+                                    <Home className="w-6 h-6 text-[#C1A05E]" />
+                                </div>
+                                <div>
+                                    <h3 className="text-xl font-bold">10468 Nottingham St</h3>
+                                    <p className="text-white/60">Detroit, MI 48224 • Section 8</p>
+                                </div>
                             </div>
-                            <div>
-                                <h3 className="text-xl font-bold">10468 Nottingham St</h3>
-                                <p className="text-white/60">Detroit, MI 48224 • Section 8</p>
+                            <div className="hidden md:block text-right">
+                                <p className="text-white/40 text-xs uppercase tracking-wider mb-1">{t("cashOnCash")}</p>
+                                <p className="text-3xl font-bold text-[#C1A05E]">%{results.cashOnCash.toFixed(1)}</p>
                             </div>
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
                             <div>
-                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">Satın Alma Fiyatı</p>
+                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">{t("purchasePrice")}</p>
                                 <p className="text-xl font-bold">{formatCurrency(property.purchasePrice)}</p>
                             </div>
                             <div>
-                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">Peşinat (%20)</p>
+                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">{t("downPaymentAmount")}</p>
                                 <p className="text-xl font-bold">{formatCurrency(results.downPayment)}</p>
                             </div>
                             <div>
-                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">Aylık Kira</p>
+                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">{t("monthlyRentLabel")}</p>
                                 <p className="text-xl font-bold text-[#C1A05E]">{formatCurrency(property.initialMonthlyRent)}</p>
                             </div>
                             <div>
@@ -306,23 +366,74 @@ export function InvestmentCalculator({
                             </div>
                         </div>
 
-                        {/* Assumptions Panel */}
+                        {/* Detailed Assumptions & Pasiflow Fee Modal */}
                         <div className="border-t border-white/10 pt-6">
-                            <p className="text-white/40 text-xs uppercase tracking-wider mb-4">Varsayımlar</p>
+                            <div className="flex items-center justify-between mb-4">
+                                <p className="text-white/40 text-xs uppercase tracking-wider">{t("costBreakdown")}</p>
+
+                                <Dialog>
+                                    <DialogTrigger asChild>
+                                        <button className="flex items-center gap-2 text-xs font-semibold text-[#C1A05E] hover:text-[#d4b97a] transition-colors bg-white/5 px-3 py-1.5 rounded-full">
+                                            <Info className="w-3.5 h-3.5" />
+                                            {t("pasiflowFee")}: {formatCurrency(assumptions.pasiflowFee)}
+                                        </button>
+                                    </DialogTrigger>
+                                    <DialogContent className="max-w-2xl bg-white text-slate-900 border-none shadow-2xl">
+                                        <DialogHeader>
+                                            <DialogTitle className="text-2xl font-bold flex items-center gap-3">
+                                                <div className="w-10 h-10 rounded-lg bg-[#C1A05E]/10 flex items-center justify-center">
+                                                    <Calculator className="w-6 h-6 text-[#C1A05E]" />
+                                                </div>
+                                                {tFee("title")}
+                                            </DialogTitle>
+                                            <DialogDescription className="text-base text-slate-600 pt-4 leading-relaxed">
+                                                {tFee("description")}
+                                            </DialogDescription>
+                                        </DialogHeader>
+
+                                        <div className="py-6 border-y border-slate-100">
+                                            <h4 className="font-bold text-slate-900 mb-4">{tFee("scopeTitle")}</h4>
+                                            <ul className="space-y-3">
+                                                {tFee.rich("items", {
+                                                    //@ts-ignore
+                                                    list: (items) => items.map((item: string, i: number) => (
+                                                        <li key={i} className="flex gap-3 text-sm text-slate-700">
+                                                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#C1A05E] shrink-0" />
+                                                            {item}
+                                                        </li>
+                                                    ))
+                                                })}
+                                                {/* Manual mapping if i18n rich doesn't work as expected for arrays in some setups */}
+                                                {[0, 1, 2, 3, 4, 5, 6].map(i => (
+                                                    <li key={i} className="flex gap-3 text-sm text-slate-700 hover:text-slate-900 transition-colors">
+                                                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#C1A05E] shrink-0" />
+                                                        {tFee(`items.${i}`)}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+
+                                        <div className="pt-4 text-xs text-slate-400 italic">
+                                            {tFee("footer")}
+                                        </div>
+                                    </DialogContent>
+                                </Dialog>
+                            </div>
+
                             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                                <div className="flex justify-between">
-                                    <span className="text-white/50">Peşinat</span>
-                                    <span className="font-medium">%20</span>
+                                <div className="flex justify-between border-b border-white/5 pb-2">
+                                    <span className="text-white/50">{t("closingCosts")}</span>
+                                    <span className="font-medium">{formatCurrency(results.closingCosts)}</span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-white/50">Kira Artışı</span>
-                                    <span className="font-medium">+$50/yıl</span>
+                                <div className="flex justify-between border-b border-white/5 pb-2">
+                                    <span className="text-white/50">{t("yoyAppreciation")}</span>
+                                    <span className="font-medium">%3.5</span>
                                 </div>
-                                <div className="flex justify-between">
-                                    <span className="text-white/50">Değer Artışı</span>
-                                    <span className="font-medium">%3.5/yıl</span>
+                                <div className="flex justify-between border-b border-white/5 pb-2">
+                                    <span className="text-white/50">{t("payback")}</span>
+                                    <span className="font-medium">6-8 Yıl</span>
                                 </div>
-                                <div className="flex justify-between">
+                                <div className="flex justify-between border-b border-white/5 pb-2">
                                     <span className="text-white/50">Satış Masrafı</span>
                                     <span className="font-medium">%6</span>
                                 </div>

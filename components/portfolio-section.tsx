@@ -24,6 +24,7 @@ interface Property {
   netMonthly: string
   netYearly: string
   capRate: string
+  cashOnCash: string
   image: string
   images: string[]
   status: string
@@ -40,6 +41,7 @@ interface Property {
 
 export function PortfolioSection() {
   const t = useTranslations("portfolio")
+  const nt = useTranslations("nav")
   const locale = useLocale()
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: false })
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
@@ -111,7 +113,8 @@ export function PortfolioSection() {
       monthlyRent: "$1,500",
       netMonthly: "$423",
       netYearly: "$5,076",
-      capRate: "%13.3",
+      capRate: "13.3%",
+      cashOnCash: "12.6%",
       image: "/properties/nottingham-hd.jpg",
       images: ["/properties/nottingham-hd.jpg"],
       status: "Featured",
@@ -135,7 +138,8 @@ export function PortfolioSection() {
       monthlyRent: "$1,160",
       netMonthly: "$765",
       netYearly: "$9,181",
-      capRate: "%9.8",
+      capRate: "9.8%",
+      cashOnCash: "11.2%",
       image: "/properties/stout-hd.jpg",
       images: ["/properties/stout-hd.jpg", "/properties/stout.png"],
       status: "Back on Market",
@@ -159,7 +163,8 @@ export function PortfolioSection() {
       monthlyRent: "$1,100",
       netMonthly: "$703",
       netYearly: "$8,433",
-      capRate: "%8.6",
+      capRate: "8.6%",
+      cashOnCash: "10.8%",
       image: "/properties/griggs-hd.jpg",
       images: ["/properties/griggs-hd.jpg", "/properties/griggs.png"],
       status: "New Listing",
@@ -180,7 +185,8 @@ export function PortfolioSection() {
       monthlyRent: "$1,165",
       netMonthly: "$765",
       netYearly: "$9,185",
-      capRate: "%9.6",
+      capRate: "9.6%",
+      cashOnCash: "11.5%",
       image: "/properties/freeland-hd.jpg",
       images: ["/properties/freeland-hd.jpg"],
       status: "For Sale",
@@ -201,7 +207,8 @@ export function PortfolioSection() {
       monthlyRent: "$1,354",
       netMonthly: "$933",
       netYearly: "$11,201",
-      capRate: "%11.6",
+      capRate: "11.6%",
+      cashOnCash: "13.1%",
       image: "/properties/evergreen-hd.jpg",
       images: ["/properties/evergreen-hd.jpg"],
       status: "For Sale",
@@ -222,7 +229,8 @@ export function PortfolioSection() {
       monthlyRent: "$1,224",
       netMonthly: "$813",
       netYearly: "$9,754",
-      capRate: "%10.1",
+      capRate: "10.1%",
+      cashOnCash: "11.8%",
       image: "/properties/kentucky-hd.jpg",
       images: ["/properties/kentucky-hd.jpg"],
       status: "For Sale",
@@ -280,16 +288,16 @@ export function PortfolioSection() {
                         <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
                           <Lock className="w-8 h-8 text-primary" />
                         </div>
-                        <h3 className="text-2xl font-bold text-slate-900 mb-3 tracking-tight">Daha Fazla Fırsat</h3>
+                        <h3 className="text-2xl font-bold text-slate-900 mb-3 tracking-tight">{t("gatedTitle")}</h3>
                         <p className="text-slate-500 mb-8 leading-relaxed">
-                          Tüm portföyü, detaylı analizleri ve yeni fırsatları görmek için ücretsiz üye olun.
+                          {t("gatedDesc")}
                         </p>
                         <Button
                           className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
                           asChild
                         >
                           <Link href={`/${locale}/signup`}>
-                            Hemen Üye Ol
+                            {t("gatedButton")}
                           </Link>
                         </Button>
                       </div>
@@ -354,40 +362,46 @@ export function PortfolioSection() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4 py-4 border-y border-slate-100">
+                    {/* Prominent Pricing & Net Yearly */}
+                    <div className="grid grid-cols-2 gap-4 pt-4">
                       <div>
-                        <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("price")}</p>
-                        <p className="text-xl font-bold text-slate-900">{property.price}</p>
+                        <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">{t("price")}</p>
+                        <p className="text-2xl font-bold text-slate-900">{property.price}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-slate-500 uppercase font-bold tracking-wider text-right">{t("netYearly")}</p>
-                        <p className="text-xl font-bold text-primary text-right">{property.netYearly}</p>
+                        <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider text-right">{t("netYearly")}</p>
+                        <p className="text-2xl font-bold text-primary text-right">{property.netYearly}</p>
                       </div>
                     </div>
 
-                    <div className="space-y-2 flex-grow">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-500">{t("rent")}:</span>
-                        <span className="font-medium text-slate-700">{property.monthlyRent}</span>
+                    {/* Monthly Details & Cash on Cash */}
+                    <div className="flex justify-between items-center py-3 border-y border-slate-100">
+                      <div className="flex flex-col">
+                        <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">{t("rent")}</span>
+                        <span className="text-sm font-semibold text-slate-700">{property.monthlyRent}</span>
                       </div>
-                      <div className="flex justify-between text-sm pt-2 border-t border-slate-100">
-                        <span className="font-bold text-slate-900">{t("netMonthly")}:</span>
-                        <span className="font-bold text-primary">{property.netMonthly}</span>
+                      <div className="flex flex-col items-center">
+                        <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">CoC</span>
+                        <span className="text-sm font-bold text-accent">{property.cashOnCash}</span>
+                      </div>
+                      <div className="flex flex-col items-end">
+                        <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">{t("netMonthly")}</span>
+                        <span className="text-sm font-bold text-primary">{property.netMonthly}</span>
                       </div>
                     </div>
 
-                    <div className="pt-4 grid gap-3">
+                    <div className="pt-2 grid gap-3">
                       <Button
                         className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all shadow-[0_10px_20px_-5px_rgba(254,126,29,0.2)]"
                         asChild
                       >
                         <Link href={`/${locale}/signup`}>
-                          {t("cta")}
+                          {t("detailsCta")}
                         </Link>
                       </Button>
                       <Button variant="outline" className="w-full h-12 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" asChild>
                         <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(property.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
-                          WhatsApp
+                          {t("whatsappCta")}
                         </a>
                       </Button>
                     </div>

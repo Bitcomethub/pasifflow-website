@@ -14,6 +14,7 @@ import {
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Logo } from "@/components/logo"
+import { useTranslations } from "next-intl"
 
 const menuItems = [
     { name: "Dashboard", icon: LayoutDashboard, href: "/agent/dashboard" },
@@ -25,13 +26,14 @@ const menuItems = [
 
 export function AgentSidebar() {
     const pathname = usePathname()
+    const t = useTranslations("nav")
 
     return (
         <aside className="w-72 h-screen flex flex-col bg-white border-r border-slate-100 fixed top-0 left-0 z-40">
             <div className="p-8">
                 <Logo size="md" theme="light" />
                 <div className="mt-2 px-1">
-                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C1A05E] bg-[#C1A05E]/10 px-2 py-0.5 rounded">Agent Portal</span>
+                    <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-[#C1A05E] bg-[#C1A05E]/10 px-2 py-0.5 rounded">{t("agentPortal")}</span>
                 </div>
             </div>
 
@@ -62,7 +64,7 @@ export function AgentSidebar() {
                     className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-all"
                 >
                     <Settings className="w-5 h-5 text-slate-400" />
-                    Ayarlar
+                    {t("settings") || "Ayarlar"}
                 </Link>
                 <button
                     onClick={() => {
@@ -73,7 +75,7 @@ export function AgentSidebar() {
                     className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-destructive hover:bg-destructive/5 transition-all"
                 >
                     <LogOut className="w-5 h-5" />
-                    Çıkış Yap
+                    {t("logout")}
                 </button>
             </div>
         </aside>

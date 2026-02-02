@@ -111,12 +111,13 @@ export function AboutSection() {
 
                         {/* Signature */}
                         <div className="mt-16 pt-8 border-t border-border flex items-center gap-6">
-                            <div className="relative w-20 h-20 rounded-full overflow-hidden border-2 border-primary/20">
+                            <div className="relative w-24 h-24 rounded-full overflow-hidden border-2 border-primary/20 shadow-md">
                                 <Image
                                     src="/erman-adanir.jpg"
                                     alt="Erman Adanır"
                                     fill
                                     className="object-cover"
+                                    style={{ objectPosition: 'center 15%' }}
                                 />
                             </div>
                             <div>

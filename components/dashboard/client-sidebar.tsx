@@ -13,41 +13,43 @@ import {
     LogOut
 } from "lucide-react"
 import { Logo } from "@/components/logo"
-
-const menuItems = [
-    {
-        title: "Genel Bakış",
-        href: "/dashboard",
-        icon: LayoutDashboard
-    },
-    {
-        title: "Portföyüm",
-        href: "/dashboard/properties",
-        icon: Home
-    },
-    {
-        title: "Finansal",
-        href: "/dashboard/financials",
-        icon: Wallet
-    },
-    {
-        title: "Dokümanlar",
-        href: "/dashboard/documents",
-        icon: FileText
-    },
-    {
-        title: "Destek",
-        href: "/dashboard/support",
-        icon: LifeBuoy
-    }
-]
+import { useTranslations } from "next-intl"
 
 export function ClientSidebar() {
     const pathname = usePathname()
+    const t = useTranslations("nav")
+
+    const menuItems = [
+        {
+            title: t("dashboard"),
+            href: "/dashboard",
+            icon: LayoutDashboard
+        },
+        {
+            title: t("myPortfolio"),
+            href: "/dashboard/properties",
+            icon: Home
+        },
+        {
+            title: t("financials"),
+            href: "/dashboard/financials",
+            icon: Wallet
+        },
+        {
+            title: t("documents"),
+            href: "/dashboard/documents",
+            icon: FileText
+        },
+        {
+            title: t("support"),
+            href: "/dashboard/support",
+            icon: LifeBuoy
+        }
+    ]
 
     return (
         <aside className="fixed left-0 top-0 z-40 h-screen w-72 bg-[#1F2328] text-white transition-transform">
-            <div className="flex h-20 items-center justify-center border-b border-white/10 px-6">
+            <div className="flex h-20 items-center justify-start border-b border-white/10 px-6">
                 <Link href="/dashboard">
                     <Logo size="md" theme="dark" showMotto={false} />
                 </Link>
@@ -55,7 +57,7 @@ export function ClientSidebar() {
 
             <div className="px-4 py-8">
                 <div className="mb-4 px-4 text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Yatırımcı Paneli
+                    {t("investorPanel")}
                 </div>
                 <nav className="space-y-1">
                     {menuItems.map((item) => (
@@ -76,7 +78,7 @@ export function ClientSidebar() {
                 </nav>
 
                 <div className="mt-8 mb-4 px-4 text-xs font-bold uppercase tracking-wider text-slate-400">
-                    Hesap
+                    {t("account")}
                 </div>
                 <nav className="space-y-1">
                     <Link
@@ -89,7 +91,7 @@ export function ClientSidebar() {
                         )}
                     >
                         <Settings className="h-5 w-5" />
-                        Ayarlar
+                        {t("settings")}
                     </Link>
                     <button
                         onClick={() => {
@@ -100,7 +102,7 @@ export function ClientSidebar() {
                         className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-400 transition-colors hover:bg-red-500/10 hover:text-red-500"
                     >
                         <LogOut className="h-5 w-5" />
-                        Çıkış Yap
+                        {t("logout")}
                     </button>
                 </nav>
             </div>
