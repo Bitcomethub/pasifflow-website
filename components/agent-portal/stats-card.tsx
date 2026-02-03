@@ -22,7 +22,7 @@ export function AgentStatsCard({ title, value, subtitle, icon: Icon, trend, clas
         <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -4, shadow: "0 20px 40px -12px rgba(0,0,0,0.15)" }}
+            whileHover={{ y: -4 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
             <Card className={cn("p-6 flex flex-col justify-between border-slate-100 shadow-sm overflow-hidden relative", className)}>

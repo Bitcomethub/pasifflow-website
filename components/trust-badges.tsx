@@ -59,8 +59,7 @@ export function TrustBadges() {
                             transition={{
                                 delay: index * 0.15,
                                 duration: 0.6,
-                                ease: [0.16, 1, 0.3, 1],
-                                hover: { duration: 0.3 }
+                                ease: [0.16, 1, 0.3, 1]
                             }}
                             className="relative flex flex-col items-center text-center p-6 rounded-3xl bg-white/50 hover:bg-white transition-all duration-500 border border-transparent hover:border-[#B8A074]/20 group cursor-default"
                         >

@@ -63,8 +63,7 @@ export function ProcessSection() {
               transition={{
                 duration: 0.5,
                 delay: i * 0.1,
-                ease: [0.22, 1, 0.36, 1],
-                hover: { duration: 0.3 }
+                ease: [0.22, 1, 0.36, 1]
               }}
               className="relative text-left p-5 md:p-6 bg-white rounded-xl md:rounded-2xl border border-[#E5E5E5] hover:border-[#B8A074]/40 hover:shadow-[0_20px_40px_-15px_rgba(184,160,116,0.15)] transition-all duration-300 group overflow-hidden"
             >

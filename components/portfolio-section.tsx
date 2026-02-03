@@ -462,140 +462,141 @@ export function PortfolioSection() {
                       </div>
                     </div>
                   </Card>
-                </div>
-                ))}
-              </div>
-        </div>
-      </div>
+                </motion.div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
 
-      {/* Property Detail Modal */}
-      <Dialog open={!!selectedProperty} onOpenChange={closePropertyModal}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
-          {selectedProperty && (
-            <>
-              {/* Image Gallery */}
-              <div className="relative h-72 md:h-96 bg-black">
-                <img
-                  src={selectedProperty.images[currentImageIndex]}
-                  alt={`${selectedProperty.address} - Image ${currentImageIndex + 1}`}
-                  className="w-full h-full object-cover"
-                />
+        {/* Property Detail Modal */}
+        <Dialog open={!!selectedProperty} onOpenChange={closePropertyModal}>
+          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
+            {selectedProperty && (
+              <>
+                {/* Image Gallery */}
+                <div className="relative h-72 md:h-96 bg-black">
+                  <img
+                    src={selectedProperty.images[currentImageIndex]}
+                    alt={`${selectedProperty.address} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-cover"
+                  />
 
-                {/* Image Navigation */}
-                {selectedProperty.images.length > 1 && (
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
-                      onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                    >
-                      <ChevronLeft className="h-6 w-6" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
-                      onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                    >
-                      <ChevronRight className="h-6 w-6" />
-                    </Button>
+                  {/* Image Navigation */}
+                  {selectedProperty.images.length > 1 && (
+                    <>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
+                        onClick={(e) => { e.stopPropagation(); prevImage(); }}
+                      >
+                        <ChevronLeft className="h-6 w-6" />
+                      </Button>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
+                        onClick={(e) => { e.stopPropagation(); nextImage(); }}
+                      >
+                        <ChevronRight className="h-6 w-6" />
+                      </Button>
 
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                      {selectedProperty.images.map((_, idx) => (
-                        <button
-                          key={idx}
-                          className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50'}`}
-                          onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
-                        />
-                      ))}
-                    </div>
-                  </>
-                )}
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        {selectedProperty.images.map((_, idx) => (
+                          <button
+                            key={idx}
+                            className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50'}`}
+                            onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
 
-                {/* Badges */}
-                <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
-                  {selectedProperty.capRate} {t("capRate")}
-                </Badge>
-                {selectedProperty.status === "New Listing" && (
-                  <Badge className="absolute top-4 left-4 bg-primary text-white font-bold shadow-lg border-0 px-3 py-1">
-                    {t("new")}
+                  {/* Badges */}
+                  <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
+                    {selectedProperty.capRate} {t("capRate")}
                   </Badge>
-                )}
-              </div>
+                  {selectedProperty.status === "New Listing" && (
+                    <Badge className="absolute top-4 left-4 bg-primary text-white font-bold shadow-lg border-0 px-3 py-1">
+                      {t("new")}
+                    </Badge>
+                  )}
+                </div>
 
-              {/* Property Details */}
-              <div className="p-8 space-y-8 bg-white">
-                {/* Header */}
-                <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <h2 className="text-3xl font-bold text-slate-900 tracking-tight">{selectedProperty.address}</h2>
-                      <Badge className="bg-accent/10 text-accent border-accent/20">
-                        <Check size={12} strokeWidth={3} className="mr-1" />
-                        {t("section8Badge")}
-                      </Badge>
+                {/* Property Details */}
+                <div className="p-8 space-y-8 bg-white">
+                  {/* Header */}
+                  <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <h2 className="text-3xl font-bold text-slate-900 tracking-tight">{selectedProperty.address}</h2>
+                        <Badge className="bg-accent/10 text-accent border-accent/20">
+                          <Check size={12} strokeWidth={3} className="mr-1" />
+                          {t("section8Badge")}
+                        </Badge>
+                      </div>
+                      <p className="text-slate-500 flex items-center gap-1.5 text-lg">
+                        <MapPin size={20} className="text-primary" />
+                        {selectedProperty.city}
+                      </p>
+                      <p className="text-sm font-mono text-slate-400 mt-2">MLS# {selectedProperty.mls}</p>
                     </div>
-                    <p className="text-slate-500 flex items-center gap-1.5 text-lg">
-                      <MapPin size={20} className="text-primary" />
-                      {selectedProperty.city}
-                    </p>
-                    <p className="text-sm font-mono text-slate-400 mt-2">MLS# {selectedProperty.mls}</p>
+                    <div className="text-right">
+                      <p className="text-sm text-slate-500 uppercase font-bold tracking-wider mb-1">{t("price")}</p>
+                      <p className="text-4xl font-extrabold text-slate-900">{selectedProperty.price}</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-sm text-slate-500 uppercase font-bold tracking-wider mb-1">{t("price")}</p>
-                    <p className="text-4xl font-extrabold text-slate-900">{selectedProperty.price}</p>
+
+                  {/* Property Stats */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-slate-50 rounded-[2rem] border border-slate-100 shadow-inner">
+                    <div className="space-y-1">
+                      <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("rent")}</p>
+                      <p className="text-2xl font-bold text-slate-900">{selectedProperty.monthlyRent}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("netMonthly")}</p>
+                      <p className="text-2xl font-bold text-primary">{selectedProperty.netMonthly}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("netYearly")}</p>
+                      <p className="text-2xl font-bold text-primary">{selectedProperty.netYearly}</p>
+                    </div>
+                    <div className="space-y-1">
+                      <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("capRate")}</p>
+                      <p className="text-2xl font-bold text-accent">{selectedProperty.capRate}</p>
+                    </div>
+                  </div>
+
+                  {/* CTA Buttons */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                    <Button
+                      className="w-full h-14 text-lg font-bold shadow-xl shadow-primary/20 bg-primary text-white hover:bg-primary/90 rounded-2xl transition-all hover:scale-[1.02]"
+                      asChild
+                    >
+                      <Link href={`/${locale}/signup`}>
+                        {t("cta")}
+                      </Link>
+                    </Button>
+                    <Button variant="outline" className="w-full h-14 text-lg font-bold border-slate-200 text-slate-700 hover:bg-slate-50 rounded-2xl transition-all" asChild>
+                      <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
+                        WhatsApp
+                      </a>
+                    </Button>
                   </div>
                 </div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog >
 
-                {/* Property Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-slate-50 rounded-[2rem] border border-slate-100 shadow-inner">
-                  <div className="space-y-1">
-                    <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("rent")}</p>
-                    <p className="text-2xl font-bold text-slate-900">{selectedProperty.monthlyRent}</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("netMonthly")}</p>
-                    <p className="text-2xl font-bold text-primary">{selectedProperty.netMonthly}</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("netYearly")}</p>
-                    <p className="text-2xl font-bold text-primary">{selectedProperty.netYearly}</p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("capRate")}</p>
-                    <p className="text-2xl font-bold text-accent">{selectedProperty.capRate}</p>
-                  </div>
-                </div>
-
-                {/* CTA Buttons */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
-                  <Button
-                    className="w-full h-14 text-lg font-bold shadow-xl shadow-primary/20 bg-primary text-white hover:bg-primary/90 rounded-2xl transition-all hover:scale-[1.02]"
-                    asChild
-                  >
-                    <Link href={`/${locale}/signup`}>
-                      {t("cta")}
-                    </Link>
-                  </Button>
-                  <Button variant="outline" className="w-full h-14 text-lg font-bold border-slate-200 text-slate-700 hover:bg-slate-50 rounded-2xl transition-all" asChild>
-                    <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
-                      WhatsApp
-                    </a>
-                  </Button>
-                </div>
-              </div>
-            </>
-          )}
-        </DialogContent>
-      </Dialog >
-
-      <LeadGenModal
-        open={showLeadModal}
-        onOpenChange={setShowLeadModal}
-        onSuccess={handleLeadSuccess}
-        triggerSource={modalSource}
-      />
+        <LeadGenModal
+          open={showLeadModal}
+          onOpenChange={setShowLeadModal}
+          onSuccess={handleLeadSuccess}
+          triggerSource={modalSource}
+        />
+      </div>
     </section>
   )
 }
