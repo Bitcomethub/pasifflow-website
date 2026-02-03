@@ -75,7 +75,6 @@ export function FAQSection() {
                   : "bg-white text-[#535454] border-gray-200 hover:border-[#B8A074] hover:text-[#B8A074] hover:bg-[#B8A074]/5"
               )}
             >
-              {category.label}
               {activeCategory === category.id && (
                 <motion.div
                   layoutId="activeTab"

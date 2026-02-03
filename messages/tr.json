@@ -278,7 +278,8 @@
         "yoyAppreciation": "Yıllık Değer Artışı",
         "equity": "Özsermaye",
         "saleCost": "Satış Masrafı",
-        "monthlyMortgage": "Aylık Mortgage"
+        "monthlyMortgage": "Aylık Mortgage",
+        "cashFlowMonth": "Aylık Nakit Akışı"
     },
     "section8": {
         "badge": "Devlet Garantisi",
@@ -767,6 +768,7 @@
         "service4Desc": "HUD denetim hazırlığı, Section 8 yeniden sertifikasyonu, yerel yasalara uyum ve tahliye yönetimi."
     },
     "appFeatures": {
+        "badge": "Mobil Uygulama",
         "title": "Pasiflow Uygulaması",
         "subtitle": "Yatırım Panonuz - Dünyanın Her Yerinden",
         "description": "Tüm ABD gayrimenkul portföyünüzü parmaklarınızın ucuna getiriyoruz.",

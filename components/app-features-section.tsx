@@ -35,7 +35,7 @@ export function AppFeaturesSection() {
                     >
                         <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#B8A074] text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
                             <Smartphone className="w-4 h-4" />
-                            <span>Mobil Uygulama</span>
+                            <span>{t("badge")}</span>
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">{t("title")}</h2>
                         <p className="text-xl text-white/80 mb-8">{t("subtitle")}</p>

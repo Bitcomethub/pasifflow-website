@@ -259,7 +259,9 @@
         "monthlyCashFlow": "Monthly Cash Flow",
         "appreciationLabel": "Appreciation",
         "totalInvestmentLabel": "Total Investment",
-        "disclaimer": "Values are estimates based on current market data. Actual returns may vary."
+        "disclaimer": "Values are estimates based on current market data. Actual returns may vary.",
+        "cashFlowMonth": "Monthly Cash Flow",
+        "cashOnCash": "Cash on Cash"
     },
     "section8": {
         "badge": "State Guarantee",
@@ -773,6 +775,7 @@
         "service4Desc": "HUD inspection preparation, Section 8 recertification, local law compliance, and eviction management."
     },
     "appFeatures": {
+        "badge": "Mobile App",
         "title": "Pasiflow App",
         "subtitle": "Your Investment Dashboard - From Anywhere in the World",
         "description": "We bring your entire U.S. real estate portfolio to your fingertips.",
