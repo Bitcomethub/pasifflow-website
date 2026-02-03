@@ -279,7 +279,8 @@
         "equity": "Özsermaye",
         "saleCost": "Satış Masrafı",
         "monthlyMortgage": "Aylık Mortgage",
-        "cashFlowMonth": "Aylık Nakit Akışı"
+        "cashFlowMonth": "Aylık Nakit Akışı",
+        "quote": "Bu yatırımda fark yaratan şey şehirler arası mesafe değil, doğru sistemdir. Operasyon Pasiflow tarafından yönetilir, yatırımcı yalnızca nakit akışını izler."
     },
     "section8": {
         "badge": "Devlet Garantisi",
@@ -389,7 +390,8 @@
         "step6Desc": "Düzenli aylık performans raporları sunulur. Yıllık vergi beyan sürecine yönelik gerekli dokümantasyon sağlanır.",
         "step6Check1": "Aylık performans raporları",
         "step6Check2": "$99 ile vergi beyanı",
-        "step6Check3": "Muhasebe iş ortaklarımız"
+        "step6Check3": "Muhasebe iş ortaklarımız",
+        "cta": "Yatırım Yolculuğunuza Başlayın"
     },
     "founders": {
         "title": "Ekibimiz",
@@ -696,7 +698,8 @@
         "benefit3": "Baştan sona şeffaf ve yapılandırılmış süreç",
         "ctaPrimary": "Ücretsiz Danışmanlık Al",
         "ctaSecondary": "WhatsApp'tan Hemen Yaz",
-        "disclaimer": "*Yatırım tavsiyesi değildir. Geçmiş performans gelecek sonuçları garanti etmez."
+        "disclaimer": "*Yatırım tavsiyesi değildir. Geçmiş performans gelecek sonuçları garanti etmez.",
+        "happyInvestors": "Mutlu Yatırımcı"
     },
     "privacy": {
         "title": "Gizlilik Politikası",

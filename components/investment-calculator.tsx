@@ -445,8 +445,7 @@ export function InvestmentCalculator({
                 {/* Investor Message */}
                 <div className="text-center mt-12 max-w-2xl mx-auto">
                     <blockquote className="text-lg text-slate-600 italic">
-                        "Bu yatırımda fark yaratan şey şehirler arası mesafe değil, doğru sistemdir.
-                        Operasyon Pasiflow tarafından yönetilir, yatırımcı yalnızca nakit akışını izler."
+                        "{t("quote")}"
                     </blockquote>
                 </div>
             </div>

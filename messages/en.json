@@ -261,7 +261,8 @@
         "totalInvestmentLabel": "Total Investment",
         "disclaimer": "Values are estimates based on current market data. Actual returns may vary.",
         "cashFlowMonth": "Monthly Cash Flow",
-        "cashOnCash": "Cash on Cash"
+        "cashOnCash": "Cash on Cash",
+        "quote": "What makes the difference in this investment is not the distance between cities, but the right system. Operations are managed by Pasiflow, and the investor only monitors the cash flow."
     },
     "section8": {
         "badge": "State Guarantee",
@@ -371,7 +372,8 @@
         "step6Desc": "Regular monthly reports and all tax-related documents for annual filing are prepared.",
         "step6Check1": "Monthly performance reports",
         "step6Check2": "$99 tax filing",
-        "step6Check3": "Accounting partners"
+        "step6Check3": "Accounting partners",
+        "cta": "Start Your Investment Journey"
     },
     "founders": {
         "title": "Our Team",
@@ -703,7 +705,8 @@
         "benefit3": "Transparent and professional process from start to finish",
         "ctaPrimary": "Get Free Consultation",
         "ctaSecondary": "Write on WhatsApp Now",
-        "disclaimer": "* The information shared here is intended to help you better understand the world of investment. Every investment can have different risks and outcomes. Pasiflow presents the process transparently; the investment decision is entirely yours."
+        "disclaimer": "* The information shared here is intended to help you better understand the world of investment. Every investment can have different risks and outcomes. Pasiflow presents the process transparently; the investment decision is entirely yours.",
+        "happyInvestors": "Happy Investors"
     },
     "privacy": {
         "title": "Privacy Policy",

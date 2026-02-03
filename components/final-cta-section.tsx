@@ -150,7 +150,7 @@ export function FinalCTASection() {
             className="mt-12 flex items-center justify-center gap-6"
           >
             <div className="flex -space-x-3">
-              {["randomuser.me/api/portraits/men/32.jpg", "randomuser.me/api/portraits/women/44.jpg", "randomuser.me/api/portraits/men/46.jpg", "randomuser.me/api/portraits/women/68.jpg"].map((src, i) => (
+              {["https://randomuser.me/api/portraits/men/32.jpg", "https://randomuser.me/api/portraits/women/44.jpg", "https://randomuser.me/api/portraits/men/46.jpg", "https://randomuser.me/api/portraits/women/68.jpg"].map((src, i) => (
                 <motion.img
                   key={i}
                   initial={{ opacity: 0, scale: 0 }}
