@@ -43,7 +43,7 @@ export function FoundersSection() {
       scale: 1,
       transition: {
         duration: 0.8,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       },
     },
   }
@@ -57,7 +57,7 @@ export function FoundersSection() {
       transition: {
         delay: 0.4 + i * 0.15,
         duration: 0.9,
-        ease: [0.22, 1, 0.36, 1],
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       },
     }),
   }
@@ -106,7 +106,7 @@ export function FoundersSection() {
               whileHover={{
                 scale: 1.05,
                 y: -5,
-                transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
+                transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }
               }}
               className="text-center p-4 rounded-xl bg-white border border-slate-200 shadow-sm hover:shadow-lg transition-shadow"
             >

@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@/lib/db';
 
 export async function GET(request: Request) {
     // In future, get user from session. For now, matching the behavior of using email query param.
@@ -30,9 +30,9 @@ export async function GET(request: Request) {
                 level: 'GROWTH',
                 sales: {
                     create: [
-                        { region: 'Detroit', propertyAddress: '12152 Stout St', salePrice: 85900, commission: 1500, clientName: 'Ahmet Yılmaz', status: 'COMPLETED', saleDate: new Date('2025-11-15') },
-                        { region: 'Detroit', propertyAddress: '9977 Evergreen Ave', salePrice: 89900, commission: 1750, clientName: 'Mehmet Demir', status: 'COMPLETED', saleDate: new Date('2025-12-20') },
-                        { region: 'Detroit', propertyAddress: '12345 Kentucky St', salePrice: 89000, commission: 1750, clientName: 'Ayşe Kaya', status: 'COMPLETED', saleDate: new Date('2025-12-23') },
+                        { propertyAddress: '12152 Stout St, Detroit', salePrice: 85900, commission: 1500, clientName: 'Ahmet Yılmaz', status: 'COMPLETED', saleDate: new Date('2025-11-15') },
+                        { propertyAddress: '9977 Evergreen Ave, Detroit', salePrice: 89900, commission: 1750, clientName: 'Mehmet Demir', status: 'COMPLETED', saleDate: new Date('2025-12-20') },
+                        { propertyAddress: '12345 Kentucky St, Detroit', salePrice: 89000, commission: 1750, clientName: 'Ayşe Kaya', status: 'COMPLETED', saleDate: new Date('2025-12-23') },
                     ]
                 }
             },

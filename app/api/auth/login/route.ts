@@ -1,15 +1,37 @@
 import { NextResponse } from "next/server"
-import { prisma } from "@/lib/prisma"
+import { prisma } from "@/lib/db"
+import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
 
-// Demo user for client presentations (works without database)
-const DEMO_USER = {
-    id: "erman-adanir-001",
-    email: "erman@pasiflow.com",
-    password: "Pasiflow2026!",
-    fullName: "Erman Adanır",
-    role: "USER",
-    isVerified: true
-}
+// Demo users from environment variables (for client presentations)
+const getDemoUsers = () => [
+    {
+        id: "erman-adanir-001",
+        email: process.env.DEMO_USER_EMAIL || "",
+        passwordHash: process.env.DEMO_USER_PASSWORD_HASH || "",
+        fullName: "Erman Adanır",
+        role: "USER",
+        isVerified: true
+    },
+    {
+        id: "demo-client-002",
+        email: process.env.DEMO_CLIENT_EMAIL || "",
+        passwordHash: process.env.DEMO_CLIENT_PASSWORD_HASH || "",
+        fullName: "Demo Client",
+        role: "USER",
+        isVerified: true
+    },
+    {
+        id: "demo-agent-003",
+        email: process.env.DEMO_AGENT_EMAIL || "",
+        passwordHash: process.env.DEMO_AGENT_PASSWORD_HASH || "",
+        fullName: "Pasiflow Agent",
+        role: "AGENT",
+        isVerified: true
+    }
+].filter(u => u.email && u.passwordHash)
+
+const JWT_SECRET = process.env.JWT_SECRET
 
 export async function POST(req: Request) {
     try {
@@ -23,69 +45,70 @@ export async function POST(req: Request) {
             )
         }
 
-        // Check Primary Demo User
-        if (email === DEMO_USER.email && password === DEMO_USER.password) {
-            return NextResponse.json({
-                user: {
-                    id: DEMO_USER.id,
-                    email: DEMO_USER.email,
-                    fullName: DEMO_USER.fullName,
-                    role: DEMO_USER.role,
-                    isVerified: DEMO_USER.isVerified
-                },
-                token: "demo-jwt-token-pasiflow-2026"
-            })
+        if (!JWT_SECRET) {
+            console.error("JWT_SECRET not configured")
+            return NextResponse.json(
+                { error: "Sunucu yapılandırma hatası" },
+                { status: 500 }
+            )
         }
 
-        // Check Secondary Demo User (Requested by Client)
-        if (email === "demo@pasiflow.com" && password === "Demo123!") {
-            return NextResponse.json({
-                user: {
-                    id: "demo-client-002",
-                    email: "demo@pasiflow.com",
-                    fullName: "Demo Client",
-                    role: "USER",
-                    isVerified: true
-                },
-                token: "demo-jwt-token-client-2026"
-            })
+        // Check demo users first (from env variables)
+        const demoUsers = getDemoUsers()
+        const demoUser = demoUsers.find(u => u.email === email)
+
+        if (demoUser) {
+            const isValidPassword = await bcrypt.compare(password, demoUser.passwordHash)
+            if (isValidPassword) {
+                const token = jwt.sign(
+                    { userId: demoUser.id, email: demoUser.email, role: demoUser.role },
+                    JWT_SECRET,
+                    { expiresIn: "7d" }
+                )
+
+                return NextResponse.json({
+                    user: {
+                        id: demoUser.id,
+                        email: demoUser.email,
+                        fullName: demoUser.fullName,
+                        role: demoUser.role,
+                        isVerified: demoUser.isVerified
+                    },
+                    token
+                })
+            }
         }
 
-        // Check Agent Demo User (New Request)
-        if (email === "agent@pasiflow.com" && password === "Agent123!") {
-            return NextResponse.json({
-                user: {
-                    id: "demo-agent-003",
-                    email: "agent@pasiflow.com",
-                    fullName: "Pasiflow Agent",
-                    role: "AGENT",
-                    isVerified: true
-                },
-                token: "demo-jwt-token-agent-2026"
-            })
-        }
-
-        // For non-demo users, try database (optional - may fail on Vercel)
+        // For non-demo users, check database
         try {
             const user = await prisma.user.findUnique({
                 where: { email }
             })
 
-            if (user && (user.passwordHash === password)) {
-                return NextResponse.json({
-                    user: {
-                        id: user.id,
-                        email: user.email,
-                        fullName: user.fullName,
-                        role: user.role,
-                        isVerified: user.isVerified
-                    },
-                    token: `jwt-${user.id}-${Date.now()}`
-                })
+            if (user && user.passwordHash) {
+                const isValidPassword = await bcrypt.compare(password, user.passwordHash)
+
+                if (isValidPassword) {
+                    const token = jwt.sign(
+                        { userId: user.id, email: user.email, role: user.role },
+                        JWT_SECRET,
+                        { expiresIn: "7d" }
+                    )
+
+                    return NextResponse.json({
+                        user: {
+                            id: user.id,
+                            email: user.email,
+                            fullName: user.fullName,
+                            role: user.role,
+                            isVerified: user.isVerified
+                        },
+                        token
+                    })
+                }
             }
         } catch (dbError) {
-            console.error("Database not available:", dbError)
-            // Continue to return invalid credentials
+            console.error("Database error:", dbError)
         }
 
         return NextResponse.json(

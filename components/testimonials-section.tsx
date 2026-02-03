@@ -12,7 +12,7 @@ export function TestimonialsSection() {
     const t = useTranslations("testimonials")
     const [emblaRef, emblaApi] = useEmblaCarousel(
         { align: "start", loop: true, dragFree: true },
-        [Autoplay({ delay: 3000, stopOnInteraction: false })]
+        [Autoplay({ delay: 3000, stopOnInteraction: false }) as any]
     )
 
     const scrollPrev = useCallback(() => {

@@ -99,7 +99,7 @@ export function DetroitNeighborhoodMap() {
         // Add Search (Geocoder)
         const geocoder = new MapboxGeocoder({
             accessToken: token,
-            mapboxgl: mapboxgl,
+            mapboxgl: mapboxgl as any,
             marker: true,
             placeholder: 'Adres veya Yer Ara...'
         });

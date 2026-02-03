@@ -1,37 +1,39 @@
 import nodemailer from "nodemailer";
 
 interface LeadData {
-    fullName?: string;
-    email: string;
-    phone?: string;
-    source?: string;
-    budget?: string;
+  fullName?: string;
+  email: string;
+  phone?: string;
+  source?: string;
+  budget?: string;
 }
 
 export async function sendLeadNotification(data: LeadData) {
-    const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD } = process.env;
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD } = process.env;
 
-    // If credentials are not set, log and skip (prevents crashing if not configured)
-    if (!SMTP_HOST || !SMTP_USER || !SMTP_PASSWORD) {
-        console.warn("SMTP credentials not set. Skipping lead notification email.");
-        return;
-    }
+  // If credentials are not set, log and skip (prevents crashing if not configured)
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASSWORD) {
+    console.warn("SMTP credentials not set. Skipping lead notification email.");
+    return;
+  }
 
-    const transporter = nodemailer.createTransport({
-        host: SMTP_HOST,
-        port: Number(SMTP_PORT) || 587,
-        secure: Number(SMTP_PORT) === 465, // true for 465, false for other ports
-        auth: {
-            user: SMTP_USER,
-            pass: SMTP_PASSWORD,
-        },
-    });
+  const transporter = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: Number(SMTP_PORT) || 587,
+    secure: Number(SMTP_PORT) === 465, // true for 465, false for other ports
+    auth: {
+      user: SMTP_USER,
+      pass: SMTP_PASSWORD,
+    },
+  });
 
-    const mailOptions = {
-        from: `"Pasiflow System" <${SMTP_USER}>`,
-        to: "info@pasiflow.com", // Admin email
-        subject: `🔔 Yeni Lead: ${data.fullName || "Yeni Kullanıcı"}`,
-        html: `
+  const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "info@pasiflow.com";
+
+  const mailOptions = {
+    from: `"Pasiflow System" <${SMTP_USER}>`,
+    to: ADMIN_EMAIL, // Admin email from env
+    subject: `🔔 Yeni Lead: ${data.fullName || "Yeni Kullanıcı"}`,
+    html: `
       <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
         <h2 style="color: #1a1a1a;">Yeni Potansiyel Müşteri (Lead)</h2>
         <p>Web sitesinden yeni bir kayıt veya form gönderimi alındı.</p>
@@ -60,12 +62,12 @@ export async function sendLeadNotification(data: LeadData) {
         </p>
       </div>
     `,
-    };
+  };
 
-    try {
-        await transporter.sendMail(mailOptions);
-        console.log(`Lead notification sent to info@pasiflow.com for ${data.email}`);
-    } catch (error) {
-        console.error("Error sending lead notification:", error);
-    }
+  try {
+    await transporter.sendMail(mailOptions);
+    console.log(`Lead notification sent to info@pasiflow.com for ${data.email}`);
+  } catch (error) {
+    console.error("Error sending lead notification:", error);
+  }
 }
