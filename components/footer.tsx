@@ -23,8 +23,8 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8 mb-8 items-start">
 
           <div className="space-y-6">
-            {/* Added mt-1 to align logo icon top edge with Quick Links text cap-height */}
-            <Link href="/" className="flex items-center hover:opacity-90 transition-opacity mt-1">
+            {/* Added -mt-5 to lift logo up so the icon aligns with Quick Links title */}
+            <Link href="/" className="flex items-center hover:opacity-90 transition-opacity -mt-5">
               <Logo size="xl" theme="light" showMotto={false} />
             </Link>
 
