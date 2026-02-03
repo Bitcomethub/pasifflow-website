@@ -20,91 +20,135 @@ export function Footer() {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-6 mb-6 items-start">
+        {/* Top Section - Logo & Social */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-8">
+          <Link href="/" className="flex items-center hover:opacity-90 transition-opacity">
+            <Logo size="xl" theme="light" showMotto={false} />
+          </Link>
 
-          <div className="space-y-4">
-            {/* Added -mt-5 to lift logo up so the icon aligns with Quick Links title */}
-            <Link href="/" className="flex items-center hover:opacity-90 transition-opacity -mt-5">
-              <Logo size="xl" theme="light" showMotto={false} />
+          <div className="flex gap-2">
+            <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2.5 rounded-lg bg-slate-100 hover:bg-[#B8A074] hover:text-white transition-all duration-300 text-[#3D4852] border border-slate-200 hover:border-[#B8A074]">
+              <Instagram size={18} />
             </Link>
-
-            <div className="flex gap-3">
-              <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
-                <Instagram size={18} />
-              </Link>
-              <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
-                <Linkedin size={18} />
-              </Link>
-              <Link href="https://youtube.com/@pasiflow" target="_blank" className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
-                <Youtube size={18} />
-              </Link>
-            </div>
+            <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2.5 rounded-lg bg-slate-100 hover:bg-[#B8A074] hover:text-white transition-all duration-300 text-[#3D4852] border border-slate-200 hover:border-[#B8A074]">
+              <Linkedin size={18} />
+            </Link>
+            <Link href="https://youtube.com/@pasiflow" target="_blank" className="p-2.5 rounded-lg bg-slate-100 hover:bg-[#B8A074] hover:text-white transition-all duration-300 text-[#3D4852] border border-slate-200 hover:border-[#B8A074]">
+              <Youtube size={18} />
+            </Link>
           </div>
+        </div>
 
+        {/* Links Section - Side by side on mobile */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+          {/* Quick Links */}
           <div>
-            <h4 className="font-bold text-base md:text-lg mb-4 text-[#1F2328]">{tFooter("quickLinks")}</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li><Link href="#nasil-calisir" className="hover:text-[#B8A074] transition-colors font-medium">{t("howItWorks")}</Link></li>
-              <li><Link href="#portfoy" className="hover:text-[#B8A074] transition-colors font-medium">{t("portfolio")}</Link></li>
-              <li><Link href="#faq" className="hover:text-[#B8A074] transition-colors font-medium">{t("faq")}</Link></li>
-              <li><Link href="/neden-amerika" className="hover:text-[#B8A074] transition-colors font-medium">{tNav("whyUSA")}</Link></li>
-              <li><Link href="/vergilendirme" className="hover:text-[#B8A074] transition-colors font-medium">{tNav("taxLaw")}</Link></li>
+            <h4 className="font-bold text-sm md:text-base text-[#1F2328] mb-3 pb-2 border-b-2 border-[#B8A074] inline-block">
+              {tFooter("quickLinks")}
+            </h4>
+            <ul className="space-y-2.5 mt-3">
+              <li>
+                <Link href="#nasil-calisir" className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B8A074] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {t("howItWorks")}
+                </Link>
+              </li>
+              <li>
+                <Link href="#portfoy" className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B8A074] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {t("portfolio")}
+                </Link>
+              </li>
+              <li>
+                <Link href="#faq" className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B8A074] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {t("faq")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/neden-amerika" className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B8A074] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {tNav("whyUSA")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/vergilendirme" className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#B8A074] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {tNav("taxLaw")}
+                </Link>
+              </li>
             </ul>
           </div>
 
+          {/* Legal - Side by side with Quick Links on mobile */}
           <div>
-            <h4 className="font-bold text-base md:text-lg mb-4 text-[#1F2328]">{tFooter("legal")}</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li><Link href="/gizlilik" className="hover:text-[#B8A074] transition-colors font-medium">{t("privacyPolicy")}</Link></li>
-              <li><Link href="/kullanim-sartlari" className="hover:text-[#B8A074] transition-colors font-medium">{t("termsOfService")}</Link></li>
-              <li><Link href="/kvkk" className="hover:text-[#B8A074] transition-colors font-medium">{t("kvkk")}</Link></li>
+            <h4 className="font-bold text-sm md:text-base text-[#1F2328] mb-3 pb-2 border-b-2 border-slate-200 inline-block">
+              {tFooter("legal")}
+            </h4>
+            <ul className="space-y-2.5 mt-3">
+              <li>
+                <Link href="/gizlilik" className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {t("privacyPolicy")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/kullanim-sartlari" className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {t("termsOfService")}
+                </Link>
+              </li>
+              <li>
+                <Link href="/kvkk" className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  {t("kvkk")}
+                </Link>
+              </li>
             </ul>
           </div>
 
-          <div>
-            <h4 className="font-bold text-base md:text-lg mb-4 text-[#1F2328]">{t("contact")}</h4>
-            <div className="space-y-3 text-sm text-slate-600">
-              <div className="flex items-center gap-3">
-                <Mail size={16} className="text-[#B8A074]" />
-                <a href="mailto:info@pasiflow.com" className="hover:text-[#B8A074] transition-colors font-medium">
-                  info@pasiflow.com
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone size={16} className="text-[#B8A074]" />
-                <a href="tel:+13056903146" className="hover:text-[#B8A074] transition-colors font-medium">
-                  +1 (305) 690-3146
-                </a>
-              </div>
+          {/* Contact - Full width on mobile */}
+          <div className="col-span-2">
+            <h4 className="font-bold text-sm md:text-base text-[#1F2328] mb-3 pb-2 border-b-2 border-[#B8A074] inline-block">
+              {t("contact")}
+            </h4>
+            <div className="space-y-3 mt-3">
+              <a href="mailto:info@pasiflow.com" className="flex items-center gap-3 text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium">
+                <span className="p-1.5 rounded bg-[#B8A074]/10 text-[#B8A074]">
+                  <Mail size={14} />
+                </span>
+                info@pasiflow.com
+              </a>
+              <a href="tel:+13056903146" className="flex items-center gap-3 text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium">
+                <span className="p-1.5 rounded bg-[#B8A074]/10 text-[#B8A074]">
+                  <Phone size={14} />
+                </span>
+                +1 (305) 690-3146
+              </a>
               <div className="flex items-start gap-3">
-                <MapPin size={16} className="text-[#B8A074] mt-0.5" />
+                <span className="p-1.5 rounded bg-[#B8A074]/10 text-[#B8A074] mt-0.5">
+                  <MapPin size={14} />
+                </span>
                 <div>
-                  <p className="text-[#1F2328] font-medium">Miami, Florida, USA</p>
-                  <p className="text-xs text-slate-500 mt-1">{tFooter("istanbulOffice")}</p>
+                  <p className="text-[#1F2328] font-medium text-sm">Miami, Florida, USA</p>
+                  <p className="text-xs text-slate-500">{tFooter("istanbulOffice")}</p>
                 </div>
               </div>
               <a
                 href="https://wa.me/13056903146?text=Merhaba%2C%20Pasiflow%20ile%20ilgili%20bilgi%20almak%20istiyorum."
                 target="_blank"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-[#B8A074] hover:bg-[#a38d5d] text-white rounded-lg font-bold text-sm transition-all mt-2 shadow-lg shadow-[#B8A074]/20"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-[#B8A074] hover:bg-[#a38d5d] text-white rounded-lg font-bold text-sm transition-all shadow-lg shadow-[#B8A074]/20"
               >
                 {t("whatsapp")}
               </a>
-
             </div>
           </div>
         </div>
 
+        {/* Bottom Section */}
         <div className="mt-6 pt-4 border-t border-[#E5E6E8]">
-          <p className="text-xs text-[#535454] leading-relaxed opacity-80 text-left md:text-right max-w-5xl ml-auto">
+          <p className="text-xs text-[#535454] leading-relaxed opacity-80 text-center md:text-left">
             {tFooter("disclaimer")}
-          </p>
-        </div>
-
-        <div className="pt-6 border-t border-[#E5E6E8] text-left text-sm text-[#535454] flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mt-4">
-          <p className="font-medium">Pasiflow LLC — Powered by Pasiflow®️</p>
-          <p className="text-xs flex items-center gap-1">
-            Designed with <span className="text-[#B8A074] max-w-4">♥</span> for Global Investors
           </p>
         </div>
       </div>

@@ -323,7 +323,7 @@ export function Header() {
                 ))}
               </div>
 
-              <div className="flex gap-3 mt-8">
+              <div className="flex gap-2 mt-6">
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
@@ -332,17 +332,21 @@ export function Header() {
                       setMobileMenuOpen(false)
                     }}
                     className={cn(
-                      "text-2xl p-3 rounded-lg hover:bg-[#E5E6E8] transition-colors border border-[#E5E6E8]",
+                      "flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[#E5E6E8] transition-colors border border-[#E5E6E8]",
                       currentLocale === lang.code && "bg-[#B8A074]/10 border-[#B8A074]/30"
                     )}
                   >
-                    {lang.flag}
+                    <span className="text-xl">{lang.flag}</span>
+                    <span className={cn(
+                      "text-xs font-medium",
+                      currentLocale === lang.code ? "text-[#B8A074]" : "text-slate-500"
+                    )}>{lang.code.toUpperCase()}</span>
                   </button>
                 ))}
               </div>
 
               <Button
-                className="mt-8 bg-[#B8A074] hover:bg-[#d86502] text-white font-semibold py-6 text-lg rounded-lg"
+                className="mt-6 w-full bg-[#B8A074] hover:bg-[#a38d5d] text-white font-semibold py-4 text-base rounded-lg"
                 asChild
               >
                 <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">

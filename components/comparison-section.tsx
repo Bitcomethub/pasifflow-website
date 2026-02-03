@@ -27,10 +27,10 @@ export function ComparisonSection() {
             <ul className="space-y-4 flex-grow">
               {traditionalItems.map((key, i) => (
                 <li key={i} className="flex items-center gap-3 text-white/50 group">
-                  <div className="h-6 w-6 rounded-full bg-destructive/10 flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-destructive/20">
-                    <X className="h-3 w-3 text-destructive" strokeWidth={3} />
+                  <div className="h-7 w-7 rounded-full bg-red-500/10 border border-red-500/20 flex items-center justify-center flex-shrink-0 transition-all group-hover:bg-red-500/20 group-hover:border-red-500/40">
+                    <X className="h-4 w-4 text-red-400" strokeWidth={3} />
                   </div>
-                  <span className="font-medium text-sm md:text-base">{t(key)}</span>
+                  <span className="font-medium text-sm md:text-base leading-tight">{t(key)}</span>
                 </li>
               ))}
             </ul>
@@ -46,10 +46,10 @@ export function ComparisonSection() {
             <ul className="space-y-4 relative">
               {pasiflowItems.map((key, i) => (
                 <li key={i} className="flex items-center gap-3 group">
-                  <div className="h-6 w-6 md:h-8 md:w-8 rounded-full bg-[#B8A074] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#B8A074]/20 transition-transform group-hover:scale-110">
-                    <Check className="h-3 w-3 md:h-4 md:w-4 text-white stroke-[4px]" />
+                  <div className="h-7 w-7 md:h-8 md:w-8 rounded-full bg-gradient-to-br from-[#B8A074] to-[#a38d5d] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#B8A074]/30 transition-all group-hover:scale-110 group-hover:shadow-[#B8A074]/50">
+                    <Check className="h-4 w-4 md:h-5 md:w-5 text-white" strokeWidth={3} />
                   </div>
-                  <span className="font-bold text-white text-sm md:text-base tracking-tight group-hover:text-[#B8A074] transition-colors">{t(key)}</span>
+                  <span className="font-bold text-white text-sm md:text-base leading-tight group-hover:text-[#B8A074] transition-colors">{t(key)}</span>
                 </li>
               ))}
             </ul>
