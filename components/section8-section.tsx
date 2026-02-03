@@ -8,14 +8,14 @@ export function Section8Section() {
   const t = useTranslations("section8")
 
   return (
-    <section className="py-24 bg-[#3D4852] relative overflow-hidden">
+    <section className="py-12 md:py-20 bg-[#3D4852] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5"
         style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}
       />
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Left Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -24,18 +24,18 @@ export function Section8Section() {
             transition={{ duration: 0.6 }}
             className="text-left"
           >
-            <div className="inline-block px-4 py-1.5 rounded-full bg-[#B8A074]/10 border border-[#B8A074]/20 text-sm font-medium mb-6 backdrop-blur-sm text-[#B8A074]">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-[#B8A074]/10 border border-[#B8A074]/20 text-xs sm:text-sm font-medium mb-4 backdrop-blur-sm text-[#B8A074]">
               {t("badge")}
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 leading-tight text-white">
+            <h2 className="text-2xl md:text-4xl font-bold mb-4 leading-tight text-white">
               {t("title")} <br />
               <span className="text-[#B8A074]">{t("titleHighlight")}</span>
             </h2>
-            <p className="text-[#A8B0B8] text-lg leading-relaxed mb-8">
+            <p className="text-[#A8B0B8] text-base md:text-lg leading-relaxed mb-6">
               {t("description")}
             </p>
 
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               {[
                 t("list1"),
                 t("list2"),
@@ -61,9 +61,9 @@ export function Section8Section() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl hover:bg-white/10 transition-colors group"
+              className="bg-white/5 backdrop-blur-sm border border-white/10 p-5 md:p-8 rounded-xl md:rounded-2xl hover:bg-white/10 transition-colors group"
             >
-              <div className="text-5xl font-bold text-white mb-2 group-hover:text-[#B8A074] transition-colors">{t("stat1Value")}</div>
+              <div className="text-3xl md:text-5xl font-bold text-white mb-2 group-hover:text-[#B8A074] transition-colors">{t("stat1Value")}</div>
               <p className="text-[#A8B0B8] font-medium">{t("stat1Label")}</p>
             </motion.div>
 

@@ -8,11 +8,11 @@ export function WhyWorkSection() {
     const t = useTranslations("whyWork")
 
     return (
-        <section className="py-24 bg-muted/30">
+        <section className="py-12 md:py-20 bg-muted/30">
             <div className="container mx-auto px-4 md:px-6">
-                <div className="space-y-12">
+                <div className="space-y-10">
                     {/* Header (Centered) */}
-                    <div className="text-center max-w-3xl mx-auto space-y-4">
+                    <div className="text-center max-w-3xl mx-auto space-y-3">
                         <motion.h2
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
@@ -38,7 +38,7 @@ export function WhyWorkSection() {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.2 }}
-                        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+                        className="grid grid-cols-2 lg:grid-cols-4 gap-4"
                     >
                         {[
                             { label: t("stat1Label"), value: t("stat1Value"), icon: ShieldCheck },
@@ -46,12 +46,12 @@ export function WhyWorkSection() {
                             { label: t("stat3Label"), value: t("stat3Value"), icon: Cpu },
                             { label: t("stat4Label"), value: t("stat4Value"), icon: Headphones },
                         ].map((stat, index) => (
-                            <div key={index} className="bg-white p-8 rounded-2xl shadow-sm border border-[#E5E5E5] hover:shadow-md transition-all group text-center">
-                                <div className="w-16 h-16 rounded-2xl bg-[#B8A074/10] text-[#B8A074] flex items-center justify-center mx-auto mb-4 transition-transform group-hover:scale-110">
-                                    <stat.icon className="w-8 h-8" />
+                            <div key={index} className="bg-white p-4 md:p-6 rounded-xl shadow-sm border border-[#E5E5E5] hover:shadow-md transition-all group text-center">
+                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-[#B8A074/10] text-[#B8A074] flex items-center justify-center mx-auto mb-3 transition-transform group-hover:scale-110">
+                                    <stat.icon className="w-6 h-6 md:w-7 md:h-7" />
                                 </div>
-                                <p className="text-2xl font-bold text-[#3D4852] mb-1">{stat.value}</p>
-                                <p className="text-sm text-[#535454] font-medium uppercase tracking-wider">{stat.label}</p>
+                                <p className="text-xl md:text-2xl font-bold text-[#3D4852] mb-1">{stat.value}</p>
+                                <p className="text-xs md:text-sm text-[#535454] font-medium uppercase tracking-wider">{stat.label}</p>
                             </div>
                         ))}
                     </motion.div>

@@ -45,7 +45,7 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#F5F5F5] pt-32 pb-16 md:pt-40 md:pb-24">
+    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-[#F5F5F5] pt-20 pb-12 md:pt-40 md:pb-24">
       <div className="container mx-auto px-6 md:px-12 lg:px-16 z-10">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* LEFT-ALIGNED Text Content */}
@@ -53,13 +53,13 @@ export function HeroSection() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="space-y-8 text-left"
+            className="space-y-5 sm:space-y-6 text-left"
           >
             {/* Premium Headline with Rotating Title */}
-            <motion.div variants={item} className="space-y-6">
+            <motion.div variants={item} className="space-y-3">
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-[3.5rem] font-bold tracking-tight text-[#3D4852] leading-[1.15]">
                 {t("title")} <br />
-                <span className="text-2xl sm:text-3xl md:text-4xl font-medium text-[#535454] block mt-3 mb-4">
+                <span className="text-xl sm:text-2xl md:text-3xl font-medium text-[#535454] block mt-2 mb-3">
                   {t("subText")}
                 </span>
                 <span className="relative inline-block h-[1.2em] overflow-hidden">
@@ -77,16 +77,16 @@ export function HeroSection() {
                   </AnimatePresence>
                 </span>
               </h1>
-              <p className="text-lg md:text-xl text-[#535454] leading-relaxed max-w-lg">
+              <p className="text-base sm:text-lg text-[#535454] leading-relaxed max-w-lg">
                 {t("description")}
               </p>
             </motion.div>
 
             {/* CTA Buttons */}
-            <motion.div variants={item} className="flex flex-col sm:flex-row gap-4 max-w-md">
+            <motion.div variants={item} className="flex flex-col sm:flex-row gap-3 max-w-md">
               <Button
                 size="lg"
-                className="h-14 px-8 text-base rounded-lg bg-[#B8A074] hover:bg-[#a38d5d] text-white font-semibold shadow-lg transition-all duration-300"
+                className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base rounded-lg bg-[#B8A074] hover:bg-[#a38d5d] text-white font-semibold shadow-lg transition-all duration-300"
                 asChild
               >
                 <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
@@ -97,7 +97,7 @@ export function HeroSection() {
               <Button
                 size="lg"
                 variant="outline"
-                className="h-14 px-8 text-base rounded-lg border-2 border-[#E5E5E5] text-[#3D4852] hover:bg-[#E5E5E5] font-semibold transition-all duration-300"
+                className="h-12 sm:h-14 px-6 sm:px-8 text-sm sm:text-base rounded-lg border-2 border-[#E5E5E5] text-[#3D4852] hover:bg-[#E5E5E5] font-semibold transition-all duration-300"
                 asChild
               >
                 <a href="#portfoy">

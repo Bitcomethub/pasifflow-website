@@ -23,7 +23,7 @@ export function BuybackSection() {
     ]
 
     return (
-        <section id="buyback" className="py-24 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
+        <section id="buyback" className="py-12 md:py-20 bg-gradient-to-b from-background via-primary/5 to-background relative overflow-hidden">
             {/* Decorative Background */}
             <div className="absolute inset-0 opacity-5">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl" />
@@ -37,22 +37,22 @@ export function BuybackSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    className="text-center mb-10 md:mb-16"
                 >
-                    <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-6 shadow-lg">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900 text-white font-bold text-xs uppercase tracking-widest mb-4 shadow-lg">
                         <Shield className="w-4 h-4" />
                         <span>{t("badge")}</span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                    <h2 className="text-2xl md:text-4xl font-bold text-slate-900 mb-3">
                         {t("title")} <span className="text-[#B8A074]">{t("titleAccent")}</span>
                     </h2>
-                    <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+                    <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                         {t("subtitle")}
                     </p>
                 </motion.div>
 
                 {/* Main Content Grid */}
-                <div className="grid lg:grid-cols-2 gap-12 items-start">
+                <div className="grid lg:grid-cols-2 gap-8 items-start">
                     {/* Left - Core Promise Card */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
@@ -60,7 +60,7 @@ export function BuybackSection() {
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                        <Card className="p-8 md:p-10 border-primary/20 bg-gradient-to-br from-primary/10 to-primary/5 shadow-xl relative overflow-hidden">
+                        <Card className="p-5 md:p-8 border-primary/20 bg-gradient-to-br from-primary/10 to-primary/5 shadow-xl relative overflow-hidden">
                             {/* Shield Icon Background */}
                             <div className="absolute -right-8 -top-8 opacity-10">
                                 <Shield className="w-40 h-40 text-primary" />

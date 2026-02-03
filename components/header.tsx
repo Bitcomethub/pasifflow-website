@@ -120,7 +120,7 @@ export function Header() {
               : ""
           )}
         >
-          <div className="container mx-auto px-6 md:px-12 lg:px-16 h-24 flex items-center justify-between">
+          <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 h-16 sm:h-20 md:h-24 flex items-center justify-between">
             {/* LEFT: Logo - vertically centered */}
             <Link href="/" className="flex items-center flex-shrink-0 h-full">
               <Logo size="md" theme="light" showMotto={false} />

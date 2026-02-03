@@ -15,7 +15,7 @@ export function PropertyManagementSection() {
     ]
 
     return (
-        <section className="py-24 bg-muted/20">
+        <section className="py-12 md:py-20 bg-muted/20">
             <div className="container mx-auto px-4 md:px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -24,10 +24,10 @@ export function PropertyManagementSection() {
                     className="text-center max-w-3xl mx-auto mb-16"
                 >
                     <h2 className="text-3xl md:text-5xl font-bold text-primary mb-4">{t("title")}</h2>
-                    <p className="text-lg text-muted-foreground">{t("subtitle")}</p>
+                    <p className="text-base md:text-lg text-muted-foreground">{t("subtitle")}</p>
                 </motion.div>
 
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     {services.map((service, i) => (
                         <motion.div
                             key={i}

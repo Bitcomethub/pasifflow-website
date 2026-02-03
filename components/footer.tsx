@@ -12,7 +12,7 @@ export function Footer() {
   const tFooter = useTranslations("footer")
 
   return (
-    <footer className="bg-white text-[#3D4852] pt-16 pb-8 relative overflow-hidden mt-8 border-t border-slate-200">
+    <footer className="bg-white text-[#3D4852] pt-10 pb-6 relative overflow-hidden mt-6 border-t border-slate-200">
       {/* Decorative Background */}
       <div className="absolute inset-0 opacity-40 pointer-events-none">
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#B8A074]/10 rounded-full blur-3xl translate-x-1/3 translate-y-1/3" />
@@ -20,30 +20,30 @@ export function Footer() {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-8 mb-8 items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1fr] gap-6 mb-6 items-start">
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             {/* Added -mt-5 to lift logo up so the icon aligns with Quick Links title */}
             <Link href="/" className="flex items-center hover:opacity-90 transition-opacity -mt-5">
               <Logo size="xl" theme="light" showMotto={false} />
             </Link>
 
-            <div className="flex gap-4">
-              <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
+            <div className="flex gap-3">
+              <Link href="https://instagram.com/pasiflow_" target="_blank" className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
                 <Instagram size={18} />
               </Link>
-              <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
+              <Link href="https://linkedin.com/company/pasiflow" target="_blank" className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
                 <Linkedin size={18} />
               </Link>
-              <Link href="https://youtube.com/@pasiflow" target="_blank" className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
+              <Link href="https://youtube.com/@pasiflow" target="_blank" className="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors text-[#3D4852] hover:text-[#B8A074] border border-slate-200">
                 <Youtube size={18} />
               </Link>
             </div>
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{tFooter("quickLinks")}</h4>
-            <ul className="space-y-3 text-sm text-slate-600">
+            <h4 className="font-bold text-base md:text-lg mb-4 text-[#1F2328]">{tFooter("quickLinks")}</h4>
+            <ul className="space-y-2 text-sm text-slate-600">
               <li><Link href="#nasil-calisir" className="hover:text-[#B8A074] transition-colors font-medium">{t("howItWorks")}</Link></li>
               <li><Link href="#portfoy" className="hover:text-[#B8A074] transition-colors font-medium">{t("portfolio")}</Link></li>
               <li><Link href="#faq" className="hover:text-[#B8A074] transition-colors font-medium">{t("faq")}</Link></li>
@@ -53,8 +53,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{tFooter("legal")}</h4>
-            <ul className="space-y-3 text-sm text-slate-600">
+            <h4 className="font-bold text-base md:text-lg mb-4 text-[#1F2328]">{tFooter("legal")}</h4>
+            <ul className="space-y-2 text-sm text-slate-600">
               <li><Link href="/gizlilik" className="hover:text-[#B8A074] transition-colors font-medium">{t("privacyPolicy")}</Link></li>
               <li><Link href="/kullanim-sartlari" className="hover:text-[#B8A074] transition-colors font-medium">{t("termsOfService")}</Link></li>
               <li><Link href="/kvkk" className="hover:text-[#B8A074] transition-colors font-medium">{t("kvkk")}</Link></li>
@@ -62,8 +62,8 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-6 text-[#1F2328]">{t("contact")}</h4>
-            <div className="space-y-4 text-sm text-slate-600">
+            <h4 className="font-bold text-base md:text-lg mb-4 text-[#1F2328]">{t("contact")}</h4>
+            <div className="space-y-3 text-sm text-slate-600">
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-[#B8A074]" />
                 <a href="mailto:info@pasiflow.com" className="hover:text-[#B8A074] transition-colors font-medium">
@@ -95,7 +95,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-[#E5E6E8]">
+        <div className="mt-6 pt-4 border-t border-[#E5E6E8]">
           <p className="text-xs text-[#535454] leading-relaxed opacity-80 text-left md:text-right max-w-5xl ml-auto">
             {tFooter("disclaimer")}
           </p>
