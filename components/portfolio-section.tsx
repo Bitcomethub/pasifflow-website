@@ -398,11 +398,22 @@ export function PortfolioSection() {
                             <Badge className="bg-primary text-white text-xs px-2 py-0.5 border-0">{t("new")}</Badge>
                           )}
                         </div>
-                        <p className="text-sm text-slate-500">
-                          {property.city}
+                        <p className="text-sm text-slate-500 flex items-center gap-4">
+                          <span className="flex items-center gap-1.5">
+                            <BedDouble size={14} className="text-[#B8A074]" />
+                            <span>{property.rooms}</span>
+                          </span>
+                          <span className="flex items-center gap-1.5">
+                            <Bath size={14} className="text-[#B8A074]" />
+                            <span>{property.bathrooms}</span>
+                          </span>
+                          <span className="flex items-center gap-1.5">
+                            <Square size={14} className="text-[#B8A074]" />
+                            <span>{property.sqft}</span>
+                          </span>
                         </p>
                         <p className="text-xs text-slate-400 mt-1 font-mono">
-                          {property.rooms} {t("rooms")} • {property.sqft} {t("sqft")} • MLS# {property.mls}
+                          MLS# {property.mls}
                         </p>
                       </div>
 
