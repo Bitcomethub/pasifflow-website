@@ -4,7 +4,6 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { motion, useScroll, useMotionValueEvent } from "framer-motion"
 import { cn } from "@/lib/utils"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Logo } from "@/components/logo"
@@ -24,7 +23,6 @@ const languages = [
 ]
 
 export function Header() {
-  const { scrollY } = useScroll()
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -81,9 +79,14 @@ export function Header() {
   const currentLocale = pathname.split('/')[1] || 'tr'
   const currentLang = languages.find(l => l.code === currentLocale) || languages[0]
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    setIsScrolled(latest > 50)
-  })
+  // Simple scroll detection using event listener
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   const switchLocale = (newLocale: string) => {
     const segments = pathname.split('/')
@@ -106,12 +109,7 @@ export function Header() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed top-0 left-0 right-0 z-50"
-      >
+      <header className="fixed top-0 left-0 right-0 z-50">
         <div
           className={cn(
             "mx-auto transition-all duration-300 bg-white/95 backdrop-blur-md",
@@ -123,7 +121,7 @@ export function Header() {
           <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 h-16 sm:h-20 md:h-24 flex items-center justify-between">
             {/* LEFT: Logo - vertically centered */}
             <Link href="/" className="flex items-center flex-shrink-0 h-full">
-              <Logo size="md" theme="light" showMotto={false} />
+              <Logo size="sm" theme="light" showMotto={false} />
             </Link>
 
             {/* CENTER: Nav Links - spread to the right */}
@@ -293,10 +291,7 @@ export function Header() {
         {/* Mobile Nav */}
         {
           mobileMenuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
+            <div
               className="fixed inset-0 top-16 bg-[#F6F7F9] z-[60] flex flex-col p-6"
             >
               <div className="space-y-4">
@@ -353,10 +348,10 @@ export function Header() {
                   {t("getConsultation")}
                 </a>
               </Button>
-            </motion.div>
+            </div>
           )
         }
-      </motion.header>
+      </header>
 
       {/* Modals - rendered outside motion.header to avoid transform breaking position:fixed */}
       <LeadGenModal
