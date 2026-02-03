@@ -14,6 +14,7 @@ import {
 } from "lucide-react"
 import { Logo } from "@/components/logo"
 import { useTranslations } from "next-intl"
+import { motion } from "framer-motion"
 
 export function ClientSidebar() {
     const pathname = usePathname()
@@ -56,69 +57,125 @@ export function ClientSidebar() {
             </div>
 
             <div className="px-4 py-8">
-                <div className="mb-4 px-4 text-xs font-bold uppercase tracking-wider text-slate-400">
+                <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-4 px-4 text-xs font-bold uppercase tracking-wider text-slate-400"
+                >
                     {t("investorPanel")}
-                </div>
+                </motion.div>
                 <nav className="space-y-1">
-                    {menuItems.map((item) => (
-                        <Link
+                    {menuItems.map((item, index) => (
+                        <motion.div
                             key={item.href}
-                            href={item.href}
-                            className={cn(
-                                "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
-                                pathname === item.href
-                                    ? "bg-[#C1A05E] text-white shadow-lg shadow-[#C1A05E]/20"
-                                    : "text-slate-400 hover:bg-white/5 hover:text-white"
-                            )}
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: index * 0.05 }}
                         >
-                            <item.icon className="h-5 w-5" />
-                            {item.title}
-                        </Link>
+                            <Link
+                                href={item.href}
+                                className={cn(
+                                    "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 group relative overflow-hidden",
+                                    pathname === item.href
+                                        ? "bg-[#C1A05E] text-white shadow-lg shadow-[#C1A05E]/20"
+                                        : "text-slate-400 hover:bg-white/5 hover:text-white"
+                                )}
+                            >
+                                {/* Hover effect */}
+                                <motion.div
+                                    className="absolute inset-0 bg-white/5 rounded-xl"
+                                    initial={{ scale: 0, opacity: 0 }}
+                                    whileHover={{ scale: 1, opacity: 1 }}
+                                    transition={{ duration: 0.2 }}
+                                />
+                                <item.icon className={cn(
+                                    "h-5 w-5 relative z-10 transition-colors",
+                                    pathname === item.href ? "text-white" : "text-slate-400 group-hover:text-white"
+                                )} />
+                                <span className="relative z-10">{item.title}</span>
+                                {pathname === item.href && (
+                                    <motion.div
+                                        layoutId="activeClientIndicator"
+                                        className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-[#C1A05E] rounded-l-full"
+                                    />
+                                )}
+                            </Link>
+                        </motion.div>
                     ))}
                 </nav>
 
-                <div className="mt-8 mb-4 px-4 text-xs font-bold uppercase tracking-wider text-slate-400">
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3 }}
+                    className="mt-8 mb-4 px-4 text-xs font-bold uppercase tracking-wider text-slate-400"
+                >
                     {t("account")}
-                </div>
+                </motion.div>
                 <nav className="space-y-1">
-                    <Link
-                        href="/dashboard/settings"
-                        className={cn(
-                            "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-colors",
-                            pathname === "/dashboard/settings"
-                                ? "bg-[#C1A05E] text-white"
-                                : "text-slate-400 hover:bg-white/5 hover:text-white"
-                        )}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.35 }}
                     >
-                        <Settings className="h-5 w-5" />
-                        {t("settings")}
-                    </Link>
-                    <button
-                        onClick={() => {
-                            localStorage.removeItem("pasiflow_token");
-                            localStorage.removeItem("pasiflow_user");
-                            window.location.href = "/";
-                        }}
-                        className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-400 transition-colors hover:bg-red-500/10 hover:text-red-500"
+                        <Link
+                            href="/dashboard/settings"
+                            className={cn(
+                                "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 group",
+                                pathname === "/dashboard/settings"
+                                    ? "bg-[#C1A05E] text-white"
+                                    : "text-slate-400 hover:bg-white/5 hover:text-white"
+                            )}
+                        >
+                            <Settings className="h-5 w-5 transition-transform group-hover:rotate-90" />
+                            {t("settings")}
+                        </Link>
+                    </motion.div>
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.4 }}
                     >
-                        <LogOut className="h-5 w-5" />
-                        {t("logout")}
-                    </button>
+                        <button
+                            onClick={() => {
+                                localStorage.removeItem("pasiflow_token");
+                                localStorage.removeItem("pasiflow_user");
+                                window.location.href = "/";
+                            }}
+                            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-400 transition-all hover:bg-red-500/10 hover:text-red-500 group"
+                        >
+                            <LogOut className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+                            {t("logout")}
+                        </button>
+                    </motion.div>
                 </nav>
             </div>
 
             {/* User Profile Mini - Bottom */}
-            <div className="absolute bottom-6 left-0 right-0 px-6">
-                <div className="rounded-2xl bg-white/5 p-4 border border-white/10 flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-[#C1A05E] flex items-center justify-center font-bold text-white">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.5 }}
+                className="absolute bottom-6 left-0 right-0 px-6"
+            >
+                <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    className="rounded-2xl bg-white/5 p-4 border border-white/10 flex items-center gap-3 cursor-pointer"
+                >
+                    <div className="h-10 w-10 rounded-full bg-[#C1A05E] flex items-center justify-center font-bold text-white relative">
                         DA
+                        <motion.span
+                            className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 border-2 border-[#1F2328] rounded-full"
+                            animate={{ scale: [1, 1.2, 1] }}
+                            transition={{ duration: 2, repeat: Infinity }}
+                        />
                     </div>
                     <div className="overflow-hidden">
                         <p className="truncate text-sm font-bold text-white">Demo Hesap</p>
                         <p className="truncate text-xs text-slate-400">demo@pasiflow.com</p>
                     </div>
-                </div>
-            </div>
+                </motion.div>
+            </motion.div>
         </aside>
     )
 }

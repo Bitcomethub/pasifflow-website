@@ -4,7 +4,8 @@ import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Check, Lock, Sparkles, Shield, TrendingUp, X } from "lucide-react"
+import { Check, Lock, Sparkles, Shield, TrendingUp, X, ArrowRight } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
 
 interface LeadGenModalProps {
@@ -28,7 +29,6 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
         setLoading(true)
 
         try {
-            // Submit lead to API
             const response = await fetch("/api/leads", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -39,9 +39,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
                 throw new Error("Failed to submit lead")
             }
 
-            // Mark lead as captured in localStorage
             localStorage.setItem("pasiflow_lead_captured", "true")
-
             setStep("success")
             setTimeout(() => {
                 onSuccess()
@@ -53,7 +51,6 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
             }, 2000)
         } catch (err) {
             console.error("Lead submission error:", err)
-            // Still mark as captured to prevent spam
             localStorage.setItem("pasiflow_lead_captured", "true")
             setStep("success")
             setTimeout(() => {
@@ -74,122 +71,218 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
     return (
         <Dialog open={open} onOpenChange={handleClose}>
             <DialogContent
-                className="w-[95%] sm:max-w-lg max-h-[90vh] flex flex-col bg-white border-0 shadow-[0_25px_100px_-12px_rgba(0,0,0,0.4)] rounded-2xl p-0 outline-none overflow-hidden"
+                className="w-[95%] sm:max-w-lg max-h-[90vh] flex flex-col bg-white border-0 shadow-2xl rounded-2xl p-0 outline-none overflow-hidden"
                 showCloseButton={false}
             >
+                {/* Animated Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1F2328] via-[#2D353F] to-[#1F2328]" />
+                <div className="absolute top-0 right-0 w-64 h-64 bg-[#B8A074]/10 rounded-full blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#3D4852]/20 rounded-full blur-3xl" />
+
                 {/* Close Button */}
-                <button
+                <motion.button
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
                     onClick={handleClose}
-                    className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all z-50 backdrop-blur-sm"
+                    className="absolute top-4 right-4 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all z-50 backdrop-blur-sm border border-white/10"
                     type="button"
                 >
                     <X size={18} />
-                </button>
+                </motion.button>
 
                 {/* Premium Header Bar */}
-                <div className="bg-[#1F2328] px-6 py-5 sm:px-8 sm:py-6 flex-shrink-0">
-                    <div className="flex items-center justify-center gap-3">
-                        <div className="p-2.5 bg-[#C1A05E]/10 rounded-xl">
-                            {step === "form" ? <Sparkles className="w-5 h-5 text-[#C1A05E]" /> : <Check className="w-5 h-5 text-[#C1A05E]" />}
-                        </div>
-                        <div>
-                            <h3 className="text-white font-bold text-lg tracking-tight">
-                                {step === "form" ? t("titleFree") : t("titleSuccess")}
-                            </h3>
-                            <p className="text-slate-400 text-xs font-medium">{t("subTitle")}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="p-5 sm:p-8 overflow-y-auto">
-                    <DialogHeader className="mb-6">
-                        <DialogTitle className="text-center text-2xl font-bold tracking-tight text-slate-900">
-                            {step === "form"
-                                ? (triggerSource === "gated-content" ? t("headerGated") : t("headerForm"))
-                                : t("headerSuccess")}
-                        </DialogTitle>
-                        <DialogDescription className="text-center text-slate-500 pt-2 text-sm leading-relaxed">
-                            {step === "form"
-                                ? t("descForm")
-                                : t("descSuccess")}
-                        </DialogDescription>
-                    </DialogHeader>
-
-                    {step === "form" ? (
-                        <div className="space-y-6">
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="space-y-3">
-                                    <Input
-                                        placeholder={t("namePlaceholder")}
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)}
-                                        required
-                                        className="h-12 bg-slate-50 border-slate-200 focus:border-slate-900 focus:ring-slate-900/10 rounded-xl text-sm font-medium placeholder:text-slate-400"
-                                    />
-                                    <Input
-                                        type="email"
-                                        placeholder={t("emailPlaceholder")}
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
-                                        className="h-12 bg-slate-50 border-slate-200 focus:border-slate-900 focus:ring-slate-900/10 rounded-xl text-sm font-medium placeholder:text-slate-400"
-                                    />
-                                    <Input
-                                        type="tel"
-                                        placeholder={t("phonePlaceholder")}
-                                        value={phone}
-                                        onChange={(e) => setPhone(e.target.value)}
-                                        className="h-12 bg-slate-50 border-slate-200 focus:border-slate-900 focus:ring-slate-900/10 rounded-xl text-sm font-medium placeholder:text-slate-400"
-                                    />
-                                </div>
-
-                                {/* Benefits Strip */}
-                                <div className="flex items-center justify-center gap-4 py-3 border-y border-slate-100">
-                                    <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
-                                        <TrendingUp size={14} className="text-[#C1A05E]" />
-                                        <span>{t("benefits.roi")}</span>
-                                    </div>
-                                    <div className="w-1 h-1 rounded-full bg-slate-300" />
-                                    <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
-                                        <Shield size={14} className="text-[#C1A05E]" />
-                                        <span>{t("benefits.section8")}</span>
-                                    </div>
-                                    <div className="w-1 h-1 rounded-full bg-slate-300" />
-                                    <div className="flex items-center gap-1.5 text-xs text-slate-600 font-medium">
-                                        <Sparkles size={14} className="text-[#C1A05E]" />
-                                        <span>{t("benefits.portfolio")}</span>
-                                    </div>
-                                </div>
-
-                                <Button
-                                    type="submit"
-                                    className="w-full h-12 text-base font-bold bg-[#C1A05E] hover:bg-[#a38d4d] text-white rounded-xl transition-all shadow-lg shadow-[#C1A05E]/20"
-                                    disabled={loading}
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="relative bg-transparent px-6 py-8 sm:px-8 sm:py-10 flex-shrink-0 text-center"
+                >
+                    <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", delay: 0.2 }}
+                        className="inline-flex items-center justify-center gap-3 mb-4"
+                    >
+                        <div className="p-3 bg-[#B8A074]/20 rounded-2xl">
+                            {step === "form" ? (
+                                <Sparkles className="w-6 h-6 text-[#B8A074]" />
+                            ) : (
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ type: "spring" }}
                                 >
-                                    {loading ? (
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                            {t("processing")}
-                                        </div>
-                                    ) : (
-                                        t("submitAccess")
-                                    )}
-                                </Button>
+                                    <Check className="w-6 h-6 text-[#B8A074]" />
+                                </motion.div>
+                            )}
+                        </div>
+                    </motion.div>
+                    <motion.h3
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.3 }}
+                        className="text-white font-bold text-2xl sm:text-3xl tracking-tight"
+                    >
+                        {step === "form" ? t("titleFree") : t("titleSuccess")}
+                    </motion.h3>
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.4 }}
+                        className="text-white/60 text-sm font-medium mt-2"
+                    >
+                        {t("subTitle")}
+                    </motion.p>
+                </motion.div>
 
-                                <p className="text-xs text-center text-slate-400 pt-2">
-                                    <Lock size={10} className="inline mr-1" />
-                                    {t("securityNote")}
-                                </p>
-                            </form>
-                        </div>
-                    ) : (
-                        <div className="py-8 flex flex-col items-center justify-center gap-4">
-                            <div className="w-16 h-16 bg-[#C1A05E]/10 rounded-full flex items-center justify-center">
-                                <Check className="w-8 h-8 text-[#C1A05E]" />
-                            </div>
-                            <div className="text-slate-600 font-medium text-sm">{t("redirecting")}</div>
-                        </div>
-                    )}
+                <div className="relative p-5 sm:p-8 overflow-y-auto">
+                    <AnimatePresence mode="wait">
+                        {step === "form" ? (
+                            <motion.div
+                                key="form"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -20 }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                <DialogHeader className="mb-6 text-center">
+                                    <DialogTitle className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+                                        {triggerSource === "gated-content" ? t("headerGated") : t("headerForm")}
+                                    </DialogTitle>
+                                    <DialogDescription className="text-white/50 pt-2 text-sm leading-relaxed">
+                                        {t("descForm")}
+                                    </DialogDescription>
+                                </DialogHeader>
+
+                                <form onSubmit={handleSubmit} className="space-y-5">
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: 0.5 }}
+                                        className="space-y-3"
+                                    >
+                                        <Input
+                                            placeholder={t("namePlaceholder")}
+                                            value={name}
+                                            onChange={(e) => setName(e.target.value)}
+                                            required
+                                            className="h-12 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus:border-[#B8A074] focus:ring-[#B8A074]/20 rounded-xl text-sm font-medium backdrop-blur-sm"
+                                        />
+                                        <Input
+                                            type="email"
+                                            placeholder={t("emailPlaceholder")}
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                            className="h-12 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus:border-[#B8A074] focus:ring-[#B8A074]/20 rounded-xl text-sm font-medium backdrop-blur-sm"
+                                        />
+                                        <Input
+                                            type="tel"
+                                            placeholder={t("phonePlaceholder")}
+                                            value={phone}
+                                            onChange={(e) => setPhone(e.target.value)}
+                                            className="h-12 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus:border-[#B8A074] focus:ring-[#B8A074]/20 rounded-xl text-sm font-medium backdrop-blur-sm"
+                                        />
+                                    </motion.div>
+
+                                    {/* Benefits Strip */}
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        transition={{ delay: 0.6 }}
+                                        className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 py-4 border-y border-white/10"
+                                    >
+                                        {[
+                                            { icon: TrendingUp, text: t("benefits.roi") },
+                                            { icon: Shield, text: t("benefits.section8") },
+                                            { icon: Sparkles, text: t("benefits.portfolio") }
+                                        ].map((benefit, i) => (
+                                            <motion.div
+                                                key={i}
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ delay: 0.7 + i * 0.1 }}
+                                                className="flex items-center gap-2 text-xs text-white/70 font-medium"
+                                            >
+                                                <benefit.icon size={14} className="text-[#B8A074]" />
+                                                <span>{benefit.text}</span>
+                                            </motion.div>
+                                        ))}
+                                    </motion.div>
+
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.8 }}
+                                    >
+                                        <Button
+                                            type="submit"
+                                            className="w-full h-12 text-base font-bold bg-[#B8A074] hover:bg-[#a38d5d] text-white rounded-xl transition-all shadow-xl shadow-[#B8A074]/20 group"
+                                            disabled={loading}
+                                        >
+                                            {loading ? (
+                                                <div className="flex items-center gap-2">
+                                                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                    {t("processing")}
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    {t("submitAccess")}
+                                                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                                                </>
+                                            )}
+                                        </Button>
+                                    </motion.div>
+
+                                    <motion.p
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{ delay: 1 }}
+                                        className="text-xs text-center text-white/40 pt-2 flex items-center justify-center gap-1"
+                                    >
+                                        <Lock size={10} />
+                                        {t("securityNote")}
+                                    </motion.p>
+                                </form>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                key="success"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.5 }}
+                                className="py-12 flex flex-col items-center justify-center gap-6"
+                            >
+                                <motion.div
+                                    initial={{ scale: 0 }}
+                                    animate={{ scale: 1 }}
+                                    transition={{ type: "spring", delay: 0.2 }}
+                                    className="w-20 h-20 bg-[#B8A074]/20 rounded-full flex items-center justify-center"
+                                >
+                                    <Check className="w-10 h-10 text-[#B8A074]" />
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: 0.4 }}
+                                    className="text-white/80 font-medium text-center"
+                                >
+                                    <p className="text-lg">{t("headerSuccess")}</p>
+                                    <p className="text-sm text-white/50 mt-2">{t("redirecting")}</p>
+                                </motion.div>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.6 }}
+                                    className="flex gap-2"
+                                >
+                                    <div className="w-2 h-2 bg-[#B8A074] rounded-full animate-bounce" />
+                                    <div className="w-2 h-2 bg-[#B8A074] rounded-full animate-bounce delay-75" />
+                                    <div className="w-2 h-2 bg-[#B8A074] rounded-full animate-bounce delay-150" />
+                                </motion.div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </DialogContent>
         </Dialog>

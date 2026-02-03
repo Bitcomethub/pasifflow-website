@@ -4,7 +4,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { X, Send, Minimize2, Maximize2, Sparkles, MessageCircle } from "lucide-react"
+import { X, Send, Minimize2, Maximize2, Sparkles, MessageCircle, Zap } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTranslations } from "next-intl"
 import { Input } from "@/components/ui/input"
@@ -20,11 +20,22 @@ export function AIAssistant() {
     const t = useTranslations("aiAssistant")
     const [isOpen, setIsOpen] = useState(false)
     const [isMinimized, setIsMinimized] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
     const [messages, setMessages] = useState<Message[]>([])
     const [input, setInput] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [hasGreeted, setHasGreeted] = useState(false)
     const scrollRef = useRef<HTMLDivElement>(null)
+
+    // Check if mobile
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+        checkMobile()
+        window.addEventListener("resize", checkMobile)
+        return () => window.removeEventListener("resize", checkMobile)
+    }, [])
 
     // Initial greeting
     useEffect(() => {
@@ -75,19 +86,22 @@ export function AIAssistant() {
         }
     }
 
-    // New Design System Colors
+    // Colors
     const COLORS = {
-        userBubble: "bg-[#3D4852] text-white", // Slate Navy
-        aiBubble: "bg-[#E5E5E5] text-[#3D4852]", // Soft Gray / Deep Charcoal
-        windowBg: "bg-[#F5F5F5]",
-        headerBg: "bg-white",
-        headerText: "text-[#3D4852]",
-        inputBg: "bg-[#E5E5E5]",
+        userBubble: "bg-[#3D4852] text-white",
+        aiBubble: "bg-white text-[#3D4852] shadow-sm",
+        windowBg: "bg-[#F8F9FA]",
+        headerBg: "bg-gradient-to-r from-[#1F2328] to-[#3D4852]",
+        headerText: "text-white",
+        inputBg: "bg-white border border-slate-200",
         primary: "#3D4852",
     }
 
     return (
-        <div className="fixed bottom-6 right-6 z-[100] flex flex-col items-end pointer-events-none">
+        <div className={cn(
+            "fixed z-[100] flex flex-col pointer-events-none",
+            isMobile ? "bottom-4 right-4" : "bottom-6 right-6"
+        )}>
             <div className="pointer-events-auto">
                 <AnimatePresence>
                     {isOpen && !isMinimized && (
@@ -97,15 +111,21 @@ export function AIAssistant() {
                             exit={{ opacity: 0, y: 20, scale: 0.95 }}
                             transition={{ type: "spring", damping: 25, stiffness: 200 }}
                             className={cn(
-                                "mb-4 w-[360px] sm:w-[400px] border border-[#E5E5E5] shadow-xl rounded-xl overflow-hidden flex flex-col font-sans",
+                                "mb-4 border border-slate-200 shadow-2xl overflow-hidden flex flex-col font-sans",
+                                isMobile ? "w-[90vw] max-w-[360px]" : "w-[360px] sm:w-[400px]",
                                 COLORS.windowBg
                             )}
                         >
                             {/* Header */}
-                            <div className="px-4 py-3 bg-[#C1A05E] border-b border-[#C1A05E]/20 flex items-center justify-between">
+                            <div className={cn("px-4 py-3 border-b border-white/10 flex items-center justify-between", COLORS.headerBg)}>
                                 <div className="flex items-center gap-3">
-                                    <div className="relative">
-                                        <div className="w-10 h-10 rounded-full overflow-hidden border border-[#E5E5E5]">
+                                    <motion.div
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ type: "spring" }}
+                                        className="relative"
+                                    >
+                                        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-[#B8A074]">
                                             <Image
                                                 src="/pasi-avatar-new.png"
                                                 alt="AI"
@@ -113,25 +133,39 @@ export function AIAssistant() {
                                                 className="object-cover"
                                             />
                                         </div>
-                                        <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#B8A074] border-2 border-white rounded-full"></div>
-                                    </div>
+                                        <motion.div
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            transition={{ delay: 0.2 }}
+                                            className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#B8A074] border-2 border-white rounded-full"
+                                        />
+                                    </motion.div>
                                     <div>
-                                        <h3 className={cn("font-semibold text-sm text-white")}>
+                                        <motion.h3
+                                            initial={{ opacity: 0, x: -10 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            className={cn("font-semibold text-sm", COLORS.headerText)}
+                                        >
                                             {t("title")}
-                                        </h3>
-                                        <div className="flex items-center gap-1.5">
-                                            <Sparkles size={10} className="text-white" />
-                                            <span className="text-xs text-white/80 font-medium">
+                                        </motion.h3>
+                                        <motion.div
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            transition={{ delay: 0.1 }}
+                                            className="flex items-center gap-1.5"
+                                        >
+                                            <Zap size={10} className="text-[#B8A074]" />
+                                            <span className="text-xs text-white/70 font-medium">
                                                 {t("online")}
                                             </span>
-                                        </div>
+                                        </motion.div>
                                     </div>
                                 </div>
                                 <div className="flex items-center gap-1">
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-8 w-8 text-white/80 hover:bg-white/10 rounded-lg"
+                                        className="h-8 w-8 text-white/70 hover:bg-white/10 rounded-lg"
                                         onClick={() => setIsMinimized(true)}
                                     >
                                         <Minimize2 size={16} />
@@ -139,7 +173,7 @@ export function AIAssistant() {
                                     <Button
                                         variant="ghost"
                                         size="icon"
-                                        className="h-8 w-8 text-white/80 hover:bg-white/10 rounded-lg"
+                                        className="h-8 w-8 text-white/70 hover:bg-white/10 rounded-lg"
                                         onClick={() => setIsOpen(false)}
                                     >
                                         <X size={18} />
@@ -150,11 +184,16 @@ export function AIAssistant() {
                             {/* Messages Area */}
                             <div
                                 ref={scrollRef}
-                                className="h-[400px] overflow-y-auto p-4 space-y-4"
+                                className={cn(
+                                    "overflow-y-auto p-4 space-y-4",
+                                    isMobile ? "h-[50vh]" : "h-[400px]"
+                                )}
                             >
                                 {messages.map((msg, i) => (
-                                    <div
+                                    <motion.div
                                         key={i}
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
                                         className={cn(
                                             "flex w-full items-end gap-2",
                                             msg.role === "user" ? "justify-end" : "justify-start"
@@ -167,12 +206,13 @@ export function AIAssistant() {
                                                     alt="AI"
                                                     width={24}
                                                     height={24}
+                                                    className="object-cover"
                                                 />
                                             </div>
                                         )}
                                         <div
                                             className={cn(
-                                                "max-w-[80%] rounded-lg px-4 py-2.5 text-sm leading-relaxed",
+                                                "max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed",
                                                 msg.role === "user"
                                                     ? cn(COLORS.userBubble, "rounded-tr-none")
                                                     : cn(COLORS.aiBubble, "rounded-tl-none")
@@ -182,57 +222,66 @@ export function AIAssistant() {
                                                 <span key={idx}>{part}</span>
                                             ))}
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                                 {isLoading && (
-                                    <div className="flex justify-start gap-2">
+                                    <motion.div
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        className="flex justify-start gap-2"
+                                    >
                                         <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0">
                                             <Image
                                                 src="/pasi-avatar-new.png"
                                                 alt="AI"
                                                 width={24}
                                                 height={24}
+                                                className="object-cover"
                                             />
                                         </div>
-                                        <div className={cn(COLORS.aiBubble, "rounded-lg rounded-tl-none px-4 py-3")}>
+                                        <div className={cn(COLORS.aiBubble, "rounded-2xl rounded-tl-none px-4 py-3")}>
                                             <div className="flex gap-1.5">
-                                                <div className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce" />
-                                                <div className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce delay-75" />
-                                                <div className="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce delay-150" />
+                                                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce" />
+                                                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-75" />
+                                                <div className="w-2 h-2 bg-slate-400 rounded-full animate-bounce delay-150" />
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 )}
                             </div>
 
                             {/* Input Area */}
-                            <div className="p-3 bg-white border-t border-[#E5E5E5]">
-                                <div className={cn("flex items-center gap-2 rounded-lg px-2 py-1", COLORS.inputBg)}>
+                            <div className={cn("p-3 border-t border-slate-200", COLORS.inputBg)}>
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    className={cn("flex items-center gap-2 rounded-xl px-3 py-2", COLORS.inputBg)}
+                                >
                                     <Input
-                                        className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-sm placeholder:text-muted-foreground/70"
+                                        className="flex-1 bg-transparent border-none shadow-none focus-visible:ring-0 text-sm placeholder:text-slate-400"
                                         placeholder={t("inputPlaceholder")}
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
                                         onKeyDown={(e) => e.key === "Enter" && handleSend()}
                                     />
-                                    <Button
-                                        size="icon"
-                                        className="h-8 w-8 rounded-md bg-[#3D4852] hover:bg-[#3D4852] text-white flex-shrink-0"
-                                        onClick={handleSend}
-                                        disabled={isLoading}
-                                    >
-                                        <Send size={14} />
-                                    </Button>
-                                </div>
-                                <motion.div
+                                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                                        <Button
+                                            size="icon"
+                                            className="h-9 w-9 rounded-lg bg-[#3D4852] hover:bg-[#2D353F] text-white flex-shrink-0"
+                                            onClick={handleSend}
+                                            disabled={isLoading}
+                                        >
+                                            <Send size={16} />
+                                        </Button>
+                                    </motion.div>
+                                </motion.div>
+                                <motion.p
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
-                                    className="p-2 text-center"
+                                    className="text-[10px] text-slate-400 font-medium text-center mt-2"
                                 >
-                                    <p className="text-[10px] text-slate-400 font-medium">
-                                        {t("poweredBy")}
-                                    </p>
-                                </motion.div>
+                                    {t("poweredBy")}
+                                </motion.p>
                             </div>
                         </motion.div>
                     )}
@@ -247,7 +296,7 @@ export function AIAssistant() {
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, scale: 0.9 }}
                                 onClick={() => setIsMinimized(false)}
-                                className="bg-[#3D4852] text-white px-4 py-2.5 rounded-lg shadow-lg flex items-center gap-2 cursor-pointer hover:bg-[#3D4852] transition-colors"
+                                className="bg-gradient-to-r from-[#3D4852] to-[#1F2328] text-white px-4 py-2.5 rounded-xl shadow-lg flex items-center gap-2 cursor-pointer hover:shadow-xl transition-shadow"
                             >
                                 <Maximize2 size={14} />
                                 <span className="text-sm font-medium">{t("advisorActive")}</span>
@@ -260,13 +309,30 @@ export function AIAssistant() {
                             onClick={() => setIsOpen(true)}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="w-14 h-14 rounded-full bg-[#3D4852] hover:bg-[#3D4852] shadow-lg flex items-center justify-center text-white relative group border border-white/10"
+                            className={cn(
+                                "rounded-full bg-gradient-to-r from-[#3D4852] to-[#1F2328] shadow-xl flex items-center justify-center text-white relative group border border-white/10",
+                                isMobile ? "w-12 h-12" : "w-14 h-14"
+                            )}
                         >
                             <div className="absolute inset-0 rounded-full bg-white/5 group-hover:bg-white/10 transition-colors" />
-                            <MessageCircle size={28} />
+                            <MessageCircle size={isMobile ? 24 : 28} />
 
                             {/* Notification Badge */}
-                            <span className="absolute top-0 right-0 w-3.5 h-3.5 bg-red-500 border-2 border-[#3D4852] rounded-full"></span>
+                            <motion.span
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 border-2 border-[#3D4852] rounded-full flex items-center justify-center"
+                            >
+                                <span className="w-1.5 h-1.5 bg-white rounded-full" />
+                            </motion.span>
+
+                            {/* Pulse Effect */}
+                            <motion.span
+                                initial={{ scale: 1, opacity: 0.5 }}
+                                animate={{ scale: 1.5, opacity: 0 }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                                className="absolute inset-0 rounded-full bg-[#B8A074] opacity-0"
+                            />
                         </motion.button>
                     )}
                 </div>
@@ -274,4 +340,3 @@ export function AIAssistant() {
         </div>
     )
 }
-
