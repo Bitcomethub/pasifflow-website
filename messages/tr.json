@@ -135,6 +135,7 @@
         }
     },
     "valueProps": {
+        "badge": "Neden Pasiflow",
         "title": "Neden Pasiflow?",
         "intro": "Pasiflow ile Amerika'da ev sahibi olmak artık hayal değil.",
         "discoverPortfolio": "Portföyümüzü Keşfedin",

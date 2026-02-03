@@ -111,6 +111,7 @@
         }
     },
     "valueProps": {
+        "badge": "Why Pasiflow",
         "title": "Why Pasiflow?",
         "intro": "Owning a home in America is no longer a dream with Pasiflow.",
         "discoverPortfolio": "Discover Our Portfolio",
