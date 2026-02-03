@@ -463,7 +463,7 @@ export function PortfolioSection() {
                     </div>
                   </Card>
                 </div>
-            ))}
+                ))}
               </div>
         </div>
       </div>
