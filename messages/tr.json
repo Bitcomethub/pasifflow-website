@@ -154,6 +154,7 @@
         "miamiSales": "$250M+ Miami gayrimenkul satışı"
     },
     "portfolio": {
+        "badge": "Yatırım Portföyü",
         "title": "Yatırım Portföyümüz",
         "subtitle": "Anahtar teslim, kiracısı hazır evler",
         "city": "Şehir",
@@ -405,6 +406,7 @@
         "experienceNote": "ABD'de farklı sektörlerde 20+ yıl iş tecrübesi, $250M+ toplam işlem hacmi"
     },
     "comparison": {
+        "badge": "Karşılaştır",
         "title": "Neden Pasiflow?",
         "subtitle": "Geleneksel yatırımlar ve bizim farkımızı görün.",
         "traditional": "Klasik Yöntemler",
@@ -439,8 +441,11 @@
         "col2Item3": "Düzenli ve %100 Garantili Ödemeler"
     },
     "faq": {
+        "badge": "SSS",
         "title": "Sıkça Sorulan Sorular",
         "subtitle": "Aklınızdaki tüm soruları kategorilere ayırarak detaylıca yanıtladık.",
+        "contactText": "Hala sorularınız mı var?",
+        "contactCta": "Bize Ulaşın",
         "categories": {
             "general": "Genel & Hakkımızda",
             "process": "Yatırım Süreci",
@@ -681,6 +686,7 @@
         "closing": "ABD'de pasif gelir yatırımı için güvenilir, şeffaf ve yapılandırılmış bir yol inşa ediyoruz."
     },
     "cta": {
+        "badge": "Hemen Başla",
         "title": "Geleceğinizi",
         "titleAccent": "Bugünden Planlayın",
         "description": "Pasiflow, ABD’de kira gelirine dayalı gayrimenkul portföyünü uzaktan, şeffaf ve sistemli şekilde oluşturmak isteyen yatırımcılar için tasarlanmıştır. Kamu destekli kira programları ve profesyonel yönetim modeliyle süreç adım adım planlanır; amaç, dolar bazlı düzenli gelir ve orta–uzun vadeli değer artışı potansiyelini daha kontrollü ve öngörülebilir bir yapıda sunmaktır.",

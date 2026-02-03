@@ -144,6 +144,7 @@
         "benefit3": "Long-term tenants (3-4 years minimum)"
     },
     "portfolio": {
+        "badge": "Investment Portfolio",
         "title": "Our Investment Portfolio",
         "subtitle": "Turnkey, tenant-ready properties",
         "city": "City",
@@ -253,7 +254,12 @@
         "yoyAppreciation": "Annual Appreciation",
         "equity": "Equity",
         "saleCost": "Sale Cost",
-        "monthlyMortgage": "Monthly Mortgage"
+        "monthlyMortgage": "Monthly Mortgage",
+        "duration": "Duration",
+        "monthlyCashFlow": "Monthly Cash Flow",
+        "appreciationLabel": "Appreciation",
+        "totalInvestmentLabel": "Total Investment",
+        "disclaimer": "Values are estimates based on current market data. Actual returns may vary."
     },
     "section8": {
         "badge": "State Guarantee",
@@ -381,6 +387,7 @@
         "experienceNote": "20+ years business experience in various sectors in the USA, $250M+ total transaction volume"
     },
     "comparison": {
+        "badge": "Compare",
         "title": "Why Pasiflow?",
         "subtitle": "See the difference between traditional investments and us.",
         "traditional": "Traditional Methods",
@@ -415,8 +422,11 @@
         "col2Item3": "Regular and 100% Guaranteed Payments"
     },
     "faq": {
+        "badge": "FAQ",
         "title": "Frequently Asked Questions",
         "subtitle": "We have answered all your questions in detail, categorized for your convenience.",
+        "contactText": "Still have questions?",
+        "contactCta": "Contact Us",
         "categories": {
             "general": "General & About Us",
             "process": "Investment Process",
@@ -682,6 +692,7 @@
         "founderRole": "Co-founder & CEO"
     },
     "cta": {
+        "badge": "Get Started",
         "title": "Invest in Your Future",
         "titleAccent": "Start Today.",
         "description": "With PASIFLOW, owning a home in America is no longer a dream. Dollar-based rental income, government-backed systems, and long-term value appreciation all under one roof.",
