@@ -103,7 +103,7 @@ export function DetroitNeighborhoodMap() {
             marker: true,
             placeholder: 'Adres veya Yer Ara...'
         });
-        map.current.addControl(geocoder, 'top-right');
+        map.current.addControl(geocoder as any, 'top-right');
 
         // Add navigation controls
         map.current.addControl(new mapboxgl.NavigationControl(), "bottom-right")
