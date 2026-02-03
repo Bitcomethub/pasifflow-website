@@ -9,8 +9,9 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { format } from "date-fns"
+
+export const dynamic = 'force-dynamic'
 
 export default async function MaintenancePage() {
     const requests = await db.maintenanceRequest.findMany({
@@ -28,58 +29,62 @@ export default async function MaintenancePage() {
             case 'PENDING': return 'bg-yellow-100 text-yellow-700'
             case 'IN_PROGRESS': return 'bg-blue-100 text-blue-700'
             case 'COMPLETED': return 'bg-[#B8A074]/10 text-[#B8A074]'
+            case 'CANCELLED': return 'bg-red-100 text-red-700'
             default: return 'bg-gray-100 text-gray-700'
         }
     }
 
     return (
-        <div className="p-8 space-y-8">
-            <div className="flex items-center justify-between">
-                <h2 className="text-3xl font-bold tracking-tight">Maintenance Board</h2>
-                <Button>Create Request</Button>
+        <div className="p-6 space-y-6">
+            <div className="flex justify-between items-center">
+                <h1 className="text-3xl font-bold text-[#3D4852]">Maintenance Requests</h1>
+                <Button className="bg-[#B8A074] hover:bg-[#B8A074]/90 text-white">
+                    Export Report
+                </Button>
             </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                 {requests.map((request) => (
-                    <Card key={request.id}>
-                        <CardHeader>
-                            <div className="flex justify-between items-start">
-                                <Badge className={getStatusColor(request.status)}>
-                                    {request.status.replace('_', ' ')}
-                                </Badge>
-                                <span className="text-xs text-muted-foreground">
-                                    {format(new Date(request.reportedAt), 'MMM d')}
-                                </span>
-                            </div>
-                            <CardTitle className="text-lg mt-2">{request.title}</CardTitle>
-                            <CardDescription>{request.property.address}</CardDescription>
+                    <Card key={request.id} className="hover:shadow-lg transition-shadow">
+                        <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">
+                            <CardTitle className="text-sm font-medium">
+                                {request.title}
+                            </CardTitle>
+                            <Badge className={getStatusColor(request.status)}>
+                                {request.status}
+                            </Badge>
                         </CardHeader>
                         <CardContent>
-                            <p className="text-sm text-gray-600 line-clamp-2">
-                                {request.description}
-                            </p>
+                            <p className="text-sm text-gray-600 mb-4">{request.description}</p>
 
-                            {request.vendor && (
-                                <div className="mt-4 flex items-center p-2 bg-gray-50 rounded-md">
-                                    <Avatar className="h-8 w-8 mr-2">
-                                        <AvatarFallback>V</AvatarFallback>
-                                    </Avatar>
-                                    <div>
-                                        <p className="text-xs font-medium">{request.vendor.name}</p>
-                                        <p className="text-[10px] text-muted-foreground">{request.vendor.category}</p>
-                                    </div>
-                                </div>
-                            )}
+                            <div className="flex items-center gap-2 mb-2">
+                                <span className="text-sm font-medium">{request.vendor?.name || 'Unassigned'}</span>
+                            </div>
+
+                            <div className="flex items-center text-sm text-gray-500">
+                                <span className="mr-2">📍</span>
+                                {request.property?.address || 'N/A'}
+                            </div>
+
+                            <div className="mt-4 text-xs text-gray-400">
+                                Reported: {format(new Date(request.reportedAt), 'PPP')}
+                            </div>
                         </CardContent>
-                        <CardFooter className="flex justify-between border-t p-4 bg-gray-50/50">
-                            <Button variant="outline" size="sm">Details</Button>
-                            {request.status === 'PENDING' && (
-                                <Button size="sm">Assign Vendor</Button>
-                            )}
+                        <CardFooter className="flex justify-between">
+                            <Button variant="outline" size="sm">View Details</Button>
+                            <Button size="sm" className="bg-[#B8A074] hover:bg-[#B8A074]/90 text-white">
+                                Update Status
+                            </Button>
                         </CardFooter>
                     </Card>
                 ))}
             </div>
+
+            {requests.length === 0 && (
+                <div className="text-center py-12 text-gray-500">
+                    No maintenance requests found.
+                </div>
+            )}
         </div>
     )
 }
