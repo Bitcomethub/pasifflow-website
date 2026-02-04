@@ -3,9 +3,7 @@
 import { useState } from "react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { useTranslations, useMessages } from "next-intl"
-import { motion, AnimatePresence } from "framer-motion"
 import { cn } from "@/lib/utils"
-import { Plus, Minus } from "lucide-react"
 
 export function FAQSection() {
   const t = useTranslations("faq")
@@ -31,126 +29,71 @@ export function FAQSection() {
       </div>
 
       <div className="container mx-auto px-4 md:px-6 max-w-4xl relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.2 }}
-          className="text-center space-y-3 mb-10"
-        >
-          <motion.span
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="inline-block px-4 py-1.5 bg-[#B8A074]/10 rounded-full text-[#B8A074] text-xs font-bold uppercase tracking-wider mb-4 border border-[#B8A074]/20"
-          >
+        <div className="text-center space-y-3 mb-10">
+          <span className="inline-block px-4 py-1.5 bg-[#B8A074]/10 rounded-full text-[#B8A074] text-xs font-bold uppercase tracking-wider mb-4 border border-[#B8A074]/20">
             {t("badge") || "FAQ"}
-          </motion.span>
+          </span>
           <h2 className="text-2xl md:text-4xl font-bold text-[#3D4852]">{t("title")}</h2>
           <p className="text-[#535454] text-base md:text-lg max-w-2xl mx-auto">{t("subtitle")}</p>
-        </motion.div>
+        </div>
 
-        {/* Categories Tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.2 }}
-          className="flex flex-wrap justify-center gap-2 mb-10"
-        >
-          {categories.map((category, index) => (
-            <motion.button
+        {/* Categories Tabs - Pure CSS, no animation lag */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {categories.map((category) => (
+            <button
               key={category.id}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
               onClick={() => setActiveCategory(category.id)}
               className={cn(
-                "px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-300 border relative overflow-hidden",
+                "px-4 py-2 rounded-full text-xs sm:text-sm font-bold transition-all duration-150 border",
                 activeCategory === category.id
                   ? "bg-[#B8A074] text-white border-[#B8A074] shadow-lg shadow-[#B8A074]/20"
                   : "bg-white text-[#535454] border-gray-200 hover:border-[#B8A074] hover:text-[#B8A074] hover:bg-[#B8A074]/5"
               )}
             >
-              {activeCategory === category.id && (
-                <motion.div
-                  layoutId="activeTab"
-                  className="absolute inset-0 bg-[#B8A074]"
-                  style={{ borderRadius: '9999px' }}
-                  transition={{ type: "spring", bounce: 0.15, duration: 0.25 }}
-                />
-              )}
-              <span className="relative z-10">{category.label}</span>
-            </motion.button>
+              {category.label}
+            </button>
           ))}
-        </motion.div>
+        </div>
 
-        {/* FAQ Items */}
+        {/* FAQ Items - No framer-motion, instant rendering */}
         <div className="min-h-[300px]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeCategory}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.15, ease: "easeOut" }}
-            >
-              <Accordion type="single" collapsible className="w-full space-y-4">
-                {faqItems.map((item: any, index: number) => (
-                  <motion.div
-                    key={index}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.03, duration: 0.15 }}
-                  >
-                    <AccordionItem
-                      value={`item-${index}`}
-                      className="bg-white border border-[#E5E5E5] rounded-xl px-2 shadow-sm hover:shadow-md transition-all duration-300 data-[state=open]:border-[#B8A074]/40 data-[state=open]:shadow-[0_10px_40px_-15px_rgba(184,160,116,0.15)] overflow-hidden"
-                    >
-                      <AccordionTrigger className="text-sm md:text-lg font-semibold px-4 hover:no-underline hover:text-[#B8A074] transition-colors py-5 text-left text-[#3D4852] group">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-[#B8A074]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#B8A074]/20 transition-colors">
-                            <span className="text-[#B8A074] font-bold text-sm">{index + 1}</span>
-                          </div>
-                          <span>{item.q}</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="px-4 pb-5 pl-[3.5rem]">
-                        <div className="text-[#535454] text-sm md:text-base leading-relaxed">
-                          {item.a}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  </motion.div>
-                ))}
-              </Accordion>
-            </motion.div>
-          </AnimatePresence>
+          <Accordion type="single" collapsible className="w-full space-y-3">
+            {faqItems.map((item: any, index: number) => (
+              <AccordionItem
+                key={`${activeCategory}-${index}`}
+                value={`item-${index}`}
+                className="bg-white border border-[#E5E5E5] rounded-xl px-2 shadow-sm hover:shadow-md transition-shadow duration-150 data-[state=open]:border-[#B8A074]/40 overflow-hidden"
+              >
+                <AccordionTrigger className="text-sm md:text-lg font-semibold px-4 hover:no-underline hover:text-[#B8A074] transition-colors duration-100 py-5 text-left text-[#3D4852] group">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#B8A074]/10 flex items-center justify-center flex-shrink-0 group-hover:bg-[#B8A074]/20 transition-colors duration-100">
+                      <span className="text-[#B8A074] font-bold text-sm">{index + 1}</span>
+                    </div>
+                    <span>{item.q}</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-4 pb-5 pl-[3.5rem]">
+                  <div className="text-[#535454] text-sm md:text-base leading-relaxed">
+                    {item.a}
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
 
         {/* Contact CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.2 }}
-          className="mt-12 text-center"
-        >
+        <div className="mt-12 text-center">
           <p className="text-[#535454] mb-4">{t("contactText") || "Still have questions?"}</p>
-          <motion.a
+          <a
             href="https://wa.me/13056903146"
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-[#B8A074] hover:bg-[#a38d5d] text-white rounded-xl font-bold transition-colors shadow-lg shadow-[#B8A074]/20"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-[#B8A074] hover:bg-[#a38d5d] text-white rounded-xl font-bold transition-colors duration-150 shadow-lg shadow-[#B8A074]/20 active:scale-95"
           >
             {t("contactCta") || "Contact Us"}
-          </motion.a>
-        </motion.div>
+          </a>
+        </div>
       </div>
     </section>
   )
