@@ -194,6 +194,7 @@
         "property4Desc": "Evergreen Avenue'de yüksek CAP oranına sahip mülk. Bu bakımlı ev, güvenilir Section 8 kiracısıyla güçlü kira geliri sunuyor. Müstakil garaj ve geniş arka bahçe mevcut.",
         "property5Desc": "Mükemmel yatırım potansiyelli klasik Detroit bungalov. Orijinal ahşap işçiliği, güncellenmiş sistemler ve bakımlı dış cephe. Bu bölgede güçlü kiralık talebi var.",
         "feature_section8": "Section 8 Onaylı",
+        "feature_turnKey": "Anahtar Teslim Mülk",
         "feature_tenant": "Kiracı Mevcut",
         "feature_kitchen": "Yenilenmiş Mutfak",
         "feature_basement": "Tam Bodrum",
@@ -1083,6 +1084,7 @@
         "city": "Şehir",
         "citiesLabel": "Şehir",
         "exploreCity": "{city} İncele",
+        "indexCtaTitle": "Hangi Şehir Size Uygun?",
         "indexCtaDescription": "Yatırım hedeflerinize en uygun bölgeyi birlikte belirleyelim"
     },
     "pasiflowFeeModal": {
