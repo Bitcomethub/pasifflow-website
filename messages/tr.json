@@ -69,13 +69,13 @@
         "headline": "",
         "subheadline": "Section 8 programı ile ABD hükümeti tarafından desteklenen kira ödemeleri sayesinde her ay düzenli dolar geliri elde edin.",
         "trustUsers": "500+ Mutlu Yatırımcı",
-        "trustRating": "5.0 Puan",
+        "trustRating": "4.9/5 Google Puan",
         "statProperties": "Yönetilen Mülk",
         "statROI": "Ortalama ROI",
         "statGuarantee": "Kira Garantisi",
         "statKeys": "Teslim Edilen Anahtar",
         "floatingBadge": "Section 8 Onaylı",
-        "floatingBadgeValue": "%100 Garantili",
+        "floatingBadgeValue": "Devlet Destekli",
         "title": "Devlet Destekli",
         "titleAccent": "Dolar Kira Geliri",
         "subText": "Section 8 ile düzenli kira akışı",
@@ -221,7 +221,7 @@
     },
     "roiCalculator": {
         "title": "Yatırım Getiri Hesaplayıcı",
-        "subtitle": "Gerçek verilerle net ROI hesaplaması • %5 yıllık değer artışı",
+        "subtitle": "Gerçek verilerle net ROI hesaplaması • %3.5 yıllık değer artışı",
         "cityLabel": "Yatırım Şehri",
         "city_detroit_highlight": "Maksimum Nakit Akışı",
         "city_cleveland_highlight": "Dengeli & Güvenli",
@@ -242,7 +242,7 @@
         "roiYearly": "Net ROI (Yıllık)",
         "payback": "Amortisman",
         "projectedReturnTitle": "{years} Yıl Sonunda Tahmini Getiri",
-        "appreciationAssumption": "(Yıllık %5 değer artışı varsayımıyla)",
+        "appreciationAssumption": "(Yıllık %3.5 değer artışı varsayımıyla)",
         "propertyValue": "Mülk Değeri",
         "appreciation": "değer artışı",
         "totalRentalIncome": "Toplam Kira Geliri",
@@ -267,7 +267,7 @@
         "downPaymentAmount": "Peşinat Tutarı (%20)",
         "monthlyRentLabel": "Aylık Kira:",
         "netMonthlyCashFlow": "Net Aylık Gelir:",
-        "disclaimer": "* Yıllık %5 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir.",
+        "disclaimer": "* Yıllık %3.5 değer artışı varsayımı kullanılmaktadır. Gerçek sonuçlar piyasa koşullarına göre değişebilir.",
         "duration": "Süre:",
         "monthlyCashFlow": "Aylık Nakit Akışı",
         "appreciationLabel": "Değer Artışı",
@@ -441,7 +441,7 @@
         "col2Desc": "programı sayesinde uygun kiracılar için kira ödemeleri, ilgili kamu kurumu tarafından doğrudan aktarılır. Bu yapı, kira tahsilatı riskini önemli ölçüde azaltır ve dolar bazlı gelir akışını daha öngörülebilir hâle getirir.",
         "col2Item1": "Minimum Kiracı Sirkülasyonu",
         "col2Item2": "Minimum Boşluk Riski",
-        "col2Item3": "Düzenli ve %100 Garantili Ödemeler"
+        "col2Item3": "Düzenli Devlet Destekli Ödemeler"
     },
     "faq": {
         "badge": "SSS",
@@ -521,7 +521,7 @@
             },
             {
                 "q": "Hizmet bedelleriniz nedir?",
-                "a": "Çok şeffafız: Mülk başına $3.500 danışmanlık/kapanış bedeli (tek seferlik) ve aylık kira gelirinin %10'u kadar yönetim bedeli (property management fee) alıyoruz. Gizli masraf yok."
+                "a": "Çok şeffafız: Mülk başına $5.000 danışmanlık/kapanış bedeli (tek seferlik) ve aylık kira gelirinin %10'u kadar yönetim bedeli (property management fee) alıyoruz. Gizli masraf yok."
             },
             {
                 "q": "Kiram ne zaman yatar?",

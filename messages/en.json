@@ -44,13 +44,13 @@
         "headline": "",
         "subheadline": "Earn regular and guaranteed dollar income every month through rent payments backed by the U.S. government via the Section 8 program.",
         "trustUsers": "500+ Happy Investors",
-        "trustRating": "5.0 Rating",
+        "trustRating": "4.9/5 Google Rating",
         "statProperties": "Properties Managed",
         "statROI": "Average ROI",
         "statGuarantee": "Rent Guarantee",
         "statKeys": "Keys Delivered",
         "floatingBadge": "Section 8 Approved",
-        "floatingBadgeValue": "100% Backed",
+        "floatingBadgeValue": "Gov. Backed",
         "title": "Government Backed",
         "titleAccent": "Rental Income",
         "subText": "Regular cash flow with Section 8",
@@ -203,7 +203,7 @@
     },
     "roiCalculator": {
         "title": "Investment ROI Calculator",
-        "subtitle": "Net ROI calculation with real data • 5% annual appreciation",
+        "subtitle": "Net ROI calculation with real data • 3.5% annual appreciation",
         "cityLabel": "Investment City",
         "city_detroit_highlight": "Maximum Cash Flow",
         "city_cleveland_highlight": "Balanced & Secure",
@@ -224,7 +224,7 @@
         "roiYearly": "Net ROI (Yearly)",
         "payback": "Payback Period",
         "projectedReturnTitle": "Projected Return After {years} Years",
-        "appreciationAssumption": "(Assuming 5% annual appreciation)",
+        "appreciationAssumption": "(Assuming 3.5% annual appreciation)",
         "propertyValue": "Property Value",
         "appreciation": "appreciation",
         "totalRentalIncome": "Total Rental Income",
@@ -402,12 +402,12 @@
         "trad4": "Tenant Finding & Eviction Issues",
         "trad5": "Uncontrollable Expenses",
         "trad6": "Vacancy Periods Between Tenants",
-        "pasif1": "Payback Period 6-7 Years",
-        "pasif2": "100% Section 8 Government Backed",
+        "pasif1": "Payback Period 6-8 Years",
+        "pasif2": "Section 8 Government-Backed Rent",
         "pasif3": "Minimum Maintenance Costs",
         "pasif4": "Regular Rent on 1st-5th of Each Month",
         "pasif5": "Long-Term Tenants (3-4 Years+)",
-        "pasif6": "100% Guaranteed Payment"
+        "pasif6": "Government-Backed Payment Security"
     },
     "advantages": {
         "badge": "Investment Model Advantages",
@@ -415,15 +415,15 @@
         "titleAccent1": "High Returns",
         "titleAccent2": "Minimum Risk",
         "col1Title": "Small Capital",
-        "col1Item1": "$85K–$120K Properties → Average $700–$1.2K Net Monthly Income",
+        "col1Item1": "$85K–$120K Properties → Typical Range $400–$1K Net Monthly Income",
         "col1Item2": "30–50% Value Appreciation (5-Year Average)",
         "col1Item3": "Easy Portfolio Expansion",
         "col1Item4": "Zero Effort: Completely Passive Income Model",
-        "col2Title": "100% Government Backed",
+        "col2Title": "Government-Backed via Section 8",
         "col2Desc": "Thanks to the Section 8 program, your rent payments are backed directly by the U.S. government.",
         "col2Item1": "Low Tenant Turnover",
         "col2Item2": "Minimum Vacancy Risk",
-        "col2Item3": "Regular and 100% Guaranteed Payments"
+        "col2Item3": "Regular Government-Backed Payments"
     },
     "faq": {
         "badge": "FAQ",
@@ -503,7 +503,7 @@
             },
             {
                 "q": "What are your service fees?",
-                "a": "We are very transparent: We charge a one-time consulting/closing fee of $3,500 per property and a management fee (property management fee) of 10% of monthly rental income. No hidden costs."
+                "a": "We are very transparent: We charge a one-time consulting/closing fee of $5,000 per property and a management fee (property management fee) of 10% of monthly rental income. No hidden costs."
             },
             {
                 "q": "When is my rent deposited?",

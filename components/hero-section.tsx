@@ -77,18 +77,8 @@ export function HeroSection() {
               </Button>
             </div>
 
-            {/* Trust Signals */}
-            <div className="flex items-center gap-8 pt-4">
-              <div className="flex items-center gap-2">
-                <div className="flex -space-x-2">
-                  {[...Array(3)].map((_, i) => (
-                    <div key={i} className="w-10 h-10 rounded-full bg-[#E5E6E8] border-2 border-white flex items-center justify-center">
-                      <Users className="w-5 h-5 text-[#6B7280]" />
-                    </div>
-                  ))}
-                </div>
-                <span className="text-sm text-[#6B7280] font-medium ml-3">{t("trustUsers")}</span>
-              </div>
+            {/* Trust Signals - Google Rating Only */}
+            <div className="flex items-center gap-2 pt-4">
               <div className="flex items-center gap-1">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 fill-[#B8A074] text-[#B8A074]" />
@@ -116,14 +106,14 @@ export function HeroSection() {
                     <TrendingUp className="w-5 h-5" />
                     <span className="text-sm">{t("statROI")}</span>
                   </div>
-                  <div className="text-3xl font-bold text-[#B8A074]">18.5%</div>
+                  <div className="text-3xl font-bold text-[#B8A074]">12-15%</div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-[#6B7280]">
                     <ShieldCheck className="w-5 h-5" />
                     <span className="text-sm">{t("statGuarantee")}</span>
                   </div>
-                  <div className="text-3xl font-bold text-[#1F2328]">100%</div>
+                  <div className="text-2xl font-bold text-[#1F2328]">Section 8</div>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-[#6B7280]">
