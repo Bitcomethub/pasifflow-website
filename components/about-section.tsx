@@ -40,9 +40,7 @@ export function AboutSection() {
                     >
                         {/* Opening Statement */}
                         <p className="text-xl md:text-2xl text-secondary font-medium leading-relaxed mb-12">
-                            {t.rich("opening", {
-                                bold: (chunks) => <span className="font-bold">{chunks}</span>
-                            })}
+                            {t("opening")}
                         </p>
 
                         {/* Body Paragraphs - Lighter gray for flow */}
@@ -67,9 +65,7 @@ export function AboutSection() {
                         <div className="space-y-8 text-lg text-muted-foreground leading-relaxed">
 
                             <p>
-                                {t.rich("method", {
-                                    bold: (chunks) => <span className="font-bold text-secondary">{chunks}</span>
-                                })}
+                                {t("method")}
                             </p>
                         </div>
 
@@ -83,9 +79,7 @@ export function AboutSection() {
                         {/* Vision */}
                         <div className="space-y-8 text-lg text-muted-foreground leading-relaxed">
                             <p>
-                                {t.rich("vision", {
-                                    bold: (chunks) => <span className="font-bold text-secondary">{chunks}</span>
-                                })}
+                                {t("vision")}
                             </p>
                             <p className="text-secondary font-medium">
                                 {t("visionIntro")}

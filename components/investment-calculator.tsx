@@ -394,16 +394,7 @@ export function InvestmentCalculator({
                                         <div className="py-6 border-y border-slate-100">
                                             <h4 className="font-bold text-slate-900 mb-4">{tFee("scopeTitle")}</h4>
                                             <ul className="space-y-3">
-                                                {tFee.rich("items", {
-                                                    //@ts-ignore
-                                                    list: (items) => items.map((item: string, i: number) => (
-                                                        <li key={i} className="flex gap-3 text-sm text-slate-700">
-                                                            <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#C1A05E] shrink-0" />
-                                                            {item}
-                                                        </li>
-                                                    ))
-                                                })}
-                                                {/* Manual mapping if i18n rich doesn't work as expected for arrays in some setups */}
+                                                {/* Manual mapping for items array */}
                                                 {[0, 1, 2, 3, 4, 5, 6].map(i => (
                                                     <li key={i} className="flex gap-3 text-sm text-slate-700 hover:text-slate-900 transition-colors">
                                                         <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#C1A05E] shrink-0" />
