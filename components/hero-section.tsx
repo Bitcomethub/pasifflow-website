@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Building2, TrendingUp, ShieldCheck, Key, ArrowRight, Trophy } from "lucide-react"
+import { ShieldCheck, ArrowRight, Trophy } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 export function HeroSection() {
@@ -81,8 +81,8 @@ export function HeroSection() {
 
           {/* RIGHT-ALIGNED Visual Content with Property Image */}
           <div className="relative hidden lg:block">
-            {/* Property Image */}
-            <div className="relative w-full h-[450px] rounded-3xl overflow-hidden shadow-2xl">
+            {/* Property Image - Taller to show more */}
+            <div className="relative w-full h-[520px] rounded-3xl overflow-hidden shadow-2xl">
               <Image
                 src="/investment-house.png"
                 alt="American Investment Property"
@@ -90,49 +90,28 @@ export function HeroSection() {
                 className="object-cover"
                 priority
               />
-              {/* Gradient overlay for better card visibility */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
+              {/* Subtle gradient overlay at bottom only */}
+              <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
 
-            {/* Stats Card Overlay */}
-            <div className="absolute bottom-6 left-6 right-6 bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-white/50">
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
-                    <Building2 className="w-4 h-4" />
-                    <span className="text-xs">{t("statProperties")}</span>
-                  </div>
-                  <div className="text-2xl font-bold text-[#1F2328]">2,500+</div>
+            {/* Compact Stats Card - Bottom Right Corner */}
+            <div className="absolute bottom-4 right-4 bg-white/95 backdrop-blur-sm rounded-xl shadow-xl p-4 border border-white/50 max-w-[200px]">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <div className="text-[10px] text-[#6B7280] uppercase tracking-wide">{t("statROI")}</div>
+                  <div className="text-lg font-bold text-[#B8A074]">12-15%</div>
                 </div>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
-                    <TrendingUp className="w-4 h-4" />
-                    <span className="text-xs">{t("statROI")}</span>
-                  </div>
-                  <div className="text-2xl font-bold text-[#B8A074]">12-15%</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
-                    <ShieldCheck className="w-4 h-4" />
-                    <span className="text-xs">{t("statGuarantee")}</span>
-                  </div>
-                  <div className="text-xl font-bold text-[#1F2328]">Section 8</div>
-                </div>
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
-                    <Key className="w-4 h-4" />
-                    <span className="text-xs">{t("statKeys")}</span>
-                  </div>
-                  <div className="text-2xl font-bold text-[#1F2328]">850+</div>
+                <div>
+                  <div className="text-[10px] text-[#6B7280] uppercase tracking-wide">{t("statGuarantee")}</div>
+                  <div className="text-lg font-bold text-[#1F2328]">Section 8</div>
                 </div>
               </div>
             </div>
 
-            {/* Floating Badge */}
-            <div className="absolute -top-4 right-6 bg-[#1F2328] text-white px-5 py-2.5 rounded-xl shadow-lg z-10">
-              <div className="text-xs font-medium">{t("floatingBadge")}</div>
-              <div className="text-lg font-bold text-[#B8A074]">{t("floatingBadgeValue")}</div>
+            {/* Floating Badge - Top Right */}
+            <div className="absolute top-4 right-4 bg-[#1F2328] text-white px-4 py-2 rounded-xl shadow-lg z-10">
+              <div className="text-[10px] font-medium opacity-80">{t("floatingBadge")}</div>
+              <div className="text-base font-bold text-[#B8A074]">{t("floatingBadgeValue")}</div>
             </div>
           </div>
         </div>
