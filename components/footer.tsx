@@ -41,7 +41,7 @@ export function Footer() {
                 <Link
                   href={social.href}
                   target="_blank"
-                  className="p-3 rounded-xl bg-slate-100 hover:bg-[#B8A074] hover:text-white transition-all duration-300 text-[#3D4852] border border-slate-200 hover:border-[#B8A074] shadow-sm hover:shadow-md"
+                  className="flex items-center justify-center p-3 rounded-xl bg-slate-100 hover:bg-[#B8A074] hover:text-white transition-all duration-300 text-[#3D4852] shadow-sm hover:shadow-md"
                 >
                   <social.icon size={20} />
                 </Link>
