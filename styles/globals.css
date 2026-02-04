@@ -123,3 +123,54 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Lightning fast accordion animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+    opacity: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+    opacity: 1;
+  }
+  to {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.15s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.1s ease-out;
+}
+
+/* Global performance optimizations */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Faster transitions globally */
+.transition-all {
+  transition-duration: 150ms !important;
+}
+
+.transition-colors {
+  transition-duration: 100ms !important;
+}
+
+/* Hardware acceleration for animations */
+[data-state="open"],
+[data-state="closed"] {
+  will-change: height, opacity;
+}

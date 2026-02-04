@@ -32,10 +32,10 @@ export function FAQSection() {
 
       <div className="container mx-auto px-4 md:px-6 max-w-4xl relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.2 }}
           className="text-center space-y-3 mb-10"
         >
           <motion.span
@@ -52,10 +52,10 @@ export function FAQSection() {
 
         {/* Categories Tabs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.2 }}
           className="flex flex-wrap justify-center gap-2 mb-10"
         >
           {categories.map((category, index) => (
@@ -80,7 +80,7 @@ export function FAQSection() {
                   layoutId="activeTab"
                   className="absolute inset-0 bg-[#B8A074]"
                   style={{ borderRadius: '9999px' }}
-                  transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  transition={{ type: "spring", bounce: 0.15, duration: 0.25 }}
                 />
               )}
               <span className="relative z-10">{category.label}</span>
@@ -93,18 +93,18 @@ export function FAQSection() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeCategory}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
             >
               <Accordion type="single" collapsible className="w-full space-y-4">
                 {faqItems.map((item: any, index: number) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 8 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                    transition={{ delay: index * 0.03, duration: 0.15 }}
                   >
                     <AccordionItem
                       value={`item-${index}`}
@@ -119,15 +119,9 @@ export function FAQSection() {
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="px-4 pb-5 pl-[3.5rem]">
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: "auto" }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="text-[#535454] text-sm md:text-base leading-relaxed"
-                        >
+                        <div className="text-[#535454] text-sm md:text-base leading-relaxed">
                           {item.a}
-                        </motion.div>
+                        </div>
                       </AccordionContent>
                     </AccordionItem>
                   </motion.div>
@@ -139,10 +133,10 @@ export function FAQSection() {
 
         {/* Contact CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.2 }}
           className="mt-12 text-center"
         >
           <p className="text-[#535454] mb-4">{t("contactText") || "Still have questions?"}</p>
