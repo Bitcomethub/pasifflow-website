@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
-import { Building2, TrendingUp, ShieldCheck, Key, ArrowRight, Star, Users, Trophy } from "lucide-react"
+import { Building2, TrendingUp, ShieldCheck, Key, ArrowRight, Trophy } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 export function HeroSection() {
@@ -77,65 +77,54 @@ export function HeroSection() {
               </Button>
             </div>
 
-            {/* Trust Signals - Google Rating Only */}
-            <div className="flex items-center gap-2 pt-4">
-              <div className="flex items-center gap-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 fill-[#B8A074] text-[#B8A074]" />
-                ))}
-                <span className="text-sm text-[#6B7280] font-medium ml-2">{t("trustRating")}</span>
+            {/* RIGHT-ALIGNED Visual Content */}
+            <div className="relative hidden lg:block">
+              {/* Main Card */}
+              <div className="relative bg-white rounded-3xl shadow-xl p-8 border border-[#E5E6E8]">
+                {/* Stats Grid */}
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[#6B7280]">
+                      <Building2 className="w-5 h-5" />
+                      <span className="text-sm">{t("statProperties")}</span>
+                    </div>
+                    <div className="text-3xl font-bold text-[#1F2328]">2,500+</div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[#6B7280]">
+                      <TrendingUp className="w-5 h-5" />
+                      <span className="text-sm">{t("statROI")}</span>
+                    </div>
+                    <div className="text-3xl font-bold text-[#B8A074]">12-15%</div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[#6B7280]">
+                      <ShieldCheck className="w-5 h-5" />
+                      <span className="text-sm">{t("statGuarantee")}</span>
+                    </div>
+                    <div className="text-2xl font-bold text-[#1F2328]">Section 8</div>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-[#6B7280]">
+                      <Key className="w-5 h-5" />
+                      <span className="text-sm">{t("statKeys")}</span>
+                    </div>
+                    <div className="text-3xl font-bold text-[#1F2328]">850+</div>
+                  </div>
+                </div>
+
+                {/* Floating Badge */}
+                <div className="absolute -top-6 right-4 bg-[#1F2328] text-white px-5 py-2.5 rounded-xl shadow-lg z-10">
+                  <div className="text-xs font-medium">{t("floatingBadge")}</div>
+                  <div className="text-lg font-bold text-[#B8A074]">{t("floatingBadgeValue")}</div>
+                </div>
               </div>
+
+              {/* Background Pattern */}
+              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#B8A074]/5 rounded-full blur-3xl" />
             </div>
-          </div>
-
-          {/* RIGHT-ALIGNED Visual Content */}
-          <div className="relative hidden lg:block">
-            {/* Main Card */}
-            <div className="relative bg-white rounded-3xl shadow-xl p-8 border border-[#E5E6E8]">
-              {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
-                    <Building2 className="w-5 h-5" />
-                    <span className="text-sm">{t("statProperties")}</span>
-                  </div>
-                  <div className="text-3xl font-bold text-[#1F2328]">2,500+</div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
-                    <TrendingUp className="w-5 h-5" />
-                    <span className="text-sm">{t("statROI")}</span>
-                  </div>
-                  <div className="text-3xl font-bold text-[#B8A074]">12-15%</div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
-                    <ShieldCheck className="w-5 h-5" />
-                    <span className="text-sm">{t("statGuarantee")}</span>
-                  </div>
-                  <div className="text-2xl font-bold text-[#1F2328]">Section 8</div>
-                </div>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-[#6B7280]">
-                    <Key className="w-5 h-5" />
-                    <span className="text-sm">{t("statKeys")}</span>
-                  </div>
-                  <div className="text-3xl font-bold text-[#1F2328]">850+</div>
-                </div>
-              </div>
-
-              {/* Floating Badge */}
-              <div className="absolute -top-4 -right-4 bg-[#1F2328] text-white px-6 py-3 rounded-2xl shadow-lg">
-                <div className="text-sm font-medium">{t("floatingBadge")}</div>
-                <div className="text-2xl font-bold text-[#B8A074]">{t("floatingBadgeValue")}</div>
-              </div>
-            </div>
-
-            {/* Background Pattern */}
-            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#B8A074]/5 rounded-full blur-3xl" />
           </div>
         </div>
-      </div>
     </section>
   )
 }
