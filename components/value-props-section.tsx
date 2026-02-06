@@ -3,7 +3,6 @@
 import { TrendingUp, ShieldCheck, Building2, Key, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import { useTranslations } from "next-intl"
-import { RoiCalculator } from "@/components/roi-calculator"
 
 export function ValuePropsSection() {
   const t = useTranslations("valueProps")
@@ -146,17 +145,6 @@ export function ValuePropsSection() {
               <ArrowRight className="h-5 w-5" />
             </motion.span>
           </motion.a>
-        </motion.div>
-
-        {/* ROI Calculator */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-12 md:mt-16 max-w-4xl"
-        >
-          <RoiCalculator />
         </motion.div>
       </div>
     </section>
