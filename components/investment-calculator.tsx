@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { Card } from "@/components/ui/card"
-import { TrendingUp, Calendar, DollarSign, CheckCircle, Info, Wallet, ArrowRight } from "lucide-react"
+import { TrendingUp, Calendar, DollarSign, CheckCircle, Info, Wallet, Sparkles, Target, ChartLine, Shield, ArrowUpRight } from "lucide-react"
 
 // Helper functions
 function clamp(n: number, min: number, max: number) {
@@ -33,15 +33,19 @@ type CalculatorTexts = {
     labels: {
         investment: string
         monthlyIncome: string
+        yearlyIncome: string
         investmentRangeHint: string
         monthlyExampleHint: string
         annualReturnLabel: string
         formulaLabel: string
+        capitalRecovery: string
+        totalReturn5Y: string
+        projectedValue: string
     }
 }
 
 const TR_TEXTS: CalculatorTexts = {
-    badge: "Yatırım Hesaplayıcı",
+    badge: "Getiri Hesaplayıcı",
     title: "$30.000 başlangıç sermayesi",
     descriptionLines: [
         "Öngörülebilir gelir modeli.",
@@ -59,15 +63,19 @@ const TR_TEXTS: CalculatorTexts = {
     labels: {
         investment: "Toplam Yatırım",
         monthlyIncome: "Aylık Gelir",
-        investmentRangeHint: "$30,000 → $5,000,000",
+        yearlyIncome: "Yıllık Gelir",
+        investmentRangeHint: "$30K → $5M",
         monthlyExampleHint: "$30,000 → $375/ay",
-        annualReturnLabel: "Yıllık getiri (varsayım)",
+        annualReturnLabel: "Yıllık getiri",
         formulaLabel: "Formül",
+        capitalRecovery: "Sermaye Geri Dönüşü",
+        totalReturn5Y: "5 Yıllık Toplam Kazanç",
+        projectedValue: "Tahmini Portföy Değeri",
     },
 }
 
 const EN_TEXTS: CalculatorTexts = {
-    badge: "Investment Calculator",
+    badge: "ROI Calculator",
     title: "$30,000 starting capital",
     descriptionLines: [
         "Predictable income model.",
@@ -85,10 +93,14 @@ const EN_TEXTS: CalculatorTexts = {
     labels: {
         investment: "Total Investment",
         monthlyIncome: "Monthly Income",
-        investmentRangeHint: "$30,000 → $5,000,000",
+        yearlyIncome: "Yearly Income",
+        investmentRangeHint: "$30K → $5M",
         monthlyExampleHint: "$30,000 → $375/mo",
-        annualReturnLabel: "Annual return (assumption)",
+        annualReturnLabel: "Annual return",
         formulaLabel: "Formula",
+        capitalRecovery: "Capital Recovery",
+        totalReturn5Y: "5-Year Total Return",
+        projectedValue: "Projected Portfolio Value",
     },
 }
 
@@ -111,16 +123,31 @@ export function InvestmentCalculator({
     defaultInvestment = 30_000,
     locale = "tr",
 }: Props) {
-    // Use locale-appropriate texts
     const t = texts || (locale === "en" ? EN_TEXTS : TR_TEXTS)
 
     const [investment, setInvestment] = React.useState<number>(() =>
         clamp(roundToStep(defaultInvestment, step), minInvestment, maxInvestment)
     )
 
-    const monthlyIncome = React.useMemo(() => {
-        return Math.round((investment * annualReturn) / 12)
-    }, [investment, annualReturn])
+    // All calculations
+    const calculations = React.useMemo(() => {
+        const monthlyIncome = Math.round((investment * annualReturn) / 12)
+        const yearlyIncome = Math.round(investment * annualReturn)
+        const capitalRecoveryYears = Math.round(investment / yearlyIncome)
+        const totalReturn5Y = yearlyIncome * 5
+        const appreciationRate = 0.035 // 3.5% yearly appreciation
+        const projectedValue5Y = Math.round(investment * Math.pow(1 + appreciationRate, 5))
+        const progressToMax = ((investment - minInvestment) / (maxInvestment - minInvestment)) * 100
+
+        return {
+            monthlyIncome,
+            yearlyIncome,
+            capitalRecoveryYears,
+            totalReturn5Y,
+            projectedValue5Y,
+            progressToMax
+        }
+    }, [investment, annualReturn, minInvestment, maxInvestment])
 
     const onSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const raw = Number(e.target.value)
@@ -128,83 +155,70 @@ export function InvestmentCalculator({
         setInvestment(next)
     }
 
-    // Calculate percentage for slider track fill
-    const sliderPercentage = ((investment - minInvestment) / (maxInvestment - minInvestment)) * 100
+    // Year projection data for mini chart
+    const yearData = React.useMemo(() => {
+        return [1, 2, 3, 4, 5, 6].map(year => ({
+            year,
+            income: calculations.yearlyIncome * year,
+            cumulative: calculations.yearlyIncome * year
+        }))
+    }, [calculations.yearlyIncome])
 
     return (
-        <section id="calculator" className="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
-            {/* Decorative background */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#B8A074]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1F2328]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
+        <section id="calculator" className="py-20 md:py-32 bg-gradient-to-b from-[#0A0B0D] via-[#0F1012] to-[#0A0B0D] relative overflow-hidden">
+            {/* Animated background elements */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#B8A074]/10 rounded-full blur-[128px] animate-pulse" />
+                <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#B8A074]/5 rounded-full blur-[100px]" />
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B8A074]/30 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B8A074]/30 to-transparent" />
             </div>
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
-                <Card className="max-w-3xl mx-auto p-6 md:p-10 bg-white border border-slate-200/80 shadow-2xl shadow-slate-200/50 rounded-3xl">
-
-                    {/* Badge */}
-                    <div className="flex justify-center mb-6">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#B8A074]/10 rounded-full text-[#B8A074] text-xs font-bold uppercase tracking-wider border border-[#B8A074]/20">
-                            <TrendingUp className="w-4 h-4" />
-                            {t.badge}
-                        </div>
+                {/* Header */}
+                <div className="text-center mb-12 md:mb-16">
+                    <div className="inline-flex items-center gap-2 px-5 py-2 bg-[#B8A074]/10 rounded-full text-[#B8A074] text-sm font-bold uppercase tracking-widest mb-6 border border-[#B8A074]/20 backdrop-blur-sm">
+                        <Sparkles className="w-4 h-4" />
+                        {t.badge}
                     </div>
 
-                    {/* Header */}
-                    <div className="text-center mb-8">
-                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1F2328] mb-3">
-                            {t.title}
-                        </h1>
-                        <div className="space-y-1 text-base md:text-lg text-[#535454]">
-                            {t.descriptionLines.map((line, i) => (
-                                <p key={i}>{line}</p>
-                            ))}
-                        </div>
-                    </div>
+                    <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight">
+                        {t.growthTitle.split(" ").slice(0, 3).join(" ")}
+                        <br />
+                        <span className="bg-gradient-to-r from-[#B8A074] to-[#D4C4A0] bg-clip-text text-transparent">
+                            {t.growthTitle.split(" ").slice(3).join(" ")}
+                        </span>
+                    </h2>
 
-                    {/* 6th Year Callout */}
-                    <div className="bg-gradient-to-r from-[#B8A074]/10 to-[#B8A074]/5 border border-[#B8A074]/20 rounded-2xl p-5 mb-8">
-                        <div className="flex items-center gap-2 mb-3">
-                            <Calendar className="w-5 h-5 text-[#B8A074]" />
-                            <span className="font-bold text-[#1F2328]">{t.year6Title}</span>
-                        </div>
-                        <ul className="space-y-2">
-                            {t.year6Bullets.map((bullet, i) => (
-                                <li key={i} className="flex items-center gap-2">
-                                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
-                                    <span className="text-sm text-[#535454]">{bullet}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <p className="text-white/60 text-lg md:text-xl max-w-2xl mx-auto">
+                        {t.returnLine}
+                    </p>
+                </div>
 
-                    {/* Growth Title */}
-                    <div className="text-center mb-6">
-                        <h2 className="text-lg md:text-xl font-bold text-[#1F2328] mb-1">
-                            {t.growthTitle}
-                        </h2>
-                        <p className="text-sm text-[#B8A074] font-semibold">
-                            {t.returnLine}
-                        </p>
-                    </div>
+                {/* Main Calculator Grid */}
+                <div className="grid lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
 
-                    {/* Calculator Controls */}
-                    <div className="grid md:grid-cols-2 gap-6">
-
-                        {/* Investment Slider */}
-                        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200">
-                            <div className="flex items-center justify-between mb-4">
-                                <div className="flex items-center gap-2">
-                                    <Wallet className="w-5 h-5 text-[#B8A074]" />
-                                    <span className="text-sm font-bold text-[#1F2328]">{t.labels.investment}</span>
+                    {/* Left Side - Investment Control (2 cols) */}
+                    <div className="lg:col-span-2 space-y-6">
+                        {/* Investment Slider Card */}
+                        <Card className="p-6 md:p-8 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl">
+                            <div className="flex items-center gap-3 mb-6">
+                                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#B8A074] to-[#8B7355] flex items-center justify-center">
+                                    <Wallet className="w-6 h-6 text-white" />
                                 </div>
-                                <span className="text-2xl md:text-3xl font-bold text-[#1F2328]">
-                                    {USD.format(investment)}
-                                </span>
+                                <div>
+                                    <p className="text-white/50 text-sm">{t.labels.investment}</p>
+                                    <p className="text-3xl md:text-4xl font-bold text-white">{USD.format(investment)}</p>
+                                </div>
                             </div>
 
-                            {/* Custom Styled Slider */}
-                            <div className="relative mt-4 mb-2">
+                            {/* Premium Slider */}
+                            <div className="relative py-4">
+                                <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-2 bg-white/10 rounded-full" />
+                                <div
+                                    className="absolute top-1/2 -translate-y-1/2 h-2 bg-gradient-to-r from-[#B8A074] to-[#D4C4A0] rounded-full transition-all duration-150"
+                                    style={{ width: `${calculations.progressToMax}%` }}
+                                />
                                 <input
                                     type="range"
                                     min={minInvestment}
@@ -212,59 +226,127 @@ export function InvestmentCalculator({
                                     step={step}
                                     value={investment}
                                     onChange={onSliderChange}
-                                    aria-label={t.labels.investment}
-                                    className="w-full h-3 rounded-full appearance-none cursor-pointer bg-slate-200"
-                                    style={{
-                                        background: `linear-gradient(to right, #B8A074 0%, #B8A074 ${sliderPercentage}%, #e2e8f0 ${sliderPercentage}%, #e2e8f0 100%)`
-                                    }}
+                                    className="relative w-full h-8 appearance-none bg-transparent cursor-pointer z-10"
+                                    style={{ WebkitAppearance: 'none' }}
                                 />
                             </div>
 
-                            <div className="flex justify-between text-xs text-[#6B7280] mt-2">
+                            <div className="flex justify-between text-sm text-white/40 mt-2">
                                 <span>{USD.format(minInvestment)}</span>
-                                <span className="hidden sm:inline">{t.labels.investmentRangeHint}</span>
+                                <span className="text-[#B8A074]">{t.labels.investmentRangeHint}</span>
                                 <span>{USD.format(maxInvestment)}</span>
                             </div>
-                        </div>
+                        </Card>
 
-                        {/* Monthly Income Display */}
-                        <div className="bg-gradient-to-br from-[#1F2328] to-[#2D353F] rounded-2xl p-5 text-white">
-                            <div className="flex items-center gap-2 mb-3">
-                                <DollarSign className="w-5 h-5 text-[#B8A074]" />
-                                <span className="text-sm font-bold text-white/80">{t.labels.monthlyIncome}</span>
+                        {/* 6th Year Callout */}
+                        <Card className="p-6 bg-gradient-to-br from-[#B8A074]/20 to-[#B8A074]/5 backdrop-blur-xl border border-[#B8A074]/30 rounded-3xl">
+                            <div className="flex items-center gap-2 mb-4">
+                                <Calendar className="w-5 h-5 text-[#B8A074]" />
+                                <span className="font-bold text-white">{t.year6Title}</span>
                             </div>
-
-                            <div className="text-3xl md:text-4xl font-bold text-[#B8A074] mb-2">
-                                {USD.format(monthlyIncome)}
-                                <span className="text-base font-normal text-white/50 ml-1">/ay</span>
-                            </div>
-
-                            <div className="text-xs text-white/50 mb-4">
-                                {t.labels.monthlyExampleHint}
-                            </div>
-
-                            {/* Formula Info Box */}
-                            <div className="bg-white/10 rounded-xl p-3 text-xs">
-                                <div className="flex items-center justify-between text-white/70">
-                                    <span>{t.labels.annualReturnLabel}</span>
-                                    <span className="font-semibold text-[#B8A074]">%{Math.round(annualReturn * 100)}</span>
-                                </div>
-                                <div className="flex items-center justify-between text-white/70 mt-1">
-                                    <span>{t.labels.formulaLabel}</span>
-                                    <span className="font-mono text-white/50">Yatırım × {annualReturn} / 12</span>
-                                </div>
-                            </div>
-                        </div>
+                            <ul className="space-y-3">
+                                {t.year6Bullets.map((bullet, i) => (
+                                    <li key={i} className="flex items-center gap-3">
+                                        <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+                                            <CheckCircle className="w-3 h-3 text-green-400" />
+                                        </div>
+                                        <span className="text-sm text-white/80">{bullet}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </Card>
                     </div>
 
-                    {/* Disclaimer */}
-                    <div className="mt-8 pt-5 border-t border-slate-200">
-                        <div className="flex items-start gap-2 text-xs text-[#6B7280]">
-                            <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
-                            <p>{t.disclaimer}</p>
+                    {/* Right Side - Results (3 cols) */}
+                    <div className="lg:col-span-3 space-y-6">
+                        {/* Main Income Display */}
+                        <div className="grid sm:grid-cols-2 gap-4">
+                            {/* Monthly Income - Hero Card */}
+                            <Card className="p-6 md:p-8 bg-gradient-to-br from-[#B8A074] to-[#8B7355] rounded-3xl relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+                                <div className="relative">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <DollarSign className="w-5 h-5 text-white/70" />
+                                        <span className="text-sm font-medium text-white/70">{t.labels.monthlyIncome}</span>
+                                    </div>
+                                    <div className="text-4xl md:text-5xl font-bold text-white mb-1">
+                                        {USD.format(calculations.monthlyIncome)}
+                                    </div>
+                                    <div className="text-white/60 text-sm">/ay</div>
+                                </div>
+                            </Card>
+
+                            {/* Yearly Income */}
+                            <Card className="p-6 md:p-8 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <TrendingUp className="w-5 h-5 text-[#B8A074]" />
+                                    <span className="text-sm font-medium text-white/50">{t.labels.yearlyIncome}</span>
+                                </div>
+                                <div className="text-3xl md:text-4xl font-bold text-white mb-1">
+                                    {USD.format(calculations.yearlyIncome)}
+                                </div>
+                                <div className="text-[#B8A074] text-sm font-medium">{t.labels.annualReturnLabel}: %{Math.round(annualReturn * 100)}</div>
+                            </Card>
                         </div>
+
+                        {/* Stats Grid */}
+                        <div className="grid grid-cols-3 gap-4">
+                            <Card className="p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl text-center">
+                                <Target className="w-6 h-6 text-[#B8A074] mx-auto mb-2" />
+                                <div className="text-2xl font-bold text-white">{calculations.capitalRecoveryYears}</div>
+                                <div className="text-xs text-white/50 mt-1">{t.labels.capitalRecovery}</div>
+                                <div className="text-xs text-[#B8A074]">yıl</div>
+                            </Card>
+
+                            <Card className="p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl text-center">
+                                <ChartLine className="w-6 h-6 text-green-400 mx-auto mb-2" />
+                                <div className="text-2xl font-bold text-white">{USD.format(calculations.totalReturn5Y)}</div>
+                                <div className="text-xs text-white/50 mt-1">{t.labels.totalReturn5Y}</div>
+                            </Card>
+
+                            <Card className="p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl text-center">
+                                <ArrowUpRight className="w-6 h-6 text-blue-400 mx-auto mb-2" />
+                                <div className="text-2xl font-bold text-white">{USD.format(calculations.projectedValue5Y)}</div>
+                                <div className="text-xs text-white/50 mt-1">{t.labels.projectedValue}</div>
+                                <div className="text-xs text-blue-400">+3.5%/yıl</div>
+                            </Card>
+                        </div>
+
+                        {/* Visual Progress Chart */}
+                        <Card className="p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl">
+                            <div className="flex items-center justify-between mb-4">
+                                <span className="text-white/70 text-sm font-medium">6 Yıllık Kazanç Projeksiyonu</span>
+                                <span className="text-[#B8A074] text-sm">{USD.format(calculations.yearlyIncome * 6)} toplam</span>
+                            </div>
+                            <div className="flex items-end gap-2 h-24">
+                                {yearData.map((data, i) => (
+                                    <div key={data.year} className="flex-1 flex flex-col items-center gap-1">
+                                        <div
+                                            className="w-full bg-gradient-to-t from-[#B8A074] to-[#D4C4A0] rounded-t-lg transition-all duration-500"
+                                            style={{
+                                                height: `${(data.cumulative / (calculations.yearlyIncome * 6)) * 100}%`,
+                                                opacity: 0.5 + (i * 0.08)
+                                            }}
+                                        />
+                                        <span className="text-xs text-white/50">{data.year}Y</span>
+                                    </div>
+                                ))}
+                            </div>
+                            <div className="mt-4 flex items-center justify-center gap-2 text-xs text-white/40">
+                                <Shield className="w-3 h-3" />
+                                <span>Yıl 6'da sermaye tamamen geri alınır</span>
+                            </div>
+                        </Card>
                     </div>
-                </Card>
+                </div>
+
+                {/* Disclaimer */}
+                <div className="mt-10 text-center">
+                    <div className="inline-flex items-center gap-2 text-xs text-white/40 max-w-2xl">
+                        <Info className="w-4 h-4 flex-shrink-0" />
+                        <p>{t.disclaimer}</p>
+                    </div>
+                </div>
             </div>
         </section>
     )
