@@ -39,13 +39,13 @@ type CalculatorTexts = {
         annualReturnLabel: string
         formulaLabel: string
         capitalRecovery: string
-        totalReturn5Y: string
+        totalReturn6Y: string
         projectedValue: string
     }
 }
 
 const TR_TEXTS: CalculatorTexts = {
-    badge: "Getiri Hesaplayıcı",
+    badge: "Yatırım Hesaplayıcı",
     title: "$30.000 başlangıç sermayesi",
     descriptionLines: [
         "Öngörülebilir gelir modeli.",
@@ -69,13 +69,13 @@ const TR_TEXTS: CalculatorTexts = {
         annualReturnLabel: "Yıllık getiri",
         formulaLabel: "Formül",
         capitalRecovery: "Sermaye Geri Dönüşü",
-        totalReturn5Y: "5 Yıllık Toplam Kazanç",
+        totalReturn6Y: "6 Yıllık Toplam Kazanç",
         projectedValue: "Tahmini Portföy Değeri",
     },
 }
 
 const EN_TEXTS: CalculatorTexts = {
-    badge: "ROI Calculator",
+    badge: "Investment Calculator",
     title: "$30,000 starting capital",
     descriptionLines: [
         "Predictable income model.",
@@ -99,7 +99,7 @@ const EN_TEXTS: CalculatorTexts = {
         annualReturnLabel: "Annual return",
         formulaLabel: "Formula",
         capitalRecovery: "Capital Recovery",
-        totalReturn5Y: "5-Year Total Return",
+        totalReturn6Y: "6-Year Total Return",
         projectedValue: "Projected Portfolio Value",
     },
 }
@@ -129,22 +129,22 @@ export function InvestmentCalculator({
         clamp(roundToStep(defaultInvestment, step), minInvestment, maxInvestment)
     )
 
-    // All calculations
+    // All calculations - FIXED: Use 6 years as per site owner spec
     const calculations = React.useMemo(() => {
         const monthlyIncome = Math.round((investment * annualReturn) / 12)
         const yearlyIncome = Math.round(investment * annualReturn)
-        const capitalRecoveryYears = Math.round(investment / yearlyIncome)
-        const totalReturn5Y = yearlyIncome * 5
+        const capitalRecoveryYears = 6 // FIXED: Site owner specified 6 years, not calculated
+        const totalReturn6Y = yearlyIncome * 6
         const appreciationRate = 0.035 // 3.5% yearly appreciation
-        const projectedValue5Y = Math.round(investment * Math.pow(1 + appreciationRate, 5))
+        const projectedValue6Y = Math.round(investment * Math.pow(1 + appreciationRate, 6))
         const progressToMax = ((investment - minInvestment) / (maxInvestment - minInvestment)) * 100
 
         return {
             monthlyIncome,
             yearlyIncome,
             capitalRecoveryYears,
-            totalReturn5Y,
-            projectedValue5Y,
+            totalReturn6Y,
+            projectedValue6Y,
             progressToMax
         }
     }, [investment, annualReturn, minInvestment, maxInvestment])
@@ -155,14 +155,16 @@ export function InvestmentCalculator({
         setInvestment(next)
     }
 
-    // Year projection data for mini chart
+    // Year projection data for chart - DYNAMIC based on yearlyIncome
     const yearData = React.useMemo(() => {
         return [1, 2, 3, 4, 5, 6].map(year => ({
             year,
-            income: calculations.yearlyIncome * year,
+            income: calculations.yearlyIncome,
             cumulative: calculations.yearlyIncome * year
         }))
     }, [calculations.yearlyIncome])
+
+    const maxCumulative = calculations.yearlyIncome * 6
 
     return (
         <section id="calculator" className="py-20 md:py-32 bg-gradient-to-b from-[#0A0B0D] via-[#0F1012] to-[#0A0B0D] relative overflow-hidden">
@@ -238,8 +240,8 @@ export function InvestmentCalculator({
                             </div>
                         </Card>
 
-                        {/* 6th Year Callout */}
-                        <Card className="p-6 bg-gradient-to-br from-[#B8A074]/20 to-[#B8A074]/5 backdrop-blur-xl border border-[#B8A074]/30 rounded-3xl">
+                        {/* 6th Year Callout - FIXED: Dark theme with visible text */}
+                        <Card className="p-6 bg-[#0F1012] backdrop-blur-xl border border-[#B8A074]/30 rounded-3xl">
                             <div className="flex items-center gap-2 mb-4">
                                 <Calendar className="w-5 h-5 text-[#B8A074]" />
                                 <span className="font-bold text-white">{t.year6Title}</span>
@@ -300,37 +302,43 @@ export function InvestmentCalculator({
 
                             <Card className="p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl text-center">
                                 <ChartLine className="w-6 h-6 text-green-400 mx-auto mb-2" />
-                                <div className="text-2xl font-bold text-white">{USD.format(calculations.totalReturn5Y)}</div>
-                                <div className="text-xs text-white/50 mt-1">{t.labels.totalReturn5Y}</div>
+                                <div className="text-2xl font-bold text-white">{USD.format(calculations.totalReturn6Y)}</div>
+                                <div className="text-xs text-white/50 mt-1">{t.labels.totalReturn6Y}</div>
                             </Card>
 
                             <Card className="p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl text-center">
                                 <ArrowUpRight className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-                                <div className="text-2xl font-bold text-white">{USD.format(calculations.projectedValue5Y)}</div>
+                                <div className="text-2xl font-bold text-white">{USD.format(calculations.projectedValue6Y)}</div>
                                 <div className="text-xs text-white/50 mt-1">{t.labels.projectedValue}</div>
                                 <div className="text-xs text-blue-400">+3.5%/yıl</div>
                             </Card>
                         </div>
 
-                        {/* Visual Progress Chart */}
+                        {/* Visual Progress Chart - FIXED: Dynamic bars */}
                         <Card className="p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl">
                             <div className="flex items-center justify-between mb-4">
                                 <span className="text-white/70 text-sm font-medium">6 Yıllık Kazanç Projeksiyonu</span>
-                                <span className="text-[#B8A074] text-sm">{USD.format(calculations.yearlyIncome * 6)} toplam</span>
+                                <span className="text-[#B8A074] text-sm font-bold">{USD.format(maxCumulative)} toplam</span>
                             </div>
-                            <div className="flex items-end gap-2 h-24">
-                                {yearData.map((data, i) => (
-                                    <div key={data.year} className="flex-1 flex flex-col items-center gap-1">
-                                        <div
-                                            className="w-full bg-gradient-to-t from-[#B8A074] to-[#D4C4A0] rounded-t-lg transition-all duration-500"
-                                            style={{
-                                                height: `${(data.cumulative / (calculations.yearlyIncome * 6)) * 100}%`,
-                                                opacity: 0.5 + (i * 0.08)
-                                            }}
-                                        />
-                                        <span className="text-xs text-white/50">{data.year}Y</span>
-                                    </div>
-                                ))}
+                            <div className="flex items-end gap-3 h-32">
+                                {yearData.map((data, i) => {
+                                    const heightPercent = maxCumulative > 0 ? (data.cumulative / maxCumulative) * 100 : 0
+                                    return (
+                                        <div key={data.year} className="flex-1 flex flex-col items-center gap-2">
+                                            <div className="text-xs text-white/60 font-medium">
+                                                {USD.format(data.cumulative)}
+                                            </div>
+                                            <div
+                                                className="w-full bg-gradient-to-t from-[#B8A074] to-[#D4C4A0] rounded-t-lg transition-all duration-500 min-h-[8px]"
+                                                style={{
+                                                    height: `${Math.max(heightPercent, 5)}%`,
+                                                    opacity: 0.6 + (i * 0.07)
+                                                }}
+                                            />
+                                            <span className="text-xs text-white/50 font-medium">{data.year}Y</span>
+                                        </div>
+                                    )
+                                })}
                             </div>
                             <div className="mt-4 flex items-center justify-center gap-2 text-xs text-white/40">
                                 <Shield className="w-3 h-3" />
