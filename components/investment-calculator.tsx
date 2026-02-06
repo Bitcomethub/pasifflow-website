@@ -276,108 +276,107 @@ export function InvestmentCalculator({
                         {/* Main Income Display - FIXED: Consistent layout */}
                         <div className="grid sm:grid-cols-2 gap-4">
                             {/* Monthly Income - Hero Card */}
-                            <Card className="p-6 md:p-8 bg-gradient-to-br from-[#B8A074] to-[#8B7355] rounded-3xl relative overflow-hidden">
-                                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+                            <Card className="p-5 md:p-6 bg-gradient-to-br from-[#B8A074] to-[#8B7355] rounded-2xl relative overflow-hidden">
+                                <div className="absolute top-0 right-0 w-24 h-24 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
                                 <div className="relative">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <DollarSign className="w-5 h-5 text-white/80" />
-                                        <span className="text-sm font-semibold text-white/80 uppercase tracking-wide">{t.labels.monthlyIncome}</span>
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <DollarSign className="w-4 h-4 text-white/80" />
+                                        <span className="text-sm font-semibold text-white/90 uppercase tracking-wide">{t.labels.monthlyIncome}</span>
                                     </div>
                                     <div className="flex items-baseline gap-1">
-                                        <span className="text-4xl md:text-5xl font-bold text-white">
+                                        <span className="text-3xl md:text-4xl font-bold text-white">
                                             {USD.format(calculations.monthlyIncome)}
                                         </span>
-                                        <span className="text-lg text-white/70 font-medium">{t.labels.perMonth}</span>
+                                        <span className="text-base text-white/70 font-medium">{t.labels.perMonth}</span>
                                     </div>
                                 </div>
                             </Card>
 
                             {/* Yearly Income - Matching layout */}
-                            <Card className="p-6 md:p-8 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <TrendingUp className="w-5 h-5 text-[#B8A074]" />
-                                    <span className="text-sm font-semibold text-white/60 uppercase tracking-wide">{t.labels.yearlyIncome}</span>
+                            <Card className="p-5 md:p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl">
+                                <div className="flex items-center gap-2 mb-2">
+                                    <TrendingUp className="w-4 h-4 text-[#B8A074]" />
+                                    <span className="text-sm font-semibold text-white/70 uppercase tracking-wide">{t.labels.yearlyIncome}</span>
                                 </div>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-4xl md:text-5xl font-bold text-white">
+                                    <span className="text-3xl md:text-4xl font-bold text-white">
                                         {USD.format(calculations.yearlyIncome)}
                                     </span>
-                                    <span className="text-lg text-white/50 font-medium">{t.labels.perYear}</span>
+                                    <span className="text-base text-white/50 font-medium">{t.labels.perYear}</span>
                                 </div>
-                                <div className="mt-3 text-sm text-[#B8A074] font-medium">
+                                <div className="mt-2 text-sm text-[#B8A074] font-medium">
                                     {t.labels.annualReturnLabel}: %{Math.round(annualReturn * 100)}
                                 </div>
                             </Card>
                         </div>
 
                         {/* Stats Grid - FIXED: Consistent typography */}
-                        <div className="grid grid-cols-3 gap-4">
+                        <div className="grid grid-cols-3 gap-3">
                             {/* Capital Recovery */}
-                            <Card className="p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <Target className="w-5 h-5 text-[#B8A074]" />
-                                    <span className="text-xs font-semibold text-white/50 uppercase tracking-wide">{t.labels.capitalRecovery}</span>
+                            <Card className="p-4 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-xl">
+                                <div className="flex items-center gap-1.5 mb-2">
+                                    <Target className="w-4 h-4 text-[#B8A074]" />
+                                    <span className="text-xs font-semibold text-white/60 uppercase tracking-wide">{t.labels.capitalRecovery}</span>
                                 </div>
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-3xl font-bold text-white">{calculations.capitalRecoveryYears}</span>
+                                    <span className="text-2xl font-bold text-white">{calculations.capitalRecoveryYears}</span>
                                     <span className="text-sm text-white/50 font-medium">{t.labels.years}</span>
                                 </div>
                             </Card>
 
                             {/* 6 Year Total */}
-                            <Card className="p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <ChartLine className="w-5 h-5 text-green-400" />
-                                    <span className="text-xs font-semibold text-white/50 uppercase tracking-wide">{t.labels.totalReturn6Y}</span>
+                            <Card className="p-4 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-xl">
+                                <div className="flex items-center gap-1.5 mb-2">
+                                    <ChartLine className="w-4 h-4 text-green-400" />
+                                    <span className="text-xs font-semibold text-white/60 uppercase tracking-wide">{t.labels.totalReturn6Y}</span>
                                 </div>
-                                <div className="text-3xl font-bold text-white">
+                                <div className="text-2xl font-bold text-white">
                                     {USD.format(calculations.totalReturn6Y)}
                                 </div>
                             </Card>
 
                             {/* Projected Value */}
-                            <Card className="p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl">
-                                <div className="flex items-center gap-2 mb-3">
-                                    <ArrowUpRight className="w-5 h-5 text-blue-400" />
-                                    <span className="text-xs font-semibold text-white/50 uppercase tracking-wide">{t.labels.projectedValue}</span>
+                            <Card className="p-4 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-xl">
+                                <div className="flex items-center gap-1.5 mb-2">
+                                    <ArrowUpRight className="w-4 h-4 text-blue-400" />
+                                    <span className="text-xs font-semibold text-white/60 uppercase tracking-wide">{t.labels.projectedValue}</span>
                                 </div>
-                                <div className="text-3xl font-bold text-white">
+                                <div className="text-2xl font-bold text-white">
                                     {USD.format(calculations.projectedValue6Y)}
                                 </div>
                                 <div className="mt-1 text-xs text-blue-400 font-medium">{t.labels.yearlyAppreciation}</div>
                             </Card>
                         </div>
 
-                        {/* Visual Progress Chart - FIXED: Using pixel heights */}
-                        <Card className="p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl">
-                            <div className="flex items-center justify-between mb-6">
+                        {/* Visual Progress Chart */}
+                        <Card className="p-4 md:p-5 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl">
+                            <div className="flex items-center justify-between mb-4">
                                 <span className="text-white/70 text-sm font-semibold uppercase tracking-wide">6 Yıllık Kazanç Projeksiyonu</span>
                                 <span className="text-[#B8A074] text-sm font-bold">{USD.format(maxCumulative)} toplam</span>
                             </div>
-                            <div className="flex items-end gap-3" style={{ height: '120px' }}>
+                            <div className="flex items-end gap-2" style={{ height: '100px' }}>
                                 {yearData.map((data, i) => {
-                                    // Calculate pixel height: max 100px, min 15px
                                     const heightPx = maxCumulative > 0
-                                        ? Math.max(15, Math.round((data.cumulative / maxCumulative) * 100))
-                                        : 15
+                                        ? Math.max(12, Math.round((data.cumulative / maxCumulative) * 85))
+                                        : 12
                                     return (
                                         <div key={data.year} className="flex-1 flex flex-col items-center justify-end h-full">
-                                            <div className="text-xs text-white/60 font-semibold whitespace-nowrap mb-2">
+                                            <div className="text-[10px] text-white/60 font-semibold whitespace-nowrap mb-1">
                                                 {USD.format(data.cumulative)}
                                             </div>
                                             <div
-                                                className="w-full bg-gradient-to-t from-[#B8A074] to-[#D4C4A0] rounded-t-lg transition-all duration-500"
+                                                className="w-full bg-gradient-to-t from-[#B8A074] to-[#D4C4A0] rounded-t-md transition-all duration-500"
                                                 style={{
                                                     height: `${heightPx}px`,
                                                     opacity: 0.6 + (i * 0.08)
                                                 }}
                                             />
-                                            <span className="text-xs text-white/50 font-semibold mt-2">{data.year}Y</span>
+                                            <span className="text-[10px] text-white/50 font-semibold mt-1">{data.year}Y</span>
                                         </div>
                                     )
                                 })}
                             </div>
-                            <div className="mt-5 flex items-center justify-center gap-2 text-xs text-white/40">
+                            <div className="mt-3 flex items-center justify-center gap-2 text-xs text-white/40">
                                 <Shield className="w-3 h-3" />
                                 <span>Yıl 6'da sermaye tamamen geri alınır</span>
                             </div>
