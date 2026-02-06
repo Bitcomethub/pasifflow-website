@@ -24,15 +24,13 @@ export async function POST(req: Request) {
             )
         }
 
-        if (response.ok) {
-            // Send notification to admin
-            await sendLeadNotification({
-                fullName: body.fullName,
-                email: body.email,
-                phone: body.phone,
-                source: "Signup Form"
-            }).catch(err => console.error("Notification error:", err))
-        }
+        // Send notification to admin
+        await sendLeadNotification({
+            fullName: body.fullName,
+            email: body.email,
+            phone: body.phone,
+            source: "Signup Form"
+        }).catch(err => console.error("Notification error:", err))
 
         return NextResponse.json(data, { status: 201 })
     } catch (error) {

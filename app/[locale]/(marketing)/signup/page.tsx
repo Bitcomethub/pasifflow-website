@@ -81,10 +81,48 @@ export default function SignupPage() {
         }
     }
 
-    const handleSubmit = () => {
-        // Handle form submission
-        console.log({ investorType, timeline, budget, ...formData })
-        // Redirect to dashboard or show success
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("")
+
+    const handleSubmit = async () => {
+        setLoading(true)
+        setError("")
+
+        try {
+            const res = await fetch("/api/auth/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    fullName: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    phone: formData.phone,
+                    password: formData.password,
+                    investorType,
+                    timeline,
+                    budget,
+                }),
+            })
+
+            const data = await res.json()
+
+            if (!res.ok) {
+                throw new Error(data.error || "Kayıt başarısız")
+            }
+
+            // Store token and redirect
+            if (data.token) {
+                localStorage.setItem("pasiflow_token", data.token)
+                localStorage.setItem("pasiflow_user", JSON.stringify(data.user))
+            }
+
+            const locale = window.location.pathname.split('/')[1] || 'tr'
+            window.location.href = `/${locale}/dashboard`
+        } catch (err: unknown) {
+            const message = err instanceof Error ? err.message : "Bir hata oluştu"
+            setError(message)
+        } finally {
+            setLoading(false)
+        }
     }
 
     return (
@@ -363,7 +401,7 @@ export default function SignupPage() {
                             {/* Login Link */}
                             <p className="text-center text-sm text-muted-foreground mt-6">
                                 {t("alreadyHaveAccount")}{" "}
-                                <a href="/login" className="text-primary hover:underline font-medium">
+                                <a href="login" className="text-primary hover:underline font-medium">
                                     {t("loginLink")}
                                 </a>
                             </p>

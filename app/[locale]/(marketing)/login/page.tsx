@@ -180,7 +180,7 @@ export default function LoginPage() {
 
                                 <p className="text-center text-sm text-muted-foreground mt-6">
                                     {t("noAccount")}{" "}
-                                    <a href="/signup" className="text-primary hover:underline font-medium">
+                                    <a href="signup" className="text-primary hover:underline font-medium">
                                         {t("signupLink")}
                                     </a>
                                 </p>

@@ -8,6 +8,16 @@ interface LeadData {
   budget?: string;
 }
 
+// Sanitize user input to prevent XSS in HTML emails
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 export async function sendLeadNotification(data: LeadData) {
   const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD } = process.env;
 
@@ -41,19 +51,19 @@ export async function sendLeadNotification(data: LeadData) {
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
           <tr style="background-color: #f9f9f9;">
             <td style="padding: 10px; border: 1px solid #ddd;"><strong>Ad Soyad:</strong></td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${data.fullName || "-"}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${escapeHtml(data.fullName || "-")}</td>
           </tr>
           <tr>
             <td style="padding: 10px; border: 1px solid #ddd;"><strong>E-posta:</strong></td>
-            <td style="padding: 10px; border: 1px solid #ddd;"><a href="mailto:${data.email}">${data.email}</a></td>
+            <td style="padding: 10px; border: 1px solid #ddd;"><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></td>
           </tr>
           <tr style="background-color: #f9f9f9;">
             <td style="padding: 10px; border: 1px solid #ddd;"><strong>Telefon:</strong></td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${data.phone || "-"}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${escapeHtml(data.phone || "-")}</td>
           </tr>
            <tr style="background-color: #fff;">
             <td style="padding: 10px; border: 1px solid #ddd;"><strong>Kaynak:</strong></td>
-            <td style="padding: 10px; border: 1px solid #ddd;">${data.source || "Signup / Lead Gen"}</td>
+            <td style="padding: 10px; border: 1px solid #ddd;">${escapeHtml(data.source || "Signup / Lead Gen")}</td>
           </tr>
         </table>
 

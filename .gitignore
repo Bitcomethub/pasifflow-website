@@ -13,6 +13,9 @@ dist
 .env.development.local
 .env.test.local
 .env.production.local
+.env.railway
+railway-env-additions.txt
+setup-railway-env.sh
 
 # Debug
 npm-debug.log*
@@ -31,3 +34,7 @@ Thumbs.db
 .vercel
 
 /lib/generated/prisma
+
+# Database
+*.db
+*.db-journal
