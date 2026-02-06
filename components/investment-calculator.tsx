@@ -348,28 +348,31 @@ export function InvestmentCalculator({
                             </Card>
                         </div>
 
-                        {/* Visual Progress Chart */}
+                        {/* Visual Progress Chart - FIXED: Using pixel heights */}
                         <Card className="p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl">
                             <div className="flex items-center justify-between mb-6">
                                 <span className="text-white/70 text-sm font-semibold uppercase tracking-wide">6 Yıllık Kazanç Projeksiyonu</span>
                                 <span className="text-[#B8A074] text-sm font-bold">{USD.format(maxCumulative)} toplam</span>
                             </div>
-                            <div className="flex items-end gap-3 h-28">
+                            <div className="flex items-end gap-3" style={{ height: '120px' }}>
                                 {yearData.map((data, i) => {
-                                    const heightPercent = maxCumulative > 0 ? (data.cumulative / maxCumulative) * 100 : 0
+                                    // Calculate pixel height: max 100px, min 15px
+                                    const heightPx = maxCumulative > 0
+                                        ? Math.max(15, Math.round((data.cumulative / maxCumulative) * 100))
+                                        : 15
                                     return (
-                                        <div key={data.year} className="flex-1 flex flex-col items-center gap-2">
-                                            <div className="text-xs text-white/60 font-semibold whitespace-nowrap">
+                                        <div key={data.year} className="flex-1 flex flex-col items-center justify-end h-full">
+                                            <div className="text-xs text-white/60 font-semibold whitespace-nowrap mb-2">
                                                 {USD.format(data.cumulative)}
                                             </div>
                                             <div
                                                 className="w-full bg-gradient-to-t from-[#B8A074] to-[#D4C4A0] rounded-t-lg transition-all duration-500"
                                                 style={{
-                                                    height: `${Math.max(heightPercent, 10)}%`,
-                                                    opacity: 0.6 + (i * 0.07)
+                                                    height: `${heightPx}px`,
+                                                    opacity: 0.6 + (i * 0.08)
                                                 }}
                                             />
-                                            <span className="text-xs text-white/50 font-semibold">{data.year}Y</span>
+                                            <span className="text-xs text-white/50 font-semibold mt-2">{data.year}Y</span>
                                         </div>
                                     )
                                 })}
