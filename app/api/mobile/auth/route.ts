@@ -1,12 +1,22 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/db';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-// Demo users from environment variables
-const getDemoUsers = () => [
+// All users are admin-provided via environment variables
+const getUsers = () => [
+    {
+        email: process.env.DEMO_AGENT_EMAIL || "",
+        passwordHash: process.env.DEMO_AGENT_PASSWORD_HASH || "",
+        userData: { id: 'agent-001', name: 'Pasiflow Agent', role: 'agent' }
+    },
+    {
+        email: process.env.DEMO_INVESTOR_EMAIL || "",
+        passwordHash: process.env.DEMO_INVESTOR_PASSWORD_HASH || "",
+        userData: { id: 'investor-001', name: 'Demo Investor', role: 'client' }
+    },
+    // Legacy demo users
     {
         email: process.env.DEMO_USER_EMAIL || "",
         passwordHash: process.env.DEMO_USER_PASSWORD_HASH || "",
@@ -16,11 +26,6 @@ const getDemoUsers = () => [
         email: process.env.DEMO_CLIENT_EMAIL || "",
         passwordHash: process.env.DEMO_CLIENT_PASSWORD_HASH || "",
         userData: { id: 'demo-client-002', name: 'Demo Client', role: 'client' }
-    },
-    {
-        email: process.env.DEMO_AGENT_EMAIL || "",
-        passwordHash: process.env.DEMO_AGENT_PASSWORD_HASH || "",
-        userData: { id: 'demo-agent-003', name: 'Pasiflow Agent', role: 'agent' }
     }
 ].filter(u => u.email && u.passwordHash);
 
@@ -44,36 +49,16 @@ export async function POST(request: Request) {
             );
         }
 
-        // 1. Check demo users from environment variables
-        const demoUsers = getDemoUsers();
-        const demoMatch = demoUsers.find(u => u.email === email);
+        // Find matching user from env-provided credentials
+        const users = getUsers();
+        const match = users.find(u => u.email.toLowerCase() === email.toLowerCase());
 
-        // 2. Real Database Check (Prisma)
-        let user = await prisma.user.findUnique({
-            where: { email }
-        });
-
-        // 3. Handle demo user authentication
-        if (demoMatch) {
-            const isValidPassword = await bcrypt.compare(password, demoMatch.passwordHash);
+        if (match) {
+            const isValidPassword = await bcrypt.compare(password, match.passwordHash);
 
             if (isValidPassword) {
-                // Auto-create demo user in DB if not exists
-                if (!user) {
-                    user = await prisma.user.create({
-                        data: {
-                            email: demoMatch.email,
-                            passwordHash: demoMatch.passwordHash,
-                            fullName: demoMatch.userData.name,
-                            role: demoMatch.userData.role === 'agent' ? 'AGENT' : 'USER',
-                            isVerified: true
-                        }
-                    });
-                }
-
-                const role = user.role === 'ADMIN' || user.role === 'AGENT' ? 'agent' : 'client';
                 const token = jwt.sign(
-                    { userId: user.id, email: user.email, role },
+                    { userId: match.userData.id, email: match.email, role: match.userData.role },
                     JWT_SECRET,
                     { expiresIn: '7d' }
                 );
@@ -81,35 +66,10 @@ export async function POST(request: Request) {
                 return NextResponse.json({
                     success: true,
                     user: {
-                        id: user.id,
-                        name: user.fullName,
-                        email: user.email,
-                        role: role,
-                        token: token
-                    }
-                });
-            }
-        }
-
-        // 4. Regular User Auth with bcrypt
-        if (user && user.passwordHash) {
-            const isValidPassword = await bcrypt.compare(password, user.passwordHash);
-
-            if (isValidPassword) {
-                const role = user.role === 'ADMIN' || user.role === 'AGENT' ? 'agent' : 'client';
-                const token = jwt.sign(
-                    { userId: user.id, email: user.email, role },
-                    JWT_SECRET,
-                    { expiresIn: '7d' }
-                );
-
-                return NextResponse.json({
-                    success: true,
-                    user: {
-                        id: user.id,
-                        name: user.fullName || email,
-                        email: user.email,
-                        role: role,
+                        id: match.userData.id,
+                        name: match.userData.name,
+                        email: match.email,
+                        role: match.userData.role,
                         token: token
                     }
                 });

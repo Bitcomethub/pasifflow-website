@@ -340,7 +340,7 @@ export function PortfolioSection() {
                             className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
                             asChild
                           >
-                            <Link href={`/${locale}/signup`}>
+                            <Link href={`/${locale}/iletisim`}>
                               {t("gatedButton")}
                             </Link>
                           </Button>
@@ -450,7 +450,7 @@ export function PortfolioSection() {
                           className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all shadow-[0_10px_20px_-5px_rgba(254,126,29,0.2)]"
                           asChild
                         >
-                          <Link href={`/${locale}/signup`}>
+                          <Link href={`/${locale}/iletisim`}>
                             {t("detailsCta")}
                           </Link>
                         </Button>
@@ -574,7 +574,7 @@ export function PortfolioSection() {
                       className="w-full h-14 text-lg font-bold shadow-xl shadow-primary/20 bg-primary text-white hover:bg-primary/90 rounded-2xl transition-all hover:scale-[1.02]"
                       asChild
                     >
-                      <Link href={`/${locale}/signup`}>
+                      <Link href={`/${locale}/iletisim`}>
                         {t("cta")}
                       </Link>
                     </Button>

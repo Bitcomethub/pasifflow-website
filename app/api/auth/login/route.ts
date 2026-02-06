@@ -1,17 +1,31 @@
 import { NextResponse } from "next/server"
-import { prisma } from "@/lib/db"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 
-// Demo users from environment variables (for client presentations)
-const getDemoUsers = () => [
+// All users are admin-provided via environment variables
+// No self-registration — site owner creates credentials and provides them
+const getUsers = () => [
+    {
+        id: "agent-001",
+        email: process.env.DEMO_AGENT_EMAIL || "",
+        passwordHash: process.env.DEMO_AGENT_PASSWORD_HASH || "",
+        fullName: "Pasiflow Agent",
+        role: "AGENT",
+    },
+    {
+        id: "investor-001",
+        email: process.env.DEMO_INVESTOR_EMAIL || "",
+        passwordHash: process.env.DEMO_INVESTOR_PASSWORD_HASH || "",
+        fullName: "Demo Investor",
+        role: "USER",
+    },
+    // Legacy demo users (keep for backward compatibility)
     {
         id: "erman-adanir-001",
         email: process.env.DEMO_USER_EMAIL || "",
         passwordHash: process.env.DEMO_USER_PASSWORD_HASH || "",
         fullName: "Erman Adanır",
         role: "USER",
-        isVerified: true
     },
     {
         id: "demo-client-002",
@@ -19,16 +33,7 @@ const getDemoUsers = () => [
         passwordHash: process.env.DEMO_CLIENT_PASSWORD_HASH || "",
         fullName: "Demo Client",
         role: "USER",
-        isVerified: true
     },
-    {
-        id: "demo-agent-003",
-        email: process.env.DEMO_AGENT_EMAIL || "",
-        passwordHash: process.env.DEMO_AGENT_PASSWORD_HASH || "",
-        fullName: "Pasiflow Agent",
-        role: "AGENT",
-        isVerified: true
-    }
 ].filter(u => u.email && u.passwordHash)
 
 const JWT_SECRET = process.env.JWT_SECRET
@@ -53,62 +58,29 @@ export async function POST(req: Request) {
             )
         }
 
-        // Check demo users first (from env variables)
-        const demoUsers = getDemoUsers()
-        const demoUser = demoUsers.find(u => u.email === email)
+        // Find matching user from env-provided credentials
+        const users = getUsers()
+        const user = users.find(u => u.email.toLowerCase() === email.toLowerCase())
 
-        if (demoUser) {
-            const isValidPassword = await bcrypt.compare(password, demoUser.passwordHash)
+        if (user) {
+            const isValidPassword = await bcrypt.compare(password, user.passwordHash)
             if (isValidPassword) {
                 const token = jwt.sign(
-                    { userId: demoUser.id, email: demoUser.email, role: demoUser.role },
+                    { userId: user.id, email: user.email, role: user.role },
                     JWT_SECRET,
                     { expiresIn: "7d" }
                 )
 
                 return NextResponse.json({
                     user: {
-                        id: demoUser.id,
-                        email: demoUser.email,
-                        fullName: demoUser.fullName,
-                        role: demoUser.role,
-                        isVerified: demoUser.isVerified
+                        id: user.id,
+                        email: user.email,
+                        fullName: user.fullName,
+                        role: user.role,
                     },
                     token
                 })
             }
-        }
-
-        // For non-demo users, check database
-        try {
-            const user = await prisma.user.findUnique({
-                where: { email }
-            })
-
-            if (user && user.passwordHash) {
-                const isValidPassword = await bcrypt.compare(password, user.passwordHash)
-
-                if (isValidPassword) {
-                    const token = jwt.sign(
-                        { userId: user.id, email: user.email, role: user.role },
-                        JWT_SECRET,
-                        { expiresIn: "7d" }
-                    )
-
-                    return NextResponse.json({
-                        user: {
-                            id: user.id,
-                            email: user.email,
-                            fullName: user.fullName,
-                            role: user.role,
-                            isVerified: user.isVerified
-                        },
-                        token
-                    })
-                }
-            }
-        } catch (dbError) {
-            console.error("Database error:", dbError)
         }
 
         return NextResponse.json(
