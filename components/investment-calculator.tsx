@@ -1,444 +1,270 @@
 "use client"
 
-import { useState, useMemo } from "react"
-import { Slider } from "@/components/ui/slider"
+import * as React from "react"
 import { Card } from "@/components/ui/card"
-import { TrendingUp, DollarSign, Calendar, Percent, Home, PiggyBank, Calculator, Info } from "lucide-react"
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar, Legend } from 'recharts'
-import { useTranslations } from "next-intl"
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
+import { TrendingUp, Calendar, DollarSign, CheckCircle, Info, Wallet, ArrowRight } from "lucide-react"
 
-interface PropertyConfig {
-    purchasePrice: number
-    initialMonthlyRent: number
-    monthlyTaxes: number
-    monthlyInsurance: number
+// Helper functions
+function clamp(n: number, min: number, max: number) {
+    return Math.min(max, Math.max(min, n))
 }
 
-interface Assumptions {
-    downPaymentPct: number
-    closingCostPct: number
-    pasiflowFee: number
-    pmPct: number
-    rentIncreaseAnnualFlat: number
-    appreciationAnnualPct: number
-    sellCostPct: number
-    loan: {
-        enabled: boolean
-        interestAnnualPct: number
-        termYears: number
+function roundToStep(value: number, step: number) {
+    return Math.round(value / step) * step
+}
+
+// Currency formatter
+const USD = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    maximumFractionDigits: 0,
+})
+
+// Calculator texts config
+type CalculatorTexts = {
+    badge: string
+    title: string
+    descriptionLines: string[]
+    year6Title: string
+    year6Bullets: string[]
+    growthTitle: string
+    returnLine: string
+    disclaimer: string
+    labels: {
+        investment: string
+        monthlyIncome: string
+        investmentRangeHint: string
+        monthlyExampleHint: string
+        annualReturnLabel: string
+        formulaLabel: string
     }
 }
 
-interface InvestmentCalculatorProps {
-    property?: PropertyConfig
-    assumptions?: Assumptions
-    holdYearsMin?: number
-    holdYearsMax?: number
-    holdYearsDefault?: number
+const TR_TEXTS: CalculatorTexts = {
+    badge: "Yatırım Hesaplayıcı",
+    title: "$30.000 başlangıç sermayesi",
+    descriptionLines: [
+        "Öngörülebilir gelir modeli.",
+        "Ortalama 6 yılda sermaye geri dönüşü hedefi."
+    ],
+    year6Title: "6. yılın sonunda:",
+    year6Bullets: [
+        "Başlangıç sermayesi geri alınır",
+        "Pozitif kazanç başlar",
+        "Kira ve değer artışı ek kazanç sağlar",
+    ],
+    growthTitle: "Yatırım büyüdükçe aylık gelir de büyür",
+    returnLine: "Ortalama %15 getiri | Hedef aralık: %12 – %20",
+    disclaimer: "Bu değerler hedef ve projeksiyondur. Piyasa koşullarına göre değişiklik gösterebilir.",
+    labels: {
+        investment: "Toplam Yatırım",
+        monthlyIncome: "Aylık Gelir",
+        investmentRangeHint: "$30,000 → $5,000,000",
+        monthlyExampleHint: "$30,000 → $375/ay",
+        annualReturnLabel: "Yıllık getiri (varsayım)",
+        formulaLabel: "Formül",
+    },
 }
 
-// Default property: 10468 Nottingham St
-const defaultProperty: PropertyConfig = {
-    purchasePrice: 130000,
-    initialMonthlyRent: 1500,
-    monthlyTaxes: 127.15,
-    monthlyInsurance: 108.33
+const EN_TEXTS: CalculatorTexts = {
+    badge: "Investment Calculator",
+    title: "$30,000 starting capital",
+    descriptionLines: [
+        "Predictable income model.",
+        "Target capital recovery in approximately 6 years."
+    ],
+    year6Title: "At the end of year 6:",
+    year6Bullets: [
+        "Initial capital is recovered",
+        "Positive earnings begin",
+        "Rent and appreciation provide additional income",
+    ],
+    growthTitle: "As investment grows, monthly income grows too",
+    returnLine: "Average 15% return | Target range: 12% – 20%",
+    disclaimer: "These values are targets and projections. They may vary based on market conditions.",
+    labels: {
+        investment: "Total Investment",
+        monthlyIncome: "Monthly Income",
+        investmentRangeHint: "$30,000 → $5,000,000",
+        monthlyExampleHint: "$30,000 → $375/mo",
+        annualReturnLabel: "Annual return (assumption)",
+        formulaLabel: "Formula",
+    },
 }
 
-const defaultAssumptions: Assumptions = {
-    downPaymentPct: 0.20,
-    closingCostPct: 0.07,
-    pasiflowFee: 5000,
-    pmPct: 0.10,
-    rentIncreaseAnnualFlat: 50,
-    appreciationAnnualPct: 0.035,
-    sellCostPct: 0.06,
-    loan: {
-        enabled: true,
-        interestAnnualPct: 0.07,
-        termYears: 30
-    }
-}
-
-// PMT formula for mortgage calculation
-function calculateMortgagePayment(principal: number, annualRate: number, years: number): number {
-    const monthlyRate = annualRate / 12
-    const numPayments = years * 12
-    if (monthlyRate === 0) return principal / numPayments
-    return principal * (monthlyRate * Math.pow(1 + monthlyRate, numPayments)) / (Math.pow(1 + monthlyRate, numPayments) - 1)
+type Props = {
+    texts?: CalculatorTexts
+    minInvestment?: number
+    maxInvestment?: number
+    step?: number
+    annualReturn?: number
+    defaultInvestment?: number
+    locale?: string
 }
 
 export function InvestmentCalculator({
-    property = defaultProperty,
-    assumptions = defaultAssumptions,
-    holdYearsMin = 1,
-    holdYearsMax = 30,
-    holdYearsDefault = 5
-}: InvestmentCalculatorProps) {
-    const [holdYears, setHoldYears] = useState(holdYearsDefault)
-    const t = useTranslations("roiCalculator")
-    const tFee = useTranslations("pasiflowFeeModal")
+    texts,
+    minInvestment = 30_000,
+    maxInvestment = 5_000_000,
+    step = 5_000,
+    annualReturn = 0.15,
+    defaultInvestment = 30_000,
+    locale = "tr",
+}: Props) {
+    // Use locale-appropriate texts
+    const t = texts || (locale === "en" ? EN_TEXTS : TR_TEXTS)
 
-    const results = useMemo(() => {
-        const P = property.purchasePrice
-        const R0 = property.initialMonthlyRent
+    const [investment, setInvestment] = React.useState<number>(() =>
+        clamp(roundToStep(defaultInvestment, step), minInvestment, maxInvestment)
+    )
 
-        // Upfront Cash
-        const downPayment = assumptions.downPaymentPct * P
-        const closingCosts = assumptions.closingCostPct * P
-        const totalCash = downPayment + closingCosts + assumptions.pasiflowFee
+    const monthlyIncome = React.useMemo(() => {
+        return Math.round((investment * annualReturn) / 12)
+    }, [investment, annualReturn])
 
-        // Loan
-        const loanAmount = (1 - assumptions.downPaymentPct) * P
-        const monthlyMortgage = assumptions.loan.enabled
-            ? calculateMortgagePayment(loanAmount, assumptions.loan.interestAnnualPct, assumptions.loan.termYears)
-            : 0
-
-        // Fixed monthly expenses
-        const fixedMonthly = property.monthlyTaxes + property.monthlyInsurance
-
-        // Calculate yearly cash flows and build amortization
-        let loanBalance = loanAmount
-        const monthlyRate = assumptions.loan.interestAnnualPct / 12
-        let cumulativeCashFlow = 0
-        const yearlyData: { year: number; rent: number; cashFlow: number; propertyValue: number; equity: number; cumulative: number }[] = []
-
-        for (let t = 1; t <= 30; t++) {
-            const monthlyRent = R0 + assumptions.rentIncreaseAnnualFlat * (t - 1)
-            const grossRent = 12 * monthlyRent
-            const pmFee = assumptions.pmPct * grossRent
-            const opEx = 12 * fixedMonthly + pmFee
-            const debtService = assumptions.loan.enabled ? 12 * monthlyMortgage : 0
-            const netCF = grossRent - opEx - debtService
-
-            cumulativeCashFlow += netCF
-            const propertyValue = P * Math.pow(1 + assumptions.appreciationAnnualPct, t)
-
-            if (assumptions.loan.enabled) {
-                for (let m = 0; m < 12; m++) {
-                    const interest = loanBalance * monthlyRate
-                    const principal = monthlyMortgage - interest
-                    loanBalance = Math.max(0, loanBalance - principal)
-                }
-            }
-
-            const equity = propertyValue - loanBalance
-
-            yearlyData.push({
-                year: t,
-                rent: monthlyRent,
-                cashFlow: netCF,
-                propertyValue,
-                equity,
-                cumulative: cumulativeCashFlow
-            })
-        }
-
-        const chartData = yearlyData.slice(0, holdYears);
-        const finalYear = chartData[chartData.length - 1]
-        const cumulativeCF_at_Hold = finalYear.cumulative;
-        const salePrice = finalYear.propertyValue
-        const sellingCosts = assumptions.sellCostPct * salePrice
-        const loanBalanceAtExit = finalYear.propertyValue - finalYear.equity
-        const netProceeds = salePrice - sellingCosts - loanBalanceAtExit
-        const totalProfit = cumulativeCF_at_Hold + netProceeds - totalCash
-        const totalReturnPct = (totalProfit / totalCash) * 100
-        const cagr = (Math.pow((totalCash + totalProfit) / totalCash, 1 / holdYears) - 1) * 100
-        const avgMonthlyCashFlow = cumulativeCF_at_Hold / holdYears / 12
-
-        // Cash on Cash Calculation
-        // Yearly Net Cash Flow / Total Cash Invested
-        // Using Year 1 cash flow for standard Coc, or average? User said "above like" which meant Nottingham card.
-        // Nottingham card usually shows current Coc.
-        const year1CashFlow = yearlyData[0].cashFlow;
-        const cashOnCash = (year1CashFlow / totalCash) * 100;
-
-        return {
-            totalCash,
-            downPayment,
-            closingCosts,
-            monthlyMortgage,
-            avgMonthlyCashFlow,
-            totalProfit,
-            totalReturnPct,
-            cagr,
-            chartData,
-            finalEquity: finalYear.equity,
-            finalPropertyValue: finalYear.propertyValue,
-            cashOnCash
-        }
-    }, [holdYears, property, assumptions])
-
-    const formatCurrency = (value: number) => {
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-            minimumFractionDigits: 0,
-            maximumFractionDigits: 0
-        }).format(value)
+    const onSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const raw = Number(e.target.value)
+        const next = clamp(roundToStep(raw, step), minInvestment, maxInvestment)
+        setInvestment(next)
     }
 
-    const formatK = (value: number) => {
-        if (value >= 1000) return `$${(value / 1000).toFixed(0)}k`
-        return `$${value}`
-    }
+    // Calculate percentage for slider track fill
+    const sliderPercentage = ((investment - minInvestment) / (maxInvestment - minInvestment)) * 100
 
     return (
-        <section className="py-16 bg-gradient-to-b from-slate-50 to-white">
-            <div className="container mx-auto px-4 md:px-6">
-                {/* Header */}
-                <div className="text-center mb-12">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C1A05E]/10 text-[#C1A05E] font-bold text-sm mb-4">
-                        <Calculator className="w-4 h-4" />
-                        {t("title")}
+        <section id="calculator" className="py-16 md:py-24 bg-gradient-to-b from-slate-50 via-white to-slate-50 relative overflow-hidden">
+            {/* Decorative background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#B8A074]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+                <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#1F2328]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
+            </div>
+
+            <div className="container mx-auto px-4 md:px-6 relative z-10">
+                <Card className="max-w-3xl mx-auto p-6 md:p-10 bg-white border border-slate-200/80 shadow-2xl shadow-slate-200/50 rounded-3xl">
+
+                    {/* Badge */}
+                    <div className="flex justify-center mb-6">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#B8A074]/10 rounded-full text-[#B8A074] text-xs font-bold uppercase tracking-wider border border-[#B8A074]/20">
+                            <TrendingUp className="w-4 h-4" />
+                            {t.badge}
+                        </div>
                     </div>
-                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                        {t("subtitle")}
-                    </h2>
-                </div>
 
-                {/* Hold Time Slider */}
-                <div className="max-w-3xl mx-auto mb-12">
-                    <Card className="p-8 bg-white border-slate-200 shadow-lg">
-                        <div className="flex items-center justify-between mb-6">
-                            <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 rounded-xl bg-[#C1A05E]/10 flex items-center justify-center">
-                                    <Calendar className="w-6 h-6 text-[#C1A05E]" />
-                                </div>
-                                <div>
-                                    <p className="text-sm text-slate-500 font-medium">{t("duration")}</p>
-                                    <p className="text-2xl font-bold text-slate-900">{holdYears} {t("years")}</p>
-                                </div>
-                            </div>
-                            <div className="text-right">
-                                <p className="text-sm text-slate-500">{t("annualizedRoi")}</p>
-                                <p className="text-3xl font-bold text-[#C1A05E]">%{results.cagr.toFixed(1)}</p>
-                            </div>
+                    {/* Header */}
+                    <div className="text-center mb-8">
+                        <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1F2328] mb-3">
+                            {t.title}
+                        </h1>
+                        <div className="space-y-1 text-base md:text-lg text-[#535454]">
+                            {t.descriptionLines.map((line, i) => (
+                                <p key={i}>{line}</p>
+                            ))}
                         </div>
-                        <Slider
-                            value={[holdYears]}
-                            onValueChange={(value) => setHoldYears(value[0])}
-                            min={holdYearsMin}
-                            max={holdYearsMax}
-                            step={1}
-                            className="w-full"
-                        />
-                        <div className="flex justify-between mt-2 text-xs text-slate-400">
-                            <span>{holdYearsMin} {t("years")}</span>
-                            <span>{holdYearsMax} {t("years")}</span>
-                        </div>
-                    </Card>
-                </div>
+                    </div>
 
-                {/* KPI Cards */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-                    <Card className="p-6 bg-white border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
-                                <PiggyBank className="w-5 h-5 text-slate-600" />
-                            </div>
-                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("upfrontCash")}</p>
+                    {/* 6th Year Callout */}
+                    <div className="bg-gradient-to-r from-[#B8A074]/10 to-[#B8A074]/5 border border-[#B8A074]/20 rounded-2xl p-5 mb-8">
+                        <div className="flex items-center gap-2 mb-3">
+                            <Calendar className="w-5 h-5 text-[#B8A074]" />
+                            <span className="font-bold text-[#1F2328]">{t.year6Title}</span>
                         </div>
-                        <p className="text-2xl font-bold text-slate-900">{formatCurrency(results.totalCash)}</p>
-                    </Card>
+                        <ul className="space-y-2">
+                            {t.year6Bullets.map((bullet, i) => (
+                                <li key={i} className="flex items-center gap-2">
+                                    <CheckCircle className="w-4 h-4 text-green-600 flex-shrink-0" />
+                                    <span className="text-sm text-[#535454]">{bullet}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
 
-                    <Card className="p-6 bg-white border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 rounded-lg bg-green-100 flex items-center justify-center">
-                                <DollarSign className="w-5 h-5 text-green-600" />
-                            </div>
-                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("cashFlowMonth")}</p>
-                        </div>
-                        <p className="text-2xl font-bold text-green-600">{formatCurrency(results.avgMonthlyCashFlow)}</p>
-                    </Card>
+                    {/* Growth Title */}
+                    <div className="text-center mb-6">
+                        <h2 className="text-lg md:text-xl font-bold text-[#1F2328] mb-1">
+                            {t.growthTitle}
+                        </h2>
+                        <p className="text-sm text-[#B8A074] font-semibold">
+                            {t.returnLine}
+                        </p>
+                    </div>
 
-                    <Card className="p-6 bg-white border-slate-200 shadow-sm hover:shadow-md transition-shadow">
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 rounded-lg bg-[#C1A05E]/10 flex items-center justify-center">
-                                <TrendingUp className="w-5 h-5 text-[#C1A05E]" />
-                            </div>
-                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("totalReturn")} ({holdYears} {t("years")})</p>
-                        </div>
-                        <p className="text-2xl font-bold text-[#C1A05E]">{formatCurrency(results.totalProfit)}</p>
-                    </Card>
+                    {/* Calculator Controls */}
+                    <div className="grid md:grid-cols-2 gap-6">
 
-                    <Card className="p-6 bg-white border-slate-200 shadow-sm hover:shadow-md transition-shadow border-primary/20">
-                        <div className="flex items-center gap-3 mb-3">
-                            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                                <Percent className="w-5 h-5 text-primary" />
-                            </div>
-                            <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("cashOnCash")}</p>
-                        </div>
-                        <p className="text-2xl font-bold text-primary">%{results.cashOnCash.toFixed(1)}</p>
-                    </Card>
-                </div>
-
-                {/* Charts Section */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-                    {/* Chart 1: Property Value vs Equity */}
-                    <Card className="p-6 border-slate-200 shadow-sm">
-                        <h3 className="text-lg font-bold text-slate-900 mb-6">{t("propertyValue")} & {t("equity")}</h3>
-                        <div className="h-[300px] w-full">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <AreaChart data={results.chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                                    <defs>
-                                        <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#1F2328" stopOpacity={0.8} />
-                                            <stop offset="95%" stopColor="#1F2328" stopOpacity={0} />
-                                        </linearGradient>
-                                        <linearGradient id="colorEquity" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="5%" stopColor="#C1A05E" stopOpacity={0.8} />
-                                            <stop offset="95%" stopColor="#C1A05E" stopOpacity={0} />
-                                        </linearGradient>
-                                    </defs>
-                                    <XAxis dataKey="year" />
-                                    <YAxis tickFormatter={formatK} />
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                                    <Tooltip formatter={(value: number) => formatCurrency(value)} />
-                                    <Legend />
-                                    <Area type="monotone" dataKey="propertyValue" name={t("propertyValue")} stroke="#1F2328" fillOpacity={1} fill="url(#colorValue)" />
-                                    <Area type="monotone" dataKey="equity" name={t("equity")} stroke="#C1A05E" fillOpacity={1} fill="url(#colorEquity)" />
-                                </AreaChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </Card>
-
-                    {/* Chart 2: Net Cash Flow */}
-                    <Card className="p-6 border-slate-200 shadow-sm">
-                        <h3 className="text-lg font-bold text-slate-900 mb-6">{t("monthlyCashFlow")}</h3>
-                        <div className="h-[300px] w-full">
-                            <ResponsiveContainer width="100%" height="100%">
-                                <BarChart data={results.chartData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-                                    <XAxis dataKey="year" />
-                                    <YAxis tickFormatter={formatK} />
-                                    <CartesianGrid strokeDasharray="3 3" vertical={false} />
-                                    <Tooltip formatter={(value: number) => formatCurrency(value)} cursor={{ fill: '#f1f5f9' }} />
-                                    <Bar dataKey="cashFlow" name={t("cashFlowMonth")} fill="#22c55e" radius={[4, 4, 0, 0]} />
-                                </BarChart>
-                            </ResponsiveContainer>
-                        </div>
-                    </Card>
-                </div>
-
-                {/* Property Summary Card */}
-                <div className="max-w-4xl mx-auto">
-                    <Card className="p-8 bg-gradient-to-br from-[#1F2328] to-[#2a3038] text-white border-0 shadow-xl">
-                        <div className="flex items-center justify-between mb-8">
-                            <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center">
-                                    <Home className="w-6 h-6 text-[#C1A05E]" />
-                                </div>
-                                <div>
-                                    <h3 className="text-xl font-bold">10468 Nottingham St</h3>
-                                    <p className="text-white/60">Detroit, MI 48224 • Section 8</p>
-                                </div>
-                            </div>
-                            <div className="hidden md:block text-right">
-                                <p className="text-white/40 text-xs uppercase tracking-wider mb-1">{t("cashOnCash")}</p>
-                                <p className="text-3xl font-bold text-[#C1A05E]">%{results.cashOnCash.toFixed(1)}</p>
-                            </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
-                            <div>
-                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">{t("purchasePrice")}</p>
-                                <p className="text-xl font-bold">{formatCurrency(property.purchasePrice)}</p>
-                            </div>
-                            <div>
-                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">{t("downPaymentAmount")}</p>
-                                <p className="text-xl font-bold">{formatCurrency(results.downPayment)}</p>
-                            </div>
-                            <div>
-                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">{t("monthlyRentLabel")}</p>
-                                <p className="text-xl font-bold text-[#C1A05E]">{formatCurrency(property.initialMonthlyRent)}</p>
-                            </div>
-                            <div>
-                                <p className="text-white/50 text-xs uppercase tracking-wider mb-1">{t("monthlyMortgage")}</p>
-                                <p className="text-xl font-bold">{formatCurrency(results.monthlyMortgage)}</p>
-                            </div>
-                        </div>
-
-                        {/* Detailed Assumptions & Pasiflow Fee Modal */}
-                        <div className="border-t border-white/10 pt-6">
+                        {/* Investment Slider */}
+                        <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200">
                             <div className="flex items-center justify-between mb-4">
-                                <p className="text-white/40 text-xs uppercase tracking-wider">{t("costBreakdown")}</p>
-
-                                <Dialog>
-                                    <DialogTrigger asChild>
-                                        <button className="flex items-center gap-2 text-xs font-semibold text-[#C1A05E] hover:text-[#d4b97a] transition-colors bg-white/5 px-3 py-1.5 rounded-full">
-                                            <Info className="w-3.5 h-3.5" />
-                                            {t("pasiflowFee")}: {formatCurrency(assumptions.pasiflowFee)}
-                                        </button>
-                                    </DialogTrigger>
-                                    <DialogContent className="max-w-2xl bg-white text-slate-900 border-none shadow-2xl">
-                                        <DialogHeader>
-                                            <DialogTitle className="text-2xl font-bold flex items-center gap-3">
-                                                <div className="w-10 h-10 rounded-lg bg-[#C1A05E]/10 flex items-center justify-center">
-                                                    <Calculator className="w-6 h-6 text-[#C1A05E]" />
-                                                </div>
-                                                {tFee("title")}
-                                            </DialogTitle>
-                                            <DialogDescription className="text-base text-slate-600 pt-4 leading-relaxed">
-                                                {tFee("description")}
-                                            </DialogDescription>
-                                        </DialogHeader>
-
-                                        <div className="py-6 border-y border-slate-100">
-                                            <h4 className="font-bold text-slate-900 mb-4">{tFee("scopeTitle")}</h4>
-                                            <ul className="space-y-3">
-                                                {/* Manual mapping for items array */}
-                                                {[0, 1, 2, 3, 4, 5, 6].map(i => (
-                                                    <li key={i} className="flex gap-3 text-sm text-slate-700 hover:text-slate-900 transition-colors">
-                                                        <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#C1A05E] shrink-0" />
-                                                        {tFee(`items.${i}`)}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-
-                                        <div className="pt-4 text-xs text-slate-400 italic">
-                                            {tFee("footer")}
-                                        </div>
-                                    </DialogContent>
-                                </Dialog>
+                                <div className="flex items-center gap-2">
+                                    <Wallet className="w-5 h-5 text-[#B8A074]" />
+                                    <span className="text-sm font-bold text-[#1F2328]">{t.labels.investment}</span>
+                                </div>
+                                <span className="text-2xl md:text-3xl font-bold text-[#1F2328]">
+                                    {USD.format(investment)}
+                                </span>
                             </div>
 
-                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                                <div className="flex justify-between md:block border-b border-white/5 pb-2 md:border-0 md:pb-0">
-                                    <span className="text-white/50 block mb-1">{t("closingCosts")}</span>
-                                    <span className="font-medium">{formatCurrency(results.closingCosts)}</span>
+                            {/* Custom Styled Slider */}
+                            <div className="relative mt-4 mb-2">
+                                <input
+                                    type="range"
+                                    min={minInvestment}
+                                    max={maxInvestment}
+                                    step={step}
+                                    value={investment}
+                                    onChange={onSliderChange}
+                                    aria-label={t.labels.investment}
+                                    className="w-full h-3 rounded-full appearance-none cursor-pointer bg-slate-200"
+                                    style={{
+                                        background: `linear-gradient(to right, #B8A074 0%, #B8A074 ${sliderPercentage}%, #e2e8f0 ${sliderPercentage}%, #e2e8f0 100%)`
+                                    }}
+                                />
+                            </div>
+
+                            <div className="flex justify-between text-xs text-[#6B7280] mt-2">
+                                <span>{USD.format(minInvestment)}</span>
+                                <span className="hidden sm:inline">{t.labels.investmentRangeHint}</span>
+                                <span>{USD.format(maxInvestment)}</span>
+                            </div>
+                        </div>
+
+                        {/* Monthly Income Display */}
+                        <div className="bg-gradient-to-br from-[#1F2328] to-[#2D353F] rounded-2xl p-5 text-white">
+                            <div className="flex items-center gap-2 mb-3">
+                                <DollarSign className="w-5 h-5 text-[#B8A074]" />
+                                <span className="text-sm font-bold text-white/80">{t.labels.monthlyIncome}</span>
+                            </div>
+
+                            <div className="text-3xl md:text-4xl font-bold text-[#B8A074] mb-2">
+                                {USD.format(monthlyIncome)}
+                                <span className="text-base font-normal text-white/50 ml-1">/ay</span>
+                            </div>
+
+                            <div className="text-xs text-white/50 mb-4">
+                                {t.labels.monthlyExampleHint}
+                            </div>
+
+                            {/* Formula Info Box */}
+                            <div className="bg-white/10 rounded-xl p-3 text-xs">
+                                <div className="flex items-center justify-between text-white/70">
+                                    <span>{t.labels.annualReturnLabel}</span>
+                                    <span className="font-semibold text-[#B8A074]">%{Math.round(annualReturn * 100)}</span>
                                 </div>
-                                <div className="flex justify-between md:block border-b border-white/5 pb-2 md:border-0 md:pb-0">
-                                    <span className="text-white/50 block mb-1">{t("yoyAppreciation")}</span>
-                                    <span className="font-medium">%3.5</span>
-                                </div>
-                                <div className="flex justify-between md:block border-b border-white/5 pb-2 md:border-0 md:pb-0">
-                                    <span className="text-white/50 block mb-1">{t("payback")}</span>
-                                    <span className="font-medium">6-8 {t("years")}</span>
-                                </div>
-                                <div className="flex justify-between md:block border-b border-white/5 pb-2 md:border-0 md:pb-0">
-                                    <span className="text-white/50 block mb-1">{t("saleCost")}</span>
-                                    <span className="font-medium">%6</span>
+                                <div className="flex items-center justify-between text-white/70 mt-1">
+                                    <span>{t.labels.formulaLabel}</span>
+                                    <span className="font-mono text-white/50">Yatırım × {annualReturn} / 12</span>
                                 </div>
                             </div>
                         </div>
-                    </Card>
-                </div>
+                    </div>
 
-                {/* Investor Message */}
-                <div className="text-center mt-12 max-w-2xl mx-auto">
-                    <blockquote className="text-lg text-slate-600 italic">
-                        "{t("quote")}"
-                    </blockquote>
-                </div>
+                    {/* Disclaimer */}
+                    <div className="mt-8 pt-5 border-t border-slate-200">
+                        <div className="flex items-start gap-2 text-xs text-[#6B7280]">
+                            <Info className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                            <p>{t.disclaimer}</p>
+                        </div>
+                    </div>
+                </Card>
             </div>
         </section>
     )
