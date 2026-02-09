@@ -657,7 +657,12 @@
         "documents": "Documents",
         "support": "Support",
         "settings": "Settings",
-        "account": "Account"
+        "account": "Account",
+        "agentDashboard": "Dashboard",
+        "agentReferrals": "My Referrals",
+        "agentEarnings": "My Earnings",
+        "agentMarketing": "Marketing Tools",
+        "agentAcademy": "Academy"
     },
     "logo": {
         "motto": "Transparent process, solid investment."
@@ -952,7 +957,8 @@
         "or": "or",
         "googleLogin": "Sign in with Google",
         "noAccount": "Don't have an account?",
-        "signupLink": "Sign Up"
+        "signupLink": "Sign Up",
+        "securityNotice": "Access is provided by Pasiflow. If you need credentials, please contact us."
     },
     "trustBadges": {
         "yearsExperience": "Years Experience",

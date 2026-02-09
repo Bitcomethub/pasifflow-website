@@ -40,7 +40,12 @@
         "documents": "Dokümanlar",
         "support": "Destek",
         "settings": "Ayarlar",
-        "account": "Hesap"
+        "account": "Hesap",
+        "agentDashboard": "Dashboard",
+        "agentReferrals": "Referanslarım",
+        "agentEarnings": "Kazançlarım",
+        "agentMarketing": "Pazarlama Araçları",
+        "agentAcademy": "Eğitimler"
     },
     "footer": {
         "description": "Amerika'da devlet destekli (Section 8) kira gelirli gayrimenkul yatırımı ile dolar bazında pasif gelir elde etmenin en güvenli yolu.",
@@ -946,7 +951,8 @@
         "or": "veya",
         "googleLogin": "Google ile Giriş Yap",
         "noAccount": "Hesabınız yok mu?",
-        "signupLink": "Kayıt Olun"
+        "signupLink": "Kayıt Olun",
+        "securityNotice": "Giriş bilgileri Pasiflow tarafından sağlanmaktadır. Bilgi almak için bizimle iletişime geçin."
     },
     "trustBadges": {
         "yearsExperience": "Yıllık Deneyim",

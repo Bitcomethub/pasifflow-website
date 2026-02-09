@@ -668,7 +668,7 @@ export async function POST(req: Request) {
         const { messages } = await req.json();
 
         if (!process.env.OPENAI_API_KEY) {
-            console.log("OPENAI_API_KEY missing in environment");
+            console.warn("OPENAI_API_KEY missing in environment");
             return NextResponse.json({
                 role: "assistant",
                 content: "Sistem bağlantısı kontrol ediliyor... (API Anahtarı yapılandırması bekleniyor. Eğer yeni eklendiyse, uygulamanın 'Redeploy' edilmesi gerekebilir.)",
@@ -689,18 +689,18 @@ export async function POST(req: Request) {
             role: "assistant",
             content: response.choices[0].message.content,
         });
-    } catch (error: any) {
-        console.error("Chat API Error:", error?.message || error);
+    } catch (error: unknown) {
+        const err = error as { message?: string; status?: number };
+        console.error("Chat API Error:", err?.message || error);
 
-        // Check for specific OpenAI errors
-        if (error?.status === 401) {
+        if (err?.status === 401) {
             return NextResponse.json(
                 { error: "API anahtarı geçersiz. Lütfen daha sonra tekrar deneyin.", debug: "invalid_api_key" },
                 { status: 500 }
             );
         }
 
-        if (error?.status === 429) {
+        if (err?.status === 429) {
             return NextResponse.json(
                 { error: "Çok fazla istek. Lütfen birkaç saniye bekleyip tekrar deneyin.", debug: "rate_limit" },
                 { status: 429 }
@@ -708,7 +708,7 @@ export async function POST(req: Request) {
         }
 
         return NextResponse.json(
-            { error: "Mesaj iletilemedi. Lütfen tekrar deneyin.", debug: error?.message || "unknown_error" },
+            { error: "Mesaj iletilemedi. Lütfen tekrar deneyin.", debug: err?.message || "unknown_error" },
             { status: 500 }
         );
     }

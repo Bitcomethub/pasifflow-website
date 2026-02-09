@@ -1,40 +1,7 @@
 import { NextResponse } from "next/server"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-
-// All users are admin-provided via environment variables
-// No self-registration — site owner creates credentials and provides them
-const getUsers = () => [
-    {
-        id: "agent-001",
-        email: process.env.DEMO_AGENT_EMAIL || "",
-        passwordHash: process.env.DEMO_AGENT_PASSWORD_HASH || "",
-        fullName: "Pasiflow Agent",
-        role: "AGENT",
-    },
-    {
-        id: "investor-001",
-        email: process.env.DEMO_INVESTOR_EMAIL || "",
-        passwordHash: process.env.DEMO_INVESTOR_PASSWORD_HASH || "",
-        fullName: "Demo Investor",
-        role: "USER",
-    },
-    // Legacy demo users (keep for backward compatibility)
-    {
-        id: "erman-adanir-001",
-        email: process.env.DEMO_USER_EMAIL || "",
-        passwordHash: process.env.DEMO_USER_PASSWORD_HASH || "",
-        fullName: "Erman Adanır",
-        role: "USER",
-    },
-    {
-        id: "demo-client-002",
-        email: process.env.DEMO_CLIENT_EMAIL || "",
-        passwordHash: process.env.DEMO_CLIENT_PASSWORD_HASH || "",
-        fullName: "Demo Client",
-        role: "USER",
-    },
-].filter(u => u.email && u.passwordHash)
+import { getUsers } from "@/lib/users"
 
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -58,7 +25,6 @@ export async function POST(req: Request) {
             )
         }
 
-        // Find matching user from env-provided credentials
         const users = getUsers()
         const user = users.find(u => u.email.toLowerCase() === email.toLowerCase())
 

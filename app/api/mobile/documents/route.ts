@@ -1,10 +1,21 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { verifyToken, extractBearerToken } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(request: Request) {
     try {
+        // JWT Authentication
+        const token = extractBearerToken(request);
+        if (!token) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const payload = verifyToken(token);
+        if (!payload) {
+            return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+        }
+
         const user = await prisma.user.findUnique({
-            where: { email: 'erman@pasiflow.com' },
+            where: { email: payload.email },
         });
 
         if (!user) {
@@ -30,7 +41,7 @@ export async function GET() {
         });
 
         // Group by type for the app
-        const groupedDocs = documents.reduce((acc: any, doc) => {
+        const groupedDocs = documents.reduce((acc: Record<string, Array<{ id: string; name: string; date: string; size: string; url: string; type: string }>>, doc) => {
             const category = doc.type === 'Tax' ? 'Vergi Dokümanları' : 'Kira Kontratları & Diğer';
 
             if (!acc[category]) {

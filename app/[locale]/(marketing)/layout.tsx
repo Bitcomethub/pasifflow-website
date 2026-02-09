@@ -10,8 +10,14 @@ export default function MarketingLayout({
 }) {
     return (
         <>
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:text-slate-900 focus:text-sm focus:font-medium"
+            >
+                Skip to content
+            </a>
             <Header />
-            <main className="min-h-screen pt-24">
+            <main id="main-content" className="min-h-screen pt-24">
                 {children}
             </main>
             <Footer />

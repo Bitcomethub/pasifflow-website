@@ -9,7 +9,6 @@ import {
     FileText,
     Settings,
     LogOut,
-    TrendingUp,
     Gift
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -17,17 +16,23 @@ import { Logo } from "@/components/logo"
 import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
 
-const menuItems = [
-    { name: "Dashboard", icon: LayoutDashboard, href: "/agent/dashboard" },
-    { name: "Referanslarım", icon: Users, href: "/agent/referrals" },
-    { name: "Kazançlarım", icon: DollarSign, href: "/agent/earnings" },
-    { name: "Pazarlama Araçları", icon: Gift, href: "/agent/marketing" },
-    { name: "Eğitimler", icon: FileText, href: "/agent/academy" },
-]
+interface AgentSidebarProps {
+    onClose?: () => void
+}
 
-export function AgentSidebar() {
+export function AgentSidebar({ onClose }: AgentSidebarProps) {
     const pathname = usePathname()
     const t = useTranslations("nav")
+
+    const menuItems = [
+        { name: t("agentDashboard"), icon: LayoutDashboard, href: "/agent/dashboard" },
+        { name: t("agentReferrals"), icon: Users, href: "/agent/referrals" },
+        { name: t("agentEarnings"), icon: DollarSign, href: "/agent/earnings" },
+        { name: t("agentMarketing"), icon: Gift, href: "/agent/marketing" },
+        { name: t("agentAcademy"), icon: FileText, href: "/agent/academy" },
+    ]
+
+    const handleNavClick = () => onClose?.()
 
     return (
         <aside className="w-72 h-screen flex flex-col bg-white border-r border-slate-100 fixed top-0 left-0 z-40">
@@ -47,13 +52,14 @@ export function AgentSidebar() {
             <nav className="flex-grow px-4 space-y-1">
                 {menuItems.map((item, index) => (
                     <motion.div
-                        key={item.name}
+                        key={item.href}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.05 }}
                     >
                         <Link
                             href={item.href}
+                            onClick={handleNavClick}
                             className={cn(
                                 "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-200 group relative overflow-hidden",
                                 pathname === item.href
@@ -61,7 +67,6 @@ export function AgentSidebar() {
                                     : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
                             )}
                         >
-                            {/* Hover Background */}
                             <motion.div
                                 className="absolute inset-0 bg-[#C1A05E]/10 rounded-xl"
                                 initial={{ scale: 0, opacity: 0 }}
@@ -92,10 +97,11 @@ export function AgentSidebar() {
                 >
                     <Link
                         href="/agent/settings"
+                        onClick={handleNavClick}
                         className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-slate-500 hover:bg-slate-50 hover:text-slate-900 transition-all group"
                     >
                         <Settings className="w-5 h-5 text-slate-400 group-hover:text-slate-900 transition-colors" />
-                        {t("settings") || "Ayarlar"}
+                        {t("settings")}
                     </Link>
                 </motion.div>
                 <motion.div
@@ -110,6 +116,7 @@ export function AgentSidebar() {
                             window.location.href = "/";
                         }}
                         className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-destructive hover:bg-destructive/5 transition-all group"
+                        aria-label="Log out"
                     >
                         <LogOut className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         {t("logout")}

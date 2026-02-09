@@ -38,3 +38,11 @@ Thumbs.db
 # Database
 *.db
 *.db-journal
+
+# Dev artifacts & utility scripts
+test-db*.js
+test-results/
+*.py
+ipad_mock_*
+veriler/
+pasiflow-app/

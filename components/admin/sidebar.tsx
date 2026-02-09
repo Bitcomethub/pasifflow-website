@@ -1,3 +1,4 @@
+// Admin panel is English-only (internal-facing)
 "use client"
 
 import Link from "next/link"

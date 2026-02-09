@@ -29,11 +29,27 @@ export const metadata: Metadata = {
         shortcut: "/brand/icon.png",
         apple: "/brand/icon.png",
     },
+    metadataBase: new URL("https://pasiflow.com"),
+    openGraph: {
+        title: "Pasiflow - Amerika'da Devlet Kira Garantili Anahtar Teslim Evler",
+        description: "Amerika'da %12'ye kadar net kira getirisi ile her ay düzenli pasif gelir. Section 8 devlet garantili yatırım evleri.",
+        url: "https://pasiflow.com",
+        siteName: "Pasiflow",
+        images: [{ url: "/brand/logo-user-main.png", width: 1200, height: 630 }],
+        locale: "tr_TR",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Pasiflow - Amerika'da Gayrimenkul Yatırımı",
+        description: "Section 8 devlet garantili kira geliri ile pasif dolar geliri.",
+        images: ["/brand/logo-user-main.png"],
+    },
 }
 
 type Props = {
     children: React.ReactNode;
-    params: any;
+    params: Promise<{ locale: string }>;
 }
 
 export function generateStaticParams() {
@@ -46,7 +62,7 @@ export default async function LocaleLayout({
 }: Props) {
     const { locale } = await params;
 
-    if (!locales.includes(locale as any)) {
+    if (!(locales as readonly string[]).includes(locale)) {
         notFound();
     }
 
