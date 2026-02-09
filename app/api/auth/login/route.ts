@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server"
-import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
-import { getUsers } from "@/lib/users"
+import { authenticateUser } from "@/lib/users"
 
 const JWT_SECRET = process.env.JWT_SECRET
 
@@ -25,34 +24,30 @@ export async function POST(req: Request) {
             )
         }
 
-        const users = getUsers()
-        const user = users.find(u => u.email.toLowerCase() === email.toLowerCase())
+        const user = await authenticateUser(email, password)
 
-        if (user) {
-            const isValidPassword = await bcrypt.compare(password, user.passwordHash)
-            if (isValidPassword) {
-                const token = jwt.sign(
-                    { userId: user.id, email: user.email, role: user.role },
-                    JWT_SECRET,
-                    { expiresIn: "7d" }
-                )
-
-                return NextResponse.json({
-                    user: {
-                        id: user.id,
-                        email: user.email,
-                        fullName: user.fullName,
-                        role: user.role,
-                    },
-                    token
-                })
-            }
+        if (!user) {
+            return NextResponse.json(
+                { error: "Geçersiz email veya şifre" },
+                { status: 401 }
+            )
         }
 
-        return NextResponse.json(
-            { error: "Geçersiz email veya şifre" },
-            { status: 401 }
+        const token = jwt.sign(
+            { userId: user.id, email: user.email, role: user.role },
+            JWT_SECRET,
+            { expiresIn: "7d" }
         )
+
+        return NextResponse.json({
+            user: {
+                id: user.id,
+                email: user.email,
+                fullName: user.fullName,
+                role: user.role,
+            },
+            token
+        })
 
     } catch (error) {
         console.error("Login error:", error)

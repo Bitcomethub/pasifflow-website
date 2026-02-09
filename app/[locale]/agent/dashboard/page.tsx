@@ -1,6 +1,6 @@
 "use client"
 
-import { AgentSidebar } from "@/components/agent-portal/sidebar"
+import { useState, useEffect } from "react"
 import { AgentStatsCard } from "@/components/agent-portal/stats-card"
 import { AgentTierProgress } from "@/components/agent-portal/tier-progress"
 import {
@@ -21,6 +21,23 @@ import { Input } from "@/components/ui/input"
 import { motion } from "framer-motion"
 
 export default function AgentDashboard() {
+    const [agentName, setAgentName] = useState("Agent")
+    const [agentInitials, setAgentInitials] = useState("PA")
+
+    useEffect(() => {
+        const stored = localStorage.getItem("pasiflow_user")
+        if (stored) {
+            try {
+                const user = JSON.parse(stored)
+                if (user.fullName) {
+                    setAgentName(user.fullName.split(" ")[0])
+                    setAgentInitials(
+                        user.fullName.split(" ").map((n: string) => n[0]).join("").toUpperCase().slice(0, 2)
+                    )
+                }
+            } catch { /* ignore */ }
+        }
+    }, [])
     const stats = [
         { title: "Toplam Referans", value: "54", icon: Users, trend: { value: "12%", positive: true } },
         { title: "Toplam Kazanç", value: "$108,000", icon: DollarSign },
@@ -68,14 +85,14 @@ export default function AgentDashboard() {
                     </motion.button>
                     <div className="flex items-center gap-3 pl-6 border-l border-slate-100">
                         <div className="text-right">
-                            <p className="text-sm font-bold text-slate-900">Erman Adanır</p>
+                            <p className="text-sm font-bold text-slate-900">{agentName}</p>
                             <p className="text-xs text-[#C1A05E] font-bold">Elite Agent</p>
                         </div>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             className="w-10 h-10 rounded-full bg-[#1F2328] flex items-center justify-center text-white font-bold relative"
                         >
-                            EA
+                            {agentInitials}
                             <motion.span
                                 className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-[#C1A05E] border-2 border-white rounded-full"
                                 animate={{ scale: [1, 1.1, 1] }}
@@ -99,7 +116,7 @@ export default function AgentDashboard() {
                             animate={{ opacity: 1, x: 0 }}
                             className="text-3xl font-extrabold text-slate-900 tracking-tight"
                         >
-                            Hoş Geldiniz, Erman 👋
+                            Hoş Geldiniz, {agentName}
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0 }}

@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import { AgentStatsCard } from "@/components/agent-portal/stats-card"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -17,6 +18,17 @@ import {
 import { motion } from "framer-motion"
 
 export default function DashboardPage() {
+    const [userName, setUserName] = useState("Investor")
+
+    useEffect(() => {
+        const stored = localStorage.getItem("pasiflow_user")
+        if (stored) {
+            try {
+                const user = JSON.parse(stored)
+                if (user.fullName) setUserName(user.fullName)
+            } catch { /* ignore parse errors */ }
+        }
+    }, [])
     const stats = [
         { title: "Toplam Portföy", value: "$425,000", icon: Building2, trend: { value: "14.8%", positive: true } },
         { title: "Aylık Kira Geliri", value: "$3,450", icon: Wallet, subtitle: "Net: $2,100" },
@@ -45,7 +57,7 @@ export default function DashboardPage() {
                         animate={{ opacity: 1, x: 0 }}
                         className="text-3xl font-bold text-slate-900 tracking-tight"
                     >
-                        Hoş Geldiniz, <span className="text-[#C1A05E]">Demo Client</span> 👋
+                        Hoş Geldiniz, <span className="text-[#C1A05E]">{userName}</span>
                     </motion.h1>
                     <motion.p
                         initial={{ opacity: 0 }}
