@@ -96,6 +96,7 @@ export function ExitIntentPopup() {
                             initial={{ opacity: 0, scale: 0 }}
                             animate={{ opacity: 1, scale: 1 }}
                             onClick={handleClose}
+                            aria-label="Close popup"
                             className="absolute top-3 right-3 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all z-50"
                         >
                             <X size={18} />

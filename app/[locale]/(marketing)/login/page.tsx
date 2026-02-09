@@ -51,7 +51,6 @@ export default function LoginPage() {
             localStorage.setItem("pasiflow_user", JSON.stringify(data.user))
 
             // Redirect based on role
-            const locale = window.location.pathname.split('/')[1] || 'tr'
             if (data.user.role === "AGENT") {
                 router.push(`/${locale}/agent/dashboard`)
             } else {
@@ -155,10 +154,7 @@ export default function LoginPage() {
                                 <div className="mt-6 p-3 bg-muted/50 rounded-lg flex items-start gap-2">
                                     <Shield className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
                                     <p className="text-xs text-muted-foreground leading-relaxed">
-                                        {locale === "en"
-                                            ? "Access is provided by Pasiflow. If you need credentials, please contact us."
-                                            : "Giriş bilgileri Pasiflow tarafından sağlanmaktadır. Bilgi almak için bizimle iletişime geçin."
-                                        }
+                                        {t("securityNotice")}
                                     </p>
                                 </div>
                             </Card>

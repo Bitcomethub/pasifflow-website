@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils"
 
 export function FAQSection() {
   const t = useTranslations("faq")
-  const messages = useMessages() as any
+  const messages = useMessages() as Record<string, Record<string, Array<{ q: string; a: string }>>>
   const [activeCategory, setActiveCategory] = useState("general")
 
   // Access the categories safely from messages object
@@ -58,7 +58,7 @@ export function FAQSection() {
         {/* FAQ Items - No framer-motion, instant rendering */}
         <div className="min-h-[300px]">
           <Accordion type="single" collapsible className="w-full space-y-3">
-            {faqItems.map((item: any, index: number) => (
+            {faqItems.map((item: { q: string; a: string }, index: number) => (
               <AccordionItem
                 key={`${activeCategory}-${index}`}
                 value={`item-${index}`}

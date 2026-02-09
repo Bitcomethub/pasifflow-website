@@ -63,9 +63,9 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                     router.push(`/${currentLocale}/dashboard`)
                 }
             }, 1500)
-        } catch (err: any) {
+        } catch (err: unknown) {
             console.error("Login error:", err)
-            setError(err.message)
+            setError(err instanceof Error ? err.message : "Giriş başarısız")
         } finally {
             setLoading(false)
         }
@@ -97,6 +97,7 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                     onClick={handleClose}
                     className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all z-50 backdrop-blur-sm"
                     type="button"
+                    aria-label="Close login"
                 >
                     <X size={18} />
                 </button>
