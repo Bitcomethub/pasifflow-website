@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
+import { z } from "zod";
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY || "",
@@ -663,9 +664,52 @@ DAVRANIŞ KURALLARI:
 10. Rakip karşılaştırması istenirse, ŞEFFAF ve DÜRÜST ol. Pasiflow'un güçlü yönlerini vurgula.
 `;
 
+const chatMessageSchema = z.object({
+    messages: z.array(
+        z.object({
+            role: z.enum(["user", "assistant"]),
+            content: z.string().max(2000),
+        })
+    ).max(50),
+});
+
+// Simple in-memory rate limiter
+const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+const RATE_LIMIT = 20;
+const RATE_WINDOW_MS = 60_000;
+
+function isRateLimited(ip: string): boolean {
+    const now = Date.now();
+    const entry = rateLimitMap.get(ip);
+    if (!entry || now > entry.resetAt) {
+        rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_WINDOW_MS });
+        return false;
+    }
+    entry.count++;
+    return entry.count > RATE_LIMIT;
+}
+
 export async function POST(req: Request) {
     try {
-        const { messages } = await req.json();
+        // Rate limiting
+        const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
+        if (isRateLimited(ip)) {
+            return NextResponse.json(
+                { error: "Çok fazla istek. Lütfen bir dakika bekleyip tekrar deneyin." },
+                { status: 429 }
+            );
+        }
+
+        // Input validation
+        const body = await req.json();
+        const parsed = chatMessageSchema.safeParse(body);
+        if (!parsed.success) {
+            return NextResponse.json(
+                { error: "Geçersiz mesaj formatı." },
+                { status: 400 }
+            );
+        }
+        const { messages } = parsed.data;
 
         if (!process.env.OPENAI_API_KEY) {
             console.warn("OPENAI_API_KEY missing in environment");
