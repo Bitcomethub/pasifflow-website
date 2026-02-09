@@ -1,47 +1,67 @@
 import { PrismaClient } from '@prisma/client'
+import bcrypt from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
 async function main() {
-    console.log('🌱 Starting seed...')
+    console.log('Starting seed...')
 
-    // 1. Create Main User (Erman Adanır)
-    const user = await prisma.user.upsert({
+    // Hash passwords for seed users
+    const adminHash = await bcrypt.hash('Pasiflow2026!', 12)
+    const investorHash = await bcrypt.hash('Investor2026!', 12)
+    const agentHash = await bcrypt.hash('Agent2026!', 12)
+
+    // 1. Create Admin (CTO)
+    const admin = await prisma.user.upsert({
         where: { email: 'erman@pasiflow.com' },
-        update: {},
+        update: { passwordHash: adminHash, role: 'ADMIN' },
         create: {
             email: 'erman@pasiflow.com',
             fullName: 'Erman Adanır',
-            passwordHash: 'hashed_password_placeholder', // In real app, hash this
+            passwordHash: adminHash,
             role: 'ADMIN',
             isVerified: true,
             phone: '+1 (305) 555-0123'
         },
     })
 
-    // 1b. Create Client User for Presentation
-    const demoUser = await prisma.user.upsert({
-        where: { email: 'erman@pasiflow.com' },
-        update: {},
+    // 2. Create Demo Investor
+    const investor = await prisma.user.upsert({
+        where: { email: 'investor@pasiflow.com' },
+        update: { passwordHash: investorHash, role: 'USER' },
         create: {
-            email: 'erman@pasiflow.com',
-            fullName: 'Erman Adanır',
-            passwordHash: 'Pasiflow2026!', // This will be handled by auth service validation
+            email: 'investor@pasiflow.com',
+            fullName: 'Demo Investor',
+            passwordHash: investorHash,
             role: 'USER',
             isVerified: true,
-            phone: '+1 (555) 000-0000'
+            phone: '+1 (555) 000-0001'
         },
     })
 
-    console.log(`👤 Created User: ${user.fullName} & ${demoUser.fullName}`)
+    // 3. Create Demo Agent
+    const agent = await prisma.user.upsert({
+        where: { email: 'agent@pasiflow.com' },
+        update: { passwordHash: agentHash, role: 'AGENT' },
+        create: {
+            email: 'agent@pasiflow.com',
+            fullName: 'Pasiflow Agent',
+            passwordHash: agentHash,
+            role: 'AGENT',
+            isVerified: true,
+            phone: '+1 (555) 000-0002'
+        },
+    })
 
-    // 2. Create LLCs
+    console.log(`Created Users: ${admin.fullName} (ADMIN), ${investor.fullName} (USER), ${agent.fullName} (AGENT)`)
+
+    // 4. Create LLCs (owned by investor for demo)
     const llc1 = await prisma.lLC.create({
         data: {
             name: 'Adanir Holdings LLC',
             formationState: 'Wyoming',
             ein: '82-1234567',
-            ownerId: user.id,
+            ownerId: investor.id,
         }
     })
 
@@ -50,14 +70,13 @@ async function main() {
             name: 'Miami Prime Assets LLC',
             formationState: 'Florida',
             ein: '45-7654321',
-            ownerId: user.id,
+            ownerId: investor.id,
         }
     })
 
-    console.log(`🏢 Created LLCs: ${llc1.name}, ${llc2.name}`)
+    console.log(`Created LLCs: ${llc1.name}, ${llc2.name}`)
 
-    // 3. Create Properties
-    // Property 1 for LLC 1
+    // 5. Create Properties
     const prop1 = await prisma.property.create({
         data: {
             address: '12152 Stout Street',
@@ -76,7 +95,6 @@ async function main() {
         }
     })
 
-    // Property 2 for LLC 2
     const prop2 = await prisma.property.create({
         data: {
             address: '12290 Griggs Street',
@@ -95,7 +113,6 @@ async function main() {
         }
     })
 
-    // Property 3 for LLC 1
     const prop3 = await prisma.property.create({
         data: {
             address: '15717 Freeland Street',
@@ -114,118 +131,48 @@ async function main() {
         }
     })
 
-    console.log(`🏠 Created Properties: ${prop1.address}, ${prop2.address}, ${prop3.address}`)
+    console.log(`Created Properties: ${prop1.address}, ${prop2.address}, ${prop3.address}`)
 
-    // 4. Create Payments
-    // Recent payments for Prop 1
+    // 6. Create Payments
     await prisma.payment.createMany({
         data: [
-            {
-                amount: 1160,
-                date: new Date('2025-12-01'),
-                period: 'December 2025',
-                status: 'PAID',
-                propertyId: prop1.id
-            },
-            {
-                amount: 1160,
-                date: new Date('2026-01-01'),
-                period: 'January 2026',
-                status: 'PAID',
-                propertyId: prop1.id
-            },
-            {
-                amount: 1160,
-                date: new Date('2026-02-01'),
-                period: 'February 2026',
-                status: 'PENDING',
-                propertyId: prop1.id
-            }
+            { amount: 1160, date: new Date('2025-12-01'), period: 'December 2025', status: 'PAID', propertyId: prop1.id },
+            { amount: 1160, date: new Date('2026-01-01'), period: 'January 2026', status: 'PAID', propertyId: prop1.id },
+            { amount: 1160, date: new Date('2026-02-01'), period: 'February 2026', status: 'PENDING', propertyId: prop1.id },
+            { amount: 1100, date: new Date('2025-12-05'), period: 'December 2025', status: 'PAID', propertyId: prop2.id },
+            { amount: 1100, date: new Date('2026-01-05'), period: 'January 2026', status: 'LATE', propertyId: prop2.id },
         ]
     })
 
-    // Payments for Prop 2
-    await prisma.payment.createMany({
+    console.log('Created Rent History')
+
+    // 7. Create Documents
+    await prisma.document.createMany({
         data: [
-            {
-                amount: 1100,
-                date: new Date('2025-12-05'),
-                period: 'December 2025',
-                status: 'PAID',
-                propertyId: prop2.id
-            },
-            {
-                amount: 1100,
-                date: new Date('2026-01-05'),
-                period: 'January 2026',
-                status: 'LATE', // Example issue
-                propertyId: prop2.id
-            }
+            { title: 'Operating Agreement', type: 'Legal', url: 'https://example.com/docs/oa.pdf', size: '1.2 MB', llcId: llc1.id },
+            { title: 'Lease Agreement - Stout St', type: 'Contract', url: 'https://example.com/docs/lease_stout.pdf', size: '2.4 MB', propertyId: prop1.id },
+            { title: 'Property Tax 2025', type: 'Tax', url: 'https://example.com/docs/tax_2025.pdf', size: '0.8 MB', propertyId: prop1.id },
         ]
     })
 
-    console.log('💰 Created Rent History')
+    console.log('Created Documents')
 
-    // 5. Create Documents
-    await prisma.document.create({
-        data: {
-            title: 'Operating Agreement',
-            type: 'Legal',
-            url: 'https://example.com/docs/oa.pdf',
-            size: '1.2 MB',
-            llcId: llc1.id,
-        }
-    })
-
-    await prisma.document.create({
-        data: {
-            title: 'Lease Agreement - Stout St',
-            type: 'Contract',
-            url: 'https://example.com/docs/lease_stout.pdf',
-            size: '2.4 MB',
-            propertyId: prop1.id,
-        }
-    })
-
-    await prisma.document.create({
-        data: {
-            title: 'Property Tax 2025',
-            type: 'Tax',
-            url: 'https://example.com/docs/tax_2025.pdf',
-            size: '0.8 MB',
-            propertyId: prop1.id,
-        }
-    })
-
-    console.log('📄 Created Documents')
-    // 6. PHASE 2: Create Vendors (Latchel Style)
+    // 8. Create Vendors
     const vendor1 = await prisma.vendor.create({
-        data: {
-            name: 'Detroit Plumbing Pros',
-            category: 'Plumbing',
-            rating: 4.8,
-            phone: '313-555-0199',
-            email: 'service@detroitplumbing.com'
-        }
+        data: { name: 'Detroit Plumbing Pros', category: 'Plumbing', rating: 4.8, phone: '313-555-0199', email: 'service@detroitplumbing.com' }
     })
 
     const vendor2 = await prisma.vendor.create({
-        data: {
-            name: 'Motor City HVAC',
-            category: 'HVAC',
-            rating: 4.9,
-            phone: '313-555-0200',
-            email: 'dispatch@motorcityhvac.com'
-        }
+        data: { name: 'Motor City HVAC', category: 'HVAC', rating: 4.9, phone: '313-555-0200', email: 'dispatch@motorcityhvac.com' }
     })
 
-    console.log('👷 Created Vendors')
+    console.log('Created Vendors')
 
-    // 7. Create Maintenance Requests (Latchel Style)
+    // 9. Create Maintenance Requests
     await prisma.maintenanceRequest.create({
         data: {
             title: 'Leaking Kitchen Sink',
-            description: 'Tenant reports water leaking under the sink cabinet. Wood looks damp.',
+            description: 'Tenant reports water leaking under the sink cabinet.',
             status: 'COMPLETED',
             priority: 'NORMAL',
             reportedAt: new Date('2025-12-10T09:00:00Z'),
@@ -245,57 +192,28 @@ async function main() {
             status: 'IN_PROGRESS',
             priority: 'EMERGENCY',
             reportedAt: new Date('2026-01-20T18:00:00Z'),
-            scheduledAt: new Date('2026-01-20T20:00:00Z'), // Same day
+            scheduledAt: new Date('2026-01-20T20:00:00Z'),
             estimatedCost: 800.00,
-            propertyId: prop1.id, // Same property having bad luck
+            propertyId: prop1.id,
             vendorId: vendor2.id,
         }
     })
 
-    console.log('🔧 Created Maintenance Requests')
+    console.log('Created Maintenance Requests')
 
-    // 8. Create Ledgers (Rentvine Style)
-    // Prop 1 Ledger
+    // 10. Create Ledgers
     await prisma.ledger.createMany({
         data: [
-            {
-                type: 'INCOME',
-                category: 'Rent',
-                amount: 1160.00,
-                description: 'Rent Payment - December',
-                postedDate: new Date('2025-12-01'),
-                propertyId: prop1.id
-            },
-            {
-                type: 'EXPENSE',
-                category: 'Repair',
-                amount: -185.50,
-                description: 'Inv #1024 - Kitchen Sink Repair',
-                postedDate: new Date('2025-12-12'), // Paid right after job
-                propertyId: prop1.id
-            },
-            {
-                type: 'EXPENSE',
-                category: 'Management Fee',
-                amount: -116.00, // 10%
-                description: 'Management Fee - December',
-                postedDate: new Date('2025-12-01'),
-                propertyId: prop1.id
-            },
-            {
-                type: 'INCOME',
-                category: 'Rent',
-                amount: 1160.00,
-                description: 'Rent Payment - January',
-                postedDate: new Date('2026-01-01'),
-                propertyId: prop1.id
-            }
+            { type: 'INCOME', category: 'Rent', amount: 1160.00, description: 'Rent Payment - December', postedDate: new Date('2025-12-01'), propertyId: prop1.id },
+            { type: 'EXPENSE', category: 'Repair', amount: -185.50, description: 'Kitchen Sink Repair', postedDate: new Date('2025-12-12'), propertyId: prop1.id },
+            { type: 'EXPENSE', category: 'Management Fee', amount: -116.00, description: 'Management Fee - December', postedDate: new Date('2025-12-01'), propertyId: prop1.id },
+            { type: 'INCOME', category: 'Rent', amount: 1160.00, description: 'Rent Payment - January', postedDate: new Date('2026-01-01'), propertyId: prop1.id },
         ]
     })
 
-    console.log('📊 Created Financial Ledgers')
+    console.log('Created Financial Ledgers')
 
-    // 9. Create Active Lease (Rentvine Style)
+    // 11. Create Active Lease
     await prisma.lease.create({
         data: {
             startDate: new Date('2025-07-01'),
@@ -310,9 +228,18 @@ async function main() {
         }
     })
 
-    console.log('📜 Created Leases')
+    console.log('Created Leases')
 
-    console.log('✅ Seed finished successfully')
+    // 12. Create Agent Profile for the agent user
+    await prisma.agentProfile.create({
+        data: {
+            userId: agent.id,
+            level: 'ELITE',
+        }
+    })
+
+    console.log('Created Agent Profile')
+    console.log('Seed finished successfully')
 }
 
 main()

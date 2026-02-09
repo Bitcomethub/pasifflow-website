@@ -1,16 +1,15 @@
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+"use client"
+
+import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import {
     MapPin,
-    DollarSign,
-    TrendingUp,
     Calendar,
-    CheckCircle2,
-    AlertCircle
-} from "lucide-react";
-import Image from "next/image";
+    TrendingUp,
+} from "lucide-react"
+import Image from "next/image"
+import { motion } from "framer-motion"
 
-// Using the same mock data as the mobile app for consistency
 const PROPERTIES = [
     {
         id: '1',
@@ -19,11 +18,10 @@ const PROPERTIES = [
         status: 'occupied',
         purchasePrice: '$85,900',
         monthlyRent: '$1,160',
+        roi: '16.2%',
         image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&auto=format&fit=crop&q=80',
         nextPaymentDate: '15 gün kaldı',
         section8: true,
-        occupancyRate: 100,
-        mls: '20251049787',
     },
     {
         id: '2',
@@ -32,11 +30,10 @@ const PROPERTIES = [
         status: 'occupied',
         purchasePrice: '$89,900',
         monthlyRent: '$1,100',
+        roi: '14.7%',
         image: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&auto=format&fit=crop&q=80',
         nextPaymentDate: '2 gün kaldı',
         section8: true,
-        occupancyRate: 100,
-        mls: '20251060129',
     },
     {
         id: '3',
@@ -45,92 +42,121 @@ const PROPERTIES = [
         status: 'occupied',
         purchasePrice: '$87,900',
         monthlyRent: '$1,165',
+        roi: '15.9%',
         image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&auto=format&fit=crop&q=80',
         nextPaymentDate: '8 gün kaldı',
         section8: true,
-        occupancyRate: 100,
-        mls: '20251059784',
     },
-];
+]
 
 export default function PropertiesPage() {
+    const totalValue = PROPERTIES.reduce((sum, p) => sum + parseInt(p.purchasePrice.replace(/[$,]/g, '')), 0)
+    const totalRent = PROPERTIES.reduce((sum, p) => sum + parseInt(p.monthlyRent.replace(/[$,]/g, '')), 0)
+
     return (
         <div className="space-y-8">
-            <div className="flex justify-between items-center">
+            {/* Header with summary stats */}
+            <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="flex flex-col md:flex-row justify-between md:items-end gap-4"
+            >
                 <div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Mülklerim</h1>
-                    <p className="text-gray-500 dark:text-gray-400 mt-2">
+                    <h1 className="text-3xl font-bold text-slate-900">Mülklerim</h1>
+                    <p className="text-slate-500 mt-2">
                         Aktif portföyünüzdeki mülklerin detayları ve güncel durumları.
                     </p>
                 </div>
-                <div className="bg-primary/10 dark:bg-primary/20 px-4 py-2 rounded-lg border border-primary/20 dark:border-primary/30">
-                    <span className="text-sm font-medium text-secondary dark:text-slate-100">
-                        Toplam 3 Mülk
-                    </span>
+                <div className="flex gap-3">
+                    <div className="bg-[#C1A05E]/10 px-4 py-2 rounded-xl border border-[#C1A05E]/20">
+                        <span className="text-xs text-slate-500 block">Toplam Değer</span>
+                        <span className="text-sm font-bold text-slate-900">${totalValue.toLocaleString()}</span>
+                    </div>
+                    <div className="bg-green-50 px-4 py-2 rounded-xl border border-green-200">
+                        <span className="text-xs text-slate-500 block">Aylık Gelir</span>
+                        <span className="text-sm font-bold text-green-700">${totalRent.toLocaleString()}/ay</span>
+                    </div>
                 </div>
-            </div>
+            </motion.div>
 
+            {/* Property Cards */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {PROPERTIES.map((property) => (
-                    <Card key={property.id} className="overflow-hidden border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:shadow-lg transition-shadow">
-                        {/* Image Section */}
-                        <div className="relative h-48 w-full">
-                            <Image
-                                src={property.image}
-                                alt={property.title}
-                                fill
-                                className="object-cover"
-                            />
-                            <div className="absolute top-4 right-4 flex gap-2">
-                                <Badge className={property.status === 'occupied' ? "bg-primary hover:bg-primary/90" : "bg-slate-500"}>
-                                    {property.status === 'occupied' ? 'Kiracılı' : 'Boş'}
-                                </Badge>
-                                {property.section8 && (
-                                    <Badge variant="secondary" className="bg-secondary text-white border-none">
-                                        Section 8
+                {PROPERTIES.map((property, index) => (
+                    <motion.div
+                        key={property.id}
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.1 + index * 0.15 }}
+                    >
+                        <Card className="overflow-hidden border-slate-200 bg-white hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 rounded-2xl">
+                            {/* Image Section */}
+                            <div className="relative h-52 w-full overflow-hidden">
+                                <Image
+                                    src={property.image}
+                                    alt={property.title}
+                                    fill
+                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                                <div className="absolute top-4 right-4 flex gap-2">
+                                    <Badge className={property.status === 'occupied'
+                                        ? "bg-green-500/90 hover:bg-green-500 text-white backdrop-blur-sm border-none"
+                                        : "bg-slate-500/90 text-white backdrop-blur-sm border-none"
+                                    }>
+                                        {property.status === 'occupied' ? 'Kiracılı' : 'Boş'}
                                     </Badge>
-                                )}
-                            </div>
-                        </div>
-
-                        {/* Content Section */}
-                        <div className="p-5 space-y-4">
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight mb-1">
-                                    {property.title}
-                                </h3>
-                                <div className="flex items-center text-gray-500 dark:text-gray-400 text-sm">
-                                    <MapPin className="w-4 h-4 mr-1" />
-                                    {property.location}
+                                    {property.section8 && (
+                                        <Badge className="bg-[#C1A05E]/90 hover:bg-[#C1A05E] text-white backdrop-blur-sm border-none">
+                                            Section 8
+                                        </Badge>
+                                    )}
+                                </div>
+                                {/* ROI Badge - Bottom left of image */}
+                                <div className="absolute bottom-4 left-4 flex items-center gap-1.5 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-lg shadow-sm">
+                                    <TrendingUp className="w-3.5 h-3.5 text-green-600" />
+                                    <span className="text-xs font-bold text-green-700">ROI {property.roi}</span>
                                 </div>
                             </div>
 
-                            {/* Stats Grid */}
-                            <div className="grid grid-cols-2 gap-3 p-3 bg-gray-50 dark:bg-slate-900/50 rounded-lg">
+                            {/* Content Section */}
+                            <div className="p-5 space-y-4">
                                 <div>
-                                    <p className="text-xs text-gray-500 uppercase">Mülk Değeri</p>
-                                    <p className="font-semibold text-gray-900 dark:text-white">{property.purchasePrice}</p>
+                                    <h3 className="text-lg font-bold text-slate-900 leading-tight mb-1 group-hover:text-[#C1A05E] transition-colors">
+                                        {property.title}
+                                    </h3>
+                                    <div className="flex items-center text-slate-500 text-sm">
+                                        <MapPin className="w-3.5 h-3.5 mr-1" />
+                                        {property.location}
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-xs text-gray-500 uppercase">Kira Geliri</p>
-                                    <p className="font-semibold text-primary dark:text-primary">{property.monthlyRent}</p>
-                                </div>
-                            </div>
 
-                            {/* Footer Info */}
-                            <div className="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-slate-700">
-                                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-                                    <Calendar className="w-4 h-4 text-primary" />
-                                    <span>Ödeme: <strong>{property.nextPaymentDate}</strong></span>
+                                {/* Stats Grid */}
+                                <div className="grid grid-cols-2 gap-3 p-3.5 bg-slate-50 rounded-xl">
+                                    <div>
+                                        <p className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Mülk Değeri</p>
+                                        <p className="font-bold text-slate-900 mt-0.5">{property.purchasePrice}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Kira Geliri</p>
+                                        <p className="font-bold text-[#C1A05E] mt-0.5">{property.monthlyRent}</p>
+                                    </div>
                                 </div>
-                                <button className="text-sm font-medium text-primary dark:text-primary hover:underline">
-                                    Detaylar →
-                                </button>
+
+                                {/* Footer Info */}
+                                <div className="flex items-center justify-between pt-3 border-t border-slate-100">
+                                    <div className="flex items-center gap-2 text-sm text-slate-600">
+                                        <Calendar className="w-4 h-4 text-[#C1A05E]" />
+                                        <span>Ödeme: <strong>{property.nextPaymentDate}</strong></span>
+                                    </div>
+                                    <button className="text-sm font-semibold text-[#C1A05E] hover:text-[#a38d5d] transition-colors">
+                                        Detaylar →
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </Card>
+                        </Card>
+                    </motion.div>
                 ))}
             </div>
         </div>
-    );
+    )
 }
