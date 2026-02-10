@@ -1,21 +1,112 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { AgentStatsCard } from "@/components/agent-portal/stats-card"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import {
-    Briefcase,
-    DollarSign,
-    TrendingUp,
     Building2,
     Wallet,
+    DollarSign,
     FileText,
+    TrendingUp,
     ArrowUpRight,
     Sparkles,
-    Zap
+    Zap,
+    Check,
+    Clock,
+    AlertCircle,
+    Download,
+    ChevronRight,
+    Shield,
+    Target,
+    CalendarDays,
 } from "lucide-react"
-import { motion } from "framer-motion"
+import { motion, useMotionValue, useSpring, useInView } from "framer-motion"
+import { useRef } from "react"
+import {
+    AreaChart,
+    Area,
+    XAxis,
+    YAxis,
+    CartesianGrid,
+    Tooltip,
+    ResponsiveContainer,
+    PieChart,
+    Pie,
+    Cell,
+} from "recharts"
+
+// Animated counter component
+function AnimatedValue({ value, prefix = "", suffix = "" }: { value: number; prefix?: string; suffix?: string }) {
+    const ref = useRef(null)
+    const isInView = useInView(ref, { once: true })
+    const motionValue = useMotionValue(0)
+    const spring = useSpring(motionValue, { stiffness: 50, damping: 20 })
+    const [display, setDisplay] = useState("0")
+
+    useEffect(() => {
+        if (isInView) motionValue.set(value)
+    }, [isInView, value, motionValue])
+
+    useEffect(() => {
+        const unsubscribe = spring.on("change", (v) => {
+            setDisplay(Math.round(v).toLocaleString())
+        })
+        return unsubscribe
+    }, [spring])
+
+    return <span ref={ref}>{prefix}{display}{suffix}</span>
+}
+
+// Mini sparkline component
+function Sparkline({ data, color = "#C1A05E", height = 32, width = 80 }: { data: number[]; color?: string; height?: number; width?: number }) {
+    const chartData = data.map((v, i) => ({ v, i }))
+    return (
+        <ResponsiveContainer width={width} height={height}>
+            <AreaChart data={chartData} margin={{ top: 2, right: 2, bottom: 2, left: 2 }}>
+                <defs>
+                    <linearGradient id={`spark-${color.replace("#", "")}`} x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor={color} stopOpacity={0.3} />
+                        <stop offset="100%" stopColor={color} stopOpacity={0} />
+                    </linearGradient>
+                </defs>
+                <Area type="monotone" dataKey="v" stroke={color} strokeWidth={1.5} fill={`url(#spark-${color.replace("#", "")})`} />
+            </AreaChart>
+        </ResponsiveContainer>
+    )
+}
+
+// Revenue chart data
+const revenueData = [
+    { month: "Oca", gelir: 3200, gider: 1100 },
+    { month: "Şub", gelir: 3200, gider: 950 },
+    { month: "Mar", gelir: 3350, gider: 1200 },
+    { month: "Nis", gelir: 3350, gider: 800 },
+    { month: "May", gelir: 3400, gider: 1050 },
+    { month: "Haz", gelir: 3400, gider: 900 },
+    { month: "Tem", gelir: 3400, gider: 1300 },
+    { month: "Ağu", gelir: 3450, gider: 850 },
+    { month: "Eyl", gelir: 3450, gider: 1100 },
+    { month: "Eki", gelir: 3450, gider: 950 },
+    { month: "Kas", gelir: 3450, gider: 1000 },
+    { month: "Ara", gelir: 3450, gider: 1150 },
+]
+
+// Portfolio allocation data
+const portfolioData = [
+    { name: "Detroit, MI", value: 263700, color: "#C1A05E" },
+    { name: "Austin, TX", value: 89900, color: "#1F2328" },
+    { name: "Miami, FL", value: 71400, color: "#A8B0B8" },
+]
+
+// Investment process steps
+const processSteps = [
+    { title: "Mülk Seçimi", status: "completed" as const, date: "12 Oca" },
+    { title: "Due Diligence", status: "completed" as const, date: "18 Oca" },
+    { title: "LLC Kurulumu", status: "active" as const, date: "Devam ediyor" },
+    { title: "Kapanış", status: "pending" as const },
+    { title: "Kiracı Yerleştirme", status: "pending" as const },
+]
 
 export default function DashboardPage() {
     const [userName, setUserName] = useState("Investor")
@@ -26,260 +117,445 @@ export default function DashboardPage() {
             try {
                 const user = JSON.parse(stored)
                 if (user.fullName) setUserName(user.fullName)
-            } catch { /* ignore parse errors */ }
+            } catch { /* ignore */ }
         }
     }, [])
+
     const stats = [
-        { title: "Toplam Portföy", value: "$425,000", icon: Building2, trend: { value: "14.8%", positive: true } },
-        { title: "Aylık Kira Geliri", value: "$3,450", icon: Wallet, subtitle: "Net: $2,100" },
-        { title: "Toplam Yatırım", value: "$380,000", icon: DollarSign, subtitle: "ROI: %11.2" },
-        { title: "Aktif Dosyalar", value: "3", icon: FileText, subtitle: "Tümü Güncel" }
+        { title: "Toplam Portföy", value: 425000, prefix: "$", icon: Building2, trend: "+14.8%", trendUp: true, spark: [320, 340, 360, 380, 390, 410, 425] },
+        { title: "Aylık Kira Geliri", value: 3450, prefix: "$", icon: Wallet, subtitle: "Net: $2,100", spark: [3100, 3200, 3300, 3200, 3400, 3350, 3450] },
+        { title: "Toplam Yatırım", value: 380000, prefix: "$", icon: DollarSign, subtitle: "ROI: %11.2", spark: [340, 350, 360, 365, 370, 375, 380] },
+        { title: "Aktif Dosyalar", value: 3, icon: FileText, subtitle: "Tümü Güncel" },
     ]
 
     const transactions = [
-        { title: "Kira Ödemesi", desc: "Miami Apt #4B", amount: "+$3,200", date: "Bugün", type: "income" },
-        { title: "Bakım Onarım", desc: "Detroit House - HVAC", amount: "-$150", date: "Dün", type: "expense" },
-        { title: "Kira Ödemesi", desc: "Austin Loft", amount: "+$2,100", date: "12 Ocak", type: "income" },
-        { title: "Vergi Ödemesi", desc: "Yıllık Emlak Vergisi", amount: "-$850", date: "10 Ocak", type: "expense" }
+        { title: "Kira Ödemesi", desc: "Detroit - Stout St", amount: "+$1,160", date: "Bugün", type: "income" },
+        { title: "Bakım Onarım", desc: "Detroit - HVAC Tamiri", amount: "-$186", date: "Dün", type: "expense" },
+        { title: "Kira Ödemesi", desc: "Detroit - Griggs St", amount: "+$1,100", date: "5 Şub", type: "income" },
+        { title: "Yönetim Ücreti", desc: "Aylık Yönetim", amount: "-$116", date: "1 Şub", type: "expense" },
+        { title: "Kira Ödemesi", desc: "Detroit - Freeland St", amount: "+$1,165", date: "3 Şub", type: "income" },
     ]
 
     return (
-        <div className="space-y-8">
-            {/* Header Section */}
+        <div className="space-y-8 p-6 md:p-8">
+            {/* Welcome Hero */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex flex-col md:flex-row md:items-end justify-between gap-4"
+                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
             >
-                <div>
-                    <motion.h1
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="text-3xl font-bold text-slate-900 tracking-tight"
-                    >
-                        Hoş Geldiniz, <span className="text-[#C1A05E]">{userName}</span>
-                    </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-slate-500 mt-2 font-medium"
-                    >
-                        Portföy durumunuz ve güncel piyasa verileri aşağıda özetlenmiştir.
-                    </motion.p>
+                <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
+                <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-[#1F2328]/5 rounded-full blur-3xl" />
+
+                <div className="relative flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+                    <div>
+                        <div className="flex items-center gap-2 mb-2">
+                            <CalendarDays size={14} className="text-[#A8B0B8]" />
+                            <span className="text-xs text-[#A8B0B8] font-medium">
+                                {new Date().toLocaleDateString("tr-TR", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
+                            </span>
+                        </div>
+                        <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">
+                            Hoş Geldiniz, <span className="text-[#C1A05E]">{userName}</span>
+                        </h1>
+                        <p className="text-[#A8B0B8] mt-2 font-medium">
+                            Portföy durumunuz ve güncel piyasa verileri aşağıda özetlenmiştir.
+                        </p>
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <Button variant="outline" className="border-slate-200 text-slate-600 hover:text-[#C1A05E] hover:border-[#C1A05E]/30 rounded-xl">
+                            <Download size={15} className="mr-2" />
+                            Rapor İndir
+                        </Button>
+                        <Button className="bg-[#1F2328] text-white hover:bg-[#C1A05E] rounded-xl shadow-lg transition-all duration-300">
+                            Yeni Mülk İncele
+                        </Button>
+                    </div>
                 </div>
-                <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.2 }}
-                    className="flex gap-3"
-                >
-                    <Button
-                        variant="outline"
-                        className="border-slate-200 text-slate-600 hover:text-[#C1A05E] hover:bg-slate-50 transition-all"
-                    >
-                        Rapor İndir
-                    </Button>
-                    <Button className="bg-[#1F2328] text-white hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl">
-                        Yeni Mülk Ekle
-                    </Button>
-                </motion.div>
             </motion.div>
 
-            {/* Stats Grid - Premium Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {stats.map((stat, index) => (
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                {stats.map((stat, i) => (
                     <motion.div
                         key={stat.title}
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 + index * 0.1 }}
+                        transition={{ delay: 0.1 + i * 0.08 }}
+                        whileHover={{ y: -4 }}
+                        className="relative bg-white rounded-2xl border border-slate-100 p-5 shadow-sm hover:shadow-lg hover:border-[#C1A05E]/20 transition-all duration-300 overflow-hidden group"
                     >
-                        <AgentStatsCard {...stat} />
+                        <div className="absolute -bottom-6 -right-6 w-20 h-20 bg-[#C1A05E]/5 rounded-full blur-2xl group-hover:bg-[#C1A05E]/10 transition-colors" />
+
+                        <div className="flex items-start justify-between mb-3 relative">
+                            <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#C1A05E]/10 to-[#C1A05E]/20 flex items-center justify-center">
+                                <stat.icon size={20} className="text-[#C1A05E]" />
+                            </div>
+                            {stat.trend && (
+                                <span className={cn(
+                                    "text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-0.5",
+                                    stat.trendUp ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-500"
+                                )}>
+                                    <TrendingUp size={11} />
+                                    {stat.trend}
+                                </span>
+                            )}
+                        </div>
+                        <p className="text-xs text-[#A8B0B8] font-semibold uppercase tracking-wider mb-1">{stat.title}</p>
+                        <p className="text-2xl font-extrabold text-[#1F2328] tracking-tight">
+                            <AnimatedValue value={stat.value} prefix={stat.prefix || ""} />
+                        </p>
+                        {stat.subtitle && <p className="text-xs text-[#A8B0B8] mt-1">{stat.subtitle}</p>}
+                        {stat.spark && (
+                            <div className="mt-3 -mx-1">
+                                <Sparkline data={stat.spark} />
+                            </div>
+                        )}
                     </motion.div>
                 ))}
             </div>
 
-            <div className="grid lg:grid-cols-3 gap-8">
-                {/* Property Status & Quick Actions */}
-                <div className="lg:col-span-1 space-y-6">
-                    {/* Status Card */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.3 }}
-                        className="bg-white p-6 rounded-[2rem] border border-slate-100 shadow-sm"
-                    >
-                        <div className="flex items-center justify-between mb-6">
-                            <h3 className="font-bold text-slate-900">Kira Durumu</h3>
-                            <motion.div
-                                animate={{ rotate: [0, 10, 0] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                                className="text-[#C1A05E]"
-                            >
-                                <Sparkles size={16} />
-                            </motion.div>
+            {/* Main Content Grid */}
+            <div className="grid lg:grid-cols-3 gap-6">
+                {/* Revenue Chart - 2 columns */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="lg:col-span-2 bg-white rounded-2xl border border-slate-100 shadow-sm p-6"
+                >
+                    <div className="flex items-center justify-between mb-6">
+                        <div>
+                            <h3 className="text-lg font-bold text-[#1F2328]">Gelir & Gider</h3>
+                            <p className="text-xs text-[#A8B0B8] mt-0.5">Son 12 ay</p>
                         </div>
-                        <div className="space-y-4">
-                            {[
-                                { label: "Ödendi", count: 2, color: "green", icon: "✓" },
-                                { label: "Bekleniyor", count: 1, color: "amber", icon: "⏳" },
-                                { label: "Gecikmiş", count: 0, color: "red", icon: "!" }
-                            ].map((item, i) => (
+                        <div className="flex items-center gap-4 text-xs">
+                            <div className="flex items-center gap-1.5">
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#C1A05E]" />
+                                <span className="text-[#A8B0B8] font-medium">Gelir</span>
+                            </div>
+                            <div className="flex items-center gap-1.5">
+                                <div className="w-2.5 h-2.5 rounded-full bg-[#A8B0B8]" />
+                                <span className="text-[#A8B0B8] font-medium">Gider</span>
+                            </div>
+                        </div>
+                    </div>
+                    <ResponsiveContainer width="100%" height={260}>
+                        <AreaChart data={revenueData} margin={{ top: 5, right: 5, bottom: 5, left: -20 }}>
+                            <defs>
+                                <linearGradient id="goldGrad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#C1A05E" stopOpacity={0.2} />
+                                    <stop offset="100%" stopColor="#C1A05E" stopOpacity={0} />
+                                </linearGradient>
+                                <linearGradient id="silverGrad" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stopColor="#A8B0B8" stopOpacity={0.15} />
+                                    <stop offset="100%" stopColor="#A8B0B8" stopOpacity={0} />
+                                </linearGradient>
+                            </defs>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" vertical={false} />
+                            <XAxis dataKey="month" axisLine={false} tickLine={false} tick={{ fill: "#A8B0B8", fontSize: 11 }} />
+                            <YAxis axisLine={false} tickLine={false} tick={{ fill: "#A8B0B8", fontSize: 11 }} tickFormatter={(v) => `$${(v / 1000).toFixed(0)}K`} />
+                            <Tooltip
+                                contentStyle={{ background: "#1F2328", border: "none", borderRadius: "12px", color: "white", fontSize: "12px" }}
+                                labelStyle={{ color: "#A8B0B8" }}
+                                formatter={(value: number) => [`$${value.toLocaleString()}`, ""]}
+                            />
+                            <Area type="monotone" dataKey="gelir" stroke="#C1A05E" strokeWidth={2} fill="url(#goldGrad)" name="Gelir" />
+                            <Area type="monotone" dataKey="gider" stroke="#A8B0B8" strokeWidth={1.5} fill="url(#silverGrad)" name="Gider" />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </motion.div>
+
+                {/* Portfolio Allocation Donut */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6"
+                >
+                    <h3 className="text-lg font-bold text-[#1F2328] mb-2">Portföy Dağılımı</h3>
+                    <p className="text-xs text-[#A8B0B8] mb-4">Şehre göre yatırım</p>
+
+                    <div className="relative flex justify-center">
+                        <ResponsiveContainer width={200} height={200}>
+                            <PieChart>
+                                <Pie
+                                    data={portfolioData}
+                                    cx="50%"
+                                    cy="50%"
+                                    innerRadius={60}
+                                    outerRadius={90}
+                                    paddingAngle={3}
+                                    dataKey="value"
+                                    strokeWidth={0}
+                                >
+                                    {portfolioData.map((entry, idx) => (
+                                        <Cell key={idx} fill={entry.color} />
+                                    ))}
+                                </Pie>
+                                <Tooltip
+                                    contentStyle={{ background: "#1F2328", border: "none", borderRadius: "12px", color: "white", fontSize: "12px" }}
+                                    formatter={(value: number) => [`$${value.toLocaleString()}`, ""]}
+                                />
+                            </PieChart>
+                        </ResponsiveContainer>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                            <div className="text-center">
+                                <p className="text-2xl font-extrabold text-[#1F2328]">3</p>
+                                <p className="text-[10px] text-[#A8B0B8] font-semibold uppercase tracking-wider">Mülk</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-2 mt-4">
+                        {portfolioData.map((item) => (
+                            <div key={item.name} className="flex items-center justify-between text-sm">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: item.color }} />
+                                    <span className="text-slate-600 font-medium">{item.name}</span>
+                                </div>
+                                <span className="font-bold text-[#1F2328]">${(item.value / 1000).toFixed(0)}K</span>
+                            </div>
+                        ))}
+                    </div>
+                </motion.div>
+            </div>
+
+            {/* Bottom Section */}
+            <div className="grid lg:grid-cols-3 gap-6">
+                {/* Investment Process Tracker */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.45 }}
+                    className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6"
+                >
+                    <div className="flex items-center gap-2 mb-6">
+                        <Target size={18} className="text-[#C1A05E]" />
+                        <h3 className="text-lg font-bold text-[#1F2328]">Yatırım Süreci</h3>
+                    </div>
+
+                    <div className="relative">
+                        {/* Vertical line */}
+                        <div className="absolute left-[15px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-[#C1A05E] via-[#C1A05E]/40 to-slate-200" />
+
+                        <div className="space-y-5">
+                            {processSteps.map((step, i) => (
                                 <motion.div
-                                    key={item.label}
+                                    key={step.title}
                                     initial={{ opacity: 0, x: -10 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.4 + i * 0.1 }}
-                                    className={cn(
-                                        "flex items-center justify-between p-4 rounded-xl border transition-all hover:shadow-md",
-                                        item.color === "green" && "bg-green-50 border-green-100",
-                                        item.color === "amber" && "bg-amber-50 border-amber-100",
-                                        item.color === "red" && "bg-red-50 border-red-100"
-                                    )}
+                                    transition={{ delay: 0.5 + i * 0.08 }}
+                                    className="flex items-start gap-4 relative"
                                 >
-                                    <div className="flex items-center gap-3">
-                                        <motion.span
-                                            animate={{ scale: [1, 1.1, 1] }}
-                                            transition={{ duration: 2, repeat: Infinity, delay: i * 0.5 }}
-                                            className={cn(
-                                                "w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm",
-                                                item.color === "green" && "bg-green-100 text-green-600",
-                                                item.color === "amber" && "bg-amber-100 text-amber-600",
-                                                item.color === "red" && "bg-red-100 text-red-600"
-                                            )}
-                                        >
-                                            {item.icon}
-                                        </motion.span>
-                                        <span className="font-medium text-slate-700">{item.label}</span>
+                                    <div className={cn(
+                                        "w-[31px] h-[31px] rounded-full flex items-center justify-center flex-shrink-0 z-10 border-2",
+                                        step.status === "completed" && "bg-[#C1A05E] border-[#C1A05E] text-white",
+                                        step.status === "active" && "bg-white border-[#C1A05E] text-[#C1A05E]",
+                                        step.status === "pending" && "bg-white border-slate-200 text-slate-300",
+                                    )}>
+                                        {step.status === "completed" ? (
+                                            <Check size={14} strokeWidth={3} />
+                                        ) : step.status === "active" ? (
+                                            <motion.div
+                                                animate={{ scale: [1, 1.3, 1] }}
+                                                transition={{ duration: 2, repeat: Infinity }}
+                                                className="w-2.5 h-2.5 rounded-full bg-[#C1A05E]"
+                                            />
+                                        ) : (
+                                            <div className="w-2 h-2 rounded-full bg-slate-200" />
+                                        )}
                                     </div>
-                                    <motion.span
-                                        key={item.count}
-                                        initial={{ scale: 1.2 }}
-                                        animate={{ scale: 1 }}
-                                        className="font-bold text-slate-900"
-                                    >
-                                        {item.count} Mülk
-                                    </motion.span>
+                                    <div className="flex-1 pb-1">
+                                        <p className={cn(
+                                            "text-sm font-semibold",
+                                            step.status === "completed" ? "text-[#1F2328]" : step.status === "active" ? "text-[#C1A05E]" : "text-slate-400"
+                                        )}>{step.title}</p>
+                                        {step.date && (
+                                            <p className="text-[11px] text-[#A8B0B8] mt-0.5">{step.date}</p>
+                                        )}
+                                    </div>
                                 </motion.div>
                             ))}
                         </div>
-                    </motion.div>
+                    </div>
+                </motion.div>
 
-                    {/* Opportunity Teaser */}
+                {/* Rental Status + Opportunity */}
+                <div className="space-y-5">
+                    {/* Rental Status */}
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.5 }}
-                        whileHover={{ y: -5 }}
-                        className="relative overflow-hidden bg-[#1F2328] p-6 rounded-[2rem] text-white cursor-pointer group"
+                        className="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm"
                     >
-                        {/* Animated Background */}
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="font-bold text-[#1F2328]">Kira Durumu</h3>
+                            <Sparkles size={14} className="text-[#C1A05E]" />
+                        </div>
+                        {[
+                            { label: "Ödendi", count: 2, total: 3, color: "emerald", icon: Check },
+                            { label: "Bekleniyor", count: 1, total: 3, color: "amber", icon: Clock },
+                            { label: "Gecikmiş", count: 0, total: 3, color: "red", icon: AlertCircle },
+                        ].map((item, i) => (
+                            <motion.div
+                                key={item.label}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.55 + i * 0.08 }}
+                                className={cn(
+                                    "flex items-center gap-3 p-3 rounded-xl mb-2 last:mb-0 border transition-all",
+                                    item.color === "emerald" && "bg-emerald-50/50 border-emerald-100",
+                                    item.color === "amber" && "bg-amber-50/50 border-amber-100",
+                                    item.color === "red" && "bg-red-50/50 border-red-100",
+                                )}
+                            >
+                                <div className={cn(
+                                    "w-8 h-8 rounded-lg flex items-center justify-center",
+                                    item.color === "emerald" && "bg-emerald-100 text-emerald-600",
+                                    item.color === "amber" && "bg-amber-100 text-amber-600",
+                                    item.color === "red" && "bg-red-100 text-red-600",
+                                )}>
+                                    <item.icon size={14} strokeWidth={2.5} />
+                                </div>
+                                <div className="flex-1">
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-sm font-semibold text-slate-700">{item.label}</span>
+                                        <span className="text-sm font-bold text-[#1F2328]">{item.count} Mülk</span>
+                                    </div>
+                                    <div className="mt-1.5 h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                                        <motion.div
+                                            initial={{ width: 0 }}
+                                            animate={{ width: `${(item.count / item.total) * 100}%` }}
+                                            transition={{ delay: 0.8 + i * 0.1, duration: 0.6 }}
+                                            className={cn(
+                                                "h-full rounded-full",
+                                                item.color === "emerald" && "bg-emerald-500",
+                                                item.color === "amber" && "bg-amber-500",
+                                                item.color === "red" && "bg-red-500",
+                                            )}
+                                        />
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+
+                    {/* Opportunity Card */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.6 }}
+                        whileHover={{ y: -3 }}
+                        className="relative overflow-hidden bg-[#1F2328] p-5 rounded-2xl text-white cursor-pointer group"
+                    >
                         <motion.div
-                            className="absolute inset-0 bg-gradient-to-br from-[#C1A05E]/20 to-transparent"
-                            animate={{
-                                opacity: [0.3, 0.5, 0.3]
-                            }}
-                            transition={{ duration: 3, repeat: Infinity }}
+                            className="absolute inset-0 bg-gradient-to-br from-[#C1A05E]/15 to-transparent"
+                            animate={{ opacity: [0.3, 0.5, 0.3] }}
+                            transition={{ duration: 4, repeat: Infinity }}
                         />
-                        <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#C1A05E]/10 rounded-full blur-3xl" />
+                        <div className="absolute -top-8 -right-8 w-24 h-24 bg-[#C1A05E]/10 rounded-full blur-2xl" />
 
                         <div className="relative z-10">
-                            <motion.div
-                                whileHover={{ scale: 1.1, rotate: 5 }}
-                                className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-4"
-                            >
-                                <TrendingUp className="w-6 h-6 text-[#C1A05E]" />
-                            </motion.div>
-                            <h3 className="text-lg font-bold mb-2">Yeni Fırsat Yakaladık!</h3>
-                            <p className="text-slate-400 text-sm mb-6">Detroit'te %16 net ROI getiren off-market bir portföy satışa çıktı.</p>
-                            <motion.div
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                            >
-                                <Button className="w-full bg-[#C1A05E] hover:bg-[#a38d5d] text-white font-bold">
-                                    <Zap className="w-4 h-4 mr-2" />
-                                    İncele
-                                </Button>
-                            </motion.div>
+                            <div className="flex items-center gap-2 mb-3">
+                                <div className="w-9 h-9 bg-[#C1A05E]/20 rounded-xl flex items-center justify-center">
+                                    <Zap size={16} className="text-[#C1A05E]" />
+                                </div>
+                                <div className="px-2 py-0.5 bg-[#C1A05E]/20 rounded-md text-[#C1A05E] text-[10px] font-bold uppercase tracking-wider">Yeni</div>
+                            </div>
+                            <h3 className="text-sm font-bold mb-1">Yeni Fırsat!</h3>
+                            <p className="text-slate-400 text-xs mb-4">Detroit'te %16 net ROI getiren off-market portföy.</p>
+                            <Button size="sm" className="w-full bg-[#C1A05E] hover:bg-[#a38d5d] text-white text-xs font-bold rounded-xl h-9">
+                                İncele <ChevronRight size={14} className="ml-1" />
+                            </Button>
                         </div>
                     </motion.div>
                 </div>
 
-                {/* Recent Transactions Table */}
+                {/* Recent Transactions */}
                 <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="lg:col-span-2 bg-white rounded-[2rem] border border-slate-100 shadow-sm overflow-hidden"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
                 >
-                    <div className="p-8 border-b border-slate-50 flex items-center justify-between">
-                        <h3 className="text-lg font-bold text-slate-900">Son Aktiviteler</h3>
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            className="text-slate-500 font-bold hover:text-[#C1A05E] transition-all flex items-center gap-1"
-                        >
-                            Tümünü Gör
-                            <ArrowUpRight size={14} />
+                    <div className="p-5 border-b border-slate-50 flex items-center justify-between">
+                        <h3 className="font-bold text-[#1F2328]">Son Aktiviteler</h3>
+                        <Button variant="ghost" size="sm" className="text-[#A8B0B8] text-xs font-bold hover:text-[#C1A05E]">
+                            Tümü <ArrowUpRight size={12} className="ml-1" />
                         </Button>
                     </div>
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left">
-                            <thead>
-                                <tr className="bg-slate-50/50 text-slate-400 text-[10px] font-bold uppercase tracking-widest px-8">
-                                    <th className="py-4 px-8">İşlem</th>
-                                    <th className="py-4 px-8">Detay</th>
-                                    <th className="py-4 px-8 text-right">Tutar</th>
-                                    <th className="py-4 px-8 text-right">Tarih</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-slate-50">
-                                {transactions.map((item, i) => (
-                                    <motion.tr
-                                        key={i}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.4 + i * 0.1 }}
-                                        className="hover:bg-slate-50/50 transition-all cursor-pointer group"
-                                    >
-                                        <td className="py-5 px-8">
-                                            <div className="font-bold text-slate-900 text-sm flex items-center gap-2">
-                                                <motion.span
-                                                    className={cn(
-                                                        "w-2 h-2 rounded-full",
-                                                        item.type === "income" ? "bg-[#C1A05E]" : "bg-slate-300"
-                                                    )}
-                                                    animate={{ scale: [1, 1.2, 1] }}
-                                                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
-                                                />
-                                                {item.title}
-                                            </div>
-                                        </td>
-                                        <td className="py-5 px-8 text-slate-500 text-sm group-hover:text-slate-700 transition-colors">
-                                            {item.desc}
-                                        </td>
-                                        <td className={cn(
-                                            "py-5 px-8 font-bold text-sm text-right transition-colors",
-                                            item.type === "income" ? "text-[#C1A05E]" : "text-slate-900 group-hover:text-red-600"
-                                        )}>
-                                            <motion.span
-                                                initial={{ scale: 1 }}
-                                                whileHover={{ scale: 1.05 }}
-                                            >
-                                                {item.amount}
-                                            </motion.span>
-                                        </td>
-                                        <td className="py-5 px-8 text-slate-400 text-xs text-right font-medium group-hover:text-slate-600 transition-colors">
-                                            {item.date}
-                                        </td>
-                                    </motion.tr>
-                                ))}
-                            </tbody>
-                        </table>
+
+                    <div className="divide-y divide-slate-50">
+                        {transactions.map((item, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, x: 10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: 0.55 + i * 0.06 }}
+                                className="px-5 py-3.5 hover:bg-slate-50/50 transition-colors cursor-pointer flex items-center gap-3"
+                            >
+                                <div className={cn(
+                                    "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
+                                    item.type === "income" ? "bg-emerald-50 text-emerald-500" : "bg-red-50 text-red-400"
+                                )}>
+                                    {item.type === "income" ? <TrendingUp size={14} /> : <ArrowUpRight size={14} className="rotate-90" />}
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-semibold text-[#1F2328] truncate">{item.title}</p>
+                                    <p className="text-[11px] text-[#A8B0B8] truncate">{item.desc}</p>
+                                </div>
+                                <div className="text-right flex-shrink-0">
+                                    <p className={cn(
+                                        "text-sm font-bold",
+                                        item.type === "income" ? "text-emerald-600" : "text-red-500"
+                                    )}>{item.amount}</p>
+                                    <p className="text-[10px] text-[#A8B0B8]">{item.date}</p>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    <div className="p-4 bg-[#C1A05E]/5 border-t border-[#C1A05E]/10">
+                        <div className="flex items-center justify-between text-sm">
+                            <span className="text-[#A8B0B8] font-medium">Bu Ay Net</span>
+                            <span className="font-bold text-[#C1A05E]">+$2,963</span>
+                        </div>
                     </div>
                 </motion.div>
             </div>
+
+            {/* Trust Badges */}
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.7 }}
+                className="flex flex-wrap items-center justify-center gap-4"
+            >
+                {[
+                    { icon: Shield, label: "Section 8 Garantili", active: true },
+                    { icon: Building2, label: "3 Mülk Sahibi", active: true },
+                    { icon: Target, label: "Portföy $500K", active: false, progress: "85%" },
+                ].map((badge, i) => (
+                    <motion.div
+                        key={i}
+                        whileHover={{ y: -2, scale: 1.02 }}
+                        className={cn(
+                            "flex items-center gap-2.5 px-4 py-2.5 rounded-xl border transition-all",
+                            badge.active
+                                ? "bg-[#C1A05E]/5 border-[#C1A05E]/20 text-[#C1A05E]"
+                                : "bg-slate-50 border-slate-200 text-slate-400"
+                        )}
+                    >
+                        <badge.icon size={16} />
+                        <span className="text-xs font-bold">{badge.label}</span>
+                        {badge.progress && (
+                            <span className="text-[10px] font-bold bg-slate-200 text-slate-500 px-1.5 py-0.5 rounded-md">{badge.progress}</span>
+                        )}
+                    </motion.div>
+                ))}
+            </motion.div>
         </div>
     )
 }
