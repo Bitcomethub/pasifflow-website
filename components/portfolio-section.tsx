@@ -3,14 +3,28 @@
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
 import useEmblaCarousel from "embla-carousel-react"
-import Autoplay from "embla-carousel-autoplay"
-import { ChevronLeft, ChevronRight, Check, Home, Calendar, Maximize, MapPin, X, BedDouble, Bath, Square, TreePine, Users, Tag, Award, Lock, TrendingUp, DollarSign } from "lucide-react"
-import { motion } from "framer-motion"
+import {
+  ChevronLeft,
+  ChevronRight,
+  Check,
+  MapPin,
+  BedDouble,
+  Bath,
+  Square,
+  Users,
+  Tag,
+  TrendingUp,
+  DollarSign,
+  ArrowUpRight,
+  Sparkles,
+  BarChart3,
+  Shield,
+} from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 import { useCallback, useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
-import { LeadGenModal } from "@/components/lead-gen-modal"
 import Link from "next/link"
 import { useLocale } from "next-intl"
 
@@ -42,34 +56,22 @@ interface Property {
 
 export function PortfolioSection() {
   const t = useTranslations("portfolio")
-  const nt = useTranslations("nav")
   const locale = useLocale()
-  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: false })
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    { align: "start", loop: true, dragFree: true }
+  )
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isGuest, setIsGuest] = useState(true)
-  const [showLeadModal, setShowLeadModal] = useState(false)
-  const [modalSource, setModalSource] = useState<"timer" | "gated-content">("timer")
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [scrollSnaps, setScrollSnaps] = useState<number[]>([])
 
   useEffect(() => {
-    // Check local storage for auth status
-    const token = localStorage.getItem("pasiflow_token")
-    if (token) {
-      setIsGuest(false)
-    }
-    // NOTE: Auto-timer modal disabled to prevent unexpected page darkening
-    // Users will see the lead modal when they click on locked properties instead
-  }, [])
-
-  const handleLeadSuccess = () => {
-    setIsGuest(false)
-    setShowLeadModal(false)
-  }
-
-  const handleGatedClick = () => {
-    setModalSource("gated-content")
-    setShowLeadModal(true)
-  }
+    if (!emblaApi) return
+    setScrollSnaps(emblaApi.scrollSnapList())
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap())
+    emblaApi.on("select", onSelect)
+    return () => { emblaApi.off("select", onSelect) }
+  }, [emblaApi])
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
@@ -102,7 +104,6 @@ export function PortfolioSection() {
   }
 
   // Real listings from OneHome MLS - Updated January 2025
-  // All data verified from portal.onehome.com
   const properties: Property[] = [
     {
       address: "10468 Nottingham St",
@@ -244,217 +245,278 @@ export function PortfolioSection() {
     },
   ]
 
+  // Calculate portfolio stats
+  const totalValue = properties.reduce((sum, p) => sum + parseInt(p.price.replace(/[$,]/g, "")), 0)
+  const avgCap = (properties.reduce((sum, p) => sum + parseFloat(p.capRate), 0) / properties.length).toFixed(1)
+  const totalYearly = properties.reduce((sum, p) => sum + parseInt(p.netYearly.replace(/[$,]/g, "")), 0)
+
   return (
-    <section id="portfoy" className="py-24 bg-transparent relative overflow-hidden">
-      {/* Decorative background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#B8A074]/5 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#3D4852]/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+    <section id="portfoy" className="relative py-28 overflow-hidden">
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#FAFAF8] via-white to-[#FAFAF8]" />
+
+      {/* Animated decorative elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.04, 0.08, 0.04] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -top-32 -right-32 w-[700px] h-[700px] bg-gradient-to-br from-[#C1A05E] to-[#B8A074] rounded-full blur-3xl"
+        />
+        <motion.div
+          animate={{ scale: [1.1, 1, 1.1], opacity: [0.03, 0.06, 0.03] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+          className="absolute -bottom-40 -left-40 w-[600px] h-[600px] bg-gradient-to-tr from-[#1F2328] to-[#3D4852] rounded-full blur-3xl"
+        />
+        {/* Dot grid pattern */}
+        <svg className="absolute inset-0 w-full h-full opacity-[0.03]">
+          <defs>
+            <pattern id="portfolio-dots" x="0" y="0" width="32" height="32" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="1" fill="#C1A05E" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#portfolio-dots)" />
+        </svg>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
+          className="mb-16"
         >
-          <div className="space-y-4 max-w-2xl">
-            <motion.span
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#B8A074]/10 rounded-full text-[#B8A074] text-xs font-bold uppercase tracking-wider border border-[#B8A074]/20"
-            >
-              <TrendingUp size={14} />
-              {t("badge") || "Featured Properties"}
-            </motion.span>
-            <h2 className="text-3xl md:text-5xl font-bold text-[#3D4852] tracking-tight">{t("title")}</h2>
-            <p className="text-[#B8A074] text-xl md:text-2xl font-bold tracking-tight">
-              {t("subtitle")}
-            </p>
-          </div>
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
+            <div className="space-y-5 max-w-2xl">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2.5 px-5 py-2 bg-gradient-to-r from-[#C1A05E]/10 to-[#C1A05E]/5 rounded-full border border-[#C1A05E]/20"
+              >
+                <Sparkles size={14} className="text-[#C1A05E]" />
+                <span className="text-[#C1A05E] text-xs font-bold uppercase tracking-[0.15em]">
+                  {t("badge") || "Featured Properties"}
+                </span>
+              </motion.div>
 
-          <div className="flex gap-3">
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="outline" size="icon" onClick={scrollPrev} className="rounded-full w-12 h-12 border-2 border-[#E5E5E5] hover:border-[#B8A074] hover:bg-[#B8A074]/5 transition-all duration-300">
-                <ChevronLeft className="h-6 w-6" />
-              </Button>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Button variant="outline" size="icon" onClick={scrollNext} className="rounded-full w-12 h-12 border-2 border-[#E5E5E5] hover:border-[#B8A074] hover:bg-[#B8A074]/5 transition-all duration-300">
-                <ChevronRight className="h-6 w-6" />
-              </Button>
-            </motion.div>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1F2328] tracking-tight leading-[1.1]">
+                {t("title")}
+              </h2>
+
+              <p className="text-lg md:text-xl text-[#A8B0B8] font-medium">
+                {t("subtitle")}
+              </p>
+            </div>
+
+            {/* Navigation + Stats */}
+            <div className="flex flex-col items-start lg:items-end gap-5">
+              {/* Quick Stats Row */}
+              <div className="flex items-center gap-6">
+                <div className="text-right">
+                  <p className="text-xs text-[#A8B0B8] uppercase tracking-wider font-semibold">Portfolio</p>
+                  <p className="text-lg font-bold text-[#1F2328]">${(totalValue / 1000).toFixed(0)}K+</p>
+                </div>
+                <div className="w-px h-8 bg-gradient-to-b from-transparent via-[#C1A05E]/30 to-transparent" />
+                <div className="text-right">
+                  <p className="text-xs text-[#A8B0B8] uppercase tracking-wider font-semibold">Avg CAP</p>
+                  <p className="text-lg font-bold text-[#C1A05E]">{avgCap}%</p>
+                </div>
+                <div className="w-px h-8 bg-gradient-to-b from-transparent via-[#C1A05E]/30 to-transparent" />
+                <div className="text-right">
+                  <p className="text-xs text-[#A8B0B8] uppercase tracking-wider font-semibold">{t("netYearly")}</p>
+                  <p className="text-lg font-bold text-emerald-600">${totalYearly.toLocaleString()}</p>
+                </div>
+              </div>
+
+              {/* Carousel Controls */}
+              <div className="flex items-center gap-3">
+                {/* Dots */}
+                <div className="flex items-center gap-1.5 mr-3">
+                  {scrollSnaps.map((_, idx) => (
+                    <button
+                      key={idx}
+                      className={`h-1.5 rounded-full transition-all duration-300 ${
+                        idx === selectedIndex
+                          ? "w-6 bg-[#C1A05E]"
+                          : "w-1.5 bg-[#C1A05E]/20 hover:bg-[#C1A05E]/40"
+                      }`}
+                      onClick={() => emblaApi?.scrollTo(idx)}
+                    />
+                  ))}
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={scrollPrev}
+                  className="w-11 h-11 rounded-full border-2 border-[#E5E5E5] hover:border-[#C1A05E] hover:bg-[#C1A05E]/5 flex items-center justify-center transition-all duration-300"
+                >
+                  <ChevronLeft className="h-5 w-5 text-[#1F2328]" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={scrollNext}
+                  className="w-11 h-11 rounded-full bg-[#1F2328] hover:bg-[#C1A05E] flex items-center justify-center transition-all duration-300"
+                >
+                  <ChevronRight className="h-5 w-5 text-white" />
+                </motion.button>
+              </div>
+            </div>
           </div>
         </motion.div>
 
+        {/* Property Carousel */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2 }}
-          className="overflow-hidden p-2 -m-2"
-          ref={emblaRef as any}
+          transition={{ delay: 0.2, duration: 0.6 }}
+          className="overflow-hidden -mx-2"
+          ref={emblaRef as React.RefCallback<HTMLDivElement>}
         >
-          <div className="flex gap-8">
+          <div className="flex">
             {properties.map((property, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0"
+                transition={{ delay: i * 0.08, duration: 0.5, ease: [0.22, 1, 0.36, 1] as const }}
+                className="flex-[0_0_100%] sm:flex-[0_0_50%] lg:flex-[0_0_33.333%] min-w-0 px-3"
               >
                 <motion.div
-                  whileHover={{ y: -8, scale: 1.01 }}
+                  whileHover={{ y: -10 }}
                   transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 >
                   <Card
-                    className={`group h-full overflow-hidden border-slate-100 bg-white transition-all duration-500 flex flex-col cursor-pointer relative ${isGuest && i >= 1 ? 'pointer-events-none select-none' : 'hover:shadow-[0_25px_50px_-12px_rgba(184,160,116,0.15)] hover:border-[#B8A074]/30'}`}
-                    style={{ transitionTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)' }}
-                    onClick={() => {
-                      if (isGuest && i >= 1) return;
-                      openPropertyModal(property)
-                    }}
+                    className="group h-full overflow-hidden border-0 bg-white rounded-2xl transition-all duration-500 flex flex-col cursor-pointer shadow-[0_2px_20px_-4px_rgba(0,0,0,0.06)] hover:shadow-[0_30px_60px_-15px_rgba(193,160,94,0.18)]"
+                    onClick={() => openPropertyModal(property)}
                   >
-                    {/* Gating Overlay for Guests (Items >= 1) */}
-                    {isGuest && i >= 1 && (
-                      <div className="absolute inset-0 z-50 flex flex-col items-center justify-center bg-white/40 backdrop-blur-xl p-6 text-center pointer-events-auto"
-                        onClick={(e) => {
-                          e.stopPropagation()
-                          handleGatedClick()
-                        }}
-                      >
-                        <div className="bg-white/80 border border-white/40 p-8 rounded-[2rem] shadow-[0_30px_60px_-15px_rgba(30,40,75,0.15)] max-w-xs transform hover:scale-[1.02] transition-all duration-500 cursor-pointer backdrop-blur-xl">
-                          <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <Lock className="w-8 h-8 text-primary" />
-                          </div>
-                          <h3 className="text-2xl font-bold text-slate-900 mb-3 tracking-tight">{t("gatedTitle")}</h3>
-                          <p className="text-slate-500 mb-8 leading-relaxed">
-                            {t("gatedDesc")}
-                          </p>
-                          <Button
-                            className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all hover:scale-[1.02] active:scale-[0.98]"
-                            asChild
-                          >
-                            <Link href={`/${locale}/iletisim`}>
-                              {t("gatedButton")}
-                            </Link>
-                          </Button>
-                        </div>
-                      </div>
-                    )}
                     {/* Image Area */}
-                    <div className="relative h-64 overflow-hidden">
+                    <div className="relative h-60 overflow-hidden">
                       <img
                         src={property.image}
-                        alt={property.city}
+                        alt={property.address}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
-                      {!isGuest && (
-                        <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
-                          {property.capRate} {t("capRate")}
-                        </Badge>
-                      )}
-
-                      <div className="absolute top-4 left-4 flex flex-col gap-2">
-                        <Badge className="bg-accent text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
-                          <Check size={12} strokeWidth={4} />
+                      {/* Top-left badges */}
+                      <div className="absolute top-3.5 left-3.5 flex flex-col gap-2">
+                        <Badge className="bg-emerald-500 text-white font-semibold shadow-lg border-0 px-2.5 py-1 text-xs flex items-center gap-1 backdrop-blur-sm">
+                          <Shield size={11} strokeWidth={3} />
                           {t("section8Badge")}
                         </Badge>
-                        <Badge className="bg-primary text-white font-bold shadow-lg border-0 px-3 py-1 flex items-center gap-1">
-                          <Check size={12} strokeWidth={4} />
+                        <Badge className="bg-[#C1A05E] text-white font-semibold shadow-lg border-0 px-2.5 py-1 text-xs flex items-center gap-1">
+                          <Check size={11} strokeWidth={3} />
                           {t("buyBack")}
                         </Badge>
                       </div>
 
-                      {property.discount && (
-                        <Badge className="absolute bottom-4 left-4 bg-primary text-white font-bold shadow-lg border-0 px-3 py-1.5 flex items-center gap-1.5 animate-pulse">
-                          <Tag size={14} />
-                          {property.discount}
-                        </Badge>
-                      )}
-
-                      {property.investorsWatching && (
-                        <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-sm">
-                          <Users size={12} />
-                          <span>{property.investorsWatching} {t("investorsWatching")}</span>
+                      {/* Top-right CAP Rate */}
+                      <div className="absolute top-3.5 right-3.5">
+                        <div className="bg-white/95 backdrop-blur-md rounded-xl px-3 py-1.5 shadow-lg">
+                          <p className="text-[9px] text-[#A8B0B8] uppercase font-bold tracking-wider leading-none mb-0.5">{t("capRate")}</p>
+                          <p className="text-base font-extrabold text-[#C1A05E] leading-none">{property.capRate}</p>
                         </div>
-                      )}
+                      </div>
+
+                      {/* Bottom overlay info */}
+                      <div className="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between">
+                        {property.discount && (
+                          <Badge className="bg-[#C1A05E] text-white font-bold shadow-lg border-0 px-3 py-1.5 text-xs flex items-center gap-1.5">
+                            <Tag size={12} />
+                            {property.discount}
+                          </Badge>
+                        )}
+                        {property.investorsWatching && (
+                          <div className="bg-black/60 text-white text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1.5 backdrop-blur-md ml-auto">
+                            <Users size={11} />
+                            <span>{property.investorsWatching} {t("investorsWatching")}</span>
+                          </div>
+                        )}
+                      </div>
                     </div>
 
-                    <div className="p-6 flex flex-col flex-grow space-y-4">
-                      <div>
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="text-lg font-bold text-slate-900 group-hover:text-primary transition-colors">
+                    {/* Content */}
+                    <div className="p-5 flex flex-col flex-grow">
+                      {/* Address & Specs */}
+                      <div className="mb-4">
+                        <div className="flex items-center gap-2 mb-1.5">
+                          <h3 className="text-lg font-bold text-[#1F2328] group-hover:text-[#C1A05E] transition-colors duration-300 leading-tight">
                             {property.address}
                           </h3>
                           {property.status === "New Listing" && (
-                            <Badge className="bg-primary text-white text-xs px-2 py-0.5 border-0">{t("new")}</Badge>
+                            <Badge className="bg-[#C1A05E]/10 text-[#C1A05E] text-[10px] px-2 py-0.5 border border-[#C1A05E]/20 font-bold">{t("new")}</Badge>
                           )}
                         </div>
-                        <p className="text-sm text-slate-500 flex items-center gap-4">
-                          <span className="flex items-center gap-1.5">
-                            <BedDouble size={14} className="text-[#B8A074]" />
-                            <span>{property.rooms}</span>
+                        <div className="flex items-center gap-3 text-sm text-[#A8B0B8]">
+                          <span className="flex items-center gap-1">
+                            <BedDouble size={13} className="text-[#C1A05E]/60" />
+                            {property.rooms}
                           </span>
-                          <span className="flex items-center gap-1.5">
-                            <Bath size={14} className="text-[#B8A074]" />
-                            <span>{property.bathrooms}</span>
+                          <span className="flex items-center gap-1">
+                            <Bath size={13} className="text-[#C1A05E]/60" />
+                            {property.bathrooms}
                           </span>
-                          <span className="flex items-center gap-1.5">
-                            <Square size={14} className="text-[#B8A074]" />
-                            <span>{property.sqft}</span>
+                          <span className="flex items-center gap-1">
+                            <Square size={13} className="text-[#C1A05E]/60" />
+                            {property.sqft}
                           </span>
-                        </p>
-                        <p className="text-xs text-slate-400 mt-1 font-mono">
-                          MLS# {property.mls}
-                        </p>
+                          <span className="text-[10px] font-mono text-[#A8B0B8]/60 ml-auto">
+                            MLS# {property.mls}
+                          </span>
+                        </div>
                       </div>
 
-                      {/* Prominent Pricing & Net Yearly */}
-                      <div className="grid grid-cols-2 gap-4 pt-4">
+                      {/* Price & Yearly Income - Highlight */}
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div className="bg-[#FAFAF8] rounded-xl p-3 border border-slate-100/80">
+                          <p className="text-[9px] text-[#A8B0B8] uppercase font-bold tracking-wider mb-0.5">{t("price")}</p>
+                          <p className="text-xl font-extrabold text-[#1F2328] tracking-tight">{property.price}</p>
+                        </div>
+                        <div className="bg-gradient-to-br from-[#C1A05E]/5 to-[#C1A05E]/10 rounded-xl p-3 border border-[#C1A05E]/15">
+                          <p className="text-[9px] text-[#C1A05E] uppercase font-bold tracking-wider mb-0.5">{t("netYearly")}</p>
+                          <p className="text-xl font-extrabold text-[#C1A05E] tracking-tight">{property.netYearly}</p>
+                        </div>
+                      </div>
+
+                      {/* Monthly Details Strip */}
+                      <div className="flex items-center justify-between py-3 px-1 border-y border-slate-100/80 mb-4">
                         <div>
-                          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">{t("price")}</p>
-                          <p className="text-2xl font-bold text-slate-900">{property.price}</p>
+                          <p className="text-[9px] text-[#A8B0B8] uppercase font-bold tracking-wider">{t("rent")}</p>
+                          <p className="text-sm font-bold text-[#1F2328]">{property.monthlyRent}</p>
                         </div>
-                        <div>
-                          <p className="text-[10px] text-slate-500 uppercase font-bold tracking-wider text-right">{t("netYearly")}</p>
-                          <p className="text-2xl font-bold text-primary text-right">{property.netYearly}</p>
+                        <div className="text-center">
+                          <p className="text-[9px] text-[#A8B0B8] uppercase font-bold tracking-wider">CoC</p>
+                          <p className="text-sm font-bold text-emerald-600">{property.cashOnCash}</p>
                         </div>
-                      </div>
-
-                      {/* Monthly Details & Cash on Cash */}
-                      <div className="flex justify-between items-center py-3 border-y border-slate-100">
-                        <div className="flex flex-col">
-                          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">{t("rent")}</span>
-                          <span className="text-sm font-semibold text-slate-700">{property.monthlyRent}</span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">CoC</span>
-                          <span className="text-sm font-bold text-accent">{property.cashOnCash}</span>
-                        </div>
-                        <div className="flex flex-col items-end">
-                          <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider">{t("netMonthly")}</span>
-                          <span className="text-sm font-bold text-primary">{property.netMonthly}</span>
+                        <div className="text-right">
+                          <p className="text-[9px] text-[#A8B0B8] uppercase font-bold tracking-wider">{t("netMonthly")}</p>
+                          <p className="text-sm font-bold text-[#C1A05E]">{property.netMonthly}</p>
                         </div>
                       </div>
 
-                      <div className="pt-2 grid gap-3">
+                      {/* CTAs */}
+                      <div className="grid gap-2 mt-auto">
                         <Button
-                          className="w-full h-12 rounded-xl font-bold bg-primary text-white hover:bg-primary/90 transition-all shadow-[0_10px_20px_-5px_rgba(254,126,29,0.2)]"
+                          className="w-full h-11 rounded-xl font-bold bg-[#1F2328] text-white hover:bg-[#C1A05E] transition-all duration-300 group/btn"
                           asChild
                         >
-                          <Link href={`/${locale}/iletisim`}>
+                          <Link href={`/${locale}/iletisim`} className="flex items-center justify-center gap-2">
                             {t("detailsCta")}
+                            <ArrowUpRight size={15} className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                           </Link>
                         </Button>
-                        <Button variant="outline" className="w-full h-12 rounded-xl border-slate-200 text-slate-600 hover:bg-slate-50 hover:text-slate-900 transition-colors" asChild>
+                        <Button
+                          variant="outline"
+                          className="w-full h-11 rounded-xl border-slate-200 text-[#1F2328] hover:bg-[#FAFAF8] hover:border-[#C1A05E]/30 transition-all duration-300"
+                          asChild
+                        >
                           <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(property.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
                             {t("whatsappCta")}
                           </a>
@@ -468,18 +530,51 @@ export function PortfolioSection() {
           </div>
         </motion.div>
 
-        {/* Property Detail Modal */}
-        <Dialog open={!!selectedProperty} onOpenChange={closePropertyModal}>
-          <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0">
-            {selectedProperty && (
+        {/* Trust Strip */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="mt-16 flex flex-wrap items-center justify-center gap-6 md:gap-10"
+        >
+          {[
+            { icon: Shield, label: t("section8Badge"), sublabel: locale === "tr" ? "Devlet Garantili" : "Government Backed" },
+            { icon: BarChart3, label: `${avgCap}% CAP`, sublabel: locale === "tr" ? "Ortalama Getiri" : "Average Return" },
+            { icon: DollarSign, label: `$${(totalYearly / 1000).toFixed(0)}K+`, sublabel: locale === "tr" ? "Yıllık Gelir" : "Yearly Income" },
+            { icon: TrendingUp, label: `${properties.length}`, sublabel: locale === "tr" ? "Aktif Mülk" : "Active Properties" },
+          ].map((stat, i) => (
+            <motion.div
+              key={i}
+              whileHover={{ y: -2 }}
+              className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/80 backdrop-blur-sm border border-slate-100 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.04)] hover:border-[#C1A05E]/20 hover:shadow-[0_8px_24px_-8px_rgba(193,160,94,0.12)] transition-all duration-300"
+            >
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#C1A05E]/10 to-[#C1A05E]/5 flex items-center justify-center">
+                <stat.icon size={16} className="text-[#C1A05E]" />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-[#1F2328] leading-tight">{stat.label}</p>
+                <p className="text-[10px] text-[#A8B0B8] font-medium">{stat.sublabel}</p>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Property Detail Modal */}
+      <AnimatePresence>
+        {selectedProperty && (
+          <Dialog open={!!selectedProperty} onOpenChange={closePropertyModal}>
+            <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto p-0 border-0 rounded-3xl shadow-[0_40px_100px_-20px_rgba(0,0,0,0.3)]">
               <>
                 {/* Image Gallery */}
-                <div className="relative h-72 md:h-96 bg-black">
+                <div className="relative h-72 md:h-96 bg-[#1F2328] overflow-hidden">
                   <img
                     src={selectedProperty.images[currentImageIndex]}
                     alt={`${selectedProperty.address} - Image ${currentImageIndex + 1}`}
                     className="w-full h-full object-cover"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
                   {/* Image Navigation */}
                   {selectedProperty.images.length > 1 && (
@@ -487,25 +582,25 @@ export function PortfolioSection() {
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
+                        className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full shadow-lg w-10 h-10"
                         onClick={(e) => { e.stopPropagation(); prevImage(); }}
                       >
-                        <ChevronLeft className="h-6 w-6" />
+                        <ChevronLeft className="h-5 w-5" />
                       </Button>
                       <Button
                         variant="ghost"
                         size="icon"
-                        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full shadow-lg w-10 h-10"
                         onClick={(e) => { e.stopPropagation(); nextImage(); }}
                       >
-                        <ChevronRight className="h-6 w-6" />
+                        <ChevronRight className="h-5 w-5" />
                       </Button>
 
                       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
                         {selectedProperty.images.map((_, idx) => (
                           <button
                             key={idx}
-                            className={`w-2 h-2 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white w-4' : 'bg-white/50'}`}
+                            className={`h-1.5 rounded-full transition-all ${idx === currentImageIndex ? 'bg-white w-5' : 'bg-white/50 w-1.5'}`}
                             onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
                           />
                         ))}
@@ -513,72 +608,110 @@ export function PortfolioSection() {
                     </>
                   )}
 
-                  {/* Badges */}
-                  <Badge className="absolute top-4 right-4 bg-white text-primary font-bold shadow-lg border-0 px-3 py-1">
-                    {selectedProperty.capRate} {t("capRate")}
-                  </Badge>
-                  {selectedProperty.status === "New Listing" && (
-                    <Badge className="absolute top-4 left-4 bg-primary text-white font-bold shadow-lg border-0 px-3 py-1">
-                      {t("new")}
+                  {/* Badges on modal */}
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <Badge className="bg-emerald-500 text-white font-semibold shadow-lg border-0 px-3 py-1 backdrop-blur-sm">
+                      <Shield size={12} strokeWidth={3} className="mr-1" />
+                      {t("section8Badge")}
                     </Badge>
-                  )}
+                    {selectedProperty.status === "New Listing" && (
+                      <Badge className="bg-[#C1A05E] text-white font-semibold shadow-lg border-0 px-3 py-1">
+                        {t("new")}
+                      </Badge>
+                    )}
+                  </div>
+
+                  <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-md rounded-xl px-3.5 py-2 shadow-lg">
+                    <p className="text-[9px] text-[#A8B0B8] uppercase font-bold tracking-wider leading-none mb-0.5">{t("capRate")}</p>
+                    <p className="text-xl font-extrabold text-[#C1A05E] leading-none">{selectedProperty.capRate}</p>
+                  </div>
                 </div>
 
                 {/* Property Details */}
-                <div className="p-8 space-y-8 bg-white">
+                <div className="p-6 md:p-8 space-y-6 bg-white">
                   {/* Header */}
                   <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div>
-                      <div className="flex items-center gap-3 mb-2">
-                        <h2 className="text-3xl font-bold text-slate-900 tracking-tight">{selectedProperty.address}</h2>
-                        <Badge className="bg-accent/10 text-accent border-accent/20">
-                          <Check size={12} strokeWidth={3} className="mr-1" />
-                          {t("section8Badge")}
-                        </Badge>
-                      </div>
-                      <p className="text-slate-500 flex items-center gap-1.5 text-lg">
-                        <MapPin size={20} className="text-primary" />
+                      <h2 className="text-2xl md:text-3xl font-bold text-[#1F2328] tracking-tight mb-1">{selectedProperty.address}</h2>
+                      <p className="text-[#A8B0B8] flex items-center gap-1.5 text-base">
+                        <MapPin size={16} className="text-[#C1A05E]" />
                         {selectedProperty.city}
                       </p>
-                      <p className="text-sm font-mono text-slate-400 mt-2">MLS# {selectedProperty.mls}</p>
+                      <p className="text-xs font-mono text-[#A8B0B8]/60 mt-1">MLS# {selectedProperty.mls}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm text-slate-500 uppercase font-bold tracking-wider mb-1">{t("price")}</p>
-                      <p className="text-4xl font-extrabold text-slate-900">{selectedProperty.price}</p>
+                      <p className="text-xs text-[#A8B0B8] uppercase font-bold tracking-wider mb-1">{t("price")}</p>
+                      <p className="text-3xl md:text-4xl font-extrabold text-[#1F2328]">{selectedProperty.price}</p>
                     </div>
                   </div>
 
-                  {/* Property Stats */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-8 bg-slate-50 rounded-[2rem] border border-slate-100 shadow-inner">
+                  {/* Stats Grid */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-6 bg-[#FAFAF8] rounded-2xl border border-slate-100">
                     <div className="space-y-1">
-                      <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("rent")}</p>
-                      <p className="text-2xl font-bold text-slate-900">{selectedProperty.monthlyRent}</p>
+                      <p className="text-[10px] text-[#A8B0B8] uppercase font-bold tracking-wider">{t("rent")}</p>
+                      <p className="text-xl font-bold text-[#1F2328]">{selectedProperty.monthlyRent}</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("netMonthly")}</p>
-                      <p className="text-2xl font-bold text-primary">{selectedProperty.netMonthly}</p>
+                      <p className="text-[10px] text-[#A8B0B8] uppercase font-bold tracking-wider">{t("netMonthly")}</p>
+                      <p className="text-xl font-bold text-[#C1A05E]">{selectedProperty.netMonthly}</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("netYearly")}</p>
-                      <p className="text-2xl font-bold text-primary">{selectedProperty.netYearly}</p>
+                      <p className="text-[10px] text-[#A8B0B8] uppercase font-bold tracking-wider">{t("netYearly")}</p>
+                      <p className="text-xl font-bold text-[#C1A05E]">{selectedProperty.netYearly}</p>
                     </div>
                     <div className="space-y-1">
-                      <p className="text-xs text-slate-500 uppercase font-bold tracking-wider">{t("capRate")}</p>
-                      <p className="text-2xl font-bold text-accent">{selectedProperty.capRate}</p>
+                      <p className="text-[10px] text-[#A8B0B8] uppercase font-bold tracking-wider">CoC</p>
+                      <p className="text-xl font-bold text-emerald-600">{selectedProperty.cashOnCash}</p>
                     </div>
                   </div>
+
+                  {/* Property Specs */}
+                  <div className="flex flex-wrap gap-3">
+                    <div className="flex items-center gap-2 px-4 py-2 bg-[#FAFAF8] rounded-xl border border-slate-100">
+                      <BedDouble size={15} className="text-[#C1A05E]" />
+                      <span className="text-sm font-semibold text-[#1F2328]">{selectedProperty.rooms} {t("rooms")}</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-4 py-2 bg-[#FAFAF8] rounded-xl border border-slate-100">
+                      <Bath size={15} className="text-[#C1A05E]" />
+                      <span className="text-sm font-semibold text-[#1F2328]">{selectedProperty.bathrooms} {t("bathrooms")}</span>
+                    </div>
+                    <div className="flex items-center gap-2 px-4 py-2 bg-[#FAFAF8] rounded-xl border border-slate-100">
+                      <Square size={15} className="text-[#C1A05E]" />
+                      <span className="text-sm font-semibold text-[#1F2328]">{selectedProperty.sqft} sqft</span>
+                    </div>
+                  </div>
+
+                  {/* Features */}
+                  {selectedProperty.features.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProperty.features.map((feature, idx) => (
+                        <span
+                          key={idx}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#C1A05E]/5 text-[#C1A05E] rounded-full text-xs font-semibold border border-[#C1A05E]/10"
+                        >
+                          <Check size={11} strokeWidth={3} />
+                          {feature}
+                        </span>
+                      ))}
+                    </div>
+                  )}
 
                   {/* CTA Buttons */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
                     <Button
-                      className="w-full h-14 text-lg font-bold shadow-xl shadow-primary/20 bg-primary text-white hover:bg-primary/90 rounded-2xl transition-all hover:scale-[1.02]"
+                      className="w-full h-13 text-base font-bold bg-[#1F2328] text-white hover:bg-[#C1A05E] rounded-xl transition-all duration-300 shadow-lg"
                       asChild
                     >
-                      <Link href={`/${locale}/iletisim`}>
+                      <Link href={`/${locale}/iletisim`} className="flex items-center justify-center gap-2">
                         {t("cta")}
+                        <ArrowUpRight size={16} />
                       </Link>
                     </Button>
-                    <Button variant="outline" className="w-full h-14 text-lg font-bold border-slate-200 text-slate-700 hover:bg-slate-50 rounded-2xl transition-all" asChild>
+                    <Button
+                      variant="outline"
+                      className="w-full h-13 text-base font-bold border-slate-200 text-[#1F2328] hover:bg-[#FAFAF8] hover:border-[#C1A05E]/30 rounded-xl transition-all duration-300"
+                      asChild
+                    >
                       <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
                         WhatsApp
                       </a>
@@ -586,17 +719,10 @@ export function PortfolioSection() {
                   </div>
                 </div>
               </>
-            )}
-          </DialogContent>
-        </Dialog >
-
-        <LeadGenModal
-          open={showLeadModal}
-          onOpenChange={setShowLeadModal}
-          onSuccess={handleLeadSuccess}
-          triggerSource={modalSource}
-        />
-      </div>
+            </DialogContent>
+          </Dialog>
+        )}
+      </AnimatePresence>
     </section>
   )
 }
