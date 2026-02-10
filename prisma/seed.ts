@@ -8,8 +8,8 @@ async function main() {
 
     // Hash passwords for seed users
     const adminHash = await bcrypt.hash('Pasiflow2026!', 12)
-    const investorHash = await bcrypt.hash('Investor2026!', 12)
-    const agentHash = await bcrypt.hash('Agent2026!', 12)
+    const investorHash = await bcrypt.hash('PasiInvestor2025!', 12)
+    const agentHash = await bcrypt.hash('PasiAgent2025!', 12)
 
     // 1. Create Admin (CTO)
     const admin = await prisma.user.upsert({
