@@ -187,10 +187,26 @@ export function InvestmentCalculator({
         <section id="calculator" className="py-20 md:py-32 bg-gradient-to-b from-[#0A0B0D] via-[#0F1012] to-[#0A0B0D] relative overflow-hidden">
             {/* Animated background elements */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#B8A074]/10 rounded-full blur-[128px] animate-pulse" />
-                <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#B8A074]/5 rounded-full blur-[100px]" />
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B8A074]/30 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B8A074]/30 to-transparent" />
+                <motion.div
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.06, 0.12, 0.06] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-[#B8A074] rounded-full blur-[128px]"
+                />
+                <motion.div
+                    animate={{ scale: [1.2, 1, 1.2], opacity: [0.04, 0.08, 0.04] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#B8A074] rounded-full blur-[100px]"
+                />
+                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B8A074]/40 to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#B8A074]/40 to-transparent" />
+                {/* Dot grid pattern */}
+                <div
+                    className="absolute inset-0 opacity-[0.03]"
+                    style={{
+                        backgroundImage: "radial-gradient(circle at 1px 1px, #B8A074 1px, transparent 0)",
+                        backgroundSize: "40px 40px",
+                    }}
+                />
             </div>
 
             <div className="container mx-auto px-4 md:px-6 relative z-10">
@@ -211,11 +227,11 @@ export function InvestmentCalculator({
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.1 }}
-                        className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight"
+                        className="text-3xl md:text-5xl lg:text-6xl font-bold text-white mb-4 tracking-tight leading-[1.1]"
                     >
                         {t.growthTitle.split(" ").slice(0, 3).join(" ")}
                         <br />
-                        <span className="bg-gradient-to-r from-[#B8A074] to-[#D4C4A0] bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-[#C1A05E] via-[#D4C4A0] to-[#C1A05E] bg-clip-text text-transparent bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite]">
                             {t.growthTitle.split(" ").slice(3).join(" ")}
                         </span>
                     </motion.h2>
@@ -242,7 +258,7 @@ export function InvestmentCalculator({
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
                         >
-                            <Card className="p-6 md:p-8 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-3xl">
+                            <Card className="p-6 md:p-8 bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl hover:border-[#C1A05E]/20 transition-all shadow-2xl shadow-black/20">
                                 <div className="flex items-center gap-3 mb-6">
                                     <motion.div
                                         whileHover={{ scale: 1.1, rotate: 5 }}
@@ -346,11 +362,18 @@ export function InvestmentCalculator({
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                whileHover={{ y: -4 }}
+                                whileHover={{ y: -6, scale: 1.02 }}
+                                transition={{ type: "spring", stiffness: 300 }}
                             >
-                                <Card className="p-5 md:p-6 bg-gradient-to-br from-[#B8A074] to-[#8B7355] rounded-2xl relative overflow-hidden h-full">
+                                <Card className="p-5 md:p-6 bg-gradient-to-br from-[#C1A05E] via-[#B8A074] to-[#8B7355] rounded-2xl relative overflow-hidden h-full shadow-xl shadow-[#C1A05E]/20 border-0">
                                     <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
                                     <div className="absolute bottom-0 left-0 w-20 h-20 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
+                                    {/* Shimmer overlay */}
+                                    <motion.div
+                                        animate={{ x: ["-100%", "200%"] }}
+                                        transition={{ duration: 3, repeat: Infinity, repeatDelay: 4 }}
+                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent skew-x-12 pointer-events-none"
+                                    />
                                     <div className="relative">
                                         <div className="flex items-center gap-2 mb-3">
                                             <div className="w-8 h-8 rounded-lg bg-white/20 flex items-center justify-center">
@@ -379,9 +402,9 @@ export function InvestmentCalculator({
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.1 }}
-                                whileHover={{ y: -4 }}
+                                whileHover={{ y: -6, scale: 1.02 }}
                             >
-                                <Card className="p-5 md:p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl h-full">
+                                <Card className="p-5 md:p-6 bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl h-full hover:border-[#C1A05E]/30 transition-colors">
                                     <div className="flex items-center gap-2 mb-3">
                                         <div className="w-8 h-8 rounded-lg bg-[#B8A074]/20 flex items-center justify-center">
                                             <TrendingUp className="w-4 h-4 text-[#B8A074]" />
@@ -411,14 +434,16 @@ export function InvestmentCalculator({
 
                         {/* Stats Grid */}
                         <div className="grid grid-cols-3 gap-3">
-                            {[
+                            {([
                                 {
                                     icon: Target,
-                                    iconColor: "text-[#B8A074]",
-                                    bgColor: "bg-[#B8A074]/10",
+                                    iconColor: "text-[#C1A05E]",
+                                    bgColor: "bg-[#C1A05E]/10",
                                     label: t.labels.capitalRecovery,
                                     value: `${calculations.capitalRecoveryYears}`,
                                     suffix: t.labels.years,
+                                    extra: "",
+                                    extraColor: "",
                                     delay: 0
                                 },
                                 {
@@ -428,6 +453,8 @@ export function InvestmentCalculator({
                                     label: t.labels.totalReturn6Y,
                                     value: USD.format(calculations.totalReturn6Y),
                                     suffix: "",
+                                    extra: "",
+                                    extraColor: "",
                                     delay: 0.05
                                 },
                                 {
@@ -441,7 +468,7 @@ export function InvestmentCalculator({
                                     extraColor: "text-blue-400",
                                     delay: 0.1
                                 }
-                            ].map((stat, i) => (
+                            ] as const).map((stat, i) => (
                                 <motion.div
                                     key={i}
                                     initial={{ opacity: 0, y: 20 }}
@@ -450,7 +477,7 @@ export function InvestmentCalculator({
                                     transition={{ delay: 0.2 + stat.delay }}
                                     whileHover={{ y: -3, scale: 1.02 }}
                                 >
-                                    <Card className="p-4 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-xl hover:border-white/20 transition-colors">
+                                    <Card className="p-4 bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-xl hover:border-[#C1A05E]/30 transition-all shadow-lg shadow-black/10">
                                         <div className="flex items-center gap-1.5 mb-2">
                                             <div className={`w-6 h-6 rounded-md ${stat.bgColor} flex items-center justify-center`}>
                                                 <stat.icon className={`w-3.5 h-3.5 ${stat.iconColor}`} />
@@ -481,7 +508,7 @@ export function InvestmentCalculator({
                             viewport={{ once: true }}
                             transition={{ delay: 0.3 }}
                         >
-                            <Card className="p-5 md:p-6 bg-white/[0.03] backdrop-blur-xl border border-white/10 rounded-2xl relative overflow-hidden">
+                            <Card className="p-5 md:p-6 bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-2xl relative overflow-hidden shadow-2xl shadow-black/20 hover:border-[#C1A05E]/20 transition-all">
                                 {/* Background grid lines */}
                                 <div className="absolute inset-0 pointer-events-none">
                                     {[25, 50, 75].map(pct => (
