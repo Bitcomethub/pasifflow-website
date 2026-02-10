@@ -41,10 +41,7 @@ export function Logo({
                     alt="Pasiflow"
                     width={styles.width}
                     height={styles.height}
-                    className={cn(
-                        "object-contain",
-                        theme === "dark" && "brightness-0 invert"
-                    )}
+                    className="object-contain"
                     priority
                 />
             </div>
