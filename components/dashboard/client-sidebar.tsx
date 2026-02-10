@@ -50,14 +50,14 @@ export function ClientSidebar({ onClose }: ClientSidebarProps) {
     const handleNavClick = () => onClose?.()
 
     return (
-        <aside className="fixed left-0 top-0 z-40 h-screen w-72 bg-[#1F2328] text-white transition-transform">
-            <div className="flex h-20 items-center justify-start border-b border-white/10 px-6">
+        <aside className="fixed left-0 top-0 z-40 h-screen w-72 bg-[#1F2328] text-white transition-transform flex flex-col">
+            <div className="flex h-20 items-center justify-start border-b border-white/10 px-6 flex-shrink-0">
                 <Link href="/dashboard" onClick={handleNavClick}>
                     <Logo size="md" theme="dark" showMotto={false} />
                 </Link>
             </div>
 
-            <div className="px-4 py-8">
+            <div className="px-4 py-6 flex-1 overflow-y-auto">
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -158,7 +158,7 @@ export function ClientSidebar({ onClose }: ClientSidebarProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="absolute bottom-6 left-0 right-0 px-6"
+                className="px-6 pb-6 pt-2 flex-shrink-0"
             >
                 <motion.div
                     whileHover={{ scale: 1.02 }}
