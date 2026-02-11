@@ -1,0 +1,63 @@
+From 22aaa5f7c521868af3e4b05aa542648d693f3cbc Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Wed, 11 Feb 2026 14:53:40 +0000
+Subject: [PATCH] Fix splash color to brand charcoal + auto dev/prod detection
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+- Splash/adaptive icon backgroundColor: #3D4852 → #1F2328 (brand charcoal)
+- IS_PRODUCTION: hardcoded true → !__DEV__ (Expo auto-detection)
+- Added clarifying comment: lib/api.ts = Railway backend, services/api.ts = main mobile API
+---
+ app.json   | 4 ++--
+ lib/api.ts | 8 ++++----
+ 2 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/app.json b/app.json
+index 84381b6..a9fb700 100644
+--- a/app.json
++++ b/app.json
+@@ -11,7 +11,7 @@
+     "splash": {
+       "image": "./assets/splash-icon.png",
+       "resizeMode": "contain",
+-      "backgroundColor": "#3D4852"
++      "backgroundColor": "#1F2328"
+     },
+     "ios": {
+       "supportsTablet": true,
+@@ -26,7 +26,7 @@
+       "package": "com.pasiflow.app",
+       "adaptiveIcon": {
+         "foregroundImage": "./assets/adaptive-icon.png",
+-        "backgroundColor": "#3D4852"
++        "backgroundColor": "#1F2328"
+       },
+       "edgeToEdgeEnabled": true
+     },
+diff --git a/lib/api.ts b/lib/api.ts
+index e610ff5..2250493 100644
+--- a/lib/api.ts
++++ b/lib/api.ts
+@@ -1,13 +1,13 @@
+ // API Configuration for Pasiflow Mobile App
+-// Change API_BASE_URL to your Railway deployment URL when deploying
++// This file handles the Railway backend (news, AI features).
++// Main mobile API (auth, dashboard, properties) is in services/api.ts → pasiflow.com/api/mobile
+ 
+ // For development: Use your local machine's IP address when testing on physical device
+-// For production: Use your Railway deployment URL
++// For production: Uses Railway deployment URL automatically
+ const DEV_API_URL = 'http://localhost:3001';
+ const PROD_API_URL = 'https://pasiflow-api-production.up.railway.app';
+ 
+-// Set this to true when deploying to production
+-const IS_PRODUCTION = true;
++const IS_PRODUCTION = !__DEV__;
+ 
+ export const API_BASE_URL = IS_PRODUCTION ? PROD_API_URL : DEV_API_URL;
+ 
+-- 
+2.43.0
+
