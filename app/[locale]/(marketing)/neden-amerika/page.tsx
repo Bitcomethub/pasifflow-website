@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import { motion } from "framer-motion"
 import { TrendingUp, Building2, ShieldCheck, Scale, DollarSign, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -9,6 +9,7 @@ import { Link } from "@/i18n/navigation"
 export default function WhyUsaPage() {
     const t = useTranslations("whyUsa")
     const tCommon = useTranslations("common")
+    const locale = useLocale()
 
     const sections = [
         { id: "section1", icon: TrendingUp },
@@ -67,7 +68,7 @@ export default function WhyUsaPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                     <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform" asChild>
                         <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
-                            {tCommon("getConsultation")}
+                            {tCommon("freeConsultation")}
                         </a>
                     </Button>
                     <Button
@@ -76,8 +77,8 @@ export default function WhyUsaPage() {
                         className="font-semibold text-lg h-14 border-2 gap-2 bg-secondary text-white hover:bg-secondary/90 border-secondary hover:border-secondary"
                         asChild
                     >
-                        <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer">
-                            {tCommon("whatsapp")}
+                        <a href="https://wa.me/13056903146" target="_blank" rel="noopener noreferrer">
+                            {tCommon("whatsappCta")}
                         </a>
                     </Button>
                 </div>

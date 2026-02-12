@@ -1,4 +1,18 @@
+import { Inter, Playfair_Display } from "next/font/google";
 import { AdminSidebar } from "@/components/admin/sidebar";
+import "../globals.css";
+
+const inter = Inter({
+    subsets: ["latin"],
+    variable: "--font-inter",
+    display: "swap",
+});
+
+const playfair = Playfair_Display({
+    subsets: ["latin"],
+    variable: "--font-playfair",
+    display: "swap",
+});
 
 export const dynamic = 'force-dynamic';
 
@@ -8,13 +22,17 @@ export default function AdminLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="h-full relative">
-            <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80] bg-gray-900">
-                <AdminSidebar />
-            </div>
-            <main className="md:pl-72 pb-10">
-                {children}
-            </main>
-        </div>
+        <html lang="en">
+            <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
+                <div className="h-full relative">
+                    <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80] bg-gray-900">
+                        <AdminSidebar />
+                    </div>
+                    <main className="md:pl-72 pb-10">
+                        {children}
+                    </main>
+                </div>
+            </body>
+        </html>
     );
 }

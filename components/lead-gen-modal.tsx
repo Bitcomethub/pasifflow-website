@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Check, Lock, Sparkles, Shield, TrendingUp, X, ArrowRight } from "lucide-react"
+import { Check, Lock, Sparkles, Shield, TrendingUp, X, ArrowRight, Mail, User, Phone } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { useTranslations } from "next-intl"
 
@@ -32,7 +32,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
             const response = await fetch("/api/leads", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, phone, source: triggerSource || "modal" }),
+                body: JSON.stringify({ fullName: name, email, phone, source: triggerSource || "modal" }),
             })
 
             if (!response.ok) {
@@ -71,52 +71,78 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
     return (
         <Dialog open={open} onOpenChange={handleClose}>
             <DialogContent
-                className="w-[95%] sm:max-w-lg max-h-[90vh] flex flex-col bg-white border-0 shadow-2xl rounded-2xl p-0 outline-none overflow-hidden"
+                className="w-[95%] sm:max-w-lg max-h-[90vh] flex flex-col border-0 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.5)] rounded-3xl p-0 outline-none overflow-hidden bg-transparent"
                 showCloseButton={false}
             >
-                {/* Animated Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-[#1F2328] via-[#2D353F] to-[#1F2328]" />
-                <div className="absolute top-0 right-0 w-64 h-64 bg-[#B8A074]/10 rounded-full blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#3D4852]/20 rounded-full blur-3xl" />
+                {/* Dark gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1F2328] via-[#262D34] to-[#1F2328] rounded-3xl" />
+
+                {/* Animated mesh gradients */}
+                <motion.div
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.25, 0.15] }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-20 -right-20 w-60 h-60 bg-gradient-to-br from-[#C1A05E] to-[#B8A074] rounded-full blur-3xl"
+                />
+                <motion.div
+                    animate={{ scale: [1.1, 1, 1.1], opacity: [0.1, 0.2, 0.1] }}
+                    transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+                    className="absolute -bottom-20 -left-20 w-52 h-52 bg-gradient-to-tr from-[#C1A05E]/50 to-[#3D4852] rounded-full blur-3xl"
+                />
+
+                {/* Dot grid */}
+                <svg className="absolute inset-0 w-full h-full opacity-[0.04] rounded-3xl overflow-hidden">
+                    <defs>
+                        <pattern id="lead-dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+                            <circle cx="1" cy="1" r="0.8" fill="#C1A05E" />
+                        </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#lead-dots)" />
+                </svg>
 
                 {/* Close Button */}
                 <motion.button
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 }}
                     onClick={handleClose}
-                    className="absolute top-4 right-4 p-2.5 rounded-full bg-white/10 hover:bg-white/20 text-white/70 hover:text-white transition-all z-50 backdrop-blur-sm border border-white/10"
+                    className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/[0.08] hover:bg-white/[0.15] backdrop-blur-md text-white/50 hover:text-white transition-all z-50 flex items-center justify-center border border-white/[0.08]"
                     type="button"
                 >
-                    <X size={18} />
+                    <X size={16} />
                 </motion.button>
 
-                {/* Premium Header Bar */}
+                {/* Header */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="relative bg-transparent px-6 py-8 sm:px-8 sm:py-10 flex-shrink-0 text-center"
+                    className="relative px-6 pt-8 pb-2 sm:px-8 sm:pt-10 flex-shrink-0 text-center"
                 >
                     <motion.div
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
-                        transition={{ type: "spring", delay: 0.2 }}
-                        className="inline-flex items-center justify-center gap-3 mb-4"
+                        transition={{ type: "spring", stiffness: 300, delay: 0.2 }}
+                        className="inline-flex items-center justify-center mb-5"
                     >
-                        <div className="p-3 bg-[#B8A074]/20 rounded-2xl">
-                            {step === "form" ? (
-                                <Sparkles className="w-6 h-6 text-[#B8A074]" />
-                            ) : (
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ type: "spring" }}
-                                >
-                                    <Check className="w-6 h-6 text-[#B8A074]" />
-                                </motion.div>
-                            )}
+                        <div className="relative">
+                            <div className="w-16 h-16 bg-gradient-to-br from-[#C1A05E] to-[#B8A074] rounded-2xl flex items-center justify-center shadow-lg shadow-[#C1A05E]/20">
+                                <AnimatePresence mode="wait">
+                                    {step === "form" ? (
+                                        <motion.div key="sparkle" initial={{ rotate: -30, scale: 0 }} animate={{ rotate: 0, scale: 1 }} exit={{ rotate: 30, scale: 0 }}>
+                                            <Sparkles className="w-7 h-7 text-white" />
+                                        </motion.div>
+                                    ) : (
+                                        <motion.div key="check" initial={{ rotate: -30, scale: 0 }} animate={{ rotate: 0, scale: 1 }} transition={{ type: "spring" }}>
+                                            <Check className="w-7 h-7 text-white" />
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                            {/* Decorative ring */}
+                            <div className="absolute -inset-2 rounded-2xl border border-[#C1A05E]/20 animate-pulse" />
                         </div>
                     </motion.div>
+
                     <motion.h3
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -129,13 +155,14 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="text-white/60 text-sm font-medium mt-2"
+                        className="text-white/40 text-sm font-medium mt-2"
                     >
                         {t("subTitle")}
                     </motion.p>
                 </motion.div>
 
-                <div className="relative p-5 sm:p-8 overflow-y-auto">
+                {/* Content */}
+                <div className="relative px-5 pb-6 sm:px-8 sm:pb-8 overflow-y-auto">
                     <AnimatePresence mode="wait">
                         {step === "form" ? (
                             <motion.div
@@ -145,52 +172,62 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
                                 exit={{ opacity: 0, y: -20 }}
                                 transition={{ duration: 0.4 }}
                             >
-                                <DialogHeader className="mb-6 text-center">
-                                    <DialogTitle className="text-xl sm:text-2xl font-bold tracking-tight text-white">
+                                <DialogHeader className="mb-5 text-center">
+                                    <DialogTitle className="text-lg sm:text-xl font-bold tracking-tight text-white">
                                         {triggerSource === "gated-content" ? t("headerGated") : t("headerForm")}
                                     </DialogTitle>
-                                    <DialogDescription className="text-white/50 pt-2 text-sm leading-relaxed">
+                                    <DialogDescription className="text-white/35 pt-1.5 text-sm leading-relaxed">
                                         {t("descForm")}
                                     </DialogDescription>
                                 </DialogHeader>
 
-                                <form onSubmit={handleSubmit} className="space-y-5">
+                                <form onSubmit={handleSubmit} className="space-y-4">
+                                    {/* Input fields with icons */}
                                     <motion.div
                                         initial={{ opacity: 0, x: -20 }}
                                         animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: 0.5 }}
+                                        transition={{ delay: 0.4 }}
                                         className="space-y-3"
                                     >
-                                        <Input
-                                            placeholder={t("namePlaceholder")}
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            required
-                                            className="h-12 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus:border-[#B8A074] focus:ring-[#B8A074]/20 rounded-xl text-sm font-medium backdrop-blur-sm"
-                                        />
-                                        <Input
-                                            type="email"
-                                            placeholder={t("emailPlaceholder")}
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            required
-                                            className="h-12 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus:border-[#B8A074] focus:ring-[#B8A074]/20 rounded-xl text-sm font-medium backdrop-blur-sm"
-                                        />
-                                        <Input
-                                            type="tel"
-                                            placeholder={t("phonePlaceholder")}
-                                            value={phone}
-                                            onChange={(e) => setPhone(e.target.value)}
-                                            className="h-12 bg-white/10 border-white/10 text-white placeholder:text-white/40 focus:border-[#B8A074] focus:ring-[#B8A074]/20 rounded-xl text-sm font-medium backdrop-blur-sm"
-                                        />
+                                        <div className="relative">
+                                            <User size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C1A05E]/50" />
+                                            <Input
+                                                placeholder={t("namePlaceholder")}
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)}
+                                                required
+                                                className="h-12 pl-10 bg-white/[0.06] border-white/[0.08] text-white placeholder:text-white/25 focus:border-[#C1A05E]/50 focus:ring-[#C1A05E]/10 focus:bg-white/[0.08] rounded-xl text-sm font-medium backdrop-blur-sm transition-all"
+                                            />
+                                        </div>
+                                        <div className="relative">
+                                            <Mail size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C1A05E]/50" />
+                                            <Input
+                                                type="email"
+                                                placeholder={t("emailPlaceholder")}
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                required
+                                                className="h-12 pl-10 bg-white/[0.06] border-white/[0.08] text-white placeholder:text-white/25 focus:border-[#C1A05E]/50 focus:ring-[#C1A05E]/10 focus:bg-white/[0.08] rounded-xl text-sm font-medium backdrop-blur-sm transition-all"
+                                            />
+                                        </div>
+                                        <div className="relative">
+                                            <Phone size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#C1A05E]/50" />
+                                            <Input
+                                                type="tel"
+                                                placeholder={t("phonePlaceholder")}
+                                                value={phone}
+                                                onChange={(e) => setPhone(e.target.value)}
+                                                className="h-12 pl-10 bg-white/[0.06] border-white/[0.08] text-white placeholder:text-white/25 focus:border-[#C1A05E]/50 focus:ring-[#C1A05E]/10 focus:bg-white/[0.08] rounded-xl text-sm font-medium backdrop-blur-sm transition-all"
+                                            />
+                                        </div>
                                     </motion.div>
 
-                                    {/* Benefits Strip */}
+                                    {/* Benefits Pills */}
                                     <motion.div
                                         initial={{ opacity: 0, scale: 0.95 }}
                                         animate={{ opacity: 1, scale: 1 }}
-                                        transition={{ delay: 0.6 }}
-                                        className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 py-4 border-y border-white/10"
+                                        transition={{ delay: 0.5 }}
+                                        className="flex flex-wrap items-center justify-center gap-2 py-4"
                                     >
                                         {[
                                             { icon: TrendingUp, text: t("benefits.roi") },
@@ -201,46 +238,51 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
                                                 key={i}
                                                 initial={{ opacity: 0, y: 10 }}
                                                 animate={{ opacity: 1, y: 0 }}
-                                                transition={{ delay: 0.7 + i * 0.1 }}
-                                                className="flex items-center gap-2 text-xs text-white/70 font-medium"
+                                                transition={{ delay: 0.6 + i * 0.08 }}
+                                                className="flex items-center gap-1.5 px-3 py-1.5 bg-[#C1A05E]/[0.08] border border-[#C1A05E]/15 rounded-full"
                                             >
-                                                <benefit.icon size={14} className="text-[#B8A074]" />
-                                                <span>{benefit.text}</span>
+                                                <benefit.icon size={12} className="text-[#C1A05E]" />
+                                                <span className="text-[11px] text-[#C1A05E]/80 font-semibold">{benefit.text}</span>
                                             </motion.div>
                                         ))}
                                     </motion.div>
 
+                                    {/* Submit Button */}
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        transition={{ delay: 0.8 }}
+                                        transition={{ delay: 0.7 }}
                                     >
                                         <Button
                                             type="submit"
-                                            className="w-full h-12 text-base font-bold bg-[#B8A074] hover:bg-[#a38d5d] text-white rounded-xl transition-all shadow-xl shadow-[#B8A074]/20 group"
+                                            className="w-full h-12 text-base font-bold bg-gradient-to-r from-[#C1A05E] to-[#B8A074] hover:from-[#B8A074] hover:to-[#C1A05E] text-white rounded-xl transition-all shadow-xl shadow-[#C1A05E]/15 group relative overflow-hidden"
                                             disabled={loading}
                                         >
-                                            {loading ? (
-                                                <div className="flex items-center gap-2">
-                                                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                    {t("processing")}
-                                                </div>
-                                            ) : (
-                                                <>
-                                                    {t("submitAccess")}
-                                                    <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                                                </>
-                                            )}
+                                            {/* Shimmer sweep */}
+                                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                            <span className="relative flex items-center justify-center gap-2">
+                                                {loading ? (
+                                                    <>
+                                                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                        {t("processing")}
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        {t("submitAccess")}
+                                                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                                    </>
+                                                )}
+                                            </span>
                                         </Button>
                                     </motion.div>
 
                                     <motion.p
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
-                                        transition={{ delay: 1 }}
-                                        className="text-xs text-center text-white/40 pt-2 flex items-center justify-center gap-1"
+                                        transition={{ delay: 0.9 }}
+                                        className="text-[11px] text-center text-white/25 pt-1 flex items-center justify-center gap-1"
                                     >
-                                        <Lock size={10} />
+                                        <Lock size={9} />
                                         {t("securityNote")}
                                     </motion.p>
                                 </form>
@@ -251,34 +293,55 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.5 }}
-                                className="py-12 flex flex-col items-center justify-center gap-6"
+                                className="py-12 flex flex-col items-center justify-center gap-5"
                             >
-                                <motion.div
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    transition={{ type: "spring", delay: 0.2 }}
-                                    className="w-20 h-20 bg-[#B8A074]/20 rounded-full flex items-center justify-center"
-                                >
-                                    <Check className="w-10 h-10 text-[#B8A074]" />
-                                </motion.div>
+                                {/* Animated check with ripple */}
+                                <div className="relative">
+                                    <motion.div
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
+                                        className="w-20 h-20 bg-gradient-to-br from-[#C1A05E] to-[#B8A074] rounded-full flex items-center justify-center shadow-xl shadow-[#C1A05E]/20"
+                                    >
+                                        <Check className="w-10 h-10 text-white" strokeWidth={3} />
+                                    </motion.div>
+                                    {/* Ripple rings */}
+                                    <motion.div
+                                        initial={{ scale: 0.8, opacity: 0.5 }}
+                                        animate={{ scale: 2, opacity: 0 }}
+                                        transition={{ duration: 1.5, repeat: Infinity }}
+                                        className="absolute inset-0 rounded-full border-2 border-[#C1A05E]/30"
+                                    />
+                                    <motion.div
+                                        initial={{ scale: 0.8, opacity: 0.3 }}
+                                        animate={{ scale: 2.5, opacity: 0 }}
+                                        transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
+                                        className="absolute inset-0 rounded-full border border-[#C1A05E]/20"
+                                    />
+                                </div>
                                 <motion.div
                                     initial={{ opacity: 0, y: 10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.4 }}
-                                    className="text-white/80 font-medium text-center"
+                                    className="text-center"
                                 >
-                                    <p className="text-lg">{t("headerSuccess")}</p>
-                                    <p className="text-sm text-white/50 mt-2">{t("redirecting")}</p>
+                                    <p className="text-lg font-bold text-white">{t("headerSuccess")}</p>
+                                    <p className="text-sm text-white/40 mt-1.5">{t("redirecting")}</p>
                                 </motion.div>
                                 <motion.div
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     transition={{ delay: 0.6 }}
-                                    className="flex gap-2"
+                                    className="flex gap-1.5"
                                 >
-                                    <div className="w-2 h-2 bg-[#B8A074] rounded-full animate-bounce" />
-                                    <div className="w-2 h-2 bg-[#B8A074] rounded-full animate-bounce delay-75" />
-                                    <div className="w-2 h-2 bg-[#B8A074] rounded-full animate-bounce delay-150" />
+                                    {[0, 1, 2].map((i) => (
+                                        <motion.div
+                                            key={i}
+                                            animate={{ y: [0, -6, 0] }}
+                                            transition={{ duration: 0.6, repeat: Infinity, delay: i * 0.15 }}
+                                            className="w-1.5 h-1.5 bg-[#C1A05E] rounded-full"
+                                        />
+                                    ))}
                                 </motion.div>
                             </motion.div>
                         )}

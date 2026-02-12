@@ -1,3 +1,4 @@
+// Admin panel is English-only (internal-facing)
 "use client"
 
 import Link from "next/link"
@@ -10,6 +11,7 @@ import {
     Wrench,
     Wallet,
     FileText,
+    Users,
     Settings,
     LogOut
 } from "lucide-react"
@@ -47,6 +49,12 @@ export function AdminSidebar() {
             icon: FileText,
             href: "/admin/documents",
             active: pathname.startsWith("/admin/documents"),
+        },
+        {
+            label: "Users",
+            icon: Users,
+            href: "/admin/users",
+            active: pathname.startsWith("/admin/users"),
         },
         {
             label: "Settings",

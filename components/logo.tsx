@@ -33,26 +33,15 @@ export function Logo({
 
     const t = useTranslations("logo")
 
-    // Theme-based logo selection
-    // Always use the main logo.png as it works for both light and dark backgrounds (based on user request for "logo-2" style but provided new "logo.png")
-    // Or if the new logo provided is a dark-on-light logo, we might need to check if it has a white version.
-    // However, the user provided ONE logo file for the logo update.
-    // Let's assume the new logo.png provided is the one to use.
-
-    // Use white logo for dark backgrounds (theme="dark"), default logo for light backgrounds
-    const logoSrc = theme === "dark" ? "/brand/logo-user-white.png" : "/logo.png"
-
     const content = (
         <div className={cn("flex flex-col", className)}>
             <div className="flex items-center">
                 <Image
-                    src={logoSrc}
+                    src="/logo.png"
                     alt="Pasiflow"
                     width={styles.width}
                     height={styles.height}
-                    className={cn(
-                        "object-contain"
-                    )}
+                    className="object-contain"
                     priority
                 />
             </div>

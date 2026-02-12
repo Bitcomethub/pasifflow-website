@@ -15,7 +15,9 @@
         "allRightsReserved": "All rights reserved",
         "showMore": "Show More",
         "showLess": "Show Less",
-        "whatsapp": "Write on WhatsApp"
+        "whatsapp": "Write on WhatsApp",
+        "freeConsultation": "Get Free Consultation",
+        "whatsappCta": "Message on WhatsApp"
     },
     "footer": {
         "description": "The safest way to earn passive dollar income through government-backed (Section 8) rental real estate investment in America.",
@@ -672,7 +674,12 @@
         "documents": "Documents",
         "support": "Support",
         "settings": "Settings",
-        "account": "Account"
+        "account": "Account",
+        "agentDashboard": "Dashboard",
+        "agentReferrals": "My Referrals",
+        "agentEarnings": "My Earnings",
+        "agentMarketing": "Marketing Tools",
+        "agentAcademy": "Academy"
     },
     "logo": {
         "motto": "Transparent process, solid investment."
@@ -754,7 +761,7 @@
         "ctaButton": "Read Taxation Guide"
     },
     "taxation": {
-        "badge": "IRS & Tax Compliance",
+        "irsBadge": "IRS & Tax Compliance",
         "title": "Taxation & Legal Structure",
         "subtitle": "Real Estate Investment in America",
         "intro": "Real estate investment is not just about earning rental income; you can also create higher net returns and sustainable financial structure through tax planning.",
@@ -835,6 +842,9 @@
         "message": "Message (Optional)",
         "messagePlaceholder": "Your investment goals, budget, or questions...",
         "submit": "Send Consultation Request",
+        "sending": "Sending...",
+        "successTitle": "Message Received!",
+        "successMessage": "We'll get back to you as soon as possible. Thank you.",
         "privacyNote": "Your information is kept confidential and not shared with third parties.",
         "callNow": "Call Now",
         "writeNow": "Write Now",
@@ -968,7 +978,8 @@
         "or": "or",
         "googleLogin": "Sign in with Google",
         "noAccount": "Don't have an account?",
-        "signupLink": "Sign Up"
+        "signupLink": "Sign Up",
+        "securityNotice": "Access is provided by Pasiflow. If you need credentials, please contact us."
     },
     "trustBadges": {
         "yearsExperience": "Years Experience",

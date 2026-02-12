@@ -1,9 +1,21 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { verifyToken, extractBearerToken } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(request: Request) {
     try {
-        const user = await prisma.user.findFirst({
+        // JWT Authentication
+        const token = extractBearerToken(request);
+        if (!token) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const payload = verifyToken(token);
+        if (!payload) {
+            return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+        }
+
+        const user = await prisma.user.findUnique({
+            where: { email: payload.email },
             include: {
                 llcs: {
                     include: {

@@ -92,15 +92,15 @@ export function Header() {
 
   const navLinks = [
     { name: tNav("howItWorks"), href: "#nasil-calisir" },
-    { name: tNav("about"), href: "/about" },
+    { name: tNav("about"), href: `/${currentLocale}/about` },
     { name: tNav("portfolio"), href: "#portfoy" },
     { name: tNav("faq"), href: "#faq" },
   ]
 
   const extraLinks = [
-    { name: tNav("whyUSA"), href: "/neden-amerika" },
-    { name: tNav("taxLaw"), href: "/vergilendirme" },
-    { name: tNav("map"), href: "/harita" },
+    { name: tNav("whyUSA"), href: `/${currentLocale}/neden-amerika` },
+    { name: tNav("taxLaw"), href: `/${currentLocale}/vergilendirme` },
+    { name: tNav("map"), href: `/${currentLocale}/harita` },
   ]
 
   return (
@@ -136,7 +136,7 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/about" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href={`/${currentLocale}/about`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("about")}
                     </Link>
                   </DropdownMenuItem>
@@ -146,7 +146,7 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/iletisim" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href={`/${currentLocale}/iletisim`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("contact")}
                     </Link>
                   </DropdownMenuItem>
@@ -167,7 +167,7 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/harita" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href={`/${currentLocale}/harita`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("mapAndLocations")}
                     </Link>
                   </DropdownMenuItem>
@@ -183,12 +183,12 @@ export function Header() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
-                    <Link href="/neden-amerika" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href={`/${currentLocale}/neden-amerika`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("whyUSA")}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/vergilendirme" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href={`/${currentLocale}/vergilendirme`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("taxLaw")}
                     </Link>
                   </DropdownMenuItem>
@@ -278,6 +278,8 @@ export function Header() {
             <button
               className="md:hidden z-[70] p-2 rounded-lg text-[#3D4852] hover:bg-[#E5E5E5] transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
             >
               {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

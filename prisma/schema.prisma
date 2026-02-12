@@ -1,6 +1,6 @@
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 generator client {
@@ -13,7 +13,7 @@ model User {
   passwordHash String   @map("password_hash")
   fullName     String?  @map("full_name")
   phone        String?
-  role         String   @default("USER") // USER, ADMIN
+  role         String   @default("USER") // USER, AGENT, ADMIN
   isVerified   Boolean  @default(false) @map("is_verified")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")

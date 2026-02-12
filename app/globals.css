@@ -16,14 +16,6 @@
   --primary: #C1A05E;
   /* Gold - Brand Primary for Buttons */
   --primary-foreground: #FFFFFF;
-  --secondary: #B8A074;
-  /* Changed Silver to Gold for Buttons if needed, OR keep Silver and override buttons. 
-     If the user wants "all greens to gold", and "whatsapp to gold". 
-     I'll keep secondary as #B8A074 (Gold) effectively making secondary buttons Gold too? 
-     No, let's keep secondary as Silver for text (A8B0B8) if possible, but the user wants "all greens to gold".
-     Let's stick to component-level replacements first to be safe, or just make a new variable if needed. 
-     Actually, let's just make Secondary Gold if that fits the "Brand" better, but Silver is also brand.
-     Let's leave globals alone for now unless I see a green definition. */
   --secondary: #A8B0B8;
   /* Silver */
   --secondary-foreground: #F5F5F5;
@@ -33,7 +25,6 @@
   /* Gold */
   --accent-foreground: #FFFFFF;
   --destructive: #B8A074;
-  /* Gold as alert/attention (Luxury style) or keep red? Keeping Gold for brand consistency on "alerts" unless critical */
   --destructive-foreground: #FFFFFF;
   --border: #E5E5E5;
   --input: #E5E5E5;
@@ -143,6 +134,45 @@
     font-size: 16px;
     color: var(--foreground);
   }
+}
+
+/* Custom keyframe animations */
+@keyframes shimmer {
+  from { background-position: 0% center; }
+  to { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Custom range input styling */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C1A05E, #D4C4A0);
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(193, 160, 94, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 30px rgba(193, 160, 94, 0.6), 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #C1A05E, #D4C4A0);
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(193, 160, 94, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  border: 3px solid rgba(255, 255, 255, 0.9);
 }
 
 @layer components {

@@ -5,12 +5,13 @@ import { Instagram, Linkedin, Youtube, Mail, Phone, MapPin, ArrowRight } from "l
 import { Logo } from "@/components/logo"
 import { motion } from "framer-motion"
 
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 
 export function Footer() {
   const t = useTranslations("common")
   const tNav = useTranslations("nav")
   const tFooter = useTranslations("footer")
+  const locale = useLocale()
 
   return (
     <footer className="bg-white text-[#3D4852] pt-12 pb-6 relative overflow-hidden mt-6 border-t border-slate-200">
@@ -67,8 +68,8 @@ export function Footer() {
                 { label: t("howItWorks"), href: "#nasil-calisir" },
                 { label: t("portfolio"), href: "#portfoy" },
                 { label: t("faq"), href: "#faq" },
-                { label: tNav("whyUSA"), href: "/neden-amerika" },
-                { label: tNav("taxLaw"), href: "/vergilendirme" }
+                { label: tNav("whyUSA"), href: `/${locale}/neden-amerika` },
+                { label: tNav("taxLaw"), href: `/${locale}/vergilendirme` }
               ].map((link, i) => (
                 <li key={i}>
                   <Link href={link.href} className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
@@ -96,9 +97,9 @@ export function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: t("privacyPolicy"), href: "/gizlilik" },
-                { label: t("termsOfService"), href: "/kullanim-sartlari" },
-                { label: t("kvkk"), href: "/kvkk" }
+                { label: t("privacyPolicy"), href: `/${locale}/gizlilik` },
+                { label: t("termsOfService"), href: `/${locale}/kullanim-sartlari` },
+                { label: t("kvkk"), href: `/${locale}/kvkk` }
               ].map((link, i) => (
                 <li key={i}>
                   <Link href={link.href} className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">

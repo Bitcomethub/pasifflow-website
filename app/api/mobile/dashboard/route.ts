@@ -1,12 +1,21 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { verifyToken, extractBearerToken } from '@/lib/auth';
 
 export async function GET(request: Request) {
     try {
-        const { searchParams } = new URL(request.url);
-        const email = searchParams.get('email') || 'demo@pasiflow.com';
+        // JWT Authentication
+        const token = extractBearerToken(request);
+        if (!token) {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+        const payload = verifyToken(token);
+        if (!payload) {
+            return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+        }
 
-        // Fetch user based on the query param (or default/token in future)
+        const email = payload.email;
+
         let user = await prisma.user.findUnique({
             where: { email },
             include: {
@@ -22,63 +31,11 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
 
-        // AUTO-SEED: If demo user has no LLCs, create mock data for display
-        if (user.llcs.length === 0 && email === 'demo@pasiflow.com') {
-            await prisma.lLC.create({
-                data: {
-                    name: 'Pasiflow Demo LLC',
-                    ownerId: user.id,
-                    properties: {
-                        create: [
-                            {
-                                address: '12152 Stout St',
-                                city: 'Detroit',
-                                state: 'MI',
-                                zipCode: '48228',
-                                purchasePrice: 85900,
-                                currentValue: 92000,
-                                monthlyRent: 1160,
-                                status: 'Occupied',
-                                purchaseDate: new Date('2024-01-15')
-                            },
-                            {
-                                address: '9977 Evergreen Ave',
-                                city: 'Detroit',
-                                state: 'MI',
-                                zipCode: '48228',
-                                purchasePrice: 89900,
-                                currentValue: 95000,
-                                monthlyRent: 1350,
-                                status: 'Occupied',
-                                purchaseDate: new Date('2024-03-10')
-                            }
-                        ]
-                    }
-                }
-            });
-
-            // Re-fetch user with new data
-            const updatedUser = await prisma.user.findUnique({
-                where: { email },
-                include: {
-                    llcs: {
-                        include: {
-                            properties: true
-                        }
-                    }
-                }
-            });
-
-            if (updatedUser) {
-                user = updatedUser;
-            }
-        }
-
         // Calculate Totals
         let totalProperties = 0;
         let totalValue = 0;
         let totalMonthlyRent = 0;
-        let totalYield = 0; // Simple average yield
+        let totalYield = 0;
 
         user.llcs.forEach(llc => {
             llc.properties.forEach(property => {
@@ -88,7 +45,6 @@ export async function GET(request: Request) {
             });
         });
 
-        // Calculate Average Yield (Annual Rent / Total Value)
         if (totalValue > 0) {
             totalYield = ((totalMonthlyRent * 12) / totalValue) * 100;
         }
