@@ -9,6 +9,7 @@ const leadSchema = z.object({
     phone: z.string().min(10, "Geçerli bir telefon numarası giriniz"),
     budget: z.string().optional(),
     source: z.string().optional(),
+    message: z.string().optional(),
 })
 
 export async function POST(req: Request) {
@@ -23,6 +24,7 @@ export async function POST(req: Request) {
                 phone: validatedData.phone,
                 budget: validatedData.budget,
                 source: validatedData.source || "Website Form",
+                message: validatedData.message,
             },
         })
 
@@ -34,6 +36,19 @@ export async function POST(req: Request) {
             source: lead.source,
             budget: lead.budget || undefined
         }).catch(err => console.error("Notification error:", err))
+
+        // n8n webhook — async, non-blocking
+        fetch("https://n8n-production-bdb9.up.railway.app/webhook/new-lead", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                fullName: lead.fullName,
+                email: lead.email,
+                phone: lead.phone,
+                source: lead.source,
+                createdAt: lead.createdAt,
+            }),
+        }).catch(err => console.error("n8n webhook error:", err))
 
         return NextResponse.json({ success: true, lead }, { status: 201 })
     } catch (error) {
