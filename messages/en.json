@@ -545,6 +545,21 @@
         "mapView": "Map View",
         "searchPlaceholder": "Search Address or Place..."
     },
+    "mapPage": {
+        "badge": "Interactive Map",
+        "title": "Detroit Neighborhood Guide",
+        "subtitle": "Discover Detroit's neighborhoods with the highest investment potential. Access price, ROI, and risk analysis for each area.",
+        "stat1Label": "10 Neighborhoods",
+        "stat1Desc": "Analyzed",
+        "stat2Label": "4-15%",
+        "stat2Desc": "ROI Range",
+        "stat3Label": "Section 8",
+        "stat3Desc": "Supported",
+        "stat4Label": "Real-Time",
+        "stat4Desc": "Data",
+        "howToUseTitle": "How to Use the Map?",
+        "howToUseDesc": "Click the colored markers on the map to access detailed investment information for each neighborhood. Green markers represent low-risk premium neighborhoods, yellow represents mid-segment, red represents high-yield areas, and blue represents rising/trendy areas."
+    },
     "aiAssistant": {
         "title": "Pasi | Smart Advisor",
         "online": "Online",
@@ -739,6 +754,7 @@
         "ctaButton": "Read Taxation Guide"
     },
     "taxation": {
+        "badge": "IRS & Tax Compliance",
         "title": "Taxation & Legal Structure",
         "subtitle": "Real Estate Investment in America",
         "intro": "Real estate investment is not just about earning rental income; you can also create higher net returns and sustainable financial structure through tax planning.",

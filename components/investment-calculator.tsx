@@ -4,6 +4,7 @@ import * as React from "react"
 import { Card } from "@/components/ui/card"
 import { TrendingUp, Calendar, DollarSign, CheckCircle, Info, Wallet, Sparkles, Target, ChartLine, Shield, ArrowUpRight, Zap } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLocale } from "next-intl"
 
 // Helper functions
 function clamp(n: number, min: number, max: number) {
@@ -46,6 +47,16 @@ type CalculatorTexts = {
         perYear: string
         years: string
         yearlyAppreciation: string
+        yearProjection: string
+        year: string
+        cumulative: string
+        monthly: string
+        portfolio: string
+        cumulativeIncome: string
+        capitalRecoveryYear: string
+        initialInvestment: string
+        investment_label: string
+        yearSuffix: string
     }
 }
 
@@ -80,6 +91,16 @@ const TR_TEXTS: CalculatorTexts = {
         perYear: "/yıl",
         years: "yıl",
         yearlyAppreciation: "+3.5% yıllık değer artışı",
+        yearProjection: "6 Yıllık Kazanç Projeksiyonu",
+        year: "Yıl",
+        cumulative: "Kümülatif",
+        monthly: "Aylık",
+        portfolio: "Portföy",
+        cumulativeIncome: "Kümülatif Gelir",
+        capitalRecoveryYear: "Sermaye Geri Dönüş Yılı",
+        initialInvestment: "Başlangıç Yatırımı",
+        investment_label: "Yatırım",
+        yearSuffix: ".Yıl",
     },
 }
 
@@ -114,6 +135,16 @@ const EN_TEXTS: CalculatorTexts = {
         perYear: "/yr",
         years: "years",
         yearlyAppreciation: "+3.5% yearly appreciation",
+        yearProjection: "6 Year Projection",
+        year: "Year",
+        cumulative: "Cumulative",
+        monthly: "Monthly",
+        portfolio: "Portfolio",
+        cumulativeIncome: "Cumulative Income",
+        capitalRecoveryYear: "Capital Recovery Year",
+        initialInvestment: "Initial Investment",
+        investment_label: "Investment",
+        yearSuffix: "Y",
     },
 }
 
@@ -124,7 +155,6 @@ type Props = {
     step?: number
     annualReturn?: number
     defaultInvestment?: number
-    locale?: string
 }
 
 export function InvestmentCalculator({
@@ -134,8 +164,8 @@ export function InvestmentCalculator({
     step = 5_000,
     annualReturn = 0.15,
     defaultInvestment = 30_000,
-    locale = "tr",
 }: Props) {
+    const locale = useLocale()
     const t = texts || (locale === "en" ? EN_TEXTS : TR_TEXTS)
 
     const [investment, setInvestment] = React.useState<number>(() =>
@@ -500,7 +530,7 @@ export function InvestmentCalculator({
                                                 <ChartLine className="w-4 h-4 text-[#B8A074]" />
                                             </div>
                                             <span className="text-white/70 text-sm font-semibold uppercase tracking-wide">
-                                                6 {locale === "en" ? "Year Projection" : "Yıllık Kazanç Projeksiyonu"}
+                                                {t.labels.yearProjection}
                                             </span>
                                         </div>
                                         <motion.div
@@ -550,19 +580,19 @@ export function InvestmentCalculator({
                                                                 >
                                                                     <div className="bg-[#1a1b1e] border border-white/20 rounded-xl px-3 py-2.5 shadow-2xl min-w-[140px]">
                                                                         <div className="text-[10px] text-white/50 font-bold uppercase tracking-wider mb-1.5">
-                                                                            {locale === "en" ? "Year" : "Yıl"} {data.year}
+                                                                            {t.labels.year} {data.year}
                                                                         </div>
                                                                         <div className="space-y-1">
                                                                             <div className="flex justify-between gap-4">
-                                                                                <span className="text-[10px] text-white/50">{locale === "en" ? "Cumulative" : "Kümülatif"}</span>
+                                                                                <span className="text-[10px] text-white/50">{t.labels.cumulative}</span>
                                                                                 <span className="text-xs font-bold text-[#B8A074]">{USD.format(data.cumulative)}</span>
                                                                             </div>
                                                                             <div className="flex justify-between gap-4">
-                                                                                <span className="text-[10px] text-white/50">{locale === "en" ? "Monthly" : "Aylık"}</span>
+                                                                                <span className="text-[10px] text-white/50">{t.labels.monthly}</span>
                                                                                 <span className="text-xs font-bold text-white">{USD.format(data.monthlyAtYear)}</span>
                                                                             </div>
                                                                             <div className="flex justify-between gap-4">
-                                                                                <span className="text-[10px] text-white/50">{locale === "en" ? "Portfolio" : "Portföy"}</span>
+                                                                                <span className="text-[10px] text-white/50">{t.labels.portfolio}</span>
                                                                                 <span className="text-xs font-bold text-blue-400">{USD.format(data.portfolioValue)}</span>
                                                                             </div>
                                                                         </div>
@@ -625,7 +655,7 @@ export function InvestmentCalculator({
 
                                                         {/* X-axis label */}
                                                         <div className={`mt-2 text-xs font-bold transition-colors ${isRecoveryYear ? 'text-[#B8A074]' : isHovered ? 'text-white/80' : 'text-white/40'}`}>
-                                                            {data.year}{locale === "en" ? "Y" : ".Yıl"}
+                                                            {data.year}{t.labels.yearSuffix}
                                                         </div>
                                                     </div>
                                                 )
@@ -646,7 +676,7 @@ export function InvestmentCalculator({
                                                 }}
                                             >
                                                 <span className="absolute -top-4 right-0 text-[9px] text-white/40 font-mono bg-[#0F1012] px-1.5 py-0.5 rounded">
-                                                    {locale === "en" ? "Investment" : "Yatırım"}: {USD.format(investment)}
+                                                    {t.labels.investment_label}: {USD.format(investment)}
                                                 </span>
                                             </motion.div>
                                         )}
@@ -656,15 +686,15 @@ export function InvestmentCalculator({
                                     <div className="mt-4 pt-4 border-t border-white/5 flex flex-wrap items-center justify-center gap-4 md:gap-6">
                                         <div className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded-sm bg-gradient-to-t from-[#B8A074]/40 to-[#D4C4A0]/40" />
-                                            <span className="text-[11px] text-white/50 font-medium">{locale === "en" ? "Cumulative Income" : "Kümülatif Gelir"}</span>
+                                            <span className="text-[11px] text-white/50 font-medium">{t.labels.cumulativeIncome}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded-sm bg-gradient-to-t from-[#B8A074] to-[#D4C4A0]" />
-                                            <span className="text-[11px] text-white/50 font-medium">{locale === "en" ? "Capital Recovery Year" : "Sermaye Geri Dönüş Yılı"}</span>
+                                            <span className="text-[11px] text-white/50 font-medium">{t.labels.capitalRecoveryYear}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="w-6 h-0 border-t-2 border-dashed border-white/30" />
-                                            <span className="text-[11px] text-white/50 font-medium">{locale === "en" ? "Initial Investment" : "Başlangıç Yatırımı"}</span>
+                                            <span className="text-[11px] text-white/50 font-medium">{t.labels.initialInvestment}</span>
                                         </div>
                                     </div>
                                 </div>

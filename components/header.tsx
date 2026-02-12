@@ -1,13 +1,12 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname, useRouter } from "next/navigation"
+import { Link, useRouter, usePathname } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Menu, X, ChevronDown } from "lucide-react"
 import { Logo } from "@/components/logo"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -75,8 +74,7 @@ export function Header() {
   const router = useRouter()
   const t = useTranslations("common")
   const tNav = useTranslations("nav")
-
-  const currentLocale = pathname.split('/')[1] || 'tr'
+  const currentLocale = useLocale()
   const currentLang = languages.find(l => l.code === currentLocale) || languages[0]
 
   // Simple scroll detection using event listener
@@ -89,9 +87,7 @@ export function Header() {
   }, [])
 
   const switchLocale = (newLocale: string) => {
-    const segments = pathname.split('/')
-    segments[1] = newLocale
-    router.push(segments.join('/') || `/${newLocale}`)
+    router.push(pathname, { locale: newLocale })
   }
 
   const navLinks = [

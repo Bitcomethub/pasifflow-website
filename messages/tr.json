@@ -564,6 +564,21 @@
         "mapView": "Harita Görünümü",
         "searchPlaceholder": "Adres veya Yer Ara..."
     },
+    "mapPage": {
+        "badge": "İnteraktif Harita",
+        "title": "Detroit Mahalle Rehberi",
+        "subtitle": "Detroit'in yatırım potansiyeli en yüksek mahallelerini keşfedin. Her bölge için fiyat, ROI ve risk analizine ulaşın.",
+        "stat1Label": "10 Mahalle",
+        "stat1Desc": "Analiz Edildi",
+        "stat2Label": "%4-15",
+        "stat2Desc": "ROI Aralığı",
+        "stat3Label": "Section 8",
+        "stat3Desc": "Destekli",
+        "stat4Label": "Gerçek Zamanlı",
+        "stat4Desc": "Veri",
+        "howToUseTitle": "Harita Nasıl Kullanılır?",
+        "howToUseDesc": "Haritadaki renkli işaretçilere tıklayarak her mahallenin detaylı yatırım bilgilerine ulaşabilirsiniz. Yeşil işaretçiler düşük riskli premium mahalleleri, sarı orta segmenti, kırmızı yüksek getirili bölgeleri ve mavi yükselen/trendy alanları temsil eder."
+    },
     "aiAssistant": {
         "title": "Pasi | Akıllı Danışman",
         "online": "Çevrimiçi",
@@ -733,6 +748,7 @@
         "ctaButton": "Vergilendirme Rehberini Oku"
     },
     "taxation": {
+        "badge": "IRS & Vergi Uyumu",
         "title": "Vergilendirme & Hukuki Yapı",
         "subtitle": "Amerika'da Gayrimenkul Yatırımı",
         "intro": "Gayrimenkul yatırımı sadece kira geliri elde etmekten ibaret değildir; aynı zamanda vergi planlaması ile daha yüksek net getiri ve sürdürülebilir finansal yapı oluşturabilirsiniz.",

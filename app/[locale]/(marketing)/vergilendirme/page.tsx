@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
 import { FileText, Landmark, Calculator, ArrowRight, CheckCircle2, Building2, TrendingDown, HeadphonesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 
 export default function TaxationPage() {
     const t = useTranslations("taxation")
@@ -38,7 +38,7 @@ export default function TaxationPage() {
                     >
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent font-medium text-sm mb-4">
                             <CheckCircle2 size={16} />
-                            IRS & Vergi Uyumu
+                            {t("badge")}
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary">
                             {t("title")}

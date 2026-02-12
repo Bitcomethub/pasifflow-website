@@ -4,10 +4,11 @@ import { useTranslations } from "next-intl"
 import { motion } from "framer-motion"
 import { TrendingUp, Building2, ShieldCheck, Scale, DollarSign, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 
 export default function WhyUsaPage() {
     const t = useTranslations("whyUsa")
+    const tCommon = useTranslations("common")
 
     const sections = [
         { id: "section1", icon: TrendingUp },
@@ -66,7 +67,7 @@ export default function WhyUsaPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                     <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform" asChild>
                         <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
-                            Ücretsiz Danışmanlık Al
+                            {tCommon("getConsultation")}
                         </a>
                     </Button>
                     <Button
@@ -76,7 +77,7 @@ export default function WhyUsaPage() {
                         asChild
                     >
                         <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer">
-                            WhatsApp'tan Yaz
+                            {tCommon("whatsapp")}
                         </a>
                     </Button>
                 </div>
