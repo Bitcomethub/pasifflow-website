@@ -23,10 +23,12 @@ export const metadata: Metadata = {
 }
 
 type Props = {
-    params: { locale: string }
+    params: Promise<{ locale: string }>
 }
 
-export default function Home({ params }: Props) {
+export default async function Home({ params }: Props) {
+    const { locale } = await params;
+
     return (
         <div className="min-h-screen">
             <main>
@@ -36,7 +38,7 @@ export default function Home({ params }: Props) {
                 <ComparisonSection />
                 <AdvantagesSection />
                 <PortfolioSection />
-                <InvestmentCalculator locale={params.locale} />
+                <InvestmentCalculator locale={locale} />
                 <BuybackSection />
                 <ProcessSection />
                 <Section8Section />
