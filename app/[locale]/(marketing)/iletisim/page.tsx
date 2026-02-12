@@ -115,6 +115,49 @@ export default function ContactPage() {
     const t = useTranslations("contact")
     const tFooter = useTranslations("footer")
 
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+    const [phone, setPhone] = useState("")
+    const [investorProfile, setInvestorProfile] = useState("new")
+    const [message, setMessage] = useState("")
+    const [loading, setLoading] = useState(false)
+    const [submitted, setSubmitted] = useState(false)
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault()
+        setLoading(true)
+
+        const profileLabels: Record<string, string> = {
+            new: "Yeni Yatırımcı",
+            experienced: "Deneyimli Yatırımcı",
+            existing: "Mevcut Müşteri",
+            agent: "Acente / Danışman",
+        }
+        const fullMessage = message
+            ? `[Profil: ${profileLabels[investorProfile] || investorProfile}] ${message}`
+            : `[Profil: ${profileLabels[investorProfile] || investorProfile}]`
+
+        try {
+            await fetch("/api/leads", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    fullName: `${firstName} ${lastName}`.trim(),
+                    email,
+                    phone,
+                    source: "contact-page",
+                    message: fullMessage,
+                }),
+            })
+        } catch (err) {
+            console.error("Contact form submission error:", err)
+        } finally {
+            setLoading(false)
+            setSubmitted(true)
+        }
+    }
+
     const services = [
         t("service1"),
         t("service2"),
@@ -273,7 +316,20 @@ export default function ContactPage() {
                                         </p>
                                     </div>
 
-                                    <form className="space-y-6">
+                                    {submitted ? (
+                                        <motion.div
+                                            initial={{ opacity: 0, scale: 0.95 }}
+                                            animate={{ opacity: 1, scale: 1 }}
+                                            className="flex flex-col items-center justify-center py-16 gap-4"
+                                        >
+                                            <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/20">
+                                                <CheckCircle2 className="w-8 h-8 text-white" />
+                                            </div>
+                                            <h3 className="text-xl font-bold text-[#1F2328]">{t("successTitle")}</h3>
+                                            <p className="text-[#A8B0B8] text-center max-w-sm">{t("successMessage")}</p>
+                                        </motion.div>
+                                    ) : (
+                                    <form onSubmit={handleSubmit} className="space-y-6">
                                         {/* Name Fields */}
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <div className="space-y-2">
@@ -281,6 +337,9 @@ export default function ContactPage() {
                                                 <Input
                                                     id="firstName"
                                                     placeholder={t("firstName")}
+                                                    value={firstName}
+                                                    onChange={(e) => setFirstName(e.target.value)}
+                                                    required
                                                     className="h-12 bg-[#f8f9fb]/80 border-slate-200/80 rounded-xl focus:border-[#C1A05E] focus:ring-[#C1A05E]/20 transition-all duration-300 placeholder:text-slate-300"
                                                 />
                                             </div>
@@ -289,6 +348,9 @@ export default function ContactPage() {
                                                 <Input
                                                     id="lastName"
                                                     placeholder={t("lastName")}
+                                                    value={lastName}
+                                                    onChange={(e) => setLastName(e.target.value)}
+                                                    required
                                                     className="h-12 bg-[#f8f9fb]/80 border-slate-200/80 rounded-xl focus:border-[#C1A05E] focus:ring-[#C1A05E]/20 transition-all duration-300 placeholder:text-slate-300"
                                                 />
                                             </div>
@@ -302,6 +364,9 @@ export default function ContactPage() {
                                                     id="email"
                                                     type="email"
                                                     placeholder="example@email.com"
+                                                    value={email}
+                                                    onChange={(e) => setEmail(e.target.value)}
+                                                    required
                                                     className="h-12 bg-[#f8f9fb]/80 border-slate-200/80 rounded-xl focus:border-[#C1A05E] focus:ring-[#C1A05E]/20 transition-all duration-300 placeholder:text-slate-300"
                                                 />
                                             </div>
@@ -311,6 +376,9 @@ export default function ContactPage() {
                                                     id="phone"
                                                     type="tel"
                                                     placeholder="+1 XXX XXX XXXX"
+                                                    value={phone}
+                                                    onChange={(e) => setPhone(e.target.value)}
+                                                    required
                                                     className="h-12 bg-[#f8f9fb]/80 border-slate-200/80 rounded-xl focus:border-[#C1A05E] focus:ring-[#C1A05E]/20 transition-all duration-300 placeholder:text-slate-300"
                                                 />
                                             </div>
@@ -319,7 +387,7 @@ export default function ContactPage() {
                                         {/* Investor Profile Radio */}
                                         <div className="space-y-3">
                                             <Label className="text-sm font-medium text-[#1F2328]/70">{t("investorProfile")}</Label>
-                                            <RadioGroup defaultValue="new" className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            <RadioGroup value={investorProfile} onValueChange={setInvestorProfile} className="grid grid-cols-1 md:grid-cols-2 gap-3">
                                                 {[
                                                     { value: "new", label: t("investorNew") },
                                                     { value: "experienced", label: t("investorExperienced") },
@@ -347,6 +415,8 @@ export default function ContactPage() {
                                             <Textarea
                                                 id="message"
                                                 placeholder={t("messagePlaceholder")}
+                                                value={message}
+                                                onChange={(e) => setMessage(e.target.value)}
                                                 className="min-h-[120px] resize-none bg-[#f8f9fb]/80 border-slate-200/80 rounded-xl focus:border-[#C1A05E] focus:ring-[#C1A05E]/20 transition-all duration-300 placeholder:text-slate-300"
                                             />
                                         </div>
@@ -359,14 +429,24 @@ export default function ContactPage() {
                                             <Button
                                                 type="submit"
                                                 size="lg"
-                                                className="relative w-full h-14 text-base font-semibold text-white rounded-xl overflow-hidden group bg-gradient-to-r from-[#C1A05E] to-[#d4b876] hover:from-[#b3944f] hover:to-[#C1A05E] shadow-lg shadow-[#C1A05E]/20 transition-all duration-500"
+                                                disabled={loading}
+                                                className="relative w-full h-14 text-base font-semibold text-white rounded-xl overflow-hidden group bg-gradient-to-r from-[#C1A05E] to-[#d4b876] hover:from-[#b3944f] hover:to-[#C1A05E] shadow-lg shadow-[#C1A05E]/20 transition-all duration-500 disabled:opacity-70"
                                             >
                                                 {/* Shimmer Effect */}
                                                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000 ease-out" />
                                                 <span className="relative flex items-center justify-center gap-2">
-                                                    <Send className="h-4.5 w-4.5" />
-                                                    {t("submit")}
-                                                    <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                                    {loading ? (
+                                                        <>
+                                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                                                            {t("sending")}
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <Send className="h-4.5 w-4.5" />
+                                                            {t("submit")}
+                                                            <ArrowRight className="h-4 w-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                                        </>
+                                                    )}
                                                 </span>
                                             </Button>
                                         </motion.div>
@@ -375,6 +455,7 @@ export default function ContactPage() {
                                             {t("privacyNote")}
                                         </p>
                                     </form>
+                                    )}
                                 </div>
                             </div>
                         </motion.div>

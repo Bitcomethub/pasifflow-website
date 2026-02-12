@@ -32,7 +32,7 @@ export function LeadGenModal({ open, onOpenChange, onSuccess, triggerSource }: L
             const response = await fetch("/api/leads", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, phone, source: triggerSource || "modal" }),
+                body: JSON.stringify({ fullName: name, email, phone, source: triggerSource || "modal" }),
             })
 
             if (!response.ok) {
