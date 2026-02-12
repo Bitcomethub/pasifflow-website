@@ -22,7 +22,11 @@ export const metadata: Metadata = {
     description: "Section 8 programı ile ABD hükümeti tarafından desteklenen kira ödemeleri sayesinde her ay düzenli dolar geliri elde edin. %12'ye kadar net kira getirisi.",
 }
 
-export default function Home() {
+type Props = {
+    params: { locale: string }
+}
+
+export default function Home({ params }: Props) {
     return (
         <div className="min-h-screen">
             <main>
@@ -32,7 +36,7 @@ export default function Home() {
                 <ComparisonSection />
                 <AdvantagesSection />
                 <PortfolioSection />
-                <InvestmentCalculator />
+                <InvestmentCalculator locale={params.locale} />
                 <BuybackSection />
                 <ProcessSection />
                 <Section8Section />
