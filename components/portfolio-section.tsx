@@ -25,7 +25,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion"
 import { useCallback, useState, useEffect } from "react"
 import { useTranslations } from "next-intl"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { useLocale } from "next-intl"
 
 interface Property {
@@ -124,7 +124,7 @@ export function PortfolioSection() {
       yearBuilt: "1950",
       lotSize: "0.10 acres",
       propertyType: t("singleFamily"),
-      description: "Section 8 destekli, tam kiracılı, anahtar teslim yatırım fırsatı. Devlet garantili kira ödemesi ile düşük tahsilat riski.",
+      description: t("property0Desc"),
       features: [t("feature_section8"), t("feature_tenant"), t("feature_turnKey"), t("feature_kitchen"), t("feature_renovated"), t("feature_basement")],
       discount: "FEATURED",
       investorsWatching: 18,
@@ -338,11 +338,10 @@ export function PortfolioSection() {
                   {scrollSnaps.map((_, idx) => (
                     <button
                       key={idx}
-                      className={`h-1.5 rounded-full transition-all duration-300 ${
-                        idx === selectedIndex
+                      className={`h-1.5 rounded-full transition-all duration-300 ${idx === selectedIndex
                           ? "w-6 bg-[#C1A05E]"
                           : "w-1.5 bg-[#C1A05E]/20 hover:bg-[#C1A05E]/40"
-                      }`}
+                        }`}
                       onClick={() => emblaApi?.scrollTo(idx)}
                     />
                   ))}
@@ -507,7 +506,7 @@ export function PortfolioSection() {
                           className="w-full h-11 rounded-xl font-bold bg-[#1F2328] text-white hover:bg-[#C1A05E] transition-all duration-300 group/btn"
                           asChild
                         >
-                          <Link href={`/${locale}/iletisim`} className="flex items-center justify-center gap-2">
+                          <Link href="/iletisim" className="flex items-center justify-center gap-2">
                             {t("detailsCta")}
                             <ArrowUpRight size={15} className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
                           </Link>
@@ -517,7 +516,7 @@ export function PortfolioSection() {
                           className="w-full h-11 rounded-xl border-slate-200 text-[#1F2328] hover:bg-[#FAFAF8] hover:border-[#C1A05E]/30 transition-all duration-300"
                           asChild
                         >
-                          <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(property.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
+                          <a href={`https://wa.me/13056903146?text=${encodeURIComponent(t("whatsappMessage", { address: property.address }))}`} target="_blank" rel="noopener noreferrer">
                             {t("whatsappCta")}
                           </a>
                         </Button>
@@ -702,7 +701,7 @@ export function PortfolioSection() {
                       className="w-full h-13 text-base font-bold bg-[#1F2328] text-white hover:bg-[#C1A05E] rounded-xl transition-all duration-300 shadow-lg"
                       asChild
                     >
-                      <Link href={`/${locale}/iletisim`} className="flex items-center justify-center gap-2">
+                      <Link href="/iletisim" className="flex items-center justify-center gap-2">
                         {t("cta")}
                         <ArrowUpRight size={16} />
                       </Link>
@@ -712,7 +711,7 @@ export function PortfolioSection() {
                       className="w-full h-13 text-base font-bold border-slate-200 text-[#1F2328] hover:bg-[#FAFAF8] hover:border-[#C1A05E]/30 rounded-xl transition-all duration-300"
                       asChild
                     >
-                      <a href={`https://wa.me/13056903146?text=Merhaba%2C%20${encodeURIComponent(selectedProperty.address)}%20adresindeki%20m%C3%BClk%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum.`} target="_blank" rel="noopener noreferrer">
+                      <a href={`https://wa.me/13056903146?text=${encodeURIComponent(t("whatsappMessage", { address: selectedProperty.address }))}`} target="_blank" rel="noopener noreferrer">
                         WhatsApp
                       </a>
                     </Button>
