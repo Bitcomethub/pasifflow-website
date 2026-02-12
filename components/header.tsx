@@ -91,16 +91,16 @@ export function Header() {
   }
 
   const navLinks = [
-    { name: tNav("howItWorks"), href: "#nasil-calisir" },
-    { name: tNav("about"), href: `/${currentLocale}/about` },
-    { name: tNav("portfolio"), href: "#portfoy" },
-    { name: tNav("faq"), href: "#faq" },
+    { name: tNav("howItWorks"), href: "/#nasil-calisir" },
+    { name: tNav("about"), href: "/about" },
+    { name: tNav("portfolio"), href: "/#portfoy" },
+    { name: tNav("faq"), href: "/#faq" },
   ]
 
   const extraLinks = [
-    { name: tNav("whyUSA"), href: `/${currentLocale}/neden-amerika` },
-    { name: tNav("taxLaw"), href: `/${currentLocale}/vergilendirme` },
-    { name: tNav("map"), href: `/${currentLocale}/harita` },
+    { name: tNav("whyUSA"), href: "/neden-amerika" },
+    { name: tNav("taxLaw"), href: "/vergilendirme" },
+    { name: tNav("map"), href: "/harita" },
   ]
 
   return (
@@ -136,7 +136,7 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href={`/${currentLocale}/about`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href="/about" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("about")}
                     </Link>
                   </DropdownMenuItem>

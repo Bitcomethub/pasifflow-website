@@ -65,11 +65,11 @@ export function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: t("howItWorks"), href: "#nasil-calisir" },
-                { label: t("portfolio"), href: "#portfoy" },
-                { label: t("faq"), href: "#faq" },
-                { label: tNav("whyUSA"), href: `/${locale}/neden-amerika` },
-                { label: tNav("taxLaw"), href: `/${locale}/vergilendirme` }
+                { label: t("howItWorks"), href: "/#nasil-calisir" },
+                { label: t("portfolio"), href: "/#portfoy" },
+                { label: t("faq"), href: "/#faq" },
+                { label: tNav("whyUSA"), href: "/neden-amerika" },
+                { label: tNav("taxLaw"), href: "/vergilendirme" }
               ].map((link, i) => (
                 <li key={i}>
                   <Link href={link.href} className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
@@ -97,9 +97,9 @@ export function Footer() {
             </h4>
             <ul className="space-y-3">
               {[
-                { label: t("privacyPolicy"), href: `/${locale}/gizlilik` },
-                { label: t("termsOfService"), href: `/${locale}/kullanim-sartlari` },
-                { label: t("kvkk"), href: `/${locale}/kvkk` }
+                { label: t("privacyPolicy"), href: "/gizlilik" },
+                { label: t("termsOfService"), href: "/kosullar" },
+                { label: t("cookiePolicy"), href: "/cerezler" }
               ].map((link, i) => (
                 <li key={i}>
                   <Link href={link.href} className="text-sm text-slate-600 hover:text-[#B8A074] transition-colors font-medium flex items-center gap-2 group">
