@@ -15,7 +15,9 @@
         "allRightsReserved": "Tüm hakları saklıdır",
         "showMore": "Daha Fazla Göster",
         "showLess": "Daha Az Göster",
-        "whatsapp": "WhatsApp'tan Yaz"
+        "whatsapp": "WhatsApp'tan Yaz",
+        "freeConsultation": "Ücretsiz Danışmanlık Al",
+        "whatsappCta": "WhatsApp'tan Yaz"
     },
     "nav": {
         "howItWorks": "Nasıl Çalışır?",
@@ -738,6 +740,7 @@
         "ctaButton": "Vergilendirme Rehberini Oku"
     },
     "taxation": {
+        "irsBadge": "IRS & Vergi Uyumu",
         "title": "Vergilendirme & Hukuki Yapı",
         "subtitle": "Amerika'da Gayrimenkul Yatırımı",
         "intro": "Gayrimenkul yatırımı sadece kira geliri elde etmekten ibaret değildir; aynı zamanda vergi planlaması ile daha yüksek net getiri ve sürdürülebilir finansal yapı oluşturabilirsiniz.",

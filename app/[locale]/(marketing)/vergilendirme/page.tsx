@@ -1,6 +1,6 @@
 "use client"
 
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import { motion } from "framer-motion"
 import { FileText, Landmark, Calculator, ArrowRight, CheckCircle2, Building2, TrendingDown, HeadphonesIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -8,6 +8,9 @@ import Link from "next/link"
 
 export default function TaxationPage() {
     const t = useTranslations("taxation")
+    const tCommon = useTranslations("common")
+    const tNav = useTranslations("nav")
+    const locale = useLocale()
 
     const sections = [
         { id: "section1", icon: Landmark },
@@ -38,7 +41,7 @@ export default function TaxationPage() {
                     >
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 text-accent font-medium text-sm mb-4">
                             <CheckCircle2 size={16} />
-                            IRS & Vergi Uyumu
+                            {t("irsBadge")}
                         </div>
                         <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary">
                             {t("title")}
@@ -106,7 +109,7 @@ export default function TaxationPage() {
                     <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                         <Button size="lg" className="font-semibold text-lg px-8 h-14 bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20 hover:scale-105 transition-transform" asChild>
                             <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
-                                {t("ctaButton")}
+                                {tCommon("freeConsultation")}
                             </a>
                         </Button>
                         <Button
@@ -115,8 +118,8 @@ export default function TaxationPage() {
                             className="font-semibold text-lg h-14 border-2 gap-2 bg-secondary text-white hover:bg-secondary/90 border-secondary hover:border-secondary"
                             asChild
                         >
-                            <a href="https://wa.me/15551234567" target="_blank" rel="noopener noreferrer">
-                                {t("whatsapp")}
+                            <a href="https://wa.me/13056903146" target="_blank" rel="noopener noreferrer">
+                                {tCommon("whatsappCta")}
                             </a>
                         </Button>
                     </div>
@@ -139,9 +142,9 @@ export default function TaxationPage() {
                                         {t("ctaButton")}
                                     </a>
                                 </Button>
-                                <Link href="/neden-amerika" passHref>
+                                <Link href={`/${locale}/neden-amerika`} passHref>
                                     <Button size="lg" variant="outline" className="font-semibold text-lg h-14 border-2">
-                                        {t("whyUSA")}
+                                        {tNav("whyUSA")}
                                     </Button>
                                 </Link>
                             </div>

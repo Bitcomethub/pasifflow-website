@@ -15,7 +15,9 @@
         "allRightsReserved": "All rights reserved",
         "showMore": "Show More",
         "showLess": "Show Less",
-        "whatsapp": "Write on WhatsApp"
+        "whatsapp": "Write on WhatsApp",
+        "freeConsultation": "Get Free Consultation",
+        "whatsappCta": "Message on WhatsApp"
     },
     "footer": {
         "description": "The safest way to earn passive dollar income through government-backed (Section 8) rental real estate investment in America.",
@@ -744,6 +746,7 @@
         "ctaButton": "Read Taxation Guide"
     },
     "taxation": {
+        "irsBadge": "IRS & Tax Compliance",
         "title": "Taxation & Legal Structure",
         "subtitle": "Real Estate Investment in America",
         "intro": "Real estate investment is not just about earning rental income; you can also create higher net returns and sustainable financial structure through tax planning.",
