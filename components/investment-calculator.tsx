@@ -4,6 +4,7 @@ import * as React from "react"
 import { Card } from "@/components/ui/card"
 import { TrendingUp, Calendar, DollarSign, CheckCircle, Info, Wallet, Sparkles, Target, ChartLine, Shield, ArrowUpRight, Zap } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLocale } from "next-intl"
 
 // Helper functions
 function clamp(n: number, min: number, max: number) {
@@ -134,9 +135,11 @@ export function InvestmentCalculator({
     step = 5_000,
     annualReturn = 0.15,
     defaultInvestment = 30_000,
-    locale = "tr",
+    locale,
 }: Props) {
-    const t = texts || (locale === "en" ? EN_TEXTS : TR_TEXTS)
+    const detectedLocale = useLocale()
+    const activeLocale = locale || detectedLocale || "tr"
+    const t = texts || (activeLocale === "en" ? EN_TEXTS : TR_TEXTS)
 
     const [investment, setInvestment] = React.useState<number>(() =>
         clamp(roundToStep(defaultInvestment, step), minInvestment, maxInvestment)
@@ -527,7 +530,7 @@ export function InvestmentCalculator({
                                                 <ChartLine className="w-4 h-4 text-[#B8A074]" />
                                             </div>
                                             <span className="text-white/70 text-sm font-semibold uppercase tracking-wide">
-                                                6 {locale === "en" ? "Year Projection" : "Yıllık Kazanç Projeksiyonu"}
+                                                6 {activeLocale === "en" ? "Year Projection" : "Yıllık Kazanç Projeksiyonu"}
                                             </span>
                                         </div>
                                         <motion.div
@@ -577,19 +580,19 @@ export function InvestmentCalculator({
                                                                 >
                                                                     <div className="bg-[#1a1b1e] border border-white/20 rounded-xl px-3 py-2.5 shadow-2xl min-w-[140px]">
                                                                         <div className="text-[10px] text-white/50 font-bold uppercase tracking-wider mb-1.5">
-                                                                            {locale === "en" ? "Year" : "Yıl"} {data.year}
+                                                                            {activeLocale === "en" ? "Year" : "Yıl"} {data.year}
                                                                         </div>
                                                                         <div className="space-y-1">
                                                                             <div className="flex justify-between gap-4">
-                                                                                <span className="text-[10px] text-white/50">{locale === "en" ? "Cumulative" : "Kümülatif"}</span>
+                                                                                <span className="text-[10px] text-white/50">{activeLocale === "en" ? "Cumulative" : "Kümülatif"}</span>
                                                                                 <span className="text-xs font-bold text-[#B8A074]">{USD.format(data.cumulative)}</span>
                                                                             </div>
                                                                             <div className="flex justify-between gap-4">
-                                                                                <span className="text-[10px] text-white/50">{locale === "en" ? "Monthly" : "Aylık"}</span>
+                                                                                <span className="text-[10px] text-white/50">{activeLocale === "en" ? "Monthly" : "Aylık"}</span>
                                                                                 <span className="text-xs font-bold text-white">{USD.format(data.monthlyAtYear)}</span>
                                                                             </div>
                                                                             <div className="flex justify-between gap-4">
-                                                                                <span className="text-[10px] text-white/50">{locale === "en" ? "Portfolio" : "Portföy"}</span>
+                                                                                <span className="text-[10px] text-white/50">{activeLocale === "en" ? "Portfolio" : "Portföy"}</span>
                                                                                 <span className="text-xs font-bold text-blue-400">{USD.format(data.portfolioValue)}</span>
                                                                             </div>
                                                                         </div>
@@ -652,7 +655,7 @@ export function InvestmentCalculator({
 
                                                         {/* X-axis label */}
                                                         <div className={`mt-2 text-xs font-bold transition-colors ${isRecoveryYear ? 'text-[#B8A074]' : isHovered ? 'text-white/80' : 'text-white/40'}`}>
-                                                            {data.year}{locale === "en" ? "Y" : ".Yıl"}
+                                                            {data.year}{activeLocale === "en" ? "Y" : ".Yıl"}
                                                         </div>
                                                     </div>
                                                 )
@@ -673,7 +676,7 @@ export function InvestmentCalculator({
                                                 }}
                                             >
                                                 <span className="absolute -top-4 right-0 text-[9px] text-white/40 font-mono bg-[#0F1012] px-1.5 py-0.5 rounded">
-                                                    {locale === "en" ? "Investment" : "Yatırım"}: {USD.format(investment)}
+                                                    {activeLocale === "en" ? "Investment" : "Yatırım"}: {USD.format(investment)}
                                                 </span>
                                             </motion.div>
                                         )}
@@ -683,15 +686,15 @@ export function InvestmentCalculator({
                                     <div className="mt-4 pt-4 border-t border-white/5 flex flex-wrap items-center justify-center gap-4 md:gap-6">
                                         <div className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded-sm bg-gradient-to-t from-[#B8A074]/40 to-[#D4C4A0]/40" />
-                                            <span className="text-[11px] text-white/50 font-medium">{locale === "en" ? "Cumulative Income" : "Kümülatif Gelir"}</span>
+                                            <span className="text-[11px] text-white/50 font-medium">{activeLocale === "en" ? "Cumulative Income" : "Kümülatif Gelir"}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="w-3 h-3 rounded-sm bg-gradient-to-t from-[#B8A074] to-[#D4C4A0]" />
-                                            <span className="text-[11px] text-white/50 font-medium">{locale === "en" ? "Capital Recovery Year" : "Sermaye Geri Dönüş Yılı"}</span>
+                                            <span className="text-[11px] text-white/50 font-medium">{activeLocale === "en" ? "Capital Recovery Year" : "Sermaye Geri Dönüş Yılı"}</span>
                                         </div>
                                         <div className="flex items-center gap-2">
                                             <div className="w-6 h-0 border-t-2 border-dashed border-white/30" />
-                                            <span className="text-[11px] text-white/50 font-medium">{locale === "en" ? "Initial Investment" : "Başlangıç Yatırımı"}</span>
+                                            <span className="text-[11px] text-white/50 font-medium">{activeLocale === "en" ? "Initial Investment" : "Başlangıç Yatırımı"}</span>
                                         </div>
                                     </div>
                                 </div>
