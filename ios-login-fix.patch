@@ -1,0 +1,290 @@
+diff --git a/app/(auth)/login.tsx b/app/(auth)/login.tsx
+index 1743505..cc5d536 100644
+--- a/app/(auth)/login.tsx
++++ b/app/(auth)/login.tsx
+@@ -10,8 +10,11 @@ import { LinearGradient } from 'expo-linear-gradient';
+ import * as Haptics from 'expo-haptics';
+ import * as AppleAuthentication from 'expo-apple-authentication';
+ import { Ionicons } from '@expo/vector-icons';
++import AsyncStorage from '@react-native-async-storage/async-storage';
+ import { colors, spacing, fontSize, fontWeight, borderRadius, shadows } from '@/lib/theme';
+ 
++const API_URL = __DEV__ ? 'http://localhost:3000/api/mobile' : 'https://pasiflow.com/api/mobile';
++
+ export default function LoginScreen() {
+     const [email, setEmail] = useState('');
+     const [password, setPassword] = useState('');
+@@ -32,19 +35,31 @@ export default function LoginScreen() {
+             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+             return;
+         }
+-        if (trimmedEmail !== 'erman@pasiflow.com' || trimmedPassword !== 'Pasiflow2026!') {
+-            setError('Giriş bilgileri hatalı. Lütfen tekrar deneyiniz.');
+-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+-            return;
+-        }
+         if (Platform.OS === 'ios') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+         setLoading(true);
+         setError('');
+-        setTimeout(() => {
+-            setLoading(false);
++        try {
++            const response = await fetch(`${API_URL}/auth`, {
++                method: 'POST',
++                headers: { 'Content-Type': 'application/json' },
++                body: JSON.stringify({ email: trimmedEmail, password: trimmedPassword }),
++            });
++            const data = await response.json();
++            if (!data.success) {
++                setError(data.message || 'Giriş bilgileri hatalı.');
++                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
++                return;
++            }
++            await AsyncStorage.setItem('authToken', data.user.token);
++            await AsyncStorage.setItem('user', JSON.stringify(data.user));
+             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+             router.replace('/(tabs)');
+-        }, 800);
++        } catch (err) {
++            setError('Bağlantı hatası. İnternet bağlantınızı kontrol edin.');
++            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
++        } finally {
++            setLoading(false);
++        }
+     };
+ 
+     const handleAppleSignIn = async () => {
+diff --git a/app/agent/login.tsx b/app/agent/login.tsx
+index ed64139..6ab4826 100644
+--- a/app/agent/login.tsx
++++ b/app/agent/login.tsx
+@@ -15,14 +15,11 @@ import { router } from 'expo-router';
+ import { LinearGradient } from 'expo-linear-gradient';
+ import * as Haptics from 'expo-haptics';
+ import { Ionicons } from '@expo/vector-icons';
++import AsyncStorage from '@react-native-async-storage/async-storage';
+ import { colors, spacing, fontSize, fontWeight, borderRadius, shadows } from '@/lib/theme';
+ import { Button } from '@/components/ui';
+ 
+-// Agent Credentials
+-const TEST_AGENTS = [
+-    { email: 'agent@pasiflow.com', password: 'agent123', name: 'John Smith' },
+-    { email: 'broker@pasiflow.com', password: 'broker123', name: 'Sarah Johnson' }
+-];
++const API_URL = __DEV__ ? 'http://localhost:3000/api/mobile' : 'https://pasiflow.com/api/mobile';
+ 
+ export default function AgentLoginScreen() {
+     const [email, setEmail] = useState('');
+@@ -43,18 +40,7 @@ export default function AgentLoginScreen() {
+         const trimmedPassword = password.trim();
+ 
+         if (!trimmedEmail || !trimmedPassword) {
+-            setError('Please fill in all fields');
+-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+-            return;
+-        }
+-
+-        // Check against test agents
+-        const agent = TEST_AGENTS.find(
+-            a => a.email === trimmedEmail && a.password === trimmedPassword
+-        );
+-
+-        if (!agent) {
+-            setError('Invalid credentials.\n\nTest Account:\n📧 agent@pasiflow.com\n🔑 agent123');
++            setError('Lütfen tüm alanları doldurun');
+             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+             return;
+         }
+@@ -66,11 +52,28 @@ export default function AgentLoginScreen() {
+         setLoading(true);
+         setError('');
+ 
+-        setTimeout(() => {
+-            setLoading(false);
++        try {
++            const response = await fetch(`${API_URL}/auth`, {
++                method: 'POST',
++                headers: { 'Content-Type': 'application/json' },
++                body: JSON.stringify({ email: trimmedEmail, password: trimmedPassword }),
++            });
++            const data = await response.json();
++            if (!data.success) {
++                setError(data.message || 'Giriş bilgileri hatalı.');
++                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
++                return;
++            }
++            await AsyncStorage.setItem('authToken', data.user.token);
++            await AsyncStorage.setItem('user', JSON.stringify(data.user));
+             Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+             router.replace('/agent/dashboard');
+-        }, 800);
++        } catch (err) {
++            setError('Bağlantı hatası. İnternet bağlantınızı kontrol edin.');
++            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
++        } finally {
++            setLoading(false);
++        }
+     };
+ 
+     const dismissKeyboard = () => {
+diff --git a/lib/api.ts b/lib/api.ts
+index 2250493..7edc0fa 100644
+--- a/lib/api.ts
++++ b/lib/api.ts
+@@ -2,6 +2,8 @@
+ // This file handles the Railway backend (news, AI features).
+ // Main mobile API (auth, dashboard, properties) is in services/api.ts → pasiflow.com/api/mobile
+ 
++import AsyncStorage from '@react-native-async-storage/async-storage';
++
+ // For development: Use your local machine's IP address when testing on physical device
+ // For production: Uses Railway deployment URL automatically
+ const DEV_API_URL = 'http://localhost:3001';
+@@ -35,19 +37,22 @@ export async function fetchAPI<T>(endpoint: string, options?: RequestInit): Prom
+     }
+ }
+ 
+-// Auth token storage (for future use with AsyncStorage)
+-let authToken: string | null = null;
+-
+-export function setAuthToken(token: string | null) {
+-    authToken = token;
++// Auth token storage using AsyncStorage (persists across app restarts)
++export async function setAuthToken(token: string | null) {
++    if (token) {
++        await AsyncStorage.setItem('authToken', token);
++    } else {
++        await AsyncStorage.removeItem('authToken');
++    }
+ }
+ 
+-export function getAuthToken() {
+-    return authToken;
++export async function getAuthToken(): Promise<string | null> {
++    return AsyncStorage.getItem('authToken');
+ }
+ 
+ // Authenticated API call helper
+ export async function fetchAuthAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
++    const authToken = await getAuthToken();
+     if (!authToken) {
+         throw new Error('No auth token available');
+     }
+diff --git a/package.json b/package.json
+index de29684..109a160 100644
+--- a/package.json
++++ b/package.json
+@@ -10,6 +10,7 @@
+   },
+   "dependencies": {
+     "@expo/vector-icons": "^15.0.3",
++    "@react-native-async-storage/async-storage": "2.1.2",
+     "@react-native-community/slider": "5.0.1",
+     "babel-preset-expo": "^54.0.9",
+     "expo": "~54.0.30",
+diff --git a/services/api.ts b/services/api.ts
+index 7ff6953..78b47d4 100644
+--- a/services/api.ts
++++ b/services/api.ts
+@@ -1,4 +1,5 @@
+-import { Platform } from 'react-native';
++import AsyncStorage from '@react-native-async-storage/async-storage';
++import { router } from 'expo-router';
+ 
+ // For iOS Simulator, localhost works. For Android Emulator, use 10.0.2.2.
+ // For physical device, use your machine's local IP (e.g., 192.168.1.x:3000).
+@@ -9,10 +10,23 @@ const PROD_API_URL = 'https://pasiflow.com/api/mobile';
+ 
+ const API_BASE_URL = __DEV__ ? DEV_API_URL : PROD_API_URL;
+ 
++async function authFetch(url: string): Promise<Response> {
++    const token = await AsyncStorage.getItem('authToken');
++    const response = await fetch(url, {
++        headers: token ? { 'Authorization': `Bearer ${token}` } : {},
++    });
++    if (response.status === 401) {
++        await AsyncStorage.multiRemove(['authToken', 'user']);
++        router.replace('/(auth)/login');
++        throw new Error('Session expired');
++    }
++    return response;
++}
++
+ export const api = {
+     getDashboard: async () => {
+         try {
+-            const response = await fetch(`${API_BASE_URL}/dashboard`);
++            const response = await authFetch(`${API_BASE_URL}/dashboard`);
+             if (!response.ok) throw new Error('Network response was not ok');
+             return await response.json();
+         } catch (error) {
+@@ -23,7 +37,7 @@ export const api = {
+ 
+     getProperty: async (id: string) => {
+         try {
+-            const response = await fetch(`${API_BASE_URL}/properties`);
++            const response = await authFetch(`${API_BASE_URL}/properties`);
+             if (!response.ok) throw new Error('Network response was not ok');
+             const data = await response.json();
+             return data.find((p: any) => p.id === id);
+@@ -35,7 +49,7 @@ export const api = {
+ 
+     getProperties: async () => {
+         try {
+-            const response = await fetch(`${API_BASE_URL}/properties`);
++            const response = await authFetch(`${API_BASE_URL}/properties`);
+             if (!response.ok) throw new Error('Network response was not ok');
+             return await response.json();
+         } catch (error) {
+@@ -46,7 +60,7 @@ export const api = {
+ 
+     getPayments: async () => {
+         try {
+-            const response = await fetch(`${API_BASE_URL}/payments`);
++            const response = await authFetch(`${API_BASE_URL}/payments`);
+             if (!response.ok) throw new Error('Network response was not ok');
+             return await response.json();
+         } catch (error) {
+@@ -57,7 +71,7 @@ export const api = {
+ 
+     getDocuments: async () => {
+         try {
+-            const response = await fetch(`${API_BASE_URL}/documents`);
++            const response = await authFetch(`${API_BASE_URL}/documents`);
+             if (!response.ok) throw new Error('Network response was not ok');
+             return await response.json();
+         } catch (error) {
+@@ -68,7 +82,7 @@ export const api = {
+ 
+     getMaintenance: async () => {
+         try {
+-            const response = await fetch(`${API_BASE_URL}/maintenance`);
++            const response = await authFetch(`${API_BASE_URL}/maintenance`);
+             if (!response.ok) throw new Error('Network response was not ok');
+             return await response.json();
+         } catch (error) {
+@@ -79,12 +93,23 @@ export const api = {
+ 
+     getFinancials: async () => {
+         try {
+-            const response = await fetch(`${API_BASE_URL}/financials`);
++            const response = await authFetch(`${API_BASE_URL}/financials`);
+             if (!response.ok) throw new Error('Network response was not ok');
+             return await response.json();
+         } catch (error) {
+             console.error('API Error (Financials):', error);
+             throw error;
+         }
++    },
++
++    getAgentDashboard: async () => {
++        try {
++            const response = await authFetch(`${API_BASE_URL}/agent/dashboard`);
++            if (!response.ok) throw new Error('Network response was not ok');
++            return await response.json();
++        } catch (error) {
++            console.error('API Error (Agent Dashboard):', error);
++            throw error;
++        }
+     }
+ };
