@@ -443,15 +443,15 @@ export default function LocationPage({ params: paramsPromise }: LocationPageProp
                         <div className="flex flex-wrap items-center justify-center gap-8 pt-10 text-white/60">
                             <div className="flex items-center gap-2">
                                 <Award size={20} />
-                                <span className="text-sm">20+ Yıllık Deneyim</span>
+                                <span className="text-sm">{t("trustExperience")}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Target size={20} />
-                                <span className="text-sm">$250M+ İşlem Hacmi</span>
+                                <span className="text-sm">{t("trustVolume")}</span>
                             </div>
                             <div className="flex items-center gap-2">
                                 <Users size={20} />
-                                <span className="text-sm">100+ Mutlu Yatırımcı</span>
+                                <span className="text-sm">{t("trustInvestors")}</span>
                             </div>
                         </div>
                     </motion.div>

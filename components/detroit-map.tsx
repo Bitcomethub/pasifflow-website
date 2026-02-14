@@ -101,7 +101,7 @@ export function DetroitNeighborhoodMap() {
             accessToken: token,
             mapboxgl: mapboxgl as any,
             marker: true,
-            placeholder: 'Adres veya Yer Ara...'
+            placeholder: t("searchPlaceholder")
         });
         map.current.addControl(geocoder as any, 'top-right');
 

@@ -19,14 +19,13 @@ export default function MapPage() {
                 >
                     <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-4">
                         <MapPin size={16} />
-                        İnteraktif Harita
+                        {t("interactiveMap")}
                     </div>
                     <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-                        Detroit Mahalle Rehberi
+                        {t("neighborhoodGuide")}
                     </h1>
                     <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-                        Detroit&apos;in yatırım potansiyeli en yüksek mahallelerini keşfedin.
-                        Her bölge için fiyat, ROI ve risk analizine ulaşın.
+                        {t("guideDesc")}
                     </p>
                 </motion.div>
 
@@ -38,10 +37,10 @@ export default function MapPage() {
                     className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8"
                 >
                     {[
-                        { icon: Building2, label: "10 Mahalle", desc: "Analiz Edildi" },
-                        { icon: TrendingUp, label: "%4-15", desc: "ROI Aralığı" },
-                        { icon: Shield, label: "Section 8", desc: "Destekli" },
-                        { icon: MapPin, label: "Gerçek Zamanlı", desc: "Veri" },
+                        { icon: Building2, label: t("stat1Label"), desc: t("stat1Desc") },
+                        { icon: TrendingUp, label: t("stat2Label"), desc: t("stat2Desc") },
+                        { icon: Shield, label: t("stat3Label"), desc: t("stat3Desc") },
+                        { icon: MapPin, label: t("stat4Label"), desc: t("stat4Desc") },
                     ].map((stat, i) => (
                         <div key={i} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 text-center">
                             <stat.icon className="w-6 h-6 text-primary mx-auto mb-2" />
@@ -69,11 +68,9 @@ export default function MapPage() {
                 >
                     <Info className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                     <div>
-                        <h3 className="font-semibold text-secondary mb-1">Harita Nasıl Kullanılır?</h3>
+                        <h3 className="font-semibold text-secondary mb-1">{t("howToUseTitle")}</h3>
                         <p className="text-sm text-muted-foreground">
-                            Haritadaki renkli işaretçilere tıklayarak her mahallenin detaylı yatırım bilgilerine ulaşabilirsiniz.
-                            Yeşil işaretçiler düşük riskli premium mahalleleri, sarı orta segmenti, kırmızı yüksek getirili bölgeleri
-                            ve mavi yükselen/trendy alanları temsil eder.
+                            {t("howToUseDesc")}
                         </p>
                     </div>
                 </motion.div>
