@@ -17,13 +17,20 @@ import { TestimonialsSection } from "@/components/testimonials-section"
 import { FAQSection } from "@/components/faq-section"
 import { FinalCTASection } from "@/components/final-cta-section"
 
-export const metadata: Metadata = {
-    title: "Pasiflow - Amerika'da Devlet Kira Garantili Anahtar Teslim Evler",
-    description: "Section 8 programı ile ABD hükümeti tarafından desteklenen kira ödemeleri sayesinde her ay düzenli dolar geliri elde edin. %12'ye kadar net kira getirisi.",
-}
-
 type Props = {
     params: Promise<{ locale: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { locale } = await params;
+    return {
+        title: locale === "en"
+            ? "Pasiflow - Government-Guaranteed Turnkey Rental Homes in the USA"
+            : "Pasiflow - Amerika'da Devlet Kira Garantili Anahtar Teslim Evler",
+        description: locale === "en"
+            ? "Earn regular monthly dollar income with Section 8 government-backed rental payments. Up to 12% net rental yield."
+            : "Section 8 programı ile ABD hükümeti tarafından desteklenen kira ödemeleri sayesinde her ay düzenli dolar geliri elde edin. %12'ye kadar net kira getirisi.",
+    }
 }
 
 export default async function Home({ params }: Props) {
