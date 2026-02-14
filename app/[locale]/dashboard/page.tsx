@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { useAuthGuard } from "@/hooks/use-auth-guard"
 import {
     Building2,
     Wallet,
@@ -109,6 +110,7 @@ const processSteps = [
 ]
 
 export default function DashboardPage() {
+    const isAuthed = useAuthGuard("USER")
     const [userName, setUserName] = useState("Investor")
 
     useEffect(() => {
@@ -120,6 +122,8 @@ export default function DashboardPage() {
             } catch { /* ignore */ }
         }
     }, [])
+
+    if (!isAuthed) return null
 
     const stats = [
         { title: "Toplam Portföy", value: 425000, prefix: "$", icon: Building2, trend: "+14.8%", trendUp: true, spark: [320, 340, 360, 380, 390, 410, 425] },

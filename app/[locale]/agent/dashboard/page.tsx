@@ -22,6 +22,7 @@ import {
     CheckCircle2,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useAuthGuard } from "@/hooks/use-auth-guard"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { motion, useMotionValue, useSpring, useInView } from "framer-motion"
@@ -102,6 +103,7 @@ const pipelineStages = [
 ]
 
 export default function AgentDashboard() {
+    const isAuthed = useAuthGuard("AGENT")
     const [agentName, setAgentName] = useState("Agent")
     const [agentInitials, setAgentInitials] = useState("PA")
 
@@ -119,6 +121,8 @@ export default function AgentDashboard() {
             } catch { /* ignore */ }
         }
     }, [])
+
+    if (!isAuthed) return null
 
     const stats = [
         { title: "Toplam Referans", value: 54, icon: Users, trend: "+12%", trendUp: true, spark: [30, 34, 38, 40, 44, 48, 54] },
