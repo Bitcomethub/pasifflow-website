@@ -1,14 +1,7 @@
 import React, { useState, useRef } from 'react';
 import {
-    View,
-    Text,
-    StyleSheet,
-    KeyboardAvoidingView,
-    Platform,
-    TouchableOpacity,
-    ScrollView,
-    TextInput as RNTextInput,
-    Keyboard
+    View, Text, StyleSheet, Platform, TouchableOpacity,
+    ScrollView, TextInput, Keyboard, ActivityIndicator
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -16,8 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as Haptics from 'expo-haptics';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { colors, spacing, fontSize, fontWeight, borderRadius, shadows } from '@/lib/theme';
-import { Button } from '@/components/ui';
+import { colors, shadows } from '@/lib/theme';
 
 const API_URL = __DEV__ ? 'http://localhost:3000/api/mobile' : 'https://pasiflow.com/api/mobile';
 
@@ -27,28 +19,20 @@ export default function AgentLoginScreen() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [emailFocused, setEmailFocused] = useState(false);
-    const [passwordFocused, setPasswordFocused] = useState(false);
-
-    const emailRef = useRef<RNTextInput>(null);
-    const passwordRef = useRef<RNTextInput>(null);
+    const passwordRef = useRef<TextInput>(null);
 
     const handleAgentLogin = async () => {
         Keyboard.dismiss();
-
         const trimmedEmail = email.trim().toLowerCase();
         const trimmedPassword = password.trim();
 
         if (!trimmedEmail || !trimmedPassword) {
-            setError('Lütfen tüm alanları doldurun');
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+            setError('Please fill in all fields');
+            if (Platform.OS === 'ios') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             return;
         }
 
-        if (Platform.OS === 'ios') {
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-        }
-
+        if (Platform.OS === 'ios') Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
         setLoading(true);
         setError('');
 
@@ -60,292 +44,280 @@ export default function AgentLoginScreen() {
             });
             const data = await response.json();
             if (!data.success) {
-                setError(data.message || 'Giriş bilgileri hatalı.');
-                Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+                setError(data.message || 'Invalid credentials.');
+                if (Platform.OS === 'ios') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
                 return;
             }
             await AsyncStorage.setItem('authToken', data.user.token);
             await AsyncStorage.setItem('user', JSON.stringify(data.user));
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+            if (Platform.OS === 'ios') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             router.replace('/agent/dashboard');
-        } catch (err) {
-            setError('Bağlantı hatası. İnternet bağlantınızı kontrol edin.');
-            Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
+        } catch {
+            setError('Connection error. Please check your internet.');
+            if (Platform.OS === 'ios') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         } finally {
             setLoading(false);
         }
     };
 
-    const dismissKeyboard = () => {
-        Keyboard.dismiss();
-    };
-
     return (
-        <LinearGradient
-            colors={['#1a1a2e', '#16213e']}
-            style={styles.container}
-        >
-            <SafeAreaView style={styles.safeArea}>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                    style={styles.keyboardView}
-                    keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+        <LinearGradient colors={['#1a1a2e', '#16213e']} style={s.container}>
+            <SafeAreaView style={s.safe}>
+                <ScrollView
+                    contentContainerStyle={s.scroll}
+                    keyboardShouldPersistTaps="handled"
+                    keyboardDismissMode="on-drag"
+                    automaticallyAdjustKeyboardInsets={true}
+                    showsVerticalScrollIndicator={false}
                 >
-                    <ScrollView
-                        contentContainerStyle={styles.scrollContent}
-                        keyboardShouldPersistTaps="always"
-                        showsVerticalScrollIndicator={false}
-                        bounces={false}
-                        keyboardDismissMode="none"
+                    {/* Back Button */}
+                    <TouchableOpacity
+                        onPress={() => router.back()}
+                        style={s.backBtn}
+                        hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                     >
-                        <View style={styles.content}>
-                            {/* Back Button */}
-                            <TouchableOpacity
-                                onPress={() => router.back()}
-                                style={styles.backButton}
-                            >
-                                <Ionicons name="arrow-back" size={24} color={colors.text.primary} />
-                            </TouchableOpacity>
+                        <Ionicons name="arrow-back" size={24} color="#FFF" />
+                    </TouchableOpacity>
 
-                            {/* Header */}
-                            <View style={styles.header}>
-                                <View style={styles.iconContainer}>
-                                    <Ionicons name="briefcase" size={40} color={colors.accent[500]} />
-                                </View>
-                                <Text style={styles.title}>Agent Portal</Text>
-                                <Text style={styles.subtitle}>Sign in to manage your clients</Text>
-                            </View>
-
-                            {/* Login Card */}
-                            <View style={styles.cardContainer}>
-                                {error ? (
-                                    <View style={styles.errorContainer}>
-                                        <Text style={styles.errorText}>{error}</Text>
-                                    </View>
-                                ) : null}
-
-                                {/* Email Input */}
-                                <View style={styles.inputGroup}>
-                                    <Text style={styles.inputLabel}>Email Address</Text>
-                                    <View style={[
-                                        styles.inputContainer,
-                                        emailFocused && styles.inputContainerFocused
-                                    ]}>
-                                        <Ionicons
-                                            name="mail-outline"
-                                            size={20}
-                                            color={emailFocused ? colors.accent[500] : colors.text.tertiary}
-                                            style={styles.inputIcon}
-                                        />
-                                        <RNTextInput
-                                            ref={emailRef}
-                                            style={styles.input}
-                                            placeholder="agent@pasiflow.com"
-                                            placeholderTextColor={colors.text.tertiary}
-                                            value={email}
-                                            onChangeText={setEmail}
-                                            keyboardType="email-address"
-                                            autoCapitalize="none"
-                                            autoCorrect={false}
-                                            onFocus={() => setEmailFocused(true)}
-                                            onBlur={() => setEmailFocused(false)}
-                                            returnKeyType="next"
-                                            onSubmitEditing={() => passwordRef.current?.focus()}
-                                            blurOnSubmit={false}
-                                        />
-                                    </View>
-                                </View>
-
-                                {/* Password Input */}
-                                <View style={styles.inputGroup}>
-                                    <Text style={styles.inputLabel}>Password</Text>
-                                    <View style={[
-                                        styles.inputContainer,
-                                        passwordFocused && styles.inputContainerFocused
-                                    ]}>
-                                        <Ionicons
-                                            name="lock-closed-outline"
-                                            size={20}
-                                            color={passwordFocused ? colors.accent[500] : colors.text.tertiary}
-                                            style={styles.inputIcon}
-                                        />
-                                        <RNTextInput
-                                            ref={passwordRef}
-                                            style={styles.input}
-                                            placeholder="••••••••"
-                                            placeholderTextColor={colors.text.tertiary}
-                                            value={password}
-                                            onChangeText={setPassword}
-                                            secureTextEntry={!showPassword}
-                                            autoCapitalize="none"
-                                            autoCorrect={false}
-                                            onFocus={() => setPasswordFocused(true)}
-                                            onBlur={() => setPasswordFocused(false)}
-                                            returnKeyType="done"
-                                            onSubmitEditing={handleAgentLogin}
-                                        />
-                                        <TouchableOpacity
-                                            onPress={() => setShowPassword(!showPassword)}
-                                            style={styles.eyeButton}
-                                            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                        >
-                                            <Ionicons
-                                                name={showPassword ? "eye-off-outline" : "eye-outline"}
-                                                size={20}
-                                                color={colors.text.tertiary}
-                                            />
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-
-                                <Button
-                                    title={loading ? 'Signing In...' : 'Sign In'}
-                                    onPress={handleAgentLogin}
-                                    loading={loading}
-                                    size="lg"
-                                    style={styles.loginButton}
-                                    textStyle={{ color: colors.text.primary, fontWeight: 'bold' }}
-                                />
-                            </View>
-
-                            {/* Info */}
-                            <View style={styles.infoContainer}>
-                                <Ionicons name="information-circle-outline" size={16} color={colors.text.tertiary} />
-                                <Text style={styles.infoText}>
-                                    Contact support if you need agent credentials
-                                </Text>
-                            </View>
+                    {/* Header */}
+                    <View style={s.header}>
+                        <View style={s.iconCircle}>
+                            <Ionicons name="briefcase" size={40} color={colors.accent[500]} />
                         </View>
-                    </ScrollView>
-                </KeyboardAvoidingView>
+                        <Text style={s.title}>Agent Portal</Text>
+                        <Text style={s.subtitle}>Sign in to manage your clients</Text>
+                    </View>
+
+                    {/* Login Card */}
+                    <View style={s.card}>
+                        {error ? (
+                            <View style={s.errorBox}>
+                                <Ionicons name="alert-circle" size={16} color={colors.error} />
+                                <Text style={s.errorText}>{error}</Text>
+                            </View>
+                        ) : null}
+
+                        {/* Email */}
+                        <Text style={s.label}>Email Address</Text>
+                        <View style={s.inputRow}>
+                            <Ionicons name="mail-outline" size={18} color="rgba(255,255,255,0.4)" style={s.inputIcon} />
+                            <TextInput
+                                style={s.input}
+                                placeholder="agent@pasiflow.com"
+                                placeholderTextColor="rgba(255,255,255,0.3)"
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType="email-address"
+                                textContentType="emailAddress"
+                                autoComplete="email"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                returnKeyType="next"
+                                onSubmitEditing={() => passwordRef.current?.focus()}
+                                blurOnSubmit={false}
+                                editable={!loading}
+                            />
+                        </View>
+
+                        {/* Password */}
+                        <Text style={[s.label, { marginTop: 16 }]}>Password</Text>
+                        <View style={s.inputRow}>
+                            <Ionicons name="lock-closed-outline" size={18} color="rgba(255,255,255,0.4)" style={s.inputIcon} />
+                            <TextInput
+                                ref={passwordRef}
+                                style={s.input}
+                                placeholder="Enter your password"
+                                placeholderTextColor="rgba(255,255,255,0.3)"
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry={!showPassword}
+                                textContentType="password"
+                                autoComplete="password"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                returnKeyType="go"
+                                onSubmitEditing={handleAgentLogin}
+                                editable={!loading}
+                            />
+                            <TouchableOpacity
+                                onPress={() => setShowPassword(!showPassword)}
+                                hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                            >
+                                <Ionicons
+                                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                                    size={18}
+                                    color="rgba(255,255,255,0.4)"
+                                />
+                            </TouchableOpacity>
+                        </View>
+
+                        {/* Login Button */}
+                        <TouchableOpacity
+                            onPress={handleAgentLogin}
+                            activeOpacity={0.85}
+                            disabled={loading}
+                            style={{ marginTop: 24 }}
+                        >
+                            <LinearGradient
+                                colors={[colors.accent.gradientStart, colors.accent.gradientEnd]}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={s.loginBtn}
+                            >
+                                {loading ? (
+                                    <ActivityIndicator color="#FFF" size="small" />
+                                ) : (
+                                    <>
+                                        <Text style={s.loginBtnText}>Sign In</Text>
+                                        <Ionicons name="arrow-forward" size={18} color="#FFF" />
+                                    </>
+                                )}
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    </View>
+
+                    {/* Info */}
+                    <View style={s.infoRow}>
+                        <Ionicons name="information-circle-outline" size={16} color="rgba(255,255,255,0.4)" />
+                        <Text style={s.infoText}>Contact support if you need agent credentials</Text>
+                    </View>
+                </ScrollView>
             </SafeAreaView>
         </LinearGradient>
     );
 }
 
-const styles = StyleSheet.create({
+const s = StyleSheet.create({
     container: {
         flex: 1,
     },
-    safeArea: {
+    safe: {
         flex: 1,
     },
-    keyboardView: {
-        flex: 1,
-    },
-    scrollContent: {
+    scroll: {
         flexGrow: 1,
         justifyContent: 'center',
-        paddingVertical: 40,
+        paddingHorizontal: 24,
+        paddingVertical: 32,
     },
-    content: {
-        paddingHorizontal: spacing.xl,
-        width: '100%',
-        maxWidth: 500,
-        alignSelf: 'center',
-    },
-    backButton: {
+    backBtn: {
         position: 'absolute',
-        top: -20,
-        left: spacing.xl,
+        top: 0,
+        left: 0,
         zIndex: 10,
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        backgroundColor: 'rgba(255,255,255,0.08)',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
+    // Header
     header: {
         alignItems: 'center',
-        marginBottom: spacing.xl,
+        marginBottom: 32,
     },
-    iconContainer: {
+    iconCircle: {
         width: 80,
         height: 80,
         borderRadius: 40,
-        backgroundColor: 'rgba(139, 92, 246, 0.15)',
+        backgroundColor: 'rgba(193,160,94,0.15)',
         alignItems: 'center',
         justifyContent: 'center',
-        marginBottom: spacing.md,
+        marginBottom: 16,
         borderWidth: 2,
-        borderColor: 'rgba(139, 92, 246, 0.3)',
+        borderColor: 'rgba(193,160,94,0.3)',
     },
     title: {
         fontSize: 28,
-        fontWeight: 'bold',
-        color: colors.text.primary,
-        marginBottom: spacing.xs,
+        fontWeight: '800',
+        color: '#FFF',
+        letterSpacing: -0.5,
+        marginBottom: 6,
     },
     subtitle: {
-        fontSize: fontSize.base,
-        color: colors.text.secondary,
+        fontSize: 14,
+        fontWeight: '500',
+        color: 'rgba(255,255,255,0.5)',
     },
-    cardContainer: {
-        backgroundColor: colors.background.card,
-        borderRadius: borderRadius.xxl,
-        padding: spacing.xl,
+    // Card
+    card: {
+        backgroundColor: 'rgba(255,255,255,0.06)',
+        borderRadius: 24,
+        padding: 24,
         borderWidth: 1,
-        borderColor: 'rgba(139, 92, 246, 0.2)',
-        ...shadows.float,
+        borderColor: 'rgba(193,160,94,0.2)',
     },
-    errorContainer: {
-        backgroundColor: 'rgba(248, 113, 113, 0.1)',
-        borderLeftWidth: 4,
-        borderLeftColor: colors.error,
-        padding: spacing.md,
-        marginBottom: spacing.lg,
-        borderRadius: borderRadius.sm,
-    },
-    errorText: {
-        color: colors.error,
-        fontSize: fontSize.sm,
-        fontWeight: fontWeight.medium as any,
-    },
-    inputGroup: {
-        marginBottom: spacing.lg,
-    },
-    inputLabel: {
-        color: colors.text.primary,
-        fontSize: fontSize.sm,
-        fontWeight: fontWeight.semibold as any,
-        marginBottom: spacing.sm,
-    },
-    inputContainer: {
+    // Error
+    errorBox: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: colors.background.subtle,
-        borderRadius: borderRadius.lg,
-        borderWidth: 1.5,
-        borderColor: 'transparent',
-        paddingHorizontal: spacing.md,
-        height: 52,
+        gap: 8,
+        backgroundColor: 'rgba(239,68,68,0.1)',
+        borderLeftWidth: 3,
+        borderLeftColor: colors.error,
+        padding: 12,
+        marginBottom: 16,
+        borderRadius: 8,
     },
-    inputContainerFocused: {
-        backgroundColor: colors.background.card,
-        borderColor: colors.accent[500],
-        ...shadows.glow,
+    errorText: {
+        color: '#F87171',
+        fontSize: 14,
+        fontWeight: '500',
+        flex: 1,
+    },
+    // Inputs
+    label: {
+        fontSize: 13,
+        fontWeight: '600',
+        color: 'rgba(255,255,255,0.7)',
+        marginBottom: 8,
+        marginLeft: 2,
+    },
+    inputRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255,255,255,0.06)',
+        borderRadius: 14,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.1)',
+        height: 52,
+        paddingHorizontal: 14,
     },
     inputIcon: {
-        marginRight: spacing.sm,
+        marginRight: 10,
     },
     input: {
         flex: 1,
-        color: colors.text.primary,
-        fontSize: fontSize.base,
+        fontSize: 16,
+        color: '#FFF',
         paddingVertical: 0,
     },
-    eyeButton: {
-        padding: spacing.xs,
-    },
-    loginButton: {
-        backgroundColor: colors.accent[500],
-        marginTop: spacing.md,
-        ...shadows.glow,
-    },
-    infoContainer: {
+    // Login Button
+    loginBtn: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        marginTop: spacing.xl,
-        gap: spacing.xs,
+        gap: 8,
+        height: 52,
+        borderRadius: 16,
+        ...shadows.gold,
+    },
+    loginBtnText: {
+        color: '#FFF',
+        fontSize: 16,
+        fontWeight: '700',
+    },
+    // Info
+    infoRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 24,
+        gap: 6,
     },
     infoText: {
-        color: colors.text.tertiary,
-        fontSize: fontSize.sm,
+        color: 'rgba(255,255,255,0.4)',
+        fontSize: 13,
     },
 });

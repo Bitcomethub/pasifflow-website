@@ -17,15 +17,18 @@ export default function RootLayout() {
         // We'll add custom fonts here later
     });
 
-    // Check for OTA updates on app launch
+    // Check for OTA updates silently — download only, apply on next cold start
     useEffect(() => {
         async function checkForUpdates() {
             if (__DEV__) return;
             try {
                 const update = await Updates.checkForUpdateAsync();
                 if (update.isAvailable) {
+                    // Download the update in background — it will apply on next app restart
                     await Updates.fetchUpdateAsync();
-                    await Updates.reloadAsync();
+                    // DO NOT call Updates.reloadAsync() here!
+                    // Reloading mid-session kicks user back to splash/login.
+                    // The update will automatically apply on the next cold start.
                 }
             } catch (e) {
                 console.log('Update check failed:', e);
@@ -70,6 +73,7 @@ export default function RootLayout() {
                         animation: 'slide_from_right',
                     }}
                 >
+                    <Stack.Screen name="index" options={{ headerShown: false, animation: 'none' }} />
                     <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 </Stack>

@@ -1,8 +1,7 @@
 import React, { useState, useRef } from 'react';
 import {
     View, Text, StyleSheet, Platform, TouchableOpacity, Image,
-    ScrollView, TextInput, Keyboard, TouchableWithoutFeedback,
-    ActivityIndicator, Alert
+    ScrollView, TextInput, Keyboard, ActivityIndicator
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
@@ -28,7 +27,7 @@ export default function LoginScreen() {
         const trimmedEmail = email.trim().toLowerCase();
         const trimmedPassword = password.trim();
         if (!trimmedEmail || !trimmedPassword) {
-            setError('Lütfen tüm alanları doldurun');
+            setError('Please fill in all fields');
             if (Platform.OS === 'ios') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
             return;
         }
@@ -43,7 +42,7 @@ export default function LoginScreen() {
             });
             const data = await response.json();
             if (!data.success) {
-                setError(data.message || 'Giriş bilgileri hatalı.');
+                setError(data.message || 'Invalid credentials.');
                 if (Platform.OS === 'ios') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
                 return;
             }
@@ -52,7 +51,7 @@ export default function LoginScreen() {
             if (Platform.OS === 'ios') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
             router.replace('/(tabs)');
         } catch {
-            setError('Bağlantı hatası. İnternet bağlantınızı kontrol edin.');
+            setError('Connection error. Please check your internet.');
             if (Platform.OS === 'ios') Haptics.notificationAsync(Haptics.NotificationFeedbackType.Error);
         } finally {
             setLoading(false);
@@ -71,7 +70,7 @@ export default function LoginScreen() {
             router.replace('/(tabs)');
         } catch (e: any) {
             if (e.code !== 'ERR_REQUEST_CANCELED') {
-                Alert.alert('Giriş Hatası', 'Apple ile giriş yapılamadı.');
+                setError('Apple Sign In failed. Please try again.');
             }
         }
     };
@@ -79,139 +78,138 @@ export default function LoginScreen() {
     return (
         <LinearGradient colors={[colors.primary[500], colors.primary[700]]} style={s.container}>
             <SafeAreaView style={s.safe}>
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-                    <ScrollView
-                        contentContainerStyle={s.scroll}
-                        keyboardShouldPersistTaps="handled"
-                        automaticallyAdjustKeyboardInsets={true}
-                        showsVerticalScrollIndicator={false}
-                    >
-                        {/* Header */}
-                        <View style={s.header}>
-                            <Image
-                                source={require('../../assets/images/logo.png')}
-                                style={s.logo}
+                <ScrollView
+                    contentContainerStyle={s.scroll}
+                    keyboardShouldPersistTaps="handled"
+                    keyboardDismissMode="on-drag"
+                    automaticallyAdjustKeyboardInsets={true}
+                    showsVerticalScrollIndicator={false}
+                >
+                    {/* Header */}
+                    <View style={s.header}>
+                        <Image
+                            source={require('../../assets/images/logo.png')}
+                            style={s.logo}
+                        />
+                        <Text style={s.title}>Welcome</Text>
+                        <Text style={s.subtitle}>US Real Estate Investment Platform</Text>
+                    </View>
+
+                    {/* Login Card */}
+                    <View style={s.card}>
+                        {error ? (
+                            <View style={s.errorBox}>
+                                <Ionicons name="alert-circle" size={16} color={colors.error} />
+                                <Text style={s.errorText}>{error}</Text>
+                            </View>
+                        ) : null}
+
+                        {/* Email */}
+                        <Text style={s.label}>Email Address</Text>
+                        <View style={s.inputRow}>
+                            <Ionicons name="mail-outline" size={18} color={colors.silver[500]} style={s.inputIcon} />
+                            <TextInput
+                                style={s.input}
+                                placeholder="name@email.com"
+                                placeholderTextColor={colors.silver[400]}
+                                value={email}
+                                onChangeText={setEmail}
+                                keyboardType="email-address"
+                                textContentType="emailAddress"
+                                autoComplete="email"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                returnKeyType="next"
+                                onSubmitEditing={() => passwordRef.current?.focus()}
+                                blurOnSubmit={false}
+                                editable={!loading}
                             />
-                            <Text style={s.title}>Hoş Geldiniz</Text>
-                            <Text style={s.subtitle}>ABD Gayrimenkul Yatırım Platformu</Text>
                         </View>
 
-                        {/* Login Card */}
-                        <View style={s.card}>
-                            {error ? (
-                                <View style={s.errorBox}>
-                                    <Ionicons name="alert-circle" size={16} color={colors.error} />
-                                    <Text style={s.errorText}>{error}</Text>
-                                </View>
-                            ) : null}
-
-                            {/* Email */}
-                            <Text style={s.label}>E-posta Adresi</Text>
-                            <View style={s.inputRow}>
-                                <Ionicons name="mail-outline" size={18} color={colors.silver[500]} style={s.inputIcon} />
-                                <TextInput
-                                    style={s.input}
-                                    placeholder="ornek@email.com"
-                                    placeholderTextColor={colors.silver[400]}
-                                    value={email}
-                                    onChangeText={setEmail}
-                                    keyboardType="email-address"
-                                    textContentType="emailAddress"
-                                    autoComplete="email"
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    returnKeyType="next"
-                                    onSubmitEditing={() => passwordRef.current?.focus()}
-                                    blurOnSubmit={false}
-                                    editable={!loading}
-                                />
-                            </View>
-
-                            {/* Password */}
-                            <Text style={[s.label, { marginTop: 16 }]}>Şifre</Text>
-                            <View style={s.inputRow}>
-                                <Ionicons name="lock-closed-outline" size={18} color={colors.silver[500]} style={s.inputIcon} />
-                                <TextInput
-                                    ref={passwordRef}
-                                    style={s.input}
-                                    placeholder="••••••••"
-                                    placeholderTextColor={colors.silver[400]}
-                                    value={password}
-                                    onChangeText={setPassword}
-                                    secureTextEntry={!showPassword}
-                                    textContentType="password"
-                                    autoComplete="password"
-                                    autoCapitalize="none"
-                                    autoCorrect={false}
-                                    returnKeyType="go"
-                                    onSubmitEditing={handleLogin}
-                                    editable={!loading}
-                                />
-                                <TouchableOpacity
-                                    onPress={() => setShowPassword(!showPassword)}
-                                    hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
-                                >
-                                    <Ionicons
-                                        name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                                        size={18}
-                                        color={colors.silver[500]}
-                                    />
-                                </TouchableOpacity>
-                            </View>
-
-                            {/* Login Button */}
+                        {/* Password */}
+                        <Text style={[s.label, { marginTop: 16 }]}>Password</Text>
+                        <View style={s.inputRow}>
+                            <Ionicons name="lock-closed-outline" size={18} color={colors.silver[500]} style={s.inputIcon} />
+                            <TextInput
+                                ref={passwordRef}
+                                style={s.input}
+                                placeholder="Enter your password"
+                                placeholderTextColor={colors.silver[400]}
+                                value={password}
+                                onChangeText={setPassword}
+                                secureTextEntry={!showPassword}
+                                textContentType="password"
+                                autoComplete="password"
+                                autoCapitalize="none"
+                                autoCorrect={false}
+                                returnKeyType="go"
+                                onSubmitEditing={handleLogin}
+                                editable={!loading}
+                            />
                             <TouchableOpacity
-                                onPress={handleLogin}
-                                activeOpacity={0.85}
-                                disabled={loading}
-                                style={{ marginTop: 24 }}
+                                onPress={() => setShowPassword(!showPassword)}
+                                hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
                             >
-                                <LinearGradient
-                                    colors={[colors.accent.gradientStart, colors.accent.gradientEnd]}
-                                    start={{ x: 0, y: 0 }}
-                                    end={{ x: 1, y: 0 }}
-                                    style={s.loginBtn}
-                                >
-                                    {loading ? (
-                                        <ActivityIndicator color="#FFF" size="small" />
-                                    ) : (
-                                        <>
-                                            <Text style={s.loginBtnText}>Giriş Yap</Text>
-                                            <Ionicons name="arrow-forward" size={18} color="#FFF" />
-                                        </>
-                                    )}
-                                </LinearGradient>
+                                <Ionicons
+                                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                                    size={18}
+                                    color={colors.silver[500]}
+                                />
                             </TouchableOpacity>
                         </View>
 
-                        {/* Apple Sign In */}
-                        {Platform.OS === 'ios' && (
-                            <View style={s.appleSection}>
-                                <View style={s.divider}>
-                                    <View style={s.divLine} />
-                                    <Text style={s.divText}>veya</Text>
-                                    <View style={s.divLine} />
-                                </View>
-                                <AppleAuthentication.AppleAuthenticationButton
-                                    buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-                                    buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
-                                    cornerRadius={16}
-                                    style={{ width: '100%', height: 52 }}
-                                    onPress={handleAppleSignIn}
-                                />
-                            </View>
-                        )}
-
-                        {/* Agent Portal */}
+                        {/* Login Button */}
                         <TouchableOpacity
-                            onPress={() => router.push('/agent/login')}
-                            style={s.agentBtn}
+                            onPress={handleLogin}
+                            activeOpacity={0.85}
+                            disabled={loading}
+                            style={{ marginTop: 24 }}
                         >
-                            <Ionicons name="briefcase-outline" size={14} color={colors.silver[300]} />
-                            <Text style={s.agentBtnText}>Agent Portal</Text>
+                            <LinearGradient
+                                colors={[colors.accent.gradientStart, colors.accent.gradientEnd]}
+                                start={{ x: 0, y: 0 }}
+                                end={{ x: 1, y: 0 }}
+                                style={s.loginBtn}
+                            >
+                                {loading ? (
+                                    <ActivityIndicator color="#FFF" size="small" />
+                                ) : (
+                                    <>
+                                        <Text style={s.loginBtnText}>Sign In</Text>
+                                        <Ionicons name="arrow-forward" size={18} color="#FFF" />
+                                    </>
+                                )}
+                            </LinearGradient>
                         </TouchableOpacity>
-                    </ScrollView>
-                </TouchableWithoutFeedback>
+                    </View>
+
+                    {/* Apple Sign In */}
+                    {Platform.OS === 'ios' && (
+                        <View style={s.appleSection}>
+                            <View style={s.divider}>
+                                <View style={s.divLine} />
+                                <Text style={s.divText}>or</Text>
+                                <View style={s.divLine} />
+                            </View>
+                            <AppleAuthentication.AppleAuthenticationButton
+                                buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
+                                buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
+                                cornerRadius={16}
+                                style={{ width: '100%', height: 52 }}
+                                onPress={handleAppleSignIn}
+                            />
+                        </View>
+                    )}
+
+                    {/* Agent Portal */}
+                    <TouchableOpacity
+                        onPress={() => router.push('/agent/login')}
+                        style={s.agentBtn}
+                    >
+                        <Ionicons name="briefcase-outline" size={14} color={colors.silver[300]} />
+                        <Text style={s.agentBtnText}>Agent Portal</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </SafeAreaView>
         </LinearGradient>
     );
@@ -236,20 +234,20 @@ const s = StyleSheet.create({
         marginBottom: 32,
     },
     logo: {
-        width: 180,
-        height: 60,
+        width: 260,
+        height: 85,
         resizeMode: 'contain',
-        marginBottom: 16,
+        marginBottom: 20,
     },
     title: {
-        fontSize: 28,
+        fontSize: 30,
         fontWeight: '800',
         color: '#FFF',
         letterSpacing: -0.5,
         marginBottom: 6,
     },
     subtitle: {
-        fontSize: 14,
+        fontSize: 15,
         fontWeight: '500',
         color: colors.silver[300],
     },
