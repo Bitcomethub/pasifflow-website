@@ -1,0 +1,87 @@
+diff --git a/app.json b/app.json
+index cf03d1e..5379b89 100644
+--- a/app.json
++++ b/app.json
+@@ -56,7 +56,10 @@
+       "policy": "appVersion"
+     },
+     "updates": {
+-      "url": "https://u.expo.dev/553152b8-fd64-4e97-a9c6-3ea0ad5e04fe"
++      "url": "https://u.expo.dev/553152b8-fd64-4e97-a9c6-3ea0ad5e04fe",
++      "enabled": true,
++      "checkOnLaunch": "ALWAYS",
++      "fallbackToCacheTimeout": 5000
+     }
+   }
+ }
+diff --git a/app/_layout.tsx b/app/_layout.tsx
+index 955793d..d3715ee 100644
+--- a/app/_layout.tsx
++++ b/app/_layout.tsx
+@@ -3,6 +3,7 @@ import { StatusBar } from 'expo-status-bar';
+ import { useFonts } from 'expo-font';
+ import { Asset } from 'expo-asset';
+ import * as SplashScreen from 'expo-splash-screen';
++import * as Updates from 'expo-updates';
+ import { useEffect } from 'react';
+ import { SafeAreaProvider } from 'react-native-safe-area-context';
+ import { GestureHandlerRootView } from 'react-native-gesture-handler';
+@@ -16,7 +17,22 @@ export default function RootLayout() {
+         // We'll add custom fonts here later
+     });
+ 
+-
++    // Check for OTA updates on app launch
++    useEffect(() => {
++        async function checkForUpdates() {
++            if (__DEV__) return;
++            try {
++                const update = await Updates.checkForUpdateAsync();
++                if (update.isAvailable) {
++                    await Updates.fetchUpdateAsync();
++                    await Updates.reloadAsync();
++                }
++            } catch (e) {
++                console.log('Update check failed:', e);
++            }
++        }
++        checkForUpdates();
++    }, []);
+ 
+     useEffect(() => {
+         async function prepare() {
+diff --git a/eas.json b/eas.json
+index add3b1d..8309b20 100644
+--- a/eas.json
++++ b/eas.json
+@@ -5,6 +5,7 @@
+     },
+     "build": {
+         "development": {
++            "channel": "development",
+             "developmentClient": true,
+             "distribution": "internal",
+             "ios": {
+@@ -12,6 +13,7 @@
+             }
+         },
+         "preview": {
++            "channel": "preview",
+             "distribution": "internal",
+             "ios": {
+                 "resourceClass": "m-medium"
+@@ -21,6 +23,7 @@
+             }
+         },
+         "production": {
++            "channel": "production",
+             "ios": {
+                 "resourceClass": "m-medium"
+             },
+@@ -40,4 +43,4 @@
+             }
+         }
+     }
+-}
+\ No newline at end of file
++}
