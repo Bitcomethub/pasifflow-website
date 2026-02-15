@@ -1,0 +1,65 @@
+{
+  "expo": {
+    "name": "Pasiflow",
+    "slug": "pasiflow-app",
+    "version": "1.0.0",
+    "description": "Amerika'da devlet kira garantili gayrimenkul yatırımı. Section 8 programı ile dolar bazlı pasif gelir. Portföyünüzü takip edin, kira gelirlerinizi izleyin.",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "scheme": "pasiflow",
+    "primaryColor": "#C1A05E",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1F2328"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pasiflow.app",
+      "buildNumber": "3",
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "Belge ve mülk fotoğrafı yüklemek için kamera erişimi gereklidir.",
+        "NSPhotoLibraryUsageDescription": "Belge ve mülk fotoğrafı yüklemek için galeri erişimi gereklidir."
+      },
+      "privacyManifests": {
+        "NSPrivacyAccessedAPITypes": []
+      }
+    },
+    "android": {
+      "package": "com.pasiflow.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1F2328"
+      },
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-asset",
+      "expo-apple-authentication"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "553152b8-fd64-4e97-a9c6-3ea0ad5e04fe"
+      },
+      "router": {}
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/553152b8-fd64-4e97-a9c6-3ea0ad5e04fe",
+      "enabled": true,
+      "checkOnLaunch": "ALWAYS",
+      "fallbackToCacheTimeout": 5000
+    }
+  }
+}
