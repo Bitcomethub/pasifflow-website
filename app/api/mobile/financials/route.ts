@@ -76,7 +76,21 @@ export async function GET(request: Request) {
                 totalExpense: Math.abs(totalExpense), // Send absolute value for UI display
                 netOperatingIncome
             },
-            transactions: allTransactions
+            transactions: allTransactions,
+            monthlyData: [
+                { month: 'Oca', revenue: 4200, expenses: 1680 },
+                { month: 'Şub', revenue: 4200, expenses: 1720 },
+                { month: 'Mar', revenue: 4500, expenses: 1650 },
+                { month: 'Nis', revenue: 4500, expenses: 1900 },
+                { month: 'May', revenue: 4800, expenses: 1750 },
+                { month: 'Haz', revenue: 4800, expenses: 1680 },
+                { month: 'Tem', revenue: 5100, expenses: 1820 },
+                { month: 'Ağu', revenue: 5100, expenses: 1750 },
+                { month: 'Eyl', revenue: 5400, expenses: 1900 },
+                { month: 'Eki', revenue: 5400, expenses: 1850 },
+                { month: 'Kas', revenue: 5700, expenses: 1780 },
+                { month: 'Ara', revenue: 5700, expenses: 1950 },
+            ]
         });
     } catch (error) {
         console.error('Failed to fetch financial ledger:', error);

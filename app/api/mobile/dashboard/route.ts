@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { verifyToken, extractBearerToken } from '@/lib/auth';
+import { HOT_DEALS } from '@/lib/hot-deals';
 
 export async function GET(request: Request) {
     try {
@@ -111,7 +112,8 @@ export async function GET(request: Request) {
             totalYield: parseFloat(totalYield.toFixed(2)),
             currency: 'USD',
             userName: user.fullName,
-            llcCount: user.llcs.length
+            llcCount: user.llcs.length,
+            hotDeals: HOT_DEALS
         };
 
         return NextResponse.json(data);
