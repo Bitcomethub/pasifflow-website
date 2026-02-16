@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert, Linking } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -61,6 +61,18 @@ export default function ProfileScreen() {
 
     const roleLabel = user.role === 'agent' ? 'Agent' : 'Investor';
 
+    const profileLinks: Record<string, string> = {
+        'About': 'https://pasiflow.com/tr/about',
+        'Contact': 'https://pasiflow.com/tr/iletisim',
+        'Privacy Policy': 'https://pasiflow.com/tr/gizlilik',
+        'Terms of Service': 'https://pasiflow.com/tr/kullanim-sartlari',
+    };
+
+    const handleProfileLink = (label: string) => {
+        const url = profileLinks[label];
+        if (url) Linking.openURL(url);
+    };
+
     return (
         <View style={s.container}>
             <SafeAreaView style={{ flex: 1 }}>
@@ -118,7 +130,7 @@ export default function ProfileScreen() {
                             ].map((item, i) => (
                                 <View key={item.label}>
                                     {i > 0 && <View style={s.menuDivider} />}
-                                    <TouchableOpacity style={s.menuItem} onPress={() => Alert.alert(item.label, 'Coming soon')}>
+                                    <TouchableOpacity style={s.menuItem} onPress={() => handleProfileLink(item.label)}>
                                         <View style={s.menuIconWrap}>
                                             <Ionicons name={item.icon} size={18} color={colors.accent[500]} />
                                         </View>
@@ -137,7 +149,7 @@ export default function ProfileScreen() {
                             ].map((item, i) => (
                                 <View key={item.label}>
                                     {i > 0 && <View style={s.menuDivider} />}
-                                    <TouchableOpacity style={s.menuItem} onPress={() => Alert.alert(item.label, 'Coming soon')}>
+                                    <TouchableOpacity style={s.menuItem} onPress={() => handleProfileLink(item.label)}>
                                         <View style={s.menuIconWrap}>
                                             <Ionicons name={item.icon} size={18} color={colors.accent[500]} />
                                         </View>

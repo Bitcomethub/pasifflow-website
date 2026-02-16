@@ -70,12 +70,39 @@ export async function GET(request: Request) {
         // Sort by date
         allTransactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+        // Build monthly aggregation for chart
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const turkishMonths = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+        const monthlyMap = new Map<string, { income: number; expense: number }>();
+        months.forEach(m => monthlyMap.set(m, { income: 0, expense: 0 }));
+
+        allTransactions.forEach(t => {
+            const date = new Date(t.date);
+            const monthKey = months[date.getMonth()];
+            const entry = monthlyMap.get(monthKey);
+            if (entry) {
+                if (t.type === 'INCOME') {
+                    entry.income += t.amount;
+                } else {
+                    entry.expense += Math.abs(t.amount);
+                }
+            }
+        });
+
+        const monthlyData = months.map((m, i) => ({
+            month: m,
+            monthTr: turkishMonths[i],
+            income: Math.round(monthlyMap.get(m)!.income),
+            expense: Math.round(monthlyMap.get(m)!.expense),
+        }));
+
         return NextResponse.json({
             summary: {
                 totalIncome,
                 totalExpense: Math.abs(totalExpense), // Send absolute value for UI display
                 netOperatingIncome
             },
+            monthlyData,
             transactions: allTransactions
         });
     } catch (error) {

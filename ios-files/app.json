@@ -11,7 +11,8 @@
     "scheme": "pasiflow",
     "primaryColor": "#C1A05E",
     "splash": {
-      "resizeMode": "contain",
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
       "backgroundColor": "#1F2328"
     },
     "ios": {
@@ -28,6 +29,8 @@
         "NSPrivacyAccessedAPITypes": []
       },
       "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "cover",
         "backgroundColor": "#1F2328"
       }
     },

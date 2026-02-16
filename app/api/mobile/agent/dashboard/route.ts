@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { verifyToken, extractBearerToken } from '@/lib/auth';
+import { HOT_DEALS } from '@/lib/hot-deals';
 
 export async function GET(request: Request) {
     try {
@@ -79,23 +80,7 @@ export async function GET(request: Request) {
             totalSales: totalSalesCount,
             activeProperties: activeProperties,
             totalReferralEarned: totalReferralEarned,
-            // Hot Deals can still be static or fetched from Property table with 'isHot' flag
-            hotDeals: [
-                {
-                    id: 'hot-1',
-                    title: '🏠 12152 Stout St - Back on Market',
-                    address: '12152 Stout St, Detroit, MI 48228',
-                    price: 85900,
-                    monthlyRent: 1160,
-                    roi: 16.2,
-                    image: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&auto=format&fit=crop&q=80',
-                    status: 'hot',
-                    tag: 'Section 8 Onaylı',
-                    section8: true,
-                    mls: '20251049787',
-                },
-                // Add more as needed...
-            ]
+            hotDeals: HOT_DEALS
         };
 
         return NextResponse.json(agentData);
