@@ -50,10 +50,15 @@ export default function SplashScreen() {
             // Check for existing auth token (auto-login)
             try {
                 const token = await AsyncStorage.getItem('authToken');
-                const user = await AsyncStorage.getItem('user');
-                if (token && user) {
-                    // User is already authenticated — go to dashboard
-                    router.replace('/(tabs)');
+                const userStr = await AsyncStorage.getItem('user');
+                if (token && userStr) {
+                    // Route based on user role
+                    const user = JSON.parse(userStr);
+                    if (user.role === 'agent') {
+                        router.replace('/agent/dashboard');
+                    } else {
+                        router.replace('/(tabs)');
+                    }
                 } else {
                     // No token — go to login
                     router.replace('/(auth)/login');
