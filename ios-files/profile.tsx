@@ -9,40 +9,42 @@ import { colors, shadows } from '@/lib/theme';
 
 export default function ProfileScreen() {
     const [user, setUser] = useState({
-        name: '',
+        name: 'Investor',
         email: '',
         role: 'client',
     });
 
     useEffect(() => {
-        const loadUser = async () => {
-            try {
-                const stored = await AsyncStorage.getItem('user');
-                if (stored) {
-                    const parsed = JSON.parse(stored);
-                    setUser({
-                        name: parsed.name || parsed.fullName || 'User',
-                        email: parsed.email || '',
-                        role: parsed.role || 'client',
-                    });
-                }
-            } catch {
-                // Keep defaults
-            }
-        };
         loadUser();
     }, []);
+
+    const loadUser = async () => {
+        try {
+            const stored = await AsyncStorage.getItem('user');
+            if (stored) {
+                const parsed = JSON.parse(stored);
+                setUser({
+                    name: parsed.name || 'Investor',
+                    email: parsed.email || '',
+                    role: parsed.role || 'client',
+                });
+            }
+        } catch {
+            // silent
+        }
+    };
 
     const handleLogout = async () => {
         Alert.alert(
             'Logout',
-            'Are you sure you want to sign out?',
+            'Are you sure you want to logout?',
             [
                 { text: 'Cancel', style: 'cancel' },
                 {
-                    text: 'Sign Out',
+                    text: 'Logout',
                     style: 'destructive',
                     onPress: async () => {
+                        // CRITICAL: Clear tokens BEFORE navigating
                         await AsyncStorage.multiRemove(['authToken', 'user']);
                         router.replace('/(auth)/login');
                     },
@@ -55,7 +57,7 @@ export default function ProfileScreen() {
         .split(' ')
         .map(n => n[0])
         .join('')
-        .toUpperCase() || 'U';
+        .toUpperCase();
 
     const roleLabel = user.role === 'agent' ? 'Agent' : 'Investor';
 
@@ -74,11 +76,8 @@ export default function ProfileScreen() {
                     {/* Avatar Section */}
                     <View style={s.avatarSection}>
                         <View style={s.avatarWrap}>
-                            <LinearGradient
-                                colors={[colors.accent[500], colors.accent[600]]}
-                                style={s.avatarGradient}
-                            >
-                                <Text style={s.avatarText}>{initials}</Text>
+                            <LinearGradient colors={[colors.accent[500], colors.accent[600]]} style={s.avatarGradient}>
+                                <Text style={s.avatarText}>{initials || 'U'}</Text>
                             </LinearGradient>
                         </View>
                         <Text style={s.userName}>{user.name}</Text>
@@ -91,7 +90,7 @@ export default function ProfileScreen() {
                     {/* Info Card */}
                     <View style={s.infoCard}>
                         {[
-                            { icon: 'mail-outline' as const, label: 'Email', value: user.email },
+                            { icon: 'mail-outline' as const, label: 'Email', value: user.email || 'N/A' },
                             { icon: 'person-outline' as const, label: 'Role', value: roleLabel },
                         ].map((item, i) => (
                             <View key={item.label}>
@@ -114,12 +113,12 @@ export default function ProfileScreen() {
                         <Text style={s.sectionTitle}>SUPPORT</Text>
                         <View style={s.menuCard}>
                             {[
-                                { icon: 'information-circle-outline' as const, label: 'About', route: '/more/about' },
-                                { icon: 'mail-outline' as const, label: 'Contact Us', route: '/more/contact' },
+                                { icon: 'information-circle-outline' as const, label: 'About' },
+                                { icon: 'mail-outline' as const, label: 'Contact' },
                             ].map((item, i) => (
                                 <View key={item.label}>
                                     {i > 0 && <View style={s.menuDivider} />}
-                                    <TouchableOpacity style={s.menuItem} onPress={() => router.push(item.route as any)}>
+                                    <TouchableOpacity style={s.menuItem} onPress={() => Alert.alert(item.label, 'Coming soon')}>
                                         <View style={s.menuIconWrap}>
                                             <Ionicons name={item.icon} size={18} color={colors.accent[500]} />
                                         </View>
@@ -133,12 +132,12 @@ export default function ProfileScreen() {
                         <Text style={s.sectionTitle}>LEGAL</Text>
                         <View style={s.menuCard}>
                             {[
-                                { icon: 'shield-checkmark-outline' as const, label: 'Privacy Policy', route: '/more/privacy' },
-                                { icon: 'document-text-outline' as const, label: 'Terms of Use', route: '/more/terms' },
+                                { icon: 'shield-checkmark-outline' as const, label: 'Privacy Policy' },
+                                { icon: 'document-text-outline' as const, label: 'Terms of Service' },
                             ].map((item, i) => (
                                 <View key={item.label}>
                                     {i > 0 && <View style={s.menuDivider} />}
-                                    <TouchableOpacity style={s.menuItem} onPress={() => router.push(item.route as any)}>
+                                    <TouchableOpacity style={s.menuItem} onPress={() => Alert.alert(item.label, 'Coming soon')}>
                                         <View style={s.menuIconWrap}>
                                             <Ionicons name={item.icon} size={18} color={colors.accent[500]} />
                                         </View>
@@ -153,11 +152,33 @@ export default function ProfileScreen() {
                     {/* Logout */}
                     <TouchableOpacity style={s.logoutBtn} onPress={handleLogout}>
                         <Ionicons name="log-out-outline" size={18} color={colors.error} />
-                        <Text style={s.logoutText}>Sign Out</Text>
+                        <Text style={s.logoutText}>Logout</Text>
                     </TouchableOpacity>
 
-                    {/* Version */}
-                    <Text style={s.version}>Pasiflow v1.0.3</Text>
+                    {/* Delete Account */}
+                    <TouchableOpacity
+                        style={s.deleteBtn}
+                        onPress={() => {
+                            Alert.alert(
+                                'Delete Account',
+                                'Are you sure? This action cannot be undone.',
+                                [
+                                    { text: 'Cancel', style: 'cancel' },
+                                    {
+                                        text: 'Delete',
+                                        style: 'destructive',
+                                        onPress: async () => {
+                                            await AsyncStorage.multiRemove(['authToken', 'user']);
+                                            router.replace('/(auth)/login');
+                                        },
+                                    },
+                                ]
+                            );
+                        }}
+                    >
+                        <Ionicons name="trash-outline" size={18} color={colors.silver[500]} />
+                        <Text style={s.deleteText}>Delete Account</Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
         </View>
@@ -197,10 +218,9 @@ const s = StyleSheet.create({
     menuIconWrap: { width: 32, height: 32, borderRadius: 8, backgroundColor: 'rgba(193,160,94,0.1)', alignItems: 'center', justifyContent: 'center', marginRight: 12 },
     menuLabel: { flex: 1, fontSize: 15, color: colors.text.primary },
 
-    // Logout
-    logoutBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 14, backgroundColor: 'rgba(239,68,68,0.06)', borderRadius: 16, marginBottom: 16 },
+    // Buttons
+    logoutBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 14, backgroundColor: 'rgba(239,68,68,0.06)', borderRadius: 16, marginBottom: 10 },
     logoutText: { fontSize: 15, fontWeight: '600', color: colors.error },
-
-    // Version
-    version: { textAlign: 'center', fontSize: 12, color: colors.silver[500], marginBottom: 20 },
+    deleteBtn: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 8, paddingVertical: 14, borderRadius: 16, borderWidth: 1, borderColor: colors.border.subtle },
+    deleteText: { fontSize: 14, fontWeight: '500', color: colors.silver[500] },
 });

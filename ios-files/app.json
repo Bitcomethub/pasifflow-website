@@ -11,7 +11,6 @@
     "scheme": "pasiflow",
     "primaryColor": "#C1A05E",
     "splash": {
-      "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#1F2328"
     },
@@ -27,6 +26,9 @@
       },
       "privacyManifests": {
         "NSPrivacyAccessedAPITypes": []
+      },
+      "splash": {
+        "backgroundColor": "#1F2328"
       }
     },
     "android": {

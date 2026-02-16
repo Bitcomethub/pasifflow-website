@@ -1,10 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Animated, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Animated, Image } from 'react-native';
 import { router } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-const { width, height } = Dimensions.get('window');
 
 export default function SplashScreen() {
     const logoScale = useRef(new Animated.Value(0.6)).current;
@@ -19,46 +16,41 @@ export default function SplashScreen() {
             Animated.parallel([
                 Animated.timing(logoOpacity, {
                     toValue: 1,
-                    duration: 800,
+                    duration: 600,
                     useNativeDriver: true,
                 }),
                 Animated.timing(logoScale, {
                     toValue: 1,
-                    duration: 800,
+                    duration: 600,
                     useNativeDriver: true,
                 }),
             ]),
             Animated.parallel([
                 Animated.timing(textOpacity, {
                     toValue: 1,
-                    duration: 600,
+                    duration: 400,
                     useNativeDriver: true,
                 }),
                 Animated.timing(textTranslateY, {
                     toValue: 0,
-                    duration: 600,
+                    duration: 400,
                     useNativeDriver: true,
                 }),
             ]),
-            Animated.delay(600),
+            Animated.delay(400),
             Animated.timing(fadeOut, {
                 toValue: 0,
-                duration: 400,
+                duration: 300,
                 useNativeDriver: true,
             }),
         ]).start(async () => {
             // Check for existing auth token (auto-login)
             try {
                 const token = await AsyncStorage.getItem('authToken');
-                const userStr = await AsyncStorage.getItem('user');
-                if (token && userStr) {
-                    // Route based on user role
-                    const user = JSON.parse(userStr);
-                    if (user.role === 'agent') {
-                        router.replace('/agent/dashboard');
-                    } else {
-                        router.replace('/(tabs)');
-                    }
+                const user = await AsyncStorage.getItem('user');
+                if (token && user) {
+                    // User is already authenticated — go to dashboard
+                    router.replace('/(tabs)');
                 } else {
                     // No token — go to login
                     router.replace('/(auth)/login');
@@ -72,14 +64,8 @@ export default function SplashScreen() {
 
     return (
         <Animated.View style={[styles.container, { opacity: fadeOut }]}>
-            <LinearGradient
-                colors={['#FFFFFF', '#F5F5F5']}
-                style={styles.gradient}
-            >
-                {/* Decorative glow orbs */}
-                <View style={[styles.glowOrb, styles.glowOrb1]} />
-                <View style={[styles.glowOrb, styles.glowOrb2]} />
-
+            {/* Charcoal background — matches native splash backgroundColor exactly */}
+            <View style={styles.bg}>
                 {/* Logo */}
                 <Animated.View
                     style={[
@@ -91,7 +77,7 @@ export default function SplashScreen() {
                     ]}
                 >
                     <Image
-                        source={require('../assets/images/logo.png')}
+                        source={require('../assets/images/icon.png')}
                         style={styles.logo}
                     />
                 </Animated.View>
@@ -103,10 +89,10 @@ export default function SplashScreen() {
                         transform: [{ translateY: textTranslateY }],
                     }}
                 >
-                    <Text style={styles.tagline}>Gelecegin Yatirimi</Text>
+                    <Text style={styles.tagline}>PASIFLOW</Text>
                     <View style={styles.underline} />
                 </Animated.View>
-            </LinearGradient>
+            </View>
         </Animated.View>
     );
 }
@@ -115,8 +101,9 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
     },
-    gradient: {
+    bg: {
         flex: 1,
+        backgroundColor: '#1F2328',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -124,16 +111,16 @@ const styles = StyleSheet.create({
         marginBottom: 24,
     },
     logo: {
-        width: 200,
-        height: 200,
+        width: 120,
+        height: 120,
         resizeMode: 'contain',
     },
     tagline: {
         fontSize: 16,
         fontWeight: '600',
-        color: '#1F2328',
+        color: '#FFFFFF',
         textTransform: 'uppercase',
-        letterSpacing: 3,
+        letterSpacing: 4,
         textAlign: 'center',
     },
     underline: {
@@ -147,24 +134,5 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 0 },
         shadowOpacity: 0.6,
         shadowRadius: 8,
-    },
-    glowOrb: {
-        position: 'absolute',
-        borderRadius: 999,
-        backgroundColor: '#C1A05E',
-    },
-    glowOrb1: {
-        width: 200,
-        height: 200,
-        top: -50,
-        left: -50,
-        opacity: 0.08,
-    },
-    glowOrb2: {
-        width: 250,
-        height: 250,
-        bottom: -80,
-        right: -80,
-        opacity: 0.1,
     },
 });

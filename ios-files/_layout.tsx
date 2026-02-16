@@ -42,7 +42,7 @@ export default function RootLayout() {
             try {
                 // Preload image assets
                 await Asset.loadAsync([
-                    require('../assets/images/logo.png'),
+                    require('../assets/images/icon.png'),
                 ]);
             } catch (e) {
                 console.warn(e);
@@ -69,7 +69,7 @@ export default function RootLayout() {
                 <Stack
                     screenOptions={{
                         headerShown: false,
-                        contentStyle: { backgroundColor: colors.background.main },
+                        contentStyle: { backgroundColor: '#1F2328' },
                         animation: 'slide_from_right',
                     }}
                 >

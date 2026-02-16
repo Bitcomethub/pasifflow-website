@@ -1,5 +1,4 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { router } from 'expo-router';
 
 // For iOS Simulator, localhost works. For Android Emulator, use 10.0.2.2.
 // For physical device, use your machine's local IP (e.g., 192.168.1.x:3000).
@@ -10,14 +9,21 @@ const PROD_API_URL = 'https://pasiflow.com/api/mobile';
 
 const API_BASE_URL = __DEV__ ? DEV_API_URL : PROD_API_URL;
 
+// CRITICAL FIX: authFetch must NEVER auto-redirect to login.
+// Auto-redirecting from API calls was the root cause of the "kickout" bug.
+// Only the splash screen (index.tsx) should handle auth routing.
 async function authFetch(url: string): Promise<Response> {
     const token = await AsyncStorage.getItem('authToken');
+    if (!token) {
+        throw new Error('No auth token');
+    }
     const response = await fetch(url, {
-        headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+        headers: { 'Authorization': `Bearer ${token}` },
     });
     if (response.status === 401) {
+        // Token expired or invalid — clear stored tokens
+        // but do NOT redirect. Let the caller handle the error gracefully.
         await AsyncStorage.multiRemove(['authToken', 'user']);
-        router.replace('/(auth)/login');
         throw new Error('Session expired');
     }
     return response;

@@ -85,13 +85,13 @@ export default function LoginScreen() {
                     automaticallyAdjustKeyboardInsets={true}
                     showsVerticalScrollIndicator={false}
                 >
-                    {/* Header */}
+                    {/* Header with big icon */}
                     <View style={s.header}>
                         <Image
-                            source={require('../../assets/images/logo.png')}
+                            source={require('../../assets/images/icon.png')}
                             style={s.logo}
                         />
-                        <Text style={s.title}>Welcome</Text>
+                        <Text style={s.title}>Pasiflow</Text>
                         <Text style={s.subtitle}>US Real Estate Investment Platform</Text>
                     </View>
 
@@ -234,13 +234,13 @@ const s = StyleSheet.create({
         marginBottom: 32,
     },
     logo: {
-        width: 260,
-        height: 85,
+        width: 120,
+        height: 120,
         resizeMode: 'contain',
-        marginBottom: 20,
+        marginBottom: 16,
     },
     title: {
-        fontSize: 30,
+        fontSize: 32,
         fontWeight: '800',
         color: '#FFF',
         letterSpacing: -0.5,
@@ -249,7 +249,7 @@ const s = StyleSheet.create({
     subtitle: {
         fontSize: 15,
         fontWeight: '500',
-        color: colors.silver[300],
+        color: 'rgba(255,255,255,0.6)',
     },
     // Card
     card: {
