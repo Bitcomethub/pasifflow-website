@@ -10,6 +10,7 @@ async function main() {
     const adminHash = await bcrypt.hash('Pasiflow2026!', 12)
     const investorHash = await bcrypt.hash('PasiInvestor2025!', 12)
     const agentHash = await bcrypt.hash('PasiAgent2025!', 12)
+    const demoHash = await bcrypt.hash('Pasiflow2025!', 12)
 
     // 1. Create Admin (CTO)
     const admin = await prisma.user.upsert({
@@ -53,7 +54,21 @@ async function main() {
         },
     })
 
-    console.log(`Created Users: ${admin.fullName} (ADMIN), ${investor.fullName} (USER), ${agent.fullName} (AGENT)`)
+    // 4. Create Apple Review Demo User
+    const demo = await prisma.user.upsert({
+        where: { email: 'demo@pasiflow.com' },
+        update: { passwordHash: demoHash, role: 'USER' },
+        create: {
+            email: 'demo@pasiflow.com',
+            fullName: 'Demo User',
+            passwordHash: demoHash,
+            role: 'USER',
+            isVerified: true,
+            phone: '+1 (555) 000-0099'
+        },
+    })
+
+    console.log(`Created Users: ${admin.fullName} (ADMIN), ${investor.fullName} (USER), ${agent.fullName} (AGENT), ${demo.fullName} (DEMO)`)
 
     // 4. Create LLCs (owned by investor for demo)
     const llc1 = await prisma.lLC.create({
