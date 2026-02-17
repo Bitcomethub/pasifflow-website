@@ -7,14 +7,11 @@ import { motion } from "framer-motion"
 import { MapPin, TrendingUp, Home, ArrowRight, Building2, Star, Sparkles, ChevronRight } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { locations } from "@/lib/location-data"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { Link } from "@/i18n/navigation"
 
 export default function LocationsPage() {
     const t = useTranslations("locations")
     const tCommon = useTranslations("common")
-    const pathname = usePathname()
-    const locale = pathname.split('/')[1] || 'tr'
 
     const container = {
         hidden: { opacity: 0 },
@@ -145,7 +142,7 @@ export default function LocationsPage() {
                                         viewport={{ once: true }}
                                         transition={{ delay: i * 0.1 }}
                                     >
-                                        <Link href={`/${locale}/locations/${location.state}/${location.slug}`}>
+                                        <Link href={`/locations/${location.state}/${location.slug}`}>
                                             <Card className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer bg-white hover:-translate-y-2">
                                                 {/* Image */}
                                                 <div className="relative h-56 overflow-hidden">
