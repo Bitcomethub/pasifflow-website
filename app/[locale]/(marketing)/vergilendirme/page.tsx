@@ -142,7 +142,7 @@ export default function TaxationPage() {
                                         {t("ctaButton")}
                                     </a>
                                 </Button>
-                                <Link href={`/${locale}/neden-amerika`} passHref>
+                                <Link href="/neden-amerika" passHref>
                                     <Button size="lg" variant="outline" className="font-semibold text-lg h-14 border-2">
                                         {tNav("whyUSA")}
                                     </Button>

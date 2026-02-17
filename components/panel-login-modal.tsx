@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter, usePathname } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Check, Lock, X, Sparkles, Briefcase, ArrowRight, Shield, Eye, EyeOff } from "lucide-react"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import { cn } from "@/lib/utils"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -18,8 +18,7 @@ interface PanelLoginModalProps {
 export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
     const t = useTranslations("leadGenModal")
     const router = useRouter()
-    const pathname = usePathname()
-    const currentLocale = pathname.split('/')[1] || 'tr'
+    const currentLocale = useLocale()
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")

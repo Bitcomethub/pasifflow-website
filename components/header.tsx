@@ -146,7 +146,7 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href={`/${currentLocale}/iletisim`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href="/iletisim" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("contact")}
                     </Link>
                   </DropdownMenuItem>
@@ -167,7 +167,7 @@ export function Header() {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href={`/${currentLocale}/harita`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href="/harita" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("mapAndLocations")}
                     </Link>
                   </DropdownMenuItem>
@@ -183,12 +183,12 @@ export function Header() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-48 bg-white border-[#E5E5E5] p-2 shadow-lg rounded-xl">
                   <DropdownMenuItem asChild>
-                    <Link href={`/${currentLocale}/neden-amerika`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href="/neden-amerika" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("whyUSA")}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href={`/${currentLocale}/vergilendirme`} className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
+                    <Link href="/vergilendirme" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("taxLaw")}
                     </Link>
                   </DropdownMenuItem>
