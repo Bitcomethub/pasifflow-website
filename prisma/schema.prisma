@@ -270,3 +270,46 @@ model AgentCommission {
   
   @@map("agent_commissions")
 }
+
+// ---------------------------------------------------------
+// LLC Formation Service
+// ---------------------------------------------------------
+
+model LlcRequest {
+  id                String   @id @default(uuid())
+
+  // LLC Details
+  llcName           String   @map("llc_name")
+  alternativeName   String?  @map("alternative_name")
+  entityType        String   @default("LLC") @map("entity_type")
+  managementType    String   @default("MEMBER") @map("management_type")
+
+  // Personal Info
+  fullName          String   @map("full_name")
+  email             String
+  phone             String
+  country           String
+  passportNumber    String   @map("passport_number")
+  mailingAddress    String   @map("mailing_address")
+
+  // Additional Services
+  virtualOffice     Boolean  @default(false) @map("virtual_office")
+  bankAccount       Boolean  @default(false) @map("bank_account")
+  itinApplication   Boolean  @default(false) @map("itin_application")
+
+  // Payment
+  stripeSessionId   String?  @map("stripe_session_id")
+  stripePaymentId   String?  @map("stripe_payment_id")
+  amountPaid        Float?   @map("amount_paid")
+  paymentStatus     String   @default("PENDING") @map("payment_status")
+
+  // Status
+  status            String   @default("PENDING") // PENDING, LINK_SENT, COMPLETED
+  formationLink     String?  @map("formation_link")
+  linkSentAt        DateTime? @map("link_sent_at")
+
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  @@map("llc_requests")
+}

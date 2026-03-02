@@ -76,8 +76,83 @@ export async function sendLeadNotification(data: LeadData) {
 
   try {
     await transporter.sendMail(mailOptions);
-    console.log(`Lead notification sent to info@pasiflow.com for ${data.email}`);
   } catch (error) {
     console.error("Error sending lead notification:", error);
+  }
+}
+
+interface LlcLinkData {
+  email: string;
+  fullName: string;
+  llcName: string;
+  formationLink: string;
+}
+
+export async function sendLlcLinkEmail(data: LlcLinkData) {
+  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASSWORD } = process.env;
+
+  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASSWORD) {
+    console.warn("SMTP credentials not set. Skipping LLC link email.");
+    return;
+  }
+
+  const transporter = nodemailer.createTransport({
+    host: SMTP_HOST,
+    port: Number(SMTP_PORT) || 587,
+    secure: Number(SMTP_PORT) === 465,
+    auth: {
+      user: SMTP_USER,
+      pass: SMTP_PASSWORD,
+    },
+  });
+
+  const mailOptions = {
+    from: `"Pasiflow" <${SMTP_USER}>`,
+    to: data.email,
+    subject: `Your LLC Formation Link — Pasiflow`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 40px 20px;">
+        <div style="text-align: center; margin-bottom: 32px;">
+          <h1 style="color: #1F2328; font-size: 24px; margin: 0;">Pasiflow</h1>
+          <p style="color: #C1A05E; font-size: 14px; margin: 4px 0 0;">LLC Formation Service</p>
+        </div>
+
+        <div style="background: #F8F8F6; border-radius: 12px; padding: 32px; margin-bottom: 24px;">
+          <p style="color: #3D4852; font-size: 16px; margin: 0 0 16px;">
+            Dear ${escapeHtml(data.fullName)},
+          </p>
+          <p style="color: #3D4852; font-size: 14px; line-height: 1.6; margin: 0 0 16px;">
+            Your LLC formation for <strong>${escapeHtml(data.llcName)}</strong> is ready to proceed.
+            Please click the button below to access your formation link:
+          </p>
+
+          <div style="text-align: center; margin: 24px 0;">
+            <a href="${escapeHtml(data.formationLink)}"
+               style="display: inline-block; background: #C1A05E; color: white; text-decoration: none;
+                      padding: 14px 32px; border-radius: 8px; font-weight: bold; font-size: 14px;">
+              Access Formation Link
+            </a>
+          </div>
+
+          <p style="color: #6B7280; font-size: 12px; line-height: 1.6; margin: 16px 0 0;">
+            If the button doesn't work, copy and paste this URL:<br/>
+            <a href="${escapeHtml(data.formationLink)}" style="color: #C1A05E; word-break: break-all;">
+              ${escapeHtml(data.formationLink)}
+            </a>
+          </p>
+        </div>
+
+        <p style="color: #6B7280; font-size: 12px; text-align: center;">
+          This email was sent by Pasiflow LLC Formation Service.<br/>
+          If you have questions, reply to this email or contact us at info@pasiflow.com
+        </p>
+      </div>
+    `,
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+  } catch (error) {
+    console.error("Error sending LLC link email:", error);
   }
 }

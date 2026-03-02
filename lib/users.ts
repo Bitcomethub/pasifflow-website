@@ -2,7 +2,7 @@
 // All users (investors, agents, admins) are stored in the DB
 // The CTO creates credentials via the admin panel — no self-registration
 
-import { prisma } from "@/lib/prisma"
+import { prisma } from "@/lib/db"
 import bcrypt from "bcryptjs"
 
 export interface AppUser {

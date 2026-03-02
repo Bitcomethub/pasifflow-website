@@ -11,6 +11,7 @@ import {
     Wrench,
     Wallet,
     FileText,
+    ScrollText,
     Users,
     Settings,
     LogOut
@@ -49,6 +50,12 @@ export function AdminSidebar() {
             icon: FileText,
             href: "/admin/documents",
             active: pathname.startsWith("/admin/documents"),
+        },
+        {
+            label: "LLC Requests",
+            icon: ScrollText,
+            href: "/admin/llc-requests",
+            active: pathname.startsWith("/admin/llc-requests"),
         },
         {
             label: "Users",

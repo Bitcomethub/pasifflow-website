@@ -36,6 +36,20 @@ FİYAT ARALIĞI VE GETİRİ:
 - Yönetim Ücreti: Aylık kiranın %10'u
 
 ═══════════════════════════════════════════════════════════════
+                LLC FORMATION HİZMETİ ($499)
+═══════════════════════════════════════════════════════════════
+
+- Pasiflow LLC kurulum hizmeti: $499 sabit fiyat, all-inclusive
+- Wyoming LLC (vergi avantajı, gizlilik, basit yönetim)
+- Dahil olan hizmetler: LLC Filing, Same-Day Filing, EIN, Registered Agent (1 yıl), Operating Agreement, US Bank Account, BOI Filing, Avukat Desteği
+- Süreç: Form doldur → Ödeme ($499) → 24 saat içinde formation link → Same-day filing → Belgeler hazır
+- Yabancı uyruklular başvurabilir (SSN gerekmez)
+- Banka hesabı açılımı dahil
+- ITIN başvurusu ek hizmet olarak mevcut ($350)
+- Kullanıcı LLC sorusu sorduğunda: /llc-formation sayfasına yönlendir
+- Rakiplere göre avantaj: Tek sabit fiyat ($499 vs $1,500+ Türk firmalar, $599+ LegalZoom ama eksik hizmetler)
+
+═══════════════════════════════════════════════════════════════
                     NEDEN PASIFLOW? (RAKİP KARŞILAŞTIRMASI)
 ═══════════════════════════════════════════════════════════════
 

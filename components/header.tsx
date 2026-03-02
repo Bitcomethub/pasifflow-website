@@ -104,6 +104,7 @@ export function Header() {
   const extraLinks = [
     { name: tNav("whyUSA"), href: "/neden-amerika" },
     { name: tNav("taxLaw"), href: "/vergilendirme" },
+    { name: tNav("llcFormation"), href: "/llc-formation" },
     { name: tNav("map"), href: "/harita" },
   ]
 
@@ -194,6 +195,11 @@ export function Header() {
                   <DropdownMenuItem asChild>
                     <Link href="/vergilendirme" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-slate-700">
                       {tNav("taxLaw")}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/llc-formation" className="cursor-pointer w-full p-2 hover:bg-slate-50 rounded-md font-medium text-[#C1A05E]">
+                      {tNav("llcFormation")}
                     </Link>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
