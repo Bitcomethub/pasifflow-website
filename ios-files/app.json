@@ -2,7 +2,7 @@
   "expo": {
     "name": "Pasiflow",
     "slug": "pasiflow-app",
-    "version": "1.0.3",
+    "version": "1.0.2",
     "description": "Amerika'da devlet kira garantili gayrimenkul yatırımı. Section 8 programı ile dolar bazlı pasif gelir. Portföyünüzü takip edin, kira gelirlerinizi izleyin.",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,7 +11,8 @@
     "scheme": "pasiflow",
     "primaryColor": "#C1A05E",
     "splash": {
-      "resizeMode": "contain",
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
       "backgroundColor": "#1F2328"
     },
     "ios": {
@@ -28,6 +29,8 @@
         "NSPrivacyAccessedAPITypes": []
       },
       "splash": {
+        "image": "./assets/splash.png",
+        "resizeMode": "cover",
         "backgroundColor": "#1F2328"
       }
     },

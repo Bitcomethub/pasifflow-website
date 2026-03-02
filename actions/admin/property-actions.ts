@@ -2,7 +2,6 @@
 
 import { db } from "@/lib/db"
 import { revalidatePath } from "next/cache"
-import { redirect } from "next/navigation"
 
 export async function createProperty(formData: FormData) {
     const address = formData.get("address") as string
@@ -12,13 +11,9 @@ export async function createProperty(formData: FormData) {
     const purchasePrice = parseFloat(formData.get("purchasePrice") as string)
     const monthlyRent = parseFloat(formData.get("monthlyRent") as string)
 
-    // Hardcode owner for now (mock user or admin)
     const status = "OCCUPIED"
 
-    // In real app we would get session here
-
     try {
-        // Create a mock LLC if needed or pick first one
         const firstLLC = await db.lLC.findFirst()
 
         if (!firstLLC) throw new Error("No LLC found to attach property to")
@@ -40,7 +35,7 @@ export async function createProperty(formData: FormData) {
         revalidatePath("/admin/properties")
         return { success: true }
     } catch (error) {
-        console.error(error)
+        console.error("Create property error:", error)
         return { error: "Failed to create property" }
     }
 }

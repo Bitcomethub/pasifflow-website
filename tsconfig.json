@@ -37,6 +37,7 @@
   ],
   "exclude": [
     "node_modules",
-    "ios-files"
+    "ios-files",
+    "pasiflow-app-standalone"
   ]
 }
