@@ -33,14 +33,6 @@ export function HeroSection() {
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-20 right-[10%] w-[500px] h-[500px] bg-[#C1A05E] rounded-full blur-[120px]"
         />
-        <motion.div
-          animate={{
-            scale: [1.2, 1, 1.2],
-            opacity: [0.03, 0.06, 0.03],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-20 left-[5%] w-[400px] h-[400px] bg-[#1F2328] rounded-full blur-[120px]"
-        />
         {/* Decorative grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.02]"
