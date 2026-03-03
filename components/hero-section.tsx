@@ -23,26 +23,6 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-gradient-to-br from-[#F8F8F6] via-[#F5F5F5] to-[#EDE9E0] pt-20 pb-12 md:pt-40 md:pb-24">
-      {/* Animated gradient mesh background */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.04, 0.08, 0.04],
-          }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-20 right-[10%] w-[500px] h-[500px] bg-[#C1A05E] rounded-full blur-[120px]"
-        />
-        {/* Decorative grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: "radial-gradient(circle at 1px 1px, #1F2328 1px, transparent 0)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-      </div>
-
       <div className="container mx-auto px-6 md:px-12 lg:px-16 z-10 relative">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* LEFT-ALIGNED Text Content */}
