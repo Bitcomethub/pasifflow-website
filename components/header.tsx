@@ -109,7 +109,7 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-50">
         <div
           className={cn(
-            "mx-auto transition-all duration-300 bg-white",
+            "mx-auto transition-all duration-300 bg-white overflow-hidden",
             isScrolled
               ? "shadow-lg" // add shadow on scroll for depth
               : ""
