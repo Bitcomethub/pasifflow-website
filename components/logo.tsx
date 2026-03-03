@@ -41,8 +41,7 @@ export function Logo({
                     alt="Pasiflow"
                     width={styles.width}
                     height={styles.height}
-                    className="object-contain w-full"
-                    style={{ aspectRatio: `${styles.width}/${styles.height}` }}
+                    className="object-contain"
                     priority
                 />
             </div>
