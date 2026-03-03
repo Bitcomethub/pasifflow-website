@@ -109,9 +109,9 @@ export function Header() {
       <header className="fixed top-0 left-0 right-0 z-50">
         <div
           className={cn(
-            "mx-auto transition-all duration-300 bg-white/95 backdrop-blur-md",
+            "mx-auto transition-all duration-300 bg-white",
             isScrolled
-              ? "shadow-lg bg-white" // solid white on scroll for better readability
+              ? "shadow-lg" // add shadow on scroll for depth
               : ""
           )}
         >

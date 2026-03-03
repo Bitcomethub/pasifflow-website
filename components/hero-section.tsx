@@ -32,7 +32,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 backdrop-blur-sm rounded-full border border-[#C1A05E]/20 shadow-sm"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 rounded-full border border-[#C1A05E]/20 shadow-sm"
             >
               <div className="w-2 h-2 rounded-full bg-[#C1A05E] animate-pulse" />
               <span className="text-sm font-semibold text-[#1F2328]">{t("badge")}</span>
@@ -50,9 +50,9 @@ export function HeroSection() {
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={currentTitleIndex}
-                    initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, y: -20, filter: "blur(4px)" }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.4 }}
                     className="text-[#C1A05E] inline-block"
                   >
@@ -177,7 +177,7 @@ export function HeroSection() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="absolute top-4 right-4 bg-[#1F2328]/90 backdrop-blur-md text-white px-5 py-3 rounded-2xl shadow-lg z-10 border border-white/10"
+              className="absolute top-4 right-4 bg-[#1F2328] text-white px-5 py-3 rounded-2xl shadow-lg z-10 border border-white/10"
             >
               <div className="text-[10px] font-semibold opacity-80 uppercase tracking-wider">{t("floatingBadge")}</div>
               <div className="text-lg font-bold text-[#C1A05E]">{t("floatingBadgeValue")}</div>
