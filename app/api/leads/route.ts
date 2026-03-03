@@ -46,6 +46,7 @@ export async function POST(req: Request) {
                 email: lead.email,
                 phone: lead.phone,
                 source: lead.source,
+                budget: lead.budget,
                 createdAt: lead.createdAt,
             }),
         }).catch(err => console.error("n8n webhook error:", err))
