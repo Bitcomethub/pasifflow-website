@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pasiflow — Yatırım Sunumu</title>
+    <meta name="description" content="Paranız bugünden sizin için çalışsın — Detroit Section 8, $30K başlangıç, 20+ yıl deneyim." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #F8F8F6;
+            --bg-paper: #ffffff;
+            --navy: #1a2332;
+            --navy-soft: #243049;
+            --fg: #14181f;
+            --fg-invert: #f4ecdc;
+            --muted: #5e6675;
+            --muted-invert: #9aa3b6;
+            --line: #e5e2da;
+            --line-invert: rgba(255,255,255,0.08);
+            --gold: #C1A05E;
+            --gold-soft: rgba(193, 160, 94, 0.12);
+            --gold-line: rgba(193, 160, 94, 0.4);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--fg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.65;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            line-height: 1.15;
+        }
+        em { font-style: normal; color: var(--gold); }
+        a { color: inherit; }
+
+        /* Layout */
+        .wrap { max-width: 1180px; margin: 0 auto; padding: 0 1.75rem; }
+
+        /* Topbar */
+        .topbar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: rgba(248, 248, 246, 0.86);
+            backdrop-filter: saturate(160%) blur(14px);
+            -webkit-backdrop-filter: saturate(160%) blur(14px);
+            border-bottom: 1px solid var(--line);
+        }
+        .topbar-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.1rem 0;
+            gap: 1.5rem;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            color: var(--navy);
+        }
+        .logo span { color: var(--gold); }
+        .badges {
+            font-size: 0.68rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-weight: 500;
+            text-align: right;
+        }
+        .badges b { color: var(--gold); font-weight: 700; }
+
+        /* Sections */
+        section { padding: 6.5rem 0; position: relative; }
+        section.invert {
+            background: var(--navy);
+            color: var(--fg-invert);
+        }
+        section.invert .lead { color: var(--muted-invert); }
+        section.invert h1, section.invert h2, section.invert h3 { color: var(--fg-invert); }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.4rem 0.95rem;
+            background: var(--gold-soft);
+            border: 1px solid var(--gold-line);
+            color: var(--gold);
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            border-radius: 999px;
+            font-weight: 600;
+            margin-bottom: 1.25rem;
+        }
+        .eyebrow::before {
+            content: '';
+            width: 5px; height: 5px; background: var(--gold); border-radius: 50%;
+        }
+
+        h1.display {
+            font-size: clamp(2.5rem, 6vw, 4.75rem);
+            font-weight: 700;
+            margin-bottom: 1.25rem;
+        }
+        h2.title {
+            font-size: clamp(2rem, 4.2vw, 3.25rem);
+            margin-bottom: 1.25rem;
+        }
+        .lead {
+            font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+            color: var(--muted);
+            max-width: 680px;
+        }
+
+        /* Hero */
+        .hero { padding: 7rem 0 6rem; text-align: center; }
+        .hero h1 { max-width: 880px; margin: 0 auto 1.5rem; }
+        .hero p.lead { margin: 0 auto; }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 4rem;
+            max-width: 920px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .stat {
+            background: var(--bg-paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 1.75rem 1.25rem;
+            text-align: center;
+        }
+        .stat .num {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+        .stat .lbl { font-size: 0.85rem; color: var(--muted); }
+
+        /* Two-col card grid */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+        .compare-card {
+            background: var(--bg-paper);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 2.25rem 2rem;
+        }
+        .compare-card.dark {
+            background: var(--navy-soft);
+            border-color: var(--line-invert);
+            color: var(--fg-invert);
+        }
+        .compare-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.4rem;
+        }
+        .compare-card .tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+        .compare-card ul { list-style: none; margin-top: 1.25rem; }
+        .compare-card li {
+            padding: 0.6rem 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.96rem;
+        }
+        .compare-card.dark li { border-color: var(--line-invert); color: var(--muted-invert); }
+        .compare-card li:first-child { border-top: none; }
+
+        /* Section 8 / 6-card grid */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.1rem;
+            margin-top: 3rem;
+        }
+        .feat {
+            background: var(--bg-paper);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+        .feat:hover { transform: translateY(-3px); border-color: var(--gold-line); }
+        .feat .icon {
+            width: 44px; height: 44px;
+            border-radius: 12px;
+            background: var(--gold-soft);
+            color: var(--gold);
+            display: grid; place-items: center;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        .feat h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .feat p { color: var(--muted); font-size: 0.95rem; }
+
+        /* Math block */
+        .math {
+            background: var(--bg-paper);
+            border: 1px solid var(--gold-line);
+            border-radius: 22px;
+            padding: 3rem 2.5rem;
+            margin-top: 3rem;
+            text-align: center;
+            box-shadow: 0 30px 60px -40px rgba(193, 160, 94, 0.45);
+        }
+        .math .equation {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+        }
+        .math .equation b { color: var(--gold); }
+        .math .equals {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 5vw, 3.75rem);
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+            line-height: 1.1;
+            margin: 1rem 0 0.5rem;
+        }
+        .math small { color: var(--muted); display: block; font-size: 0.9rem; }
+
+        /* Buyback list */
+        .buyback-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .buyback-item {
+            background: var(--navy-soft);
+            border: 1px solid var(--line-invert);
+            border-radius: 16px;
+            padding: 1.75rem 1.5rem;
+            text-align: center;
+        }
+        .buyback-item .big {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .buyback-item .lbl { color: var(--muted-invert); font-size: 0.95rem; }
+
+        /* Founder */
+        .founder {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        .founder-photo {
+            aspect-ratio: 1 / 1;
+            border-radius: 22px;
+            background: linear-gradient(135deg, var(--navy-soft), var(--navy));
+            border: 1px solid var(--gold-line);
+            display: grid;
+            place-items: center;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            position: relative;
+            overflow: hidden;
+        }
+        .founder-photo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(120% 80% at 50% 0%, rgba(193, 160, 94, 0.18), transparent 60%);
+        }
+        .founder-photo span { position: relative; z-index: 1; }
+        .founder p {
+            color: var(--muted-invert);
+            font-size: 1.05rem;
+            margin-top: 1rem;
+        }
+        .founder .quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--fg-invert);
+            border-left: 3px solid var(--gold);
+            padding-left: 1.25rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        /* Win-win panel */
+        .winwin {
+            background: linear-gradient(180deg, var(--bg-paper), #faf7ee);
+            border: 1px solid var(--gold-line);
+            border-radius: 22px;
+            padding: 3rem 2.5rem;
+            margin-top: 2rem;
+            text-align: center;
+        }
+        .winwin .formula {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3.2vw, 2.4rem);
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 1rem;
+        }
+
+        /* Transparency */
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        .pillar {
+            background: var(--navy-soft);
+            border: 1px solid var(--line-invert);
+            border-radius: 16px;
+            padding: 1.75rem 1.4rem;
+        }
+        .pillar h3 {
+            font-size: 1.15rem;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .pillar p { color: var(--muted-invert); font-size: 0.92rem; }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            background: linear-gradient(180deg, var(--navy) 0%, #0f1623 100%);
+            color: var(--fg-invert);
+            padding: 7rem 0;
+        }
+        .cta-section h2 { color: var(--fg-invert); }
+        .actions { display: inline-flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-top: 2rem; }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 1rem 1.85rem;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 0.97rem;
+            text-decoration: none;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .btn-primary {
+            background: var(--gold);
+            color: #1a1408;
+            box-shadow: 0 12px 28px rgba(193, 160, 94, 0.3);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 16px 36px rgba(193, 160, 94, 0.45); }
+        .btn-ghost {
+            background: transparent;
+            color: var(--fg-invert);
+            border: 1px solid rgba(255,255,255,0.18);
+        }
+        .btn-ghost:hover { border-color: var(--gold-line); color: var(--gold); }
+        .btn svg { width: 18px; height: 18px; }
+
+        /* Footer */
+        .foot {
+            text-align: center;
+            padding: 2.5rem 0;
+            color: var(--muted);
+            font-size: 0.85rem;
+            background: var(--bg);
+            border-top: 1px solid var(--line);
+        }
+
+        /* Mobile */
+        @media (max-width: 880px) {
+            section { padding: 4.5rem 0; }
+            .topbar-inner { flex-direction: column; align-items: flex-start; gap: 0.6rem; padding: 0.9rem 0; }
+            .badges { text-align: left; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .grid-2, .grid-3, .grid-4, .buyback-row {
+                grid-template-columns: 1fr;
+            }
+            .founder { grid-template-columns: 1fr; gap: 1.75rem; text-align: center; }
+            .founder-photo { max-width: 220px; margin: 0 auto; }
+            .founder .quote { text-align: left; }
+            .math, .winwin, .compare-card { padding: 2rem 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- TOPBAR -->
+    <header class="topbar">
+        <div class="wrap topbar-inner">
+            <div class="logo">Pasi<span>flow</span></div>
+            <div class="badges">MIAMI <b>·</b> SECTION 8 <b>·</b> ABD GAYRİMENKUL</div>
+        </div>
+    </header>
+
+    <!-- 1. HERO -->
+    <section class="hero" id="hero">
+        <div class="wrap">
+            <span class="eyebrow">Yatırım Sunumu</span>
+            <h1 class="display">Paranız bugünden <em>sizin için çalışsın.</em></h1>
+            <p class="lead">20+ yıl Amerika deneyimi. Detroit'te aktif yönetilen 450+ ev. 48 kişilik saha ekibi. Ve sadece $30.000 başlangıç sermayesi.</p>
+            <div class="stats">
+                <div class="stat"><span class="num">20+</span><span class="lbl">Yıl Amerika Deneyimi</span></div>
+                <div class="stat"><span class="num">450+</span><span class="lbl">Detroit'te Aktif Yönetilen Ev</span></div>
+                <div class="stat"><span class="num">48</span><span class="lbl">Kişilik Saha Ekibi</span></div>
+                <div class="stat"><span class="num">$30K</span><span class="lbl">Başlangıç Sermayesi</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 11 YIL / $100M / MIAMI -->
+    <section class="invert" id="track-record">
+        <div class="wrap">
+            <span class="eyebrow">Track Record</span>
+            <h2 class="title">11 yıl. <em>$100 milyon.</em><br/>Tek piyasa: Miami.</h2>
+            <p class="lead">Miami'de bir gayrimenkul piyasası kurduk. Şimdi aynı disiplini Detroit'te ölçeklendiriyoruz.</p>
+            <div class="grid-3">
+                <div class="feat" style="background: var(--navy-soft); border-color: var(--line-invert);">
+                    <div class="icon">48</div>
+                    <h3 style="color: var(--fg-invert);">Saha Ekibi</h3>
+                    <p style="color: var(--muted-invert);">Detroit'te 48 kişilik ortak ekip — bakım, kiracı yönetimi, ekspertiz, hukuk.</p>
+                </div>
+                <div class="feat" style="background: var(--navy-soft); border-color: var(--line-invert);">
+                    <div class="icon">450+</div>
+                    <h3 style="color: var(--fg-invert);">Section 8 Evi</h3>
+                    <p style="color: var(--muted-invert);">Aktif olarak yönetilen, devlet kira ödemeli evler.</p>
+                </div>
+                <div class="feat" style="background: var(--navy-soft); border-color: var(--line-invert);">
+                    <div class="icon">5–7</div>
+                    <h3 style="color: var(--fg-invert);">Gün / Ay Sahada</h3>
+                    <p style="color: var(--muted-invert);">Her ay uçakla Detroit'e iniyoruz. Yöneticilerle yüz yüze.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. MIAMI vs PASIFLOW -->
+    <section id="miami-vs-pasiflow">
+        <div class="wrap">
+            <span class="eyebrow">İki Strateji</span>
+            <h2 class="title">Miami Lüksü. <em>Pasiflow Nakit Akışı.</em></h2>
+            <p class="lead">İkisi de işe yarar — ama hedefiniz farklıysa, araç da farklı.</p>
+            <div class="grid-2">
+                <article class="compare-card">
+                    <span class="tag">Senaryo A</span>
+                    <h3>Miami Lüks Piyasası</h3>
+                    <p style="color: var(--muted); margin-top: 0.5rem;">Al · Tut · Değer kazan.</p>
+                    <ul>
+                        <li>Yüksek giriş bedeli ($1M+)</li>
+                        <li>Aylık nakit akışı düşük veya negatif</li>
+                        <li>Kazanç çıkışta gelir (5–10 yıl sonra)</li>
+                        <li>Lüks kiracı, lüks tamir maliyeti</li>
+                        <li>Sermaye Miami'de kilitli</li>
+                    </ul>
+                </article>
+                <article class="compare-card dark">
+                    <span class="tag">Senaryo B</span>
+                    <h3>Pasiflow Nakit Akışı</h3>
+                    <p style="color: var(--muted-invert); margin-top: 0.5rem;">Yatır · Kazan · Kira ile emekli ol.</p>
+                    <ul>
+                        <li>$30K — $80K giriş</li>
+                        <li>1. aydan itibaren aylık kira geliri</li>
+                        <li>%12 — %18 Cash-on-Cash getiri</li>
+                        <li>Devlet ödemeli kiracı (Section 8)</li>
+                        <li>Sermaye sürekli üretiyor</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. MIAMI ÇIKIŞ -->
+    <section class="invert" id="miami-exit">
+        <div class="wrap">
+            <span class="eyebrow">Çıkış Stratejisi</span>
+            <h2 class="title">Miami çıkışta <em>sizi zengin eder.</em></h2>
+            <p class="lead">Detroit'te kira kazanırsınız. Miami'de değer kazanırsınız. Buy-Back programı ile portföyünüz Pasiflow'un hedef varlığı haline gelir.</p>
+            <div class="buyback-row">
+                <div class="buyback-item">
+                    <span class="big">Buy-Back</span>
+                    <span class="lbl">Programı — Pasiflow geri alır.</span>
+                </div>
+                <div class="buyback-item">
+                    <span class="big">%0</span>
+                    <span class="lbl">Florida Eyalet Gelir Vergisi</span>
+                </div>
+                <div class="buyback-item">
+                    <span class="big">USD</span>
+                    <span class="lbl">Tüm gelir, tüm değer artışı dolar bazında.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SECTION 8 - 6 MADDE -->
+    <section id="section-8">
+        <div class="wrap">
+            <span class="eyebrow">Section 8</span>
+            <h2 class="title">Section 8 neden <em>her şeyi değiştirir.</em></h2>
+            <p class="lead">ABD federal hükümetinin düşük gelirli aileler için kurduğu kira yardım programı — 50+ yıllık, kesintisiz, garantili.</p>
+            <div class="grid-3">
+                <div class="feat">
+                    <div class="icon">01</div>
+                    <h3>Devlet Kira Öder</h3>
+                    <p>HUD doğrudan ev sahibinin banka hesabına yatırır. Her ayın 15'inde, sapasağlam.</p>
+                </div>
+                <div class="feat">
+                    <div class="icon">02</div>
+                    <h3>Kiracılar 7+ Yıl Kalır</h3>
+                    <p>Voucher kaybetmek istemeyen kiracılar evi titizlikle korur. Devir yok, tahliye dramları yok.</p>
+                </div>
+                <div class="feat">
+                    <div class="icon">03</div>
+                    <h3>Kriz Geçirmez Gelir</h3>
+                    <p>2008'de, COVID'de, enflasyonda — Section 8 ödemeleri durmadı. Devlet bütçesinden çıkar.</p>
+                </div>
+                <div class="feat">
+                    <div class="icon">04</div>
+                    <h3>1. Günden Nakit Akışı</h3>
+                    <p>Kiracı evde, sözleşme imzalı, ödeme onaylı. Kapanış sonrası ilk ay kira hesapta.</p>
+                </div>
+                <div class="feat">
+                    <div class="icon">05</div>
+                    <h3>Milyonlarca Amerikalı Bunu Yapar</h3>
+                    <p>2.3 milyon hane Section 8 voucher ile kiralanıyor. Pasif gelirin sessiz devi.</p>
+                </div>
+                <div class="feat">
+                    <div class="icon">06</div>
+                    <h3>Sonsuz Ölçeklenebilir</h3>
+                    <p>1 ev de alabilirsiniz, 50 ev de. Sistem aynı: ekibimiz işletir, siz raporu okursunuz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. $500.000 MATEMATİĞİ -->
+    <section class="invert" id="math">
+        <div class="wrap">
+            <span class="eyebrow">Matematik</span>
+            <h2 class="title"><em>$500.000</em> Pasiflow'da.<br/>Matematik açıklar.</h2>
+            <p class="lead">Karmaşık değil. Basit çarpma. İşte beş yüz bin doların yıllık karşılığı:</p>
+            <div class="math" style="background: var(--navy-soft); border-color: var(--gold-line); box-shadow: none;">
+                <div class="equation" style="color: var(--fg-invert);">
+                    $500.000 <span style="color: var(--gold);">×</span> %16 <b>Cash-on-Cash</b>
+                </div>
+                <span class="equals">= $80.000 / yıl</span>
+                <small style="color: var(--muted-invert);">Yıllık net kira geliri — yaklaşık ₺2.7 milyon (1$ = ₺34 varsayımıyla).<br/>Yatırılan sermaye ortalama 6 yıl içinde kendini geri öder. Mülk sizde kalır.</small>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. BUY-BACK -->
+    <section id="buyback">
+        <div class="wrap">
+            <span class="eyebrow">Buy-Back</span>
+            <h2 class="title">Satmak istediğinizde <em>biz geri alırız.</em></h2>
+            <p class="lead">Detroit'te tek başınıza alıcı aramak yok. Pasiflow Buy-Back programı ile çıkışınız hızlı, şeffaf ve garantili.</p>
+            <div class="buyback-row" style="margin-top: 3rem;">
+                <div class="buyback-item" style="background: var(--bg-paper); border: 1px solid var(--gold-line); color: var(--fg);">
+                    <span class="big">%90</span>
+                    <span class="lbl" style="color: var(--muted);">Bağımsız ekspertiz değeri üzerinden geri alım.</span>
+                </div>
+                <div class="buyback-item" style="background: var(--bg-paper); border: 1px solid var(--gold-line); color: var(--fg);">
+                    <span class="big">45 Gün</span>
+                    <span class="lbl" style="color: var(--muted);">Kapanış süresi — komisyoncu beklemek yok.</span>
+                </div>
+                <div class="buyback-item" style="background: var(--bg-paper); border: 1px solid var(--gold-line); color: var(--fg);">
+                    <span class="big">%0</span>
+                    <span class="lbl" style="color: var(--muted);">Komisyon. Ekspertiz değeri ne yazıyorsa, hesabınıza o gelir.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. ERMAN ADANIR -->
+    <section class="invert" id="founder">
+        <div class="wrap">
+            <span class="eyebrow">Kurucu</span>
+            <h2 class="title">Ben <em>Erman Adanır.</em><br/>Sizinle aynı yoldayım.</h2>
+            <div class="founder">
+                <div class="founder-photo"><span>EA</span></div>
+                <div>
+                    <p>2003'te tek başıma, tek bir bavulla Miami'ye geldim. 20 yıl sonra, Türk yatırımcılar için ABD'de en büyük Section 8 portföy yöneticilerinden biri olduk.</p>
+                    <blockquote class="quote">
+                        "Sahip olmadığım bir yatırımı sizden istemem.<br/>Pasiflow portföyünün her evinde benim de sermayem var."
+                    </blockquote>
+                    <p>11 yıl. $100 milyon. 450+ aktif Section 8 evi. Sıfır kayıp ay. Aynı yolu sizinle yürümek için buradayım.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. KAZAN-KAZAN -->
+    <section id="winwin">
+        <div class="wrap">
+            <span class="eyebrow">Felsefe</span>
+            <h2 class="title">Siz kazanırsanız, <em>biz kazanırız.</em></h2>
+            <p class="lead">Pasiflow'un geliri, sizin getirinize bağlı. Bizim modelimiz "evi sat-bırak" değil. Birlikte uzun yol koşuyoruz.</p>
+            <div class="winwin">
+                <div class="formula">Yatırımcı kira kazanır <em>→</em> Pasiflow yönetim ücreti alır.<br/>Yatırımcı satar <em>→</em> Buy-Back ile portföyümüze katılır.</div>
+                <p style="color: var(--muted); max-width: 640px; margin: 0 auto;">Hiçbir ev "satılınca işimiz biten ev" değildir. Her ev, ekosistemin parçası olarak yıllarca yönetilir, raporlanır, korunur.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. ŞEFFAFLIK -->
+    <section class="invert" id="transparency">
+        <div class="wrap">
+            <span class="eyebrow">Şeffaflık</span>
+            <h2 class="title">Şeffaflık <em>bir söylem değil</em><br/>— bir taahhüt.</h2>
+            <p class="lead">Türkiye'den Detroit'te ev sahibi olmak güveni gerektirir. Biz o güveni dört sütun üstüne kurduk:</p>
+            <div class="grid-4">
+                <div class="pillar">
+                    <h3>Sahada Şeffaflık</h3>
+                    <p>Her bakım, her kiracı görüşmesi, her tamirat — fotoğraflı ve raporlu. Mobil uygulamadan canlı izleyin.</p>
+                </div>
+                <div class="pillar">
+                    <h3>Rakam Şeffaflığı</h3>
+                    <p>Aylık gelir-gider tablosu, vergi raporu, ekspertiz değeri — hepsine 7/24 erişim. Saklanan rakam yok.</p>
+                </div>
+                <div class="pillar">
+                    <h3>Kazan-Kazan</h3>
+                    <p>Komisyon yapımız sizinkiyle hizalı. Siz kira alırsanız biz alırız; almazsanız biz de almayız.</p>
+                </div>
+                <div class="pillar">
+                    <h3>Açık Kapı</h3>
+                    <p>Ne zaman isterseniz Detroit'e gelin, evinizi ziyaret edin, ekibimizle tanışın. Maskeli rakamlar yok.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. CTA -->
+    <section class="cta-section" id="cta">
+        <div class="wrap">
+            <span class="eyebrow">Bir Sonraki Adım</span>
+            <h2 class="title">Bugün <em>kazanmaya</em> başlayın.</h2>
+            <p class="lead" style="color: var(--muted-invert); margin: 1.5rem auto 0;">$30.000 ile başlayın. Şirketinizi biz kuralım, mülkünüzü biz seçelim, kiracınızı biz yerleştirelim. Siz sadece her ay raporu okuyun.</p>
+            <div class="actions">
+                <a class="btn btn-primary" href="https://pasiflow.com/iletisim" target="_blank" rel="noopener">
+                    $30K ile Başla
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </a>
+                <a class="btn btn-ghost" href="https://wa.me/13056903146" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.86 11.86 0 0 0 12.04 0C5.46 0 .12 5.34.12 11.92c0 2.1.55 4.15 1.6 5.96L0 24l6.3-1.65a11.86 11.86 0 0 0 5.74 1.46h.01c6.58 0 11.92-5.34 11.92-11.92 0-3.18-1.24-6.17-3.45-8.41ZM12.04 21.8h-.01a9.85 9.85 0 0 1-5.02-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.25c0-5.46 4.45-9.91 9.92-9.91 2.65 0 5.13 1.03 7 2.91a9.83 9.83 0 0 1 2.9 7c0 5.46-4.44 9.88-9.94 9.88Zm5.45-7.43c-.3-.15-1.77-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51l-.57-.01c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.49s1.07 2.89 1.22 3.09c.15.2 2.1 3.21 5.08 4.5.71.31 1.27.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.77-.72 2.02-1.42.25-.7.25-1.3.17-1.42-.07-.13-.27-.2-.57-.35Z"/></svg>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="foot">
+        © Pasiflow · Türkiye'den ABD Gayrimenkulü · MIAMI · DETROIT
+    </footer>
+</body>
+</html>

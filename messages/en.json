@@ -1264,5 +1264,10 @@
         "faq7A": "A Wyoming LLC requires an annual registered agent fee ($100-150) and Wyoming annual report fee ($60). Total annual cost is approximately $160-210.",
         "faq8Q": "Is the payment secure?",
         "faq8A": "Yes, all payments are processed securely through Stripe with PCI DSS compliance and 256-bit SSL encryption."
+    },
+    "sunum": {
+        "title": "Pasiflow Presentations",
+        "tab1": "How It Works",
+        "tab2": "Investment Pitch"
     }
 }

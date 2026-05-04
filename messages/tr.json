@@ -1263,5 +1263,10 @@
         "faq7A": "Wyoming LLC yıllık registered agent ücreti ($100-150) ve Wyoming yıllık rapor ücreti ($60) ödemesi gerekir. Toplam yıllık maliyet yaklaşık $160-210 arasındadır.",
         "faq8Q": "Ödeme güvenli mi?",
         "faq8A": "Evet, tüm ödemeler Stripe altyapısı üzerinden PCI DSS uyumlu ve 256-bit SSL şifreleme ile güvenle işlenir."
+    },
+    "sunum": {
+        "title": "Pasiflow Sunumları",
+        "tab1": "Nasıl Çalışır?",
+        "tab2": "Yatırım Sunumu"
     }
 }
