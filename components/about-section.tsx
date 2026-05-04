@@ -28,6 +28,44 @@ export function AboutSection() {
                 <div className="absolute top-0 right-0 w-1/4 h-full bg-primary/5 -skew-x-12 translate-x-1/3" />
             </div>
 
+            {/* Stats Strip — Track Record */}
+            <div className="border-b border-border bg-white">
+                <div className="container mx-auto px-6 md:px-12 lg:px-20 py-12 md:py-16">
+                    <motion.p
+                        initial={{ opacity: 0, y: 10 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                        className="text-xs md:text-sm uppercase tracking-[0.2em] text-muted-foreground font-semibold mb-8 text-center"
+                    >
+                        {t("statsTitle")}
+                    </motion.p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-5xl mx-auto">
+                        {[
+                            { value: t("stat1Value"), label: t("stat1Label") },
+                            { value: t("stat2Value"), label: t("stat2Label") },
+                            { value: t("stat3Value"), label: t("stat3Label") },
+                        ].map((stat, i) => (
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                                className="text-center md:text-left md:border-l md:border-border md:pl-8 first:md:border-l-0 first:md:pl-0"
+                            >
+                                <div className="text-4xl md:text-5xl font-bold text-[#C1A05E] tracking-tight mb-2">
+                                    {stat.value}
+                                </div>
+                                <div className="text-sm md:text-base text-secondary font-medium leading-snug">
+                                    {stat.label}
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
             {/* Main Content Section - Storytelling */}
             <div className="py-20 md:py-28">
                 <div className="container mx-auto px-6 md:px-12 lg:px-20">

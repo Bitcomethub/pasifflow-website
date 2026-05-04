@@ -142,7 +142,7 @@
         "stat2Label": "100% Rent Collection Guarantee",
         "stat3Value": "50+ Years",
         "stat3Label": "Program History",
-        "benefit1": "Rent payment in your account by 1st-5th of each month",
+        "benefit1": "Rent deposited on the 15th of every month",
         "benefit2": "Minimum or zero vacancy",
         "benefit3": "Long-term tenants (3-4 years minimum)"
     },
@@ -204,7 +204,16 @@
         "feature_woodwork": "Original Woodwork",
         "feature_systems": "Updated Systems",
         "feature_maintained": "Well-Maintained",
-        "feature_demand": "Strong Demand"
+        "feature_demand": "Strong Demand",
+        "newListing": "New Listing",
+        "backOnMarket": "Back on Market",
+        "acres": "acres",
+        "lotSize": "Lot Size",
+        "type": "Type",
+        "yearBuilt": "Year Built",
+        "status": "Status",
+        "description": "Description",
+        "features": "Features"
     },
     "roiCalculator": {
         "title": "Investment ROI Calculator",
@@ -279,8 +288,8 @@
         "benefit3": "Minimum Vacancy Risk",
         "stat1Value": "4–7 Years",
         "stat1Label": "Average Tenant Stay",
-        "stat2Value": "Every Month 1-5",
-        "stat2Label": "Payment Days",
+        "stat2Value": "15th of Every Month",
+        "stat2Label": "Payment Day",
         "stat3Value": "100%",
         "stat3Label": "Guaranteed Payment",
         "list1": "Resilient to economic fluctuations",
@@ -410,7 +419,7 @@
         "pasif1": "Payback Period 6-8 Years",
         "pasif2": "Section 8 Government-Backed Rent",
         "pasif3": "Minimum Maintenance Costs",
-        "pasif4": "Regular Rent on 1st-5th of Each Month",
+        "pasif4": "Regular Rent on the 15th of Each Month",
         "pasif5": "Long-Term Tenants (3-4 Years+)",
         "pasif6": "Government-Backed Payment Security"
     },
@@ -504,7 +513,7 @@
             },
             {
                 "q": "Is there a rent guarantee?",
-                "a": "A large portion of your rent (between 70%-100%) is backed by the US Government (Section 8 program) and is deposited automatically on the 1st of every month. Even if the tenant doesn't pay, the government share enters our account."
+                "a": "A large portion of your rent (between 70%-100%) is backed by the US Government (Section 8 program) and is deposited automatically into your account on the 15th of every month. Even if the tenant doesn't pay, the government share enters our account."
             },
             {
                 "q": "What are your service fees?",
@@ -719,7 +728,14 @@
         "quote2": "\"I am far away, but everything is right before my eyes.\"",
         "welcome": "Welcome to Pasiflow.",
         "closing": "We are building a reliable, transparent, and structured way for passive income investment in the USA.",
-        "founderRole": "Co-founder & CEO"
+        "founderRole": "Co-founder & CEO",
+        "statsTitle": "Our Track Record",
+        "stat1Value": "20 Years",
+        "stat1Label": "Business Experience",
+        "stat2Value": "$250M+",
+        "stat2Label": "U.S. Sales Experience",
+        "stat3Value": "10+ Years",
+        "stat3Label": "Field & Market Experience"
     },
     "cta": {
         "badge": "Get Started",

@@ -162,6 +162,20 @@
         "transactionVolume": "$250M+ işlem hacmi",
         "miamiSales": "$250M+ Miami gayrimenkul satışı"
     },
+    "section8Info": {
+        "title": "Section 8 Nedir?",
+        "subtitle": "Amerika'nın en güvenilir konut programı",
+        "description": "Section 8 (Konut Seçim Kuponu Programı), düşük gelirli ailelerin kaliteli konutlara erişimini sağlayan federal bir programdır. Kira ödemelerinin %70-100'lük kısmı doğrudan ABD hükümeti tarafından mülk sahibine ödenir.",
+        "stat1Value": "3-4+ Yıl",
+        "stat1Label": "Ortalama Kiracı Kalış Süresi",
+        "stat2Value": "%100",
+        "stat2Label": "%100 Kira Tahsilat Garantisi",
+        "stat3Value": "50+ Yıl",
+        "stat3Label": "Program Geçmişi",
+        "benefit1": "Her ayın 15'inde kiranız hesabınızda",
+        "benefit2": "Minimum veya sıfır boş kalma süresi",
+        "benefit3": "Uzun süreli kiracılar (minimum 3-4 yıl)"
+    },
     "portfolio": {
         "badge": "Yatırım Portföyü",
         "title": "Yatırım Portföyümüz",
@@ -304,8 +318,8 @@
         "benefit3": "Minimum Boş Kalma Riski",
         "stat1Value": "4–7 Yıl",
         "stat1Label": "Ortalama Kiracı Süresi",
-        "stat2Value": "Her Ayın 1-5'i",
-        "stat2Label": "Ödeme Günleri",
+        "stat2Value": "Her Ayın 15'i",
+        "stat2Label": "Ödeme Günü",
         "stat3Value": "%100",
         "stat3Label": "Garantili Ödeme",
         "list1": "Ekonomik dalgalanmalara karşı dayanıklı",
@@ -435,7 +449,7 @@
         "pasif1": "Amortisman Süresi 6–10 yıl",
         "pasif2": "Section 8 Devlet Kira Desteği",
         "pasif3": "Kontrollü Bakım ve Tadilat Masrafı",
-        "pasif4": "Her ayın 15’ine Kadar Düzenli Kira Ödemesi",
+        "pasif4": "Her Ayın 15'inde Düzenli Kira Ödemesi",
         "pasif5": "Uzun Süreli Kiracılar (4 yıl ve üzeri sözleşmeler)",
         "pasif6": "Kira Tahsilatında Yüksek Güvence"
     },
@@ -529,7 +543,7 @@
             },
             {
                 "q": "Kira garantisi var mı?",
-                "a": "Kiranızın büyük bir bölümü (%70-%100 arası) Amerikan Hükümeti (Section 8 programı) tarafından garanti altındadır ve her ayın 1'inde otomatik olarak yatar. Kiracı ödemese bile devlet payı hesabımıza girer."
+                "a": "Kiranızın büyük bir bölümü (%70-%100 arası) Amerikan Hükümeti (Section 8 programı) tarafından garanti altındadır ve her ayın 15'inde otomatik olarak hesabınıza yatar. Kiracı ödemese bile devlet payı hesabımıza girer."
             },
             {
                 "q": "Hizmet bedelleriniz nedir?",
@@ -713,7 +727,14 @@
         "visionIntro": "Yatırımcıya her zaman şu hissi vermek istiyoruz:",
         "quote2": "\"Uzaktayım ama her şey gözümün önünde.\"",
         "welcome": "Pasiflow'a hoş geldiniz.",
-        "closing": "ABD'de pasif gelir yatırımı için güvenilir, şeffaf ve yapılandırılmış bir yol inşa ediyoruz."
+        "closing": "ABD'de pasif gelir yatırımı için güvenilir, şeffaf ve yapılandırılmış bir yol inşa ediyoruz.",
+        "statsTitle": "Rakamlarla Tecrübemiz",
+        "stat1Value": "20 Yıl",
+        "stat1Label": "İş Tecrübesi",
+        "stat2Value": "$250M+",
+        "stat2Label": "Amerika'da Satış Deneyimi",
+        "stat3Value": "10+ Yıl",
+        "stat3Label": "Saha ve Pazar Deneyimi"
     },
     "cta": {
         "badge": "Hemen Başla",
