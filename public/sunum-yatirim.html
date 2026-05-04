@@ -405,13 +405,93 @@
             border-top: 1px solid var(--line);
         }
 
+        /* Before / After */
+        .ba-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 2.5rem;
+        }
+        .ba-col {
+            background: var(--bg-paper);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .ba-badge {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            margin-bottom: 1.25rem;
+        }
+        .ba-badge-red {
+            background: rgba(193, 60, 60, 0.08);
+            color: #b53838;
+            border: 1px solid rgba(193, 60, 60, 0.3);
+        }
+        .ba-badge-green {
+            background: rgba(60, 138, 90, 0.1);
+            color: #2f7a4d;
+            border: 1px solid rgba(60, 138, 90, 0.3);
+        }
+        .ba-photos {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+        .ba-photo {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--line);
+        }
+        .ba-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .ba-photo:hover img { transform: scale(1.04); }
+
+        .ba-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .ba-stat {
+            background: var(--bg-paper);
+            border: 1px solid var(--gold-line);
+            border-radius: 16px;
+            padding: 1.75rem 1.25rem;
+            text-align: center;
+        }
+        .ba-stat .ba-num {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+            font-weight: 700;
+            color: var(--gold);
+            display: block;
+            margin-bottom: 0.4rem;
+            line-height: 1.15;
+        }
+        .ba-stat .ba-lbl { font-size: 0.9rem; color: var(--muted); }
+
         /* Mobile */
         @media (max-width: 880px) {
             section { padding: 4.5rem 0; }
             .topbar-inner { flex-direction: column; align-items: flex-start; gap: 0.6rem; padding: 0.9rem 0; }
             .badges { text-align: left; }
             .stats { grid-template-columns: repeat(2, 1fr); }
-            .grid-2, .grid-3, .grid-4, .buyback-row {
+            .grid-2, .grid-3, .grid-4, .buyback-row, .ba-grid, .ba-stats {
                 grid-template-columns: 1fr;
             }
             .founder { grid-template-columns: 1fr; gap: 1.75rem; text-align: center; }
@@ -565,6 +645,47 @@
                     <div class="icon">06</div>
                     <h3>Sonsuz Ölçeklenebilir</h3>
                     <p>1 ev de alabilirsiniz, 50 ev de. Sistem aynı: ekibimiz işletir, siz raporu okursunuz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5.5 GERÇEK BİR EV. GERÇEK DÖNÜŞÜM. -->
+    <section id="transformation">
+        <div class="wrap">
+            <span class="eyebrow">Sahadan</span>
+            <h2 class="title">Gerçek bir ev. <em>Gerçek dönüşüm.</em></h2>
+            <p class="lead">Söz değil, sahadan. Detroit'te satın aldığımız bir evi, kendi ekibimiz altı haftada baştan ayağa yeniledi — sonra Section 8 onaylı bir aileyi yerleştirdik.</p>
+            <div class="ba-grid">
+                <div class="ba-col">
+                    <span class="ba-badge ba-badge-red">Satın Alındığında</span>
+                    <div class="ba-photos">
+                        <div class="ba-photo"><img src="/properties/before-1.jpg" alt="Bodrum — satın alındığında" loading="lazy" /></div>
+                        <div class="ba-photo"><img src="/properties/before-2.jpg" alt="Yapı iskeleti — yenileme öncesi" loading="lazy" /></div>
+                        <div class="ba-photo"><img src="/properties/before-3.jpg" alt="Yenileme öncesi iç mekan" loading="lazy" /></div>
+                    </div>
+                </div>
+                <div class="ba-col">
+                    <span class="ba-badge ba-badge-green">Yenileme Sonrası</span>
+                    <div class="ba-photos">
+                        <div class="ba-photo"><img src="/properties/after-1.jpg" alt="Yenilenmiş salon" loading="lazy" /></div>
+                        <div class="ba-photo"><img src="/properties/after-2.jpg" alt="Yenilenmiş mutfak" loading="lazy" /></div>
+                        <div class="ba-photo"><img src="/properties/after-3.jpg" alt="Yenilenmiş banyo" loading="lazy" /></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ba-stats">
+                <div class="ba-stat">
+                    <span class="ba-num">6 Hafta</span>
+                    <span class="ba-lbl">Yenileme Süresi</span>
+                </div>
+                <div class="ba-stat">
+                    <span class="ba-num">Section 8 Onaylı</span>
+                    <span class="ba-lbl">Kiracı Yerleştirildi</span>
+                </div>
+                <div class="ba-stat">
+                    <span class="ba-num">Her Ayın 15'inde</span>
+                    <span class="ba-lbl">Kira Hesapta</span>
                 </div>
             </div>
         </div>
