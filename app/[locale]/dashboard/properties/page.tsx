@@ -12,10 +12,12 @@ import {
     Home,
     FileCheck,
     Key,
+    Loader2,
 } from "lucide-react"
 import Image from "next/image"
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import { useEffect, useState } from "react"
 
 // Investment lifecycle steps
 const LIFECYCLE_STEPS = [
@@ -26,61 +28,138 @@ const LIFECYCLE_STEPS = [
     { key: "renting", label: "Kira Alımı", icon: Wallet },
 ]
 
-const PROPERTIES = [
-    {
-        id: '1',
-        title: '12152 Stout Street',
-        location: 'Detroit, MI 48228',
-        status: 'occupied',
-        purchasePrice: '$85,900',
-        monthlyRent: '$1,160',
-        roi: '16.2%',
-        annualReturn: '$13,920',
-        image: 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&auto=format&fit=crop&q=80',
-        nextPaymentDate: '15 gün kaldı',
-        section8: true,
-        lifecycleStep: 4, // renting (0-indexed)
-        occupancy: 100,
-        purchaseDate: 'Mart 2024',
-    },
-    {
-        id: '2',
-        title: '12290 Griggs Street',
-        location: 'Detroit, MI 48204',
-        status: 'occupied',
-        purchasePrice: '$89,900',
-        monthlyRent: '$1,100',
-        roi: '14.7%',
-        annualReturn: '$13,200',
-        image: 'https://images.unsplash.com/photo-1605276374104-dee2a0ed3cd6?w=800&auto=format&fit=crop&q=80',
-        nextPaymentDate: '2 gün kaldı',
+// Shape returned by /api/properties (raw Prisma row)
+type DbProperty = {
+    id: string
+    address: string
+    city: string
+    state: string
+    zipCode: string
+    purchasePrice: number
+    monthlyRent: number
+    status: string
+    paymentDay: number | null
+    imageUrl: string | null
+    purchaseDate: string | null
+}
+
+// Shape consumed by the existing card UI
+type DisplayProperty = {
+    id: string
+    title: string
+    location: string
+    status: string
+    purchasePrice: string
+    monthlyRent: string
+    roi: string
+    annualReturn: string
+    image: string
+    nextPaymentDate: string
+    section8: boolean
+    lifecycleStep: number
+    occupancy: number
+    purchaseDate: string
+}
+
+const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&auto=format&fit=crop&q=80'
+
+function mapProperty(p: DbProperty): DisplayProperty {
+    const annualReturnNum = p.monthlyRent * 12
+    const roiNum = (annualReturnNum / p.purchasePrice) * 100
+
+    let nextPaymentLabel = '—'
+    if (p.paymentDay) {
+        const today = new Date()
+        const next = new Date(today.getFullYear(), today.getMonth(), p.paymentDay)
+        if (next.getTime() < today.getTime()) next.setMonth(next.getMonth() + 1)
+        const days = Math.max(0, Math.ceil((next.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)))
+        nextPaymentLabel = days === 0 ? 'Bugün' : `${days} gün kaldı`
+    }
+
+    let purchaseDateLabel = ''
+    if (p.purchaseDate) {
+        purchaseDateLabel = new Date(p.purchaseDate).toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' })
+    }
+
+    return {
+        id: p.id,
+        title: p.address,
+        location: `${p.city}, ${p.state} ${p.zipCode}`,
+        status: p.status.toLowerCase(),
+        purchasePrice: `$${p.purchasePrice.toLocaleString('en-US')}`,
+        monthlyRent: `$${p.monthlyRent.toLocaleString('en-US')}`,
+        roi: `${roiNum.toFixed(1)}%`,
+        annualReturn: `$${Math.round(annualReturnNum).toLocaleString('en-US')}`,
+        image: p.imageUrl || FALLBACK_IMAGE,
+        nextPaymentDate: nextPaymentLabel,
+        // section8 / lifecycleStep / occupancy şu an Prisma şemasında yok.
+        // Tüm seed verileri OCCUPIED + Section 8 olduğu için sabit veriliyor.
         section8: true,
         lifecycleStep: 4,
-        occupancy: 100,
-        purchaseDate: 'Haziran 2024',
-    },
-    {
-        id: '3',
-        title: '15717 Freeland Street',
-        location: 'Detroit, MI 48227',
-        status: 'occupied',
-        purchasePrice: '$87,900',
-        monthlyRent: '$1,165',
-        roi: '15.9%',
-        annualReturn: '$13,980',
-        image: 'https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=800&auto=format&fit=crop&q=80',
-        nextPaymentDate: '8 gün kaldı',
-        section8: true,
-        lifecycleStep: 4,
-        occupancy: 100,
-        purchaseDate: 'Eylül 2024',
-    },
-]
+        occupancy: p.status === 'OCCUPIED' ? 100 : 0,
+        purchaseDate: purchaseDateLabel,
+    }
+}
 
 export default function PropertiesPage() {
-    const totalValue = PROPERTIES.reduce((sum, p) => sum + parseInt(p.purchasePrice.replace(/[$,]/g, '')), 0)
-    const totalRent = PROPERTIES.reduce((sum, p) => sum + parseInt(p.monthlyRent.replace(/[$,]/g, '')), 0)
-    const avgRoi = (PROPERTIES.reduce((sum, p) => sum + parseFloat(p.roi), 0) / PROPERTIES.length).toFixed(1)
+    const [properties, setProperties] = useState<DisplayProperty[]>([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState<string | null>(null)
+
+    useEffect(() => {
+        const token = typeof window !== 'undefined' ? localStorage.getItem('pasiflow_token') : null
+        if (!token) {
+            setError('Mülkleri görmek için giriş yapmanız gerekiyor.')
+            setLoading(false)
+            return
+        }
+
+        fetch('/api/properties', { headers: { Authorization: `Bearer ${token}` } })
+            .then(async (r) => {
+                if (!r.ok) throw new Error(`HTTP ${r.status}`)
+                return r.json() as Promise<{ properties: DbProperty[] }>
+            })
+            .then((data) => setProperties(data.properties.map(mapProperty)))
+            .catch(() => setError('Mülkler yüklenemedi. Lütfen sayfayı yenileyin.'))
+            .finally(() => setLoading(false))
+    }, [])
+
+    const totalValue = properties.reduce((sum, p) => sum + parseInt(p.purchasePrice.replace(/[$,]/g, '')), 0)
+    const totalRent = properties.reduce((sum, p) => sum + parseInt(p.monthlyRent.replace(/[$,]/g, '')), 0)
+    const avgRoi = properties.length
+        ? (properties.reduce((sum, p) => sum + parseFloat(p.roi), 0) / properties.length).toFixed(1)
+        : '0.0'
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <Loader2 className="w-8 h-8 text-[#C1A05E] animate-spin" />
+            </div>
+        )
+    }
+
+    if (error) {
+        return (
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <div className="text-center max-w-md">
+                    <Building2 className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                    <p className="text-[#1F2328] font-semibold">{error}</p>
+                </div>
+            </div>
+        )
+    }
+
+    if (properties.length === 0) {
+        return (
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <div className="text-center max-w-md">
+                    <Building2 className="w-12 h-12 text-slate-300 mx-auto mb-4" />
+                    <p className="text-[#1F2328] font-semibold">Henüz mülk yok</p>
+                    <p className="text-[#A8B0B8] text-sm mt-1">Portföyünüze mülk eklendiğinde burada görünecek.</p>
+                </div>
+            </div>
+        )
+    }
 
     return (
         <div className="space-y-8 p-6 md:p-8">
@@ -127,7 +206,7 @@ export default function PropertiesPage() {
 
             {/* Property Cards */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {PROPERTIES.map((property, index) => (
+                {properties.map((property, index) => (
                     <motion.div
                         key={property.id}
                         initial={{ opacity: 0, y: 30 }}
