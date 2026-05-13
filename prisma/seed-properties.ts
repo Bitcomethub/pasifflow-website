@@ -10,17 +10,18 @@ const LLC_STATE = 'WY'
 // kullanıcının istediği `status: "ACTIVE"` atlandı. Eklemek istenirse
 // schema'ya `status String @default("ACTIVE")` eklenip db push gerekir.
 
+// Pasiflow founded Nov 2025 — all purchase dates fall on/after that.
 const PROPERTIES = [
-    { address: '10468 Nottingham St', city: 'Detroit', state: 'MI', zipCode: '48224', purchasePrice: 130000, monthlyRent: 1500, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-03-15'), imageUrl: '/properties/nottingham-hd.jpg' },
-    { address: '12152 Stout St', city: 'Detroit', state: 'MI', zipCode: '48228', purchasePrice: 85900, monthlyRent: 1160, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-05-20'), imageUrl: '/properties/stout-hd.jpg' },
-    { address: '12290 Griggs St', city: 'Detroit', state: 'MI', zipCode: '48204', purchasePrice: 89900, monthlyRent: 1100, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-06-10'), imageUrl: '/properties/griggs-hd.jpg' },
-    { address: '15717 Freeland St', city: 'Detroit', state: 'MI', zipCode: '48227', purchasePrice: 87900, monthlyRent: 1165, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-07-01'), imageUrl: '/properties/freeland-hd.jpg' },
-    { address: '9977 Evergreen Ave', city: 'Detroit', state: 'MI', zipCode: '48228', purchasePrice: 88900, monthlyRent: 1354, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-08-15'), imageUrl: '/properties/evergreen-hd.jpg' },
-    { address: '12345 Kentucky St', city: 'Detroit', state: 'MI', zipCode: '48204', purchasePrice: 89000, monthlyRent: 1224, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-09-01'), imageUrl: '/properties/kentucky-hd.jpg' },
-    { address: '8934 Hartwell St', city: 'Detroit', state: 'MI', zipCode: '48228', purchasePrice: 92000, monthlyRent: 1275, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-10-10'), imageUrl: '/properties/nottingham-hd.jpg' },
-    { address: '14523 Appoline St', city: 'Detroit', state: 'MI', zipCode: '48227', purchasePrice: 86500, monthlyRent: 1190, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-11-05'), imageUrl: '/properties/stout-hd.jpg' },
-    { address: '11234 Fenkell Ave', city: 'Detroit', state: 'MI', zipCode: '48238', purchasePrice: 94000, monthlyRent: 1320, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2024-12-20'), imageUrl: '/properties/griggs-hd.jpg' },
-    { address: '7821 Burt Rd', city: 'Detroit', state: 'MI', zipCode: '48219', purchasePrice: 91000, monthlyRent: 1285, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2025-01-15'), imageUrl: '/properties/evergreen-hd.jpg' },
+    { address: '10468 Nottingham St', city: 'Detroit', state: 'MI', zipCode: '48224', purchasePrice: 130000, monthlyRent: 1500, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2025-11-15'), imageUrl: '/properties/nottingham-hd.jpg' },
+    { address: '12152 Stout St', city: 'Detroit', state: 'MI', zipCode: '48228', purchasePrice: 85900, monthlyRent: 1160, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2025-12-01'), imageUrl: '/properties/stout-hd.jpg' },
+    { address: '12290 Griggs St', city: 'Detroit', state: 'MI', zipCode: '48204', purchasePrice: 89900, monthlyRent: 1100, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2025-12-20'), imageUrl: '/properties/griggs-hd.jpg' },
+    { address: '15717 Freeland St', city: 'Detroit', state: 'MI', zipCode: '48227', purchasePrice: 87900, monthlyRent: 1165, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2026-01-10'), imageUrl: '/properties/freeland-hd.jpg' },
+    { address: '9977 Evergreen Ave', city: 'Detroit', state: 'MI', zipCode: '48228', purchasePrice: 88900, monthlyRent: 1354, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2026-01-25'), imageUrl: '/properties/evergreen-hd.jpg' },
+    { address: '12345 Kentucky St', city: 'Detroit', state: 'MI', zipCode: '48204', purchasePrice: 89000, monthlyRent: 1224, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2026-02-15'), imageUrl: '/properties/kentucky-hd.jpg' },
+    { address: '8934 Hartwell St', city: 'Detroit', state: 'MI', zipCode: '48228', purchasePrice: 92000, monthlyRent: 1275, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2026-03-01'), imageUrl: '/properties/nottingham-hd.jpg' },
+    { address: '14523 Appoline St', city: 'Detroit', state: 'MI', zipCode: '48227', purchasePrice: 86500, monthlyRent: 1190, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2026-03-20'), imageUrl: '/properties/stout-hd.jpg' },
+    { address: '11234 Fenkell Ave', city: 'Detroit', state: 'MI', zipCode: '48238', purchasePrice: 94000, monthlyRent: 1320, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2026-04-10'), imageUrl: '/properties/griggs-hd.jpg' },
+    { address: '7821 Burt Rd', city: 'Detroit', state: 'MI', zipCode: '48219', purchasePrice: 91000, monthlyRent: 1285, status: 'OCCUPIED', tenantName: 'Section 8 Kiracı', paymentDay: 15, purchaseDate: new Date('2026-04-25'), imageUrl: '/properties/evergreen-hd.jpg' },
 ]
 
 async function main() {
@@ -41,14 +42,18 @@ async function main() {
         console.log(`= LLC exists:  ${llc.name} [${llc.id}]`)
     }
 
-    let created = 0, skipped = 0
+    let created = 0, updated = 0
     for (const p of PROPERTIES) {
         const existing = await prisma.property.findFirst({
             where: { address: p.address, city: p.city, state: p.state, llcId: llc.id },
         })
         if (existing) {
-            skipped++
-            console.log(`= skip:    ${p.address}`)
+            await prisma.property.update({
+                where: { id: existing.id },
+                data: { purchaseDate: p.purchaseDate, purchasePrice: p.purchasePrice, monthlyRent: p.monthlyRent, status: p.status, tenantName: p.tenantName, paymentDay: p.paymentDay, imageUrl: p.imageUrl, zipCode: p.zipCode },
+            })
+            updated++
+            console.log(`~ updated: ${p.address} (purchaseDate=${p.purchaseDate.toISOString().slice(0, 10)})`)
             continue
         }
         await prisma.property.create({ data: { ...p, llcId: llc.id } })
@@ -56,7 +61,7 @@ async function main() {
         console.log(`+ created: ${p.address} ($${p.purchasePrice.toLocaleString()}, $${p.monthlyRent}/mo)`)
     }
 
-    console.log(`\nDone. Created: ${created}, Skipped: ${skipped}, Total in DB for this LLC: ${created + skipped}`)
+    console.log(`\nDone. Created: ${created}, Updated: ${updated}, Total in DB for this LLC: ${created + updated}`)
 }
 
 main()

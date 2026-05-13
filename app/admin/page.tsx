@@ -8,7 +8,7 @@ export default function AdminDashboardPage() {
                 <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
                 <div className="flex items-center space-x-2">
                     {/* Date Range Picker or similar could go here */}
-                    <span className="text-sm text-muted-foreground">Ocak 2026</span>
+                    <span className="text-sm text-muted-foreground">Mayıs 2026</span>
                 </div>
             </div>
 
@@ -94,10 +94,10 @@ export default function AdminDashboardPage() {
                             {/* Recent Items List */}
                             <div className="flex items-center">
                                 <div className="ml-4 space-y-1">
-                                    <p className="text-sm font-medium leading-none">345 Ocean Drive - Kira</p>
+                                    <p className="text-sm font-medium leading-none">10468 Nottingham St - Kira</p>
                                     <p className="text-sm text-muted-foreground">Kira ödendi</p>
                                 </div>
-                                <div className="ml-auto font-medium">+$2,450.00</div>
+                                <div className="ml-auto font-medium">+$1,500.00</div>
                             </div>
                             <div className="flex items-center">
                                 <div className="ml-4 space-y-1">

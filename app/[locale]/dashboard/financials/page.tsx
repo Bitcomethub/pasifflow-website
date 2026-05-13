@@ -10,6 +10,7 @@ import {
     PieChart as PieChartIcon,
     CalendarDays,
     Filter,
+    Loader2,
 } from "lucide-react"
 import { motion, useMotionValue, useSpring, useInView } from "framer-motion"
 import { cn } from "@/lib/utils"
@@ -49,62 +50,103 @@ function AnimatedValue({ value, prefix = "", suffix = "" }: { value: number; pre
     return <span ref={ref}>{prefix}{display}{suffix}</span>
 }
 
-// Revenue chart data (monthly)
-const revenueChartData = [
-    { month: "Oca", gelir: 3200, gider: 1100 },
-    { month: "Şub", gelir: 3200, gider: 950 },
-    { month: "Mar", gelir: 3350, gider: 1200 },
-    { month: "Nis", gelir: 3350, gider: 800 },
-    { month: "May", gelir: 3400, gider: 1050 },
-    { month: "Haz", gelir: 3400, gider: 900 },
-    { month: "Tem", gelir: 3400, gider: 1300 },
-    { month: "Ağu", gelir: 3450, gider: 850 },
-    { month: "Eyl", gelir: 3450, gider: 1100 },
-    { month: "Eki", gelir: 3450, gider: 950 },
-    { month: "Kas", gelir: 3450, gider: 1000 },
-    { month: "Ara", gelir: 3450, gider: 1150 },
-]
+type ApiTx = {
+    id: string
+    type: "INCOME" | "EXPENSE"
+    category: string
+    amount: number
+    description: string | null
+    date: string
+    propertyAddress: string
+    propertyId: string
+    llcName: string
+}
 
-// Income breakdown
-const incomeBreakdown = [
-    { name: "Kira Geliri", value: 41100, color: "#C1A05E" },
-    { name: "Değer Artışı", value: 5200, color: "#1F2328" },
-    { name: "Vergi İadesi", value: 1800, color: "#A8B0B8" },
-]
+type ApiFinancials = {
+    summary: { totalIncome: number; totalExpense: number; netOperatingIncome: number }
+    transactions: ApiTx[]
+    monthlyData: { month: string; revenue: number; expenses: number }[]
+}
 
-// Expense breakdown
-const expenseBreakdown = [
-    { name: "Bakım/Onarım", value: 4200, color: "#ef4444" },
-    { name: "Yönetim Ücreti", value: 3600, color: "#f97316" },
-    { name: "Sigorta", value: 2400, color: "#eab308" },
-    { name: "Vergi", value: 2100, color: "#A8B0B8" },
-]
+const EXPENSE_PALETTE = ["#ef4444", "#f97316", "#eab308", "#A8B0B8", "#7C8995"]
+const INCOME_PALETTE = ["#C1A05E", "#1F2328", "#A8B0B8", "#54616C"]
 
-// Transaction data
-const transactions = [
-    { desc: "Kira Ödemesi - Stout St", amount: "+$1,160", date: "Bugün", type: "income", category: "Kira" },
-    { desc: "Kira Ödemesi - Griggs St", amount: "+$1,100", date: "Bugün", type: "income", category: "Kira" },
-    { desc: "Kira Ödemesi - Freeland St", amount: "+$1,165", date: "3 Şub", type: "income", category: "Kira" },
-    { desc: "Bakım Onarım - HVAC Tamiri", amount: "-$186", date: "Dün", type: "expense", category: "Bakım" },
-    { desc: "Aylık Yönetim Ücreti", amount: "-$300", date: "1 Şub", type: "expense", category: "Yönetim" },
-    { desc: "Yıllık Emlak Vergisi", amount: "-$850", date: "10 Oca", type: "expense", category: "Vergi" },
-    { desc: "Sigorta Primi (Q1)", amount: "-$600", date: "5 Oca", type: "expense", category: "Sigorta" },
-]
+function formatRelativeDate(iso: string): string {
+    const d = new Date(iso)
+    if (Number.isNaN(d.getTime())) return ""
+    const today = new Date()
+    const diff = Math.round((today.getTime() - d.getTime()) / (1000 * 60 * 60 * 24))
+    if (diff === 0) return "Bugün"
+    if (diff === 1) return "Dün"
+    return d.toLocaleDateString("tr-TR", { day: "numeric", month: "short" })
+}
 
 export default function FinancialsPage() {
     const [activeTab, setActiveTab] = useState<"all" | "income" | "expense">("all")
+    const [data, setData] = useState<ApiFinancials | null>(null)
+    const [loading, setLoading] = useState(true)
 
-    const filteredTransactions = transactions.filter(t => {
+    useEffect(() => {
+        const token = typeof window !== "undefined" ? localStorage.getItem("pasiflow_token") : null
+        if (!token) { setLoading(false); return }
+        fetch("/api/mobile/financials", { headers: { Authorization: `Bearer ${token}` } })
+            .then((r) => (r.ok ? r.json() as Promise<ApiFinancials> : null))
+            .then((d) => setData(d))
+            .catch(() => setData(null))
+            .finally(() => setLoading(false))
+    }, [])
+
+    const summary = data?.summary ?? { totalIncome: 0, totalExpense: 0, netOperatingIncome: 0 }
+    const apiTxs = data?.transactions ?? []
+    const monthly = data?.monthlyData ?? []
+
+    // Map API ledger rows to the UI shape and filter
+    const uiTxs = apiTxs.map((t) => ({
+        desc: t.description || `${t.category} - ${t.propertyAddress}`,
+        amount: `${t.type === "INCOME" ? "+" : "-"}$${Math.abs(t.amount).toLocaleString()}`,
+        date: formatRelativeDate(t.date),
+        type: t.type === "INCOME" ? "income" : "expense",
+        category: t.category,
+    }))
+    const filteredTransactions = uiTxs.filter((t) => {
         if (activeTab === "income") return t.type === "income"
         if (activeTab === "expense") return t.type === "expense"
         return true
     })
 
+    // Derive income/expense category breakdowns from real transactions
+    const sumByCategory = (type: "INCOME" | "EXPENSE") => {
+        const map = new Map<string, number>()
+        for (const t of apiTxs) {
+            if (t.type !== type) continue
+            const key = t.category || "Diğer"
+            map.set(key, (map.get(key) ?? 0) + Math.abs(t.amount))
+        }
+        return Array.from(map.entries()).map(([name, value], i) => ({
+            name,
+            value,
+            color: (type === "INCOME" ? INCOME_PALETTE : EXPENSE_PALETTE)[i % 4],
+        }))
+    }
+    const incomeBreakdown = sumByCategory("INCOME")
+    const expenseBreakdown = sumByCategory("EXPENSE")
+
+    // Chart series — re-label "Gelir/Gider" for the chart
+    const revenueChartData = monthly.map((m) => ({ month: m.month, gelir: m.revenue, gider: m.expenses }))
+
     const stats = [
-        { title: "Toplam Gelir", value: 41100, prefix: "$", change: "+20.1%", positive: true, icon: DollarSign, bgColor: "bg-emerald-50", borderColor: "border-emerald-200", iconColor: "text-emerald-600" },
-        { title: "Toplam Gider", value: 12300, prefix: "$", change: "+4%", positive: false, icon: ArrowDownLeft, bgColor: "bg-red-50", borderColor: "border-red-200", iconColor: "text-red-500" },
-        { title: "Net Kâr", value: 28800, prefix: "$", change: "+18%", positive: true, icon: Wallet, bgColor: "bg-[#C1A05E]/10", borderColor: "border-[#C1A05E]/20", iconColor: "text-[#C1A05E]" },
+        { title: "Toplam Gelir", value: summary.totalIncome, prefix: "$", change: "Bu dönem", positive: true, icon: DollarSign, bgColor: "bg-emerald-50", borderColor: "border-emerald-200", iconColor: "text-emerald-600" },
+        { title: "Toplam Gider", value: summary.totalExpense, prefix: "$", change: "Bu dönem", positive: false, icon: ArrowDownLeft, bgColor: "bg-red-50", borderColor: "border-red-200", iconColor: "text-red-500" },
+        { title: "Net Kâr", value: summary.netOperatingIncome, prefix: "$", change: "Net", positive: summary.netOperatingIncome >= 0, icon: Wallet, bgColor: "bg-[#C1A05E]/10", borderColor: "border-[#C1A05E]/20", iconColor: "text-[#C1A05E]" },
     ]
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <Loader2 className="w-8 h-8 text-[#C1A05E] animate-spin" />
+            </div>
+        )
+    }
 
     return (
         <div className="space-y-8 p-6 md:p-8">
@@ -120,7 +162,7 @@ export default function FinancialsPage() {
                     <div>
                         <div className="flex items-center gap-2 mb-2">
                             <CalendarDays size={14} className="text-[#A8B0B8]" />
-                            <span className="text-xs text-[#A8B0B8] font-medium">2024 — 2025 Dönemi</span>
+                            <span className="text-xs text-[#A8B0B8] font-medium">Kasım 2025 — Mayıs 2026</span>
                         </div>
                         <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">Finansal Durum</h1>
                         <p className="text-[#A8B0B8] mt-2 font-medium">Gelir ve giderlerinizi buradan takip edebilirsiniz.</p>
@@ -163,7 +205,7 @@ export default function FinancialsPage() {
                         <p className="text-2xl font-extrabold text-[#1F2328] tracking-tight">
                             <AnimatedValue value={stat.value} prefix={stat.prefix} />
                         </p>
-                        <p className="text-xs text-[#A8B0B8] mt-1">geçen aydan beri</p>
+                        <p className="text-xs text-[#A8B0B8] mt-1">Kasım 2025 — bugün</p>
                     </motion.div>
                 ))}
             </div>
@@ -257,7 +299,7 @@ export default function FinancialsPage() {
                             </ResponsiveContainer>
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="text-center">
-                                    <p className="text-lg font-extrabold text-[#1F2328]">$48K</p>
+                                    <p className="text-lg font-extrabold text-[#1F2328]">${(summary.totalIncome / 1000).toFixed(1)}K</p>
                                     <p className="text-[9px] text-[#A8B0B8] font-semibold">TOPLAM</p>
                                 </div>
                             </div>
@@ -311,7 +353,7 @@ export default function FinancialsPage() {
                             </ResponsiveContainer>
                             <div className="absolute inset-0 flex items-center justify-center">
                                 <div className="text-center">
-                                    <p className="text-lg font-extrabold text-[#1F2328]">$12K</p>
+                                    <p className="text-lg font-extrabold text-[#1F2328]">${(summary.totalExpense / 1000).toFixed(1)}K</p>
                                     <p className="text-[9px] text-[#A8B0B8] font-semibold">TOPLAM</p>
                                 </div>
                             </div>
@@ -409,8 +451,10 @@ export default function FinancialsPage() {
 
                 <div className="p-4 bg-[#C1A05E]/5 border-t border-[#C1A05E]/10">
                     <div className="flex items-center justify-between text-sm">
-                        <span className="text-[#A8B0B8] font-medium">Bu Ay Net Gelir</span>
-                        <span className="font-bold text-[#C1A05E]">+$2,489</span>
+                        <span className="text-[#A8B0B8] font-medium">Toplam Net Gelir</span>
+                        <span className={cn("font-bold", summary.netOperatingIncome >= 0 ? "text-[#C1A05E]" : "text-red-500")}>
+                            {summary.netOperatingIncome >= 0 ? "+" : "-"}${Math.abs(summary.netOperatingIncome).toLocaleString()}
+                        </span>
                     </div>
                 </div>
             </motion.div>

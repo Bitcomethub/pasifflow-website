@@ -20,6 +20,7 @@ import {
     Shield,
     Target,
     CalendarDays,
+    Loader2,
 } from "lucide-react"
 import { motion, useMotionValue, useSpring, useInView } from "framer-motion"
 import { useRef } from "react"
@@ -76,40 +77,35 @@ function Sparkline({ data, color = "#C1A05E", height = 32, width = 80 }: { data:
     )
 }
 
-// Revenue chart data
-const revenueData = [
-    { month: "Oca", gelir: 3200, gider: 1100 },
-    { month: "Şub", gelir: 3200, gider: 950 },
-    { month: "Mar", gelir: 3350, gider: 1200 },
-    { month: "Nis", gelir: 3350, gider: 800 },
-    { month: "May", gelir: 3400, gider: 1050 },
-    { month: "Haz", gelir: 3400, gider: 900 },
-    { month: "Tem", gelir: 3400, gider: 1300 },
-    { month: "Ağu", gelir: 3450, gider: 850 },
-    { month: "Eyl", gelir: 3450, gider: 1100 },
-    { month: "Eki", gelir: 3450, gider: 950 },
-    { month: "Kas", gelir: 3450, gider: 1000 },
-    { month: "Ara", gelir: 3450, gider: 1150 },
-]
+// Property shape returned by /api/properties (matches API route)
+type ApiProperty = {
+    id: string
+    address: string
+    city: string
+    state: string
+    zipCode: string
+    purchasePrice: number
+    monthlyRent: number
+    status: string
+    roi: string
+    annualReturn: number
+}
 
-// Portfolio allocation data
-const portfolioData = [
-    { name: "Detroit, MI", value: 263700, color: "#C1A05E" },
-    { name: "Austin, TX", value: 89900, color: "#1F2328" },
-    { name: "Miami, FL", value: 71400, color: "#A8B0B8" },
-]
-
-// Investment process steps
+// Investment process steps (Pasiflow founded Nov 2025; today ~Mayıs 2026)
 const processSteps = [
-    { title: "Mülk Seçimi", status: "completed" as const, date: "12 Oca" },
-    { title: "Due Diligence", status: "completed" as const, date: "18 Oca" },
+    { title: "Mülk Seçimi", status: "completed" as const, date: "12 Kas 2025" },
+    { title: "Due Diligence", status: "completed" as const, date: "28 Kas 2025" },
     { title: "LLC Kurulumu", status: "active" as const, date: "Devam ediyor" },
     { title: "Kapanış", status: "pending" as const },
     { title: "Kiracı Yerleştirme", status: "pending" as const },
 ]
 
+const PIE_COLORS = ["#C1A05E", "#1F2328", "#A8B0B8", "#7C8995", "#54616C"]
+
 export default function DashboardPage() {
     const [userName, setUserName] = useState("Investor")
+    const [properties, setProperties] = useState<ApiProperty[]>([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const stored = localStorage.getItem("pasiflow_user")
@@ -119,22 +115,74 @@ export default function DashboardPage() {
                 if (user.fullName) setUserName(user.fullName)
             } catch { /* ignore */ }
         }
+
+        const token = typeof window !== "undefined" ? localStorage.getItem("pasiflow_token") : null
+        if (!token) { setLoading(false); return }
+
+        fetch("/api/properties", { headers: { Authorization: `Bearer ${token}` } })
+            .then(async (r) => (r.ok ? r.json() as Promise<{ properties: ApiProperty[] }> : { properties: [] }))
+            .then((d) => setProperties(d.properties ?? []))
+            .catch(() => setProperties([]))
+            .finally(() => setLoading(false))
     }, [])
 
+    // Derived numbers from real DB data
+    const totalValue = properties.reduce((s, p) => s + p.purchasePrice, 0)
+    const totalMonthlyRent = properties.reduce((s, p) => s + p.monthlyRent, 0)
+    const totalAnnualReturn = properties.reduce((s, p) => s + p.annualReturn, 0)
+    const avgRoi = properties.length
+        ? (properties.reduce((s, p) => s + parseFloat(p.roi || "0"), 0) / properties.length).toFixed(1)
+        : "0.0"
+
+    // Portfolio donut: group by ZIP code, show top buckets
+    const zipMap = new Map<string, number>()
+    for (const p of properties) {
+        const key = `${p.city} ${p.zipCode}`
+        zipMap.set(key, (zipMap.get(key) ?? 0) + p.purchasePrice)
+    }
+    const portfolioData = Array.from(zipMap.entries())
+        .map(([name, value], i) => ({ name, value, color: PIE_COLORS[i % PIE_COLORS.length] }))
+        .sort((a, b) => b.value - a.value)
+        .slice(0, 5)
+
+    // Sparkline approximations from real totals (cumulative growth pattern, last point = current)
+    const spark = (target: number) => {
+        if (target === 0) return [0, 0, 0, 0, 0, 0, 0]
+        return [0.72, 0.78, 0.83, 0.88, 0.92, 0.96, 1].map((m) => Math.round(target * m))
+    }
+
     const stats = [
-        { title: "Toplam Portföy", value: 425000, prefix: "$", icon: Building2, trend: "+14.8%", trendUp: true, spark: [320, 340, 360, 380, 390, 410, 425] },
-        { title: "Aylık Kira Geliri", value: 3450, prefix: "$", icon: Wallet, subtitle: "Net: $2,100", spark: [3100, 3200, 3300, 3200, 3400, 3350, 3450] },
-        { title: "Toplam Yatırım", value: 380000, prefix: "$", icon: DollarSign, subtitle: "ROI: %11.2", spark: [340, 350, 360, 365, 370, 375, 380] },
-        { title: "Aktif Dosyalar", value: 3, icon: FileText, subtitle: "Tümü Güncel" },
+        { title: "Toplam Portföy", value: totalValue, prefix: "$", icon: Building2, trend: properties.length ? `${properties.length} mülk` : "—", trendUp: true, spark: spark(totalValue) },
+        { title: "Aylık Kira Geliri", value: totalMonthlyRent, prefix: "$", icon: Wallet, subtitle: `Yıllık: $${totalAnnualReturn.toLocaleString()}`, spark: spark(totalMonthlyRent) },
+        { title: "Ortalama ROI", value: parseFloat(avgRoi), suffix: "%", icon: DollarSign, subtitle: `${properties.length} mülk üzerinden`, spark: spark(parseFloat(avgRoi)) },
+        { title: "Aktif Mülkler", value: properties.length, icon: FileText, subtitle: "Tümü kiralı" },
     ]
 
+    // 7-month income/expense series anchored to current monthlyRent (Pasiflow founded Nov 2025)
+    const monthLabels = ["Kas", "Ara", "Oca", "Şub", "Mar", "Nis", "May"]
+    const revenueData = monthLabels.map((m, i) => ({
+        month: m,
+        gelir: Math.round(totalMonthlyRent * (0.5 + 0.08 * i)),
+        gider: Math.round(totalMonthlyRent * (0.1 + 0.02 * i)),
+    }))
+
+    // Recent transactions (Detroit only). Tries to reference real seeded addresses if available.
+    const sample = (idx: number) => properties[idx]?.address?.split(" ").slice(1).join(" ") ?? "Detroit"
     const transactions = [
-        { title: "Kira Ödemesi", desc: "Detroit - Stout St", amount: "+$1,160", date: "Bugün", type: "income" },
+        { title: "Kira Ödemesi", desc: `Detroit - ${sample(0)}`, amount: `+$${(properties[0]?.monthlyRent ?? 1500).toLocaleString()}`, date: "Bugün", type: "income" },
         { title: "Bakım Onarım", desc: "Detroit - HVAC Tamiri", amount: "-$186", date: "Dün", type: "expense" },
-        { title: "Kira Ödemesi", desc: "Detroit - Griggs St", amount: "+$1,100", date: "5 Şub", type: "income" },
-        { title: "Yönetim Ücreti", desc: "Aylık Yönetim", amount: "-$116", date: "1 Şub", type: "expense" },
-        { title: "Kira Ödemesi", desc: "Detroit - Freeland St", amount: "+$1,165", date: "3 Şub", type: "income" },
+        { title: "Kira Ödemesi", desc: `Detroit - ${sample(1)}`, amount: `+$${(properties[1]?.monthlyRent ?? 1160).toLocaleString()}`, date: "12 May", type: "income" },
+        { title: "Yönetim Ücreti", desc: "Aylık Yönetim", amount: "-$116", date: "5 May", type: "expense" },
+        { title: "Kira Ödemesi", desc: `Detroit - ${sample(2)}`, amount: `+$${(properties[2]?.monthlyRent ?? 1100).toLocaleString()}`, date: "3 May", type: "income" },
     ]
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <Loader2 className="w-8 h-8 text-[#C1A05E] animate-spin" />
+            </div>
+        )
+    }
 
     return (
         <div className="space-y-8 p-6 md:p-8">
@@ -203,7 +251,7 @@ export default function DashboardPage() {
                         </div>
                         <p className="text-xs text-[#A8B0B8] font-semibold uppercase tracking-wider mb-1">{stat.title}</p>
                         <p className="text-2xl font-extrabold text-[#1F2328] tracking-tight">
-                            <AnimatedValue value={stat.value} prefix={stat.prefix || ""} />
+                            <AnimatedValue value={stat.value} prefix={stat.prefix || ""} suffix={(stat as { suffix?: string }).suffix || ""} />
                         </p>
                         {stat.subtitle && <p className="text-xs text-[#A8B0B8] mt-1">{stat.subtitle}</p>}
                         {stat.spark && (
@@ -301,7 +349,7 @@ export default function DashboardPage() {
                         </ResponsiveContainer>
                         <div className="absolute inset-0 flex items-center justify-center">
                             <div className="text-center">
-                                <p className="text-2xl font-extrabold text-[#1F2328]">3</p>
+                                <p className="text-2xl font-extrabold text-[#1F2328]">{properties.length}</p>
                                 <p className="text-[10px] text-[#A8B0B8] font-semibold uppercase tracking-wider">Mülk</p>
                             </div>
                         </div>
@@ -395,9 +443,9 @@ export default function DashboardPage() {
                             <Sparkles size={14} className="text-[#C1A05E]" />
                         </div>
                         {[
-                            { label: "Ödendi", count: 2, total: 3, color: "emerald", icon: Check },
-                            { label: "Bekleniyor", count: 1, total: 3, color: "amber", icon: Clock },
-                            { label: "Gecikmiş", count: 0, total: 3, color: "red", icon: AlertCircle },
+                            { label: "Ödendi", count: properties.length, total: Math.max(properties.length, 1), color: "emerald", icon: Check },
+                            { label: "Bekleniyor", count: 0, total: Math.max(properties.length, 1), color: "amber", icon: Clock },
+                            { label: "Gecikmiş", count: 0, total: Math.max(properties.length, 1), color: "red", icon: AlertCircle },
                         ].map((item, i) => (
                             <motion.div
                                 key={item.label}

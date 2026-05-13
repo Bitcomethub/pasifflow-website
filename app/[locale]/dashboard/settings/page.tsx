@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -5,6 +8,24 @@ import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
 
 export default function SettingsPage() {
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [email, setEmail] = useState("")
+
+    useEffect(() => {
+        const stored = typeof window !== "undefined" ? localStorage.getItem("pasiflow_user") : null
+        if (!stored) return
+        try {
+            const user = JSON.parse(stored) as { fullName?: string; email?: string }
+            if (user.fullName) {
+                const parts = user.fullName.trim().split(/\s+/)
+                setFirstName(parts[0] ?? "")
+                setLastName(parts.slice(1).join(" "))
+            }
+            if (user.email) setEmail(user.email)
+        } catch { /* ignore */ }
+    }, [])
+
     return (
         <div className="space-y-6">
             <div>
@@ -22,16 +43,16 @@ export default function SettingsPage() {
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="name">Ad</Label>
-                                <Input id="name" defaultValue="Demo" />
+                                <Input id="name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
                             </div>
                             <div className="space-y-2">
                                 <Label htmlFor="surname">Soyad</Label>
-                                <Input id="surname" defaultValue="Client" />
+                                <Input id="surname" value={lastName} onChange={(e) => setLastName(e.target.value)} />
                             </div>
                         </div>
                         <div className="space-y-2">
                             <Label htmlFor="email">E-posta</Label>
-                            <Input id="email" defaultValue="demo@pasiflow.com" />
+                            <Input id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                         </div>
                         <Button className="bg-[#1F2328]">Değişiklikleri Kaydet</Button>
                     </CardContent>
