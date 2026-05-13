@@ -28,7 +28,7 @@ const LIFECYCLE_STEPS = [
     { key: "renting", label: "Kira Alımı", icon: Wallet },
 ]
 
-// Shape returned by /api/properties (raw Prisma row)
+// Shape returned by /api/properties (Prisma row + server-computed fields)
 type DbProperty = {
     id: string
     address: string
@@ -41,6 +41,8 @@ type DbProperty = {
     paymentDay: number | null
     imageUrl: string | null
     purchaseDate: string | null
+    roi: string
+    annualReturn: number
 }
 
 // Shape consumed by the existing card UI
@@ -64,9 +66,6 @@ type DisplayProperty = {
 const FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&auto=format&fit=crop&q=80'
 
 function mapProperty(p: DbProperty): DisplayProperty {
-    const annualReturnNum = p.monthlyRent * 12
-    const roiNum = (annualReturnNum / p.purchasePrice) * 100
-
     let nextPaymentLabel = '—'
     if (p.paymentDay) {
         const today = new Date()
@@ -88,8 +87,8 @@ function mapProperty(p: DbProperty): DisplayProperty {
         status: p.status.toLowerCase(),
         purchasePrice: `$${p.purchasePrice.toLocaleString('en-US')}`,
         monthlyRent: `$${p.monthlyRent.toLocaleString('en-US')}`,
-        roi: `${roiNum.toFixed(1)}%`,
-        annualReturn: `$${Math.round(annualReturnNum).toLocaleString('en-US')}`,
+        roi: `${p.roi}%`,
+        annualReturn: `$${Math.round(p.annualReturn).toLocaleString('en-US')}`,
         image: p.imageUrl || FALLBACK_IMAGE,
         nextPaymentDate: nextPaymentLabel,
         // section8 / lifecycleStep / occupancy şu an Prisma şemasında yok.

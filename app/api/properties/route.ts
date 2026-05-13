@@ -13,12 +13,18 @@ export async function GET(req: Request) {
         )
     }
 
-    const properties = await prisma.property.findMany({
+    const rows = await prisma.property.findMany({
         where: { llc: { ownerId: session.userId } },
         orderBy: [{ purchaseDate: "asc" }, { createdAt: "asc" }],
         include: {
             llc: { select: { name: true, formationState: true } },
         },
+    })
+
+    const properties = rows.map((p) => {
+        const annualReturn = p.monthlyRent * 12
+        const roi = ((annualReturn / p.purchasePrice) * 100).toFixed(1)
+        return { ...p, roi, annualReturn }
     })
 
     return NextResponse.json({ properties })
