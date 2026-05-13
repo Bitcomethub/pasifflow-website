@@ -61,7 +61,85 @@ async function main() {
         console.log(`+ created: ${p.address} ($${p.purchasePrice.toLocaleString()}, $${p.monthlyRent}/mo)`)
     }
 
-    console.log(`\nDone. Created: ${created}, Updated: ${updated}, Total in DB for this LLC: ${created + updated}`)
+    console.log(`\nProperties — Created: ${created}, Updated: ${updated}, Total: ${created + updated}`)
+
+    // -----------------------------------------------------------------
+    // Payments + Ledger seed: one rent row per (15th-of-month, property)
+    // starting on the first payment-day on or after purchaseDate.
+    // -----------------------------------------------------------------
+    const TR_MONTHS = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık']
+    const periodLabel = (d: Date) => `${TR_MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`
+
+    const getRentDates = (purchaseDate: Date, paymentDay: number, today: Date): Date[] => {
+        const dates: Date[] = []
+        let year = purchaseDate.getUTCFullYear()
+        let month = purchaseDate.getUTCMonth()
+        const day = purchaseDate.getUTCDate()
+        if (day > paymentDay) {
+            month++
+            if (month > 11) { month = 0; year++ }
+        }
+        for (let guard = 0; guard < 240; guard++) {
+            const d = new Date(Date.UTC(year, month, paymentDay))
+            if (d.getTime() > today.getTime()) break
+            dates.push(d)
+            month++
+            if (month > 11) { month = 0; year++ }
+        }
+        return dates
+    }
+
+    const today = new Date()
+    const allProps = await prisma.property.findMany({ where: { llcId: llc.id } })
+    let payCreated = 0, paySkipped = 0, ledCreated = 0, ledSkipped = 0
+
+    for (const prop of allProps) {
+        if (!prop.purchaseDate || !prop.paymentDay) continue
+        const dates = getRentDates(prop.purchaseDate, prop.paymentDay, today)
+        for (const date of dates) {
+            const period = periodLabel(date)
+
+            const existingPay = await prisma.payment.findFirst({
+                where: { propertyId: prop.id, date, status: 'PAID' },
+            })
+            if (existingPay) {
+                paySkipped++
+            } else {
+                await prisma.payment.create({
+                    data: {
+                        propertyId: prop.id,
+                        amount: prop.monthlyRent,
+                        date,
+                        period,
+                        status: 'PAID',
+                        description: 'Aylık kira ödemesi (Section 8)',
+                    },
+                })
+                payCreated++
+            }
+
+            const existingLed = await prisma.ledger.findFirst({
+                where: { propertyId: prop.id, postedDate: date, type: 'INCOME', category: 'Rent' },
+            })
+            if (existingLed) {
+                ledSkipped++
+            } else {
+                await prisma.ledger.create({
+                    data: {
+                        propertyId: prop.id,
+                        type: 'INCOME',
+                        category: 'Rent',
+                        amount: prop.monthlyRent,
+                        description: `Kira geliri — ${period}`,
+                        postedDate: date,
+                    },
+                })
+                ledCreated++
+            }
+        }
+    }
+    console.log(`Payments  — Created: ${payCreated}, Skipped: ${paySkipped}`)
+    console.log(`Ledgers   — Created: ${ledCreated}, Skipped: ${ledSkipped}`)
 }
 
 main()

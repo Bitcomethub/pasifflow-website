@@ -91,6 +91,17 @@ type ApiProperty = {
     annualReturn: number
 }
 
+// Payment shape returned by /api/mobile/payments
+type ApiPayment = {
+    id: string
+    property: string
+    amount: number
+    date: string
+    status: string
+    tenant: string | null
+    period: string
+}
+
 // Investment process steps (Pasiflow founded Nov 2025; today ~Mayıs 2026)
 const processSteps = [
     { title: "Mülk Seçimi", status: "completed" as const, date: "12 Kas 2025" },
@@ -105,6 +116,7 @@ const PIE_COLORS = ["#C1A05E", "#1F2328", "#A8B0B8", "#7C8995", "#54616C"]
 export default function DashboardPage() {
     const [userName, setUserName] = useState("Investor")
     const [properties, setProperties] = useState<ApiProperty[]>([])
+    const [payments, setPayments] = useState<ApiPayment[]>([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -118,11 +130,17 @@ export default function DashboardPage() {
 
         const token = typeof window !== "undefined" ? localStorage.getItem("pasiflow_token") : null
         if (!token) { setLoading(false); return }
+        const headers = { Authorization: `Bearer ${token}` }
 
-        fetch("/api/properties", { headers: { Authorization: `Bearer ${token}` } })
-            .then(async (r) => (r.ok ? r.json() as Promise<{ properties: ApiProperty[] }> : { properties: [] }))
-            .then((d) => setProperties(d.properties ?? []))
-            .catch(() => setProperties([]))
+        Promise.all([
+            fetch("/api/properties", { headers }).then((r) => (r.ok ? r.json() as Promise<{ properties: ApiProperty[] }> : { properties: [] })),
+            fetch("/api/mobile/payments", { headers }).then((r) => (r.ok ? r.json() as Promise<ApiPayment[]> : [])),
+        ])
+            .then(([propRes, payRes]) => {
+                setProperties(propRes.properties ?? [])
+                setPayments(Array.isArray(payRes) ? payRes : [])
+            })
+            .catch(() => { setProperties([]); setPayments([]) })
             .finally(() => setLoading(false))
     }, [])
 
@@ -166,15 +184,28 @@ export default function DashboardPage() {
         gider: Math.round(totalMonthlyRent * (0.1 + 0.02 * i)),
     }))
 
-    // Recent transactions (Detroit only). Tries to reference real seeded addresses if available.
-    const sample = (idx: number) => properties[idx]?.address?.split(" ").slice(1).join(" ") ?? "Detroit"
-    const transactions = [
-        { title: "Kira Ödemesi", desc: `Detroit - ${sample(0)}`, amount: `+$${(properties[0]?.monthlyRent ?? 1500).toLocaleString()}`, date: "Bugün", type: "income" },
-        { title: "Bakım Onarım", desc: "Detroit - HVAC Tamiri", amount: "-$186", date: "Dün", type: "expense" },
-        { title: "Kira Ödemesi", desc: `Detroit - ${sample(1)}`, amount: `+$${(properties[1]?.monthlyRent ?? 1160).toLocaleString()}`, date: "12 May", type: "income" },
-        { title: "Yönetim Ücreti", desc: "Aylık Yönetim", amount: "-$116", date: "5 May", type: "expense" },
-        { title: "Kira Ödemesi", desc: `Detroit - ${sample(2)}`, amount: `+$${(properties[2]?.monthlyRent ?? 1100).toLocaleString()}`, date: "3 May", type: "income" },
-    ]
+    // Recent transactions from /api/mobile/payments (latest first, top 5)
+    const fmtDate = (iso: string) => {
+        const d = new Date(iso)
+        if (Number.isNaN(d.getTime())) return iso
+        return d.toLocaleDateString("tr-TR", { day: "numeric", month: "short" })
+    }
+    const transactions = payments.slice(0, 5).map((p) => ({
+        title: "Kira Ödemesi",
+        desc: `Detroit - ${p.property}`,
+        amount: `+$${p.amount.toLocaleString()}`,
+        date: fmtDate(p.date),
+        type: "income" as const,
+    }))
+
+    // "Bu Ay Net" = sum of this calendar month's paid rent
+    const now = new Date()
+    const monthNet = payments.reduce((sum, p) => {
+        const d = new Date(p.date)
+        return d.getUTCFullYear() === now.getUTCFullYear() && d.getUTCMonth() === now.getUTCMonth() && p.status === "paid"
+            ? sum + p.amount
+            : sum
+    }, 0)
 
     if (loading) {
         return (
@@ -536,39 +567,37 @@ export default function DashboardPage() {
                     </div>
 
                     <div className="divide-y divide-slate-50">
-                        {transactions.map((item, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, x: 10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 0.55 + i * 0.06 }}
-                                className="px-5 py-3.5 hover:bg-slate-50/50 transition-colors cursor-pointer flex items-center gap-3"
-                            >
-                                <div className={cn(
-                                    "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0",
-                                    item.type === "income" ? "bg-emerald-50 text-emerald-500" : "bg-red-50 text-red-400"
-                                )}>
-                                    {item.type === "income" ? <TrendingUp size={14} /> : <ArrowUpRight size={14} className="rotate-90" />}
-                                </div>
-                                <div className="flex-1 min-w-0">
-                                    <p className="text-sm font-semibold text-[#1F2328] truncate">{item.title}</p>
-                                    <p className="text-[11px] text-[#A8B0B8] truncate">{item.desc}</p>
-                                </div>
-                                <div className="text-right flex-shrink-0">
-                                    <p className={cn(
-                                        "text-sm font-bold",
-                                        item.type === "income" ? "text-emerald-600" : "text-red-500"
-                                    )}>{item.amount}</p>
-                                    <p className="text-[10px] text-[#A8B0B8]">{item.date}</p>
-                                </div>
-                            </motion.div>
-                        ))}
+                        {transactions.length === 0 ? (
+                            <p className="px-5 py-6 text-sm text-[#A8B0B8] text-center">Henüz ödeme kaydı yok.</p>
+                        ) : (
+                            transactions.map((item, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, x: 10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: 0.55 + i * 0.06 }}
+                                    className="px-5 py-3.5 hover:bg-slate-50/50 transition-colors cursor-pointer flex items-center gap-3"
+                                >
+                                    <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 bg-emerald-50 text-emerald-500">
+                                        <TrendingUp size={14} />
+                                    </div>
+                                    <div className="flex-1 min-w-0">
+                                        <p className="text-sm font-semibold text-[#1F2328] truncate">{item.title}</p>
+                                        <p className="text-[11px] text-[#A8B0B8] truncate">{item.desc}</p>
+                                    </div>
+                                    <div className="text-right flex-shrink-0">
+                                        <p className="text-sm font-bold text-emerald-600">{item.amount}</p>
+                                        <p className="text-[10px] text-[#A8B0B8]">{item.date}</p>
+                                    </div>
+                                </motion.div>
+                            ))
+                        )}
                     </div>
 
                     <div className="p-4 bg-[#C1A05E]/5 border-t border-[#C1A05E]/10">
                         <div className="flex items-center justify-between text-sm">
                             <span className="text-[#A8B0B8] font-medium">Bu Ay Net</span>
-                            <span className="font-bold text-[#C1A05E]">+$2,963</span>
+                            <span className="font-bold text-[#C1A05E]">+${monthNet.toLocaleString()}</span>
                         </div>
                     </div>
                 </motion.div>
