@@ -32,6 +32,40 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
 
+        // ADMIN: aggregate across all LLCs/properties in the system (global view)
+        if (user.role === 'ADMIN') {
+            const allLlcs = await prisma.lLC.findMany({
+                include: { properties: true }
+            });
+
+            let totalProperties = 0;
+            let totalValue = 0;
+            let totalMonthlyRent = 0;
+
+            allLlcs.forEach(llc => {
+                llc.properties.forEach(property => {
+                    totalProperties++;
+                    totalValue += property.currentValue || property.purchasePrice;
+                    totalMonthlyRent += property.monthlyRent;
+                });
+            });
+
+            const totalYield = totalValue > 0
+                ? ((totalMonthlyRent * 12) / totalValue) * 100
+                : 0;
+
+            return NextResponse.json({
+                totalProperties,
+                totalValue,
+                totalMonthlyRent,
+                totalYield: parseFloat(totalYield.toFixed(2)),
+                currency: 'USD',
+                userName: user.fullName,
+                llcCount: allLlcs.length,
+                hotDeals: HOT_DEALS
+            });
+        }
+
         // Auto-seed demo investor data if user has no LLCs
         const demoInvestorEmails = ['demo@pasiflow.com', 'investor@pasiflow.com'];
         if (user.llcs.length === 0 && demoInvestorEmails.includes(email)) {

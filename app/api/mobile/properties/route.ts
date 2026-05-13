@@ -22,9 +22,9 @@ export async function GET(request: Request) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
 
-        // Fetch properties grouped by LLC, including relations
+        // ADMIN: see all LLCs/properties; otherwise filter by ownership
         const llcs = await prisma.lLC.findMany({
-            where: { ownerId: user.id },
+            where: user.role === 'ADMIN' ? undefined : { ownerId: user.id },
             include: {
                 properties: {
                     include: {

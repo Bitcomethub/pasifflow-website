@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Link, useRouter, usePathname } from "@/i18n/navigation"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { Menu, X, ChevronDown } from "lucide-react"
+import { Menu, X, ChevronDown, LayoutDashboard, Shield, LogOut } from "lucide-react"
 import { Logo } from "@/components/logo"
 import { useTranslations, useLocale } from "next-intl"
 import {
@@ -29,7 +29,7 @@ export function Header() {
   const [showLeadModal, setShowLeadModal] = useState(false)
   const [showPanelLoginModal, setShowPanelLoginModal] = useState(false)
   const [authMode, setAuthMode] = useState<"login" | "signup">("signup")
-  const [currentUser, setCurrentUser] = useState<{ email: string; fullName?: string } | null>(null)
+  const [currentUser, setCurrentUser] = useState<{ email: string; fullName?: string; role?: string } | null>(null)
 
   // Check for logged-in user on mount
   useEffect(() => {
@@ -247,11 +247,32 @@ export function Header() {
                       </span>
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="min-w-[160px] bg-white border-[#E5E5E5]">
+                  <DropdownMenuContent align="end" className="min-w-[180px] bg-white border-[#E5E5E5]">
+                    <DropdownMenuItem asChild>
+                      <Link
+                        href={currentUser.role === "AGENT" ? "/agent/dashboard" : "/dashboard"}
+                        className="cursor-pointer flex items-center gap-2 text-[#3D4852] focus:bg-slate-100"
+                      >
+                        <LayoutDashboard className="h-4 w-4" />
+                        Dashboard
+                      </Link>
+                    </DropdownMenuItem>
+                    {currentUser.role === "ADMIN" && (
+                      <DropdownMenuItem asChild>
+                        <a
+                          href="/admin"
+                          className="cursor-pointer flex items-center gap-2 text-[#C1A05E] focus:bg-[#C1A05E]/10"
+                        >
+                          <Shield className="h-4 w-4" />
+                          Admin Panel
+                        </a>
+                      </DropdownMenuItem>
+                    )}
                     <DropdownMenuItem
                       onClick={handleLogout}
-                      className="cursor-pointer text-destructive focus:bg-destructive/10"
+                      className="cursor-pointer flex items-center gap-2 text-destructive focus:bg-destructive/10"
                     >
+                      <LogOut className="h-4 w-4" />
                       {tNav("logout")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>

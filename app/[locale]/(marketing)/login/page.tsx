@@ -52,9 +52,7 @@ export default function LoginPage() {
             localStorage.setItem("pasiflow_token", data.token)
             localStorage.setItem("pasiflow_user", JSON.stringify(data.user))
 
-            if (data.user.role === "ADMIN") {
-                router.push("/admin")
-            } else if (data.user.role === "AGENT") {
+            if (data.user.role === "AGENT") {
                 router.push(`/${locale}/agent/dashboard`)
             } else {
                 router.push(`/${locale}/dashboard`)

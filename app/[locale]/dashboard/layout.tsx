@@ -1,8 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ClientSidebar } from "@/components/dashboard/client-sidebar"
-import { Menu, X } from "lucide-react"
+import { Menu, X, Shield } from "lucide-react"
 import { Logo } from "@/components/logo"
 import Link from "next/link"
 
@@ -12,6 +12,19 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [isAdmin, setIsAdmin] = useState(false)
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("pasiflow_user")
+      if (stored) {
+        const parsed = JSON.parse(stored)
+        setIsAdmin(parsed?.role === "ADMIN")
+      }
+    } catch {
+      // ignore parse errors
+    }
+  }, [])
 
   return (
     <div className="flex min-h-screen bg-slate-50/50">
@@ -53,6 +66,17 @@ export default function DashboardLayout({
       </div>
 
       <main className="flex-grow md:pl-72 pt-16 md:pt-0">
+        {isAdmin && (
+          <div className="flex justify-end px-6 md:px-10 pt-4">
+            <Link
+              href="/admin"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-[#C1A05E] transition-colors border border-slate-200 hover:border-[#C1A05E]/40 bg-white rounded-full px-3 py-1.5"
+            >
+              <Shield className="h-3.5 w-3.5" />
+              Admin Paneli
+            </Link>
+          </div>
+        )}
         <div className="p-6 md:p-10">
           {children}
         </div>

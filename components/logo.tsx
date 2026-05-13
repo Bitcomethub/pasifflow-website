@@ -33,11 +33,13 @@ export function Logo({
 
     const t = useTranslations("logo")
 
+    const logoSrc = theme === "dark" ? "/brand/logo-user-white.png" : "/logo.png"
+
     const content = (
         <div className={cn("flex flex-col", className)}>
             <div className="flex items-center">
                 <Image
-                    src="/logo.png"
+                    src={logoSrc}
                     alt="Pasiflow"
                     width={styles.width}
                     height={styles.height}
