@@ -1,3 +1,5 @@
+@import url("https://api.fontshare.com/v2/css?f[]=sentient@400,500,500i,700&f[]=general-sans@400,500,600,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -194,4 +196,95 @@ input[type="range"]::-moz-range-thumb {
     line-height: 1.2;
     letter-spacing: -0.01em;
   }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Detroit Manager Portal — scoped design tokens & typography
+   Scope: only inside .manager-surface (set on the manager root)
+   Marketing site keeps Inter + Playfair.
+   ───────────────────────────────────────────────────────────── */
+
+.manager-surface {
+  /* Palette — warm off-white "paper", deep ink, precious gold */
+  --ink: #1F2328;
+  --ink-soft: #3D4852;
+  --ink-mute: #6C7585;
+  --ink-faint: #A8AEB6;
+  --paper: #F6F4EE;
+  --paper-sunk: #EFEBE1;
+  --paper-card: #FBFAF6;
+  --line: #E2DDD0;
+  --line-strong: #C9C3B2;
+  --gold: #C1A05E;
+  --gold-deep: #8B7340;
+  --gold-wash: #F1E9D6;
+  --red-ink: #B04438;
+
+  --font-display: "Sentient", "Iowan Old Style", Georgia, serif;
+  --font-ui: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  font-family: var(--font-ui);
+  color: var(--ink);
+  background: var(--paper);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Tabular figures everywhere money appears */
+.manager-surface .num,
+.manager-surface .tabular {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  letter-spacing: -0.01em;
+}
+
+/* Display headings — editorial serif */
+.manager-surface .display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--ink);
+}
+
+.manager-surface .eyebrow {
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+
+/* Hairline divider — the "surveyor's notebook" rule */
+.manager-surface .rule {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 0;
+}
+
+/* Editorial figure for step numbers */
+.manager-surface .figure-numeral {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-style: italic;
+  font-feature-settings: "lnum" 1;
+}
+
+/* Reset shadcn input defaults inside the manager surface */
+.manager-surface input,
+.manager-surface textarea,
+.manager-surface [role="combobox"] {
+  font-family: var(--font-ui);
+  background: var(--paper-card);
+  border-color: var(--line);
+  color: var(--ink);
+}
+.manager-surface input:focus-visible,
+.manager-surface textarea:focus-visible {
+  border-color: var(--ink);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--ink);
 }

@@ -5,34 +5,12 @@ import { motion, AnimatePresence } from "framer-motion"
 import {
     Plus,
     Trash2,
-    Pencil,
     Upload,
     X,
     ArrowLeft,
     ArrowRight,
-    Save,
-    Send,
-    CheckCircle2,
     AlertCircle,
-    DollarSign,
-    Home as HomeIcon,
-    Wrench,
-    ImageIcon,
-    Calculator,
-    ClipboardCheck,
-    MapPin,
 } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select"
 import { cn } from "@/lib/utils"
 
 // ───────────────── Business constants ─────────────────
@@ -68,7 +46,6 @@ type Listing = {
 }
 
 type DraftListing = {
-    id?: string
     address: string
     price: number | ""
     bedrooms: number | ""
@@ -150,24 +127,22 @@ function analyzeDeal(input: {
     }
 }
 
-function money(n: number, opts: { sign?: boolean; decimals?: number } = {}) {
-    const { sign, decimals = 0 } = opts
+function money(n: number, decimals = 0) {
     if (!isFinite(n)) return "$0"
-    const abs = Math.abs(n)
-    const fmt = abs.toLocaleString("en-US", {
+    const fmt = Math.abs(n).toLocaleString("en-US", {
         minimumFractionDigits: decimals,
         maximumFractionDigits: decimals,
     })
-    const symbol = sign && n < 0 ? "-$" : "$"
-    return `${symbol}${fmt}`
+    const sign = n < 0 ? "−" : ""
+    return `${sign}$${fmt}`
 }
 
 const STEPS = [
-    { key: "property", label: "Property", icon: HomeIcon },
-    { key: "renovation", label: "Renovation", icon: Wrench },
-    { key: "photos", label: "Photos", icon: ImageIcon },
-    { key: "pricing", label: "Pricing & DSCR", icon: Calculator },
-    { key: "review", label: "Review & Publish", icon: ClipboardCheck },
+    { key: "property", label: "Property", num: "01" },
+    { key: "renovation", label: "Renovation", num: "02" },
+    { key: "photos", label: "Photos", num: "03" },
+    { key: "pricing", label: "Pricing & DSCR", num: "04" },
+    { key: "review", label: "Review & Publish", num: "05" },
 ] as const
 
 type StepKey = typeof STEPS[number]["key"]
@@ -179,6 +154,13 @@ export default function ManagerPage() {
     const [loadingList, setLoadingList] = useState(true)
     const [draft, setDraft] = useState<DraftListing>(EMPTY_DRAFT)
     const [editingId, setEditingId] = useState<string | null>(null)
+
+    // Notify layout sidebar of active view
+    useEffect(() => {
+        window.dispatchEvent(
+            new CustomEvent("manager:active", { detail: view === "list" ? "list" : "new" })
+        )
+    }, [view])
 
     const fetchListings = useCallback(async () => {
         setLoadingList(true)
@@ -252,9 +234,7 @@ export default function ManagerPage() {
             method: "DELETE",
             headers: { Authorization: `Bearer ${token}` },
         })
-        if (res.ok) {
-            setListings((prev) => prev.filter((l) => l.id !== id))
-        }
+        if (res.ok) setListings((prev) => prev.filter((l) => l.id !== id))
     }
 
     if (view === "list") {
@@ -306,134 +286,242 @@ function ListingsList({
     onEdit: (l: Listing) => void
     onDelete: (id: string) => void
 }) {
+    const total = listings.length
+    const published = listings.filter((l) => l.status === "published").length
+    const drafts = total - published
+
     return (
         <div>
-            <div className="flex items-center justify-between mb-8">
+            {/* Header — editorial masthead */}
+            <header className="flex items-end justify-between gap-6 pb-10 mb-12 border-b border-[#E2DDD0]">
                 <div>
-                    <h1 className="text-3xl font-bold text-[#1F2328] tracking-tight">Listings</h1>
-                    <p className="text-sm text-slate-500 mt-1">
-                        Manage Detroit wholesale pipeline — drafts and published deals.
+                    <div className="eyebrow">Pipeline · Detroit, MI</div>
+                    <h1 className="display text-[clamp(48px,7vw,84px)] mt-3">
+                        Listings<span className="italic text-[#C1A05E]">.</span>
+                    </h1>
+                    <p className="text-[15px] text-[#6C7585] mt-4 max-w-md leading-relaxed">
+                        Wholesale pipeline — draft and publish deals for Pasiflow investors.
                     </p>
                 </div>
-                <Button
+                <button
                     onClick={onAdd}
-                    className="bg-[#1F2328] hover:bg-[#2D353F] text-white rounded-xl h-11 px-5 gap-2 shadow-lg shadow-[#1F2328]/10"
+                    className="hidden md:inline-flex items-center gap-2.5 px-5 py-3 bg-[#1F2328] hover:bg-[#0F1216] text-[#F6F4EE] text-[13px] font-medium tracking-tight transition-colors"
                 >
-                    <Plus size={16} /> Add new listing
-                </Button>
+                    <Plus size={14} strokeWidth={2.5} /> New listing
+                </button>
+            </header>
+
+            {/* Counters strip — three editorial figures */}
+            <div className="grid grid-cols-3 gap-px bg-[#E2DDD0] mb-14">
+                <FigureCell label="Total" value={total} />
+                <FigureCell label="Published" value={published} highlight />
+                <FigureCell label="Drafts" value={drafts} />
             </div>
 
             {loading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                <ul className="space-y-px">
                     {[0, 1, 2].map((i) => (
-                        <div key={i} className="rounded-2xl bg-white border border-slate-200 p-6 h-48 animate-pulse" />
+                        <li key={i} className="h-24 bg-[#EFEBE1] animate-pulse" />
                     ))}
-                </div>
+                </ul>
             ) : listings.length === 0 ? (
-                <div className="rounded-3xl border-2 border-dashed border-slate-200 bg-white p-16 text-center">
-                    <div className="w-14 h-14 mx-auto rounded-2xl bg-[#C1A05E]/10 flex items-center justify-center mb-4">
-                        <HomeIcon className="w-7 h-7 text-[#C1A05E]" />
-                    </div>
-                    <h3 className="text-lg font-semibold text-[#1F2328]">No listings yet</h3>
-                    <p className="text-sm text-slate-500 mt-1 mb-6">
-                        Add your first Detroit property to start the pipeline.
-                    </p>
-                    <Button onClick={onAdd} className="bg-[#C1A05E] hover:bg-[#a38d5d] text-white rounded-xl gap-2">
-                        <Plus size={16} /> Add new listing
-                    </Button>
-                </div>
+                <EmptyState onAdd={onAdd} />
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-                    {listings.map((l) => {
-                        const dealMath = analyzeDeal({
-                            price: l.price,
-                            monthlyRent: l.monthlyRent,
-                            dscrRate: l.dscrRate,
-                            annualTaxes: l.annualTaxes,
-                            annualInsurance: l.annualInsurance,
-                        })
-                        const photos = safeParseArray(l.afterPhotos)
-                        const cover = photos[0] || safeParseArray(l.beforePhotos)[0]
-                        return (
-                            <motion.div
-                                key={l.id}
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                className="rounded-2xl bg-white border border-slate-200 hover:border-[#C1A05E]/40 hover:shadow-xl transition-all overflow-hidden group"
-                            >
-                                <div className="relative h-40 bg-gradient-to-br from-slate-100 to-slate-200">
-                                    {cover ? (
-                                        // eslint-disable-next-line @next/next/no-img-element
-                                        <img src={cover} alt={l.address} className="w-full h-full object-cover" />
-                                    ) : (
-                                        <div className="flex items-center justify-center h-full text-slate-400">
-                                            <ImageIcon size={36} />
-                                        </div>
-                                    )}
-                                    <span
-                                        className={cn(
-                                            "absolute top-3 right-3 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full",
-                                            l.status === "published"
-                                                ? "bg-green-500/90 text-white"
-                                                : "bg-slate-700/80 text-white"
-                                        )}
-                                    >
-                                        {l.status}
-                                    </span>
-                                </div>
-                                <div className="p-5">
-                                    <div className="flex items-start gap-2 mb-3">
-                                        <MapPin size={14} className="text-[#C1A05E] mt-0.5 flex-shrink-0" />
-                                        <h3 className="text-sm font-semibold text-[#1F2328] line-clamp-2 leading-tight">
-                                            {l.address}
-                                        </h3>
-                                    </div>
-                                    <div className="grid grid-cols-3 gap-2 mb-4">
-                                        <Stat label="Price" value={money(l.price)} />
-                                        <Stat label="Rent" value={money(l.monthlyRent) + "/mo"} />
-                                        <Stat
-                                            label="CoC"
-                                            value={`${dealMath.cocReturn.toFixed(1)}%`}
-                                            highlight
-                                        />
-                                    </div>
-                                    <div className="flex gap-2 pt-3 border-t border-slate-100">
-                                        <button
-                                            onClick={() => onEdit(l)}
-                                            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold text-[#1F2328] hover:bg-slate-100 transition-colors"
-                                        >
-                                            <Pencil size={13} /> Edit
-                                        </button>
-                                        <button
-                                            onClick={() => onDelete(l.id)}
-                                            className="inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-xs font-semibold text-red-500 hover:bg-red-50 transition-colors"
-                                        >
-                                            <Trash2 size={13} /> Delete
-                                        </button>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        )
-                    })}
-                </div>
+                <ListingTable listings={listings} onEdit={onEdit} onDelete={onDelete} />
             )}
+
+            <button
+                onClick={onAdd}
+                className="md:hidden mt-10 w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#1F2328] text-[#F6F4EE] text-[13px] font-medium"
+            >
+                <Plus size={14} strokeWidth={2.5} /> New listing
+            </button>
         </div>
     )
 }
 
-function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
+function FigureCell({ label, value, highlight }: { label: string; value: number; highlight?: boolean }) {
     return (
-        <div>
-            <div className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">{label}</div>
+        <div className={cn("bg-[#F6F4EE] px-6 py-5", highlight && "bg-[#FBFAF6]")}>
+            <div className="eyebrow text-[9px]">{label}</div>
             <div
                 className={cn(
-                    "text-sm font-bold mt-0.5",
+                    "display mt-2 text-[40px] leading-none tabular-nums",
                     highlight ? "text-[#C1A05E]" : "text-[#1F2328]"
                 )}
             >
-                {value}
+                {String(value).padStart(2, "0")}
             </div>
         </div>
+    )
+}
+
+function EmptyState({ onAdd }: { onAdd: () => void }) {
+    return (
+        <div className="py-24 text-center border-t border-b border-[#E2DDD0]">
+            <div className="eyebrow text-[#A8AEB6]">No listings yet</div>
+            <p className="display text-[36px] mt-4 leading-tight max-w-md mx-auto">
+                Start the first <span className="italic text-[#C1A05E]">deal</span>
+            </p>
+            <p className="text-[14px] text-[#6C7585] mt-3 max-w-sm mx-auto">
+                Walk a Detroit property, draft the numbers, publish to the pipeline.
+            </p>
+            <button
+                onClick={onAdd}
+                className="mt-8 inline-flex items-center gap-2 px-5 py-3 bg-[#1F2328] text-[#F6F4EE] text-[13px] font-medium"
+            >
+                <Plus size={14} strokeWidth={2.5} /> New listing
+            </button>
+        </div>
+    )
+}
+
+function ListingTable({
+    listings,
+    onEdit,
+    onDelete,
+}: {
+    listings: Listing[]
+    onEdit: (l: Listing) => void
+    onDelete: (id: string) => void
+}) {
+    return (
+        <div>
+            {/* Column headings */}
+            <div className="hidden md:grid grid-cols-[3rem_minmax(0,1fr)_8rem_8rem_5rem_5rem] gap-6 pb-3 border-b border-[#E2DDD0] eyebrow text-[#A8AEB6]">
+                <div className="text-[9px]">№</div>
+                <div className="text-[9px]">Address</div>
+                <div className="text-[9px] text-right">Price</div>
+                <div className="text-[9px] text-right">Rent</div>
+                <div className="text-[9px] text-right">CoC</div>
+                <div className="text-[9px] text-right">Status</div>
+            </div>
+
+            <ul>
+                {listings.map((l, idx) => {
+                    const math = analyzeDeal({
+                        price: l.price,
+                        monthlyRent: l.monthlyRent,
+                        dscrRate: l.dscrRate,
+                        annualTaxes: l.annualTaxes,
+                        annualInsurance: l.annualInsurance,
+                    })
+                    const photos = safeParseArray(l.afterPhotos)
+                    const cover = photos[0] || safeParseArray(l.beforePhotos)[0]
+                    return (
+                        <li
+                            key={l.id}
+                            className="group border-b border-[#E2DDD0] transition-colors hover:bg-[#FBFAF6]"
+                        >
+                            <div className="hidden md:grid grid-cols-[3rem_minmax(0,1fr)_8rem_8rem_5rem_5rem] gap-6 items-center py-5">
+                                <div className="figure-numeral text-[15px] text-[#A8AEB6]">
+                                    {String(idx + 1).padStart(2, "0")}
+                                </div>
+                                <button
+                                    onClick={() => onEdit(l)}
+                                    className="flex items-center gap-4 text-left min-w-0"
+                                >
+                                    <div className="w-14 h-14 flex-shrink-0 bg-[#EFEBE1] overflow-hidden">
+                                        {cover ? (
+                                            // eslint-disable-next-line @next/next/no-img-element
+                                            <img
+                                                src={cover}
+                                                alt=""
+                                                className="w-full h-full object-cover"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full flex items-center justify-center">
+                                                <div className="w-2 h-2 rounded-full bg-[#A8AEB6]" />
+                                            </div>
+                                        )}
+                                    </div>
+                                    <div className="min-w-0">
+                                        <div className="text-[15px] text-[#1F2328] truncate tracking-tight">
+                                            {l.address}
+                                        </div>
+                                        <div className="text-[12px] text-[#6C7585] mt-0.5">
+                                            {l.propertyType} · {l.bedrooms}bd / {l.bathrooms}ba
+                                        </div>
+                                    </div>
+                                </button>
+                                <div className="num text-[15px] text-right text-[#1F2328]">
+                                    {money(l.price)}
+                                </div>
+                                <div className="num text-[14px] text-right text-[#6C7585]">
+                                    {money(l.monthlyRent)}
+                                    <span className="text-[11px] text-[#A8AEB6]">/mo</span>
+                                </div>
+                                <div className="num text-[16px] text-right text-[#C1A05E]">
+                                    {math.cocReturn.toFixed(1)}%
+                                </div>
+                                <div className="flex justify-end items-center gap-2">
+                                    <StatusBadge status={l.status} />
+                                    <button
+                                        onClick={() => onDelete(l.id)}
+                                        aria-label="Delete"
+                                        className="text-[#A8AEB6] opacity-0 group-hover:opacity-100 hover:text-[#B04438] transition-all"
+                                    >
+                                        <Trash2 size={14} />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Mobile card */}
+                            <div className="md:hidden py-5 flex gap-4">
+                                <button onClick={() => onEdit(l)} className="flex-1 min-w-0 text-left">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="figure-numeral text-[13px] text-[#A8AEB6]">
+                                            {String(idx + 1).padStart(2, "0")}
+                                        </div>
+                                        <StatusBadge status={l.status} />
+                                    </div>
+                                    <div className="text-[15px] text-[#1F2328] tracking-tight">{l.address}</div>
+                                    <div className="text-[12px] text-[#6C7585] mt-1">
+                                        {l.propertyType} · {l.bedrooms}bd / {l.bathrooms}ba
+                                    </div>
+                                    <div className="flex items-baseline gap-5 mt-3 text-[13px]">
+                                        <span className="num text-[#1F2328]">{money(l.price)}</span>
+                                        <span className="num text-[#6C7585]">
+                                            {money(l.monthlyRent)}/mo
+                                        </span>
+                                        <span className="num text-[#C1A05E] text-[15px]">
+                                            {math.cocReturn.toFixed(1)}%
+                                        </span>
+                                    </div>
+                                </button>
+                                <button
+                                    onClick={() => onDelete(l.id)}
+                                    aria-label="Delete"
+                                    className="text-[#A8AEB6] hover:text-[#B04438] self-start"
+                                >
+                                    <Trash2 size={14} />
+                                </button>
+                            </div>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
+    )
+}
+
+function StatusBadge({ status }: { status: string }) {
+    const published = status === "published"
+    return (
+        <span
+            className={cn(
+                "inline-flex items-center gap-1.5 text-[10px] tracking-[0.18em] uppercase font-semibold",
+                published ? "text-[#C1A05E]" : "text-[#A8AEB6]"
+            )}
+        >
+            <span
+                className={cn(
+                    "w-1 h-1 rounded-full",
+                    published ? "bg-[#C1A05E]" : "bg-[#A8AEB6]"
+                )}
+            />
+            {status}
+        </span>
     )
 }
 
@@ -509,28 +597,30 @@ function Wizard({
 
     return (
         <div>
-            <div className="flex items-center justify-between mb-6">
+            {/* Top bar — back + context */}
+            <div className="flex items-center justify-between mb-10">
                 <button
                     onClick={onExit}
-                    className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-[#1F2328] transition-colors font-medium"
+                    className="inline-flex items-center gap-2 text-[12px] tracking-tight text-[#6C7585] hover:text-[#1F2328] transition-colors"
                 >
-                    <ArrowLeft size={16} /> Back to listings
+                    <ArrowLeft size={14} /> Back to listings
                 </button>
-                <span className="text-xs uppercase tracking-wider text-slate-400 font-medium">
-                    {editingId ? "Editing listing" : "New listing"}
+                <span className="eyebrow text-[9px]">
+                    {editingId ? "Editing" : "New listing"}
                 </span>
             </div>
 
-            <StepIndicator currentIdx={stepIdx} onJump={setStepIdx} />
+            {/* Step indicator — editorial stations */}
+            <StepStations currentIdx={stepIdx} onJump={setStepIdx} />
 
-            <div className="mt-8 rounded-3xl bg-white border border-slate-200 shadow-sm p-6 md:p-10">
+            <div className="mt-14">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={step.key}
-                        initial={{ opacity: 0, y: 8 }}
+                        initial={{ opacity: 0, y: 6 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -8 }}
-                        transition={{ duration: 0.2 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                     >
                         {step.key === "property" && <StepProperty draft={draft} setDraft={setDraft} />}
                         {step.key === "renovation" && <StepRenovation draft={draft} setDraft={setDraft} />}
@@ -541,47 +631,45 @@ function Wizard({
                 </AnimatePresence>
 
                 {error && (
-                    <div className="mt-6 p-3 rounded-xl bg-red-50 border border-red-100 text-red-600 text-sm flex items-center gap-2">
-                        <AlertCircle size={16} /> {error}
+                    <div className="mt-8 px-4 py-3 bg-[#FBF1EF] border border-[#E5C8C2] text-[#B04438] text-[13px] flex items-center gap-2">
+                        <AlertCircle size={14} /> {error}
                     </div>
                 )}
 
-                {/* Footer */}
-                <div className="mt-10 pt-6 border-t border-slate-100 flex items-center justify-between gap-4">
-                    <Button
-                        variant="outline"
+                {/* Foot — prev / next or publish */}
+                <div className="mt-16 pt-8 border-t border-[#E2DDD0] flex items-center justify-between gap-6">
+                    <button
                         disabled={stepIdx === 0}
                         onClick={() => setStepIdx((i) => Math.max(0, i - 1))}
-                        className="rounded-xl h-11 px-5 gap-2 border-slate-300 text-[#1F2328]"
+                        className="inline-flex items-center gap-2 text-[13px] text-[#6C7585] hover:text-[#1F2328] transition-colors disabled:opacity-30 disabled:cursor-not-allowed tracking-tight"
                     >
-                        <ArrowLeft size={16} /> Previous
-                    </Button>
+                        <ArrowLeft size={14} /> Previous
+                    </button>
 
                     {stepIdx < STEPS.length - 1 ? (
-                        <Button
+                        <button
                             disabled={!canGoNext}
                             onClick={() => setStepIdx((i) => Math.min(STEPS.length - 1, i + 1))}
-                            className="rounded-xl h-11 px-5 gap-2 bg-[#1F2328] hover:bg-[#2D353F] text-white"
+                            className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#1F2328] hover:bg-[#0F1216] disabled:bg-[#A8AEB6] text-[#F6F4EE] text-[13px] font-medium tracking-tight transition-colors"
                         >
-                            Next <ArrowRight size={16} />
-                        </Button>
+                            Continue <ArrowRight size={14} />
+                        </button>
                     ) : (
-                        <div className="flex items-center gap-3">
-                            <Button
-                                variant="outline"
+                        <div className="flex items-center gap-5">
+                            <button
                                 disabled={saving}
                                 onClick={() => save("draft")}
-                                className="rounded-xl h-11 px-5 gap-2 border-slate-300 text-[#1F2328]"
+                                className="text-[13px] text-[#6C7585] hover:text-[#1F2328] tracking-tight transition-colors disabled:opacity-40"
                             >
-                                <Save size={16} /> Save as Draft
-                            </Button>
-                            <Button
+                                Save as draft
+                            </button>
+                            <button
                                 disabled={saving}
                                 onClick={() => save("published")}
-                                className="rounded-xl h-11 px-5 gap-2 bg-[#C1A05E] hover:bg-[#a38d5d] text-white shadow-lg shadow-[#C1A05E]/20"
+                                className="inline-flex items-center gap-2.5 px-6 py-3 bg-[#C1A05E] hover:bg-[#8B7340] disabled:bg-[#A8AEB6] text-white text-[13px] font-medium tracking-tight transition-colors"
                             >
-                                <Send size={16} /> Publish listing
-                            </Button>
+                                Publish listing <ArrowRight size={14} />
+                            </button>
                         </div>
                     )}
                 </div>
@@ -590,51 +678,161 @@ function Wizard({
     )
 }
 
-function StepIndicator({ currentIdx, onJump }: { currentIdx: number; onJump: (i: number) => void }) {
+function StepStations({ currentIdx, onJump }: { currentIdx: number; onJump: (i: number) => void }) {
     return (
-        <div className="hidden md:flex items-center gap-2">
-            {STEPS.map((s, i) => {
-                const Icon = s.icon
-                const active = i === currentIdx
-                const done = i < currentIdx
-                return (
-                    <button
-                        key={s.key}
-                        onClick={() => onJump(i)}
-                        className={cn(
-                            "flex-1 flex items-center gap-3 px-4 py-3 rounded-2xl border transition-all text-left",
-                            active && "border-[#C1A05E] bg-[#C1A05E]/5 shadow-sm",
-                            done && "border-emerald-200 bg-emerald-50/50",
-                            !active && !done && "border-slate-200 bg-white hover:border-slate-300"
-                        )}
-                    >
-                        <div
-                            className={cn(
-                                "w-8 h-8 rounded-xl flex items-center justify-center text-xs font-bold flex-shrink-0",
-                                active && "bg-[#C1A05E] text-white",
-                                done && "bg-emerald-500 text-white",
-                                !active && !done && "bg-slate-100 text-slate-500"
-                            )}
+        <>
+            {/* Desktop — horizontal stations */}
+            <div className="hidden md:grid grid-cols-5">
+                {STEPS.map((s, i) => {
+                    const active = i === currentIdx
+                    const done = i < currentIdx
+                    return (
+                        <button
+                            key={s.key}
+                            onClick={() => onJump(i)}
+                            className="group text-left pt-5 pr-6"
                         >
-                            {done ? <CheckCircle2 size={16} /> : <Icon size={14} />}
-                        </div>
-                        <div className="min-w-0">
-                            <div className="text-[10px] uppercase tracking-wider text-slate-400 font-medium">
-                                Step {i + 1}
-                            </div>
-                            <div
-                                className={cn(
-                                    "text-sm font-semibold truncate",
-                                    active ? "text-[#1F2328]" : done ? "text-emerald-700" : "text-slate-600"
+                            {/* Rule with the active node */}
+                            <div className="relative h-[2px] mb-4">
+                                <div className="absolute inset-0 bg-[#E2DDD0]" />
+                                {active && (
+                                    <motion.div
+                                        layoutId="station-bar"
+                                        className="absolute inset-0 bg-[#C1A05E]"
+                                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                    />
                                 )}
-                            >
-                                {s.label}
+                                {done && <div className="absolute inset-0 bg-[#1F2328]" />}
                             </div>
-                        </div>
-                    </button>
-                )
-            })}
-        </div>
+                            <div className="flex items-baseline gap-3">
+                                <span
+                                    className={cn(
+                                        "figure-numeral text-[15px]",
+                                        active
+                                            ? "text-[#C1A05E]"
+                                            : done
+                                                ? "text-[#1F2328]"
+                                                : "text-[#A8AEB6]"
+                                    )}
+                                >
+                                    {s.num}
+                                </span>
+                                <span
+                                    className={cn(
+                                        "text-[13px] tracking-tight transition-colors",
+                                        active
+                                            ? "text-[#1F2328]"
+                                            : done
+                                                ? "text-[#6C7585]"
+                                                : "text-[#A8AEB6] group-hover:text-[#6C7585]"
+                                    )}
+                                >
+                                    {s.label}
+                                </span>
+                            </div>
+                        </button>
+                    )
+                })}
+            </div>
+
+            {/* Mobile — compact */}
+            <div className="md:hidden">
+                <div className="eyebrow text-[9px] text-[#A8AEB6]">
+                    Step {String(currentIdx + 1).padStart(2, "0")} / {STEPS.length}
+                </div>
+                <div className="display text-[28px] mt-2">
+                    {STEPS[currentIdx].label}
+                </div>
+                <div className="mt-4 grid grid-cols-5 gap-1">
+                    {STEPS.map((_, i) => (
+                        <div
+                            key={i}
+                            className={cn(
+                                "h-[2px]",
+                                i === currentIdx
+                                    ? "bg-[#C1A05E]"
+                                    : i < currentIdx
+                                        ? "bg-[#1F2328]"
+                                        : "bg-[#E2DDD0]"
+                            )}
+                        />
+                    ))}
+                </div>
+            </div>
+        </>
+    )
+}
+
+// ═════════════════════ Inputs (custom, paper-styled) ═════════════════════
+function TextField({
+    label,
+    value,
+    onChange,
+    placeholder,
+    type = "text",
+    step,
+}: {
+    label: string
+    value: string | number
+    onChange: (v: string) => void
+    placeholder?: string
+    type?: string
+    step?: string
+}) {
+    return (
+        <label className="block">
+            <span className="eyebrow text-[9px] block mb-2">{label}</span>
+            <input
+                type={type}
+                step={step}
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                placeholder={placeholder}
+                className={cn(
+                    "w-full bg-transparent border-0 border-b border-[#E2DDD0] py-2.5 px-0",
+                    "text-[16px] text-[#1F2328] placeholder:text-[#A8AEB6]",
+                    "focus:border-[#1F2328] focus:outline-none focus:ring-0 transition-colors",
+                    type === "number" && "num tabular-nums"
+                )}
+            />
+        </label>
+    )
+}
+
+function SelectField({
+    label,
+    value,
+    onChange,
+    options,
+}: {
+    label: string
+    value: string
+    onChange: (v: string) => void
+    options: string[]
+}) {
+    return (
+        <label className="block">
+            <span className="eyebrow text-[9px] block mb-2">{label}</span>
+            <select
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                className="w-full bg-transparent border-0 border-b border-[#E2DDD0] py-2.5 px-0 text-[16px] text-[#1F2328] focus:border-[#1F2328] focus:outline-none cursor-pointer appearance-none"
+                style={{
+                    backgroundImage:
+                        "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%236C7585' stroke-width='1.5'%3e%3cpath d='M4 6l4 4 4-4'/%3e%3c/svg%3e\")",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "right center",
+                    backgroundSize: "14px",
+                    paddingRight: "20px",
+                }}
+            >
+                {options.map((o) => (
+                    <option key={o} value={o}>
+                        {o}
+                    </option>
+                ))}
+            </select>
+        </label>
     )
 }
 
@@ -647,106 +845,101 @@ function StepProperty({
     setDraft: React.Dispatch<React.SetStateAction<DraftListing>>
 }) {
     return (
-        <div className="space-y-6">
-            <div>
-                <h2 className="text-xl font-bold text-[#1F2328]">Property details</h2>
-                <p className="text-sm text-slate-500 mt-1">Where is it, and what are the basics?</p>
+        <div className="grid md:grid-cols-[minmax(0,1fr)_22rem] gap-x-16 gap-y-10">
+            {/* Left — heading */}
+            <div className="md:col-span-2">
+                <div className="eyebrow">Section · 01</div>
+                <h2 className="display text-[clamp(36px,4.5vw,52px)] mt-3">
+                    Where is it<span className="italic text-[#C1A05E]">,</span> and what are we
+                    looking at?
+                </h2>
+                <p className="text-[14px] text-[#6C7585] mt-4 max-w-md leading-relaxed">
+                    The fundamentals of the property. Get these right; the rest is math.
+                </p>
             </div>
 
-            <FieldRow>
-                <Field label="Property Address" full>
-                    <Input
-                        value={draft.address}
-                        onChange={(e) => setDraft((d) => ({ ...d, address: e.target.value }))}
-                        placeholder="12152 Stout Street, Detroit, MI 48228"
-                    />
-                </Field>
-            </FieldRow>
-
-            <FieldRow>
-                <Field label="Asking Price ($)">
-                    <Input
+            {/* Left column — inputs */}
+            <div className="space-y-7">
+                <TextField
+                    label="Property address"
+                    value={draft.address}
+                    onChange={(v) => setDraft((d) => ({ ...d, address: v }))}
+                    placeholder="12152 Stout Street, Detroit, MI 48228"
+                />
+                <div className="grid grid-cols-2 gap-x-8 gap-y-7">
+                    <TextField
+                        label="Asking price ($)"
                         type="number"
                         value={draft.price}
-                        onChange={(e) =>
-                            setDraft((d) => ({ ...d, price: e.target.value === "" ? "" : Number(e.target.value) }))
+                        onChange={(v) =>
+                            setDraft((d) => ({ ...d, price: v === "" ? "" : Number(v) }))
                         }
-                        placeholder="85900"
+                        placeholder="85,900"
                     />
-                </Field>
-                <Field label="Property Type">
-                    <Select
+                    <SelectField
+                        label="Property type"
                         value={draft.propertyType}
-                        onValueChange={(v) => setDraft((d) => ({ ...d, propertyType: v }))}
-                    >
-                        <SelectTrigger>
-                            <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                            {PROPERTY_TYPES.map((t) => (
-                                <SelectItem key={t} value={t}>
-                                    {t}
-                                </SelectItem>
-                            ))}
-                        </SelectContent>
-                    </Select>
-                </Field>
-            </FieldRow>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Field label="Bedrooms">
-                    <Input
+                        onChange={(v) => setDraft((d) => ({ ...d, propertyType: v }))}
+                        options={PROPERTY_TYPES}
+                    />
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-7">
+                    <TextField
+                        label="Beds"
                         type="number"
                         value={draft.bedrooms}
-                        onChange={(e) =>
-                            setDraft((d) => ({ ...d, bedrooms: e.target.value === "" ? "" : Number(e.target.value) }))
+                        onChange={(v) =>
+                            setDraft((d) => ({ ...d, bedrooms: v === "" ? "" : Number(v) }))
                         }
                     />
-                </Field>
-                <Field label="Bathrooms">
-                    <Input
+                    <TextField
+                        label="Baths"
                         type="number"
                         step="0.5"
                         value={draft.bathrooms}
-                        onChange={(e) =>
-                            setDraft((d) => ({ ...d, bathrooms: e.target.value === "" ? "" : Number(e.target.value) }))
+                        onChange={(v) =>
+                            setDraft((d) => ({ ...d, bathrooms: v === "" ? "" : Number(v) }))
                         }
                     />
-                </Field>
-                <Field label="Sqft">
-                    <Input
+                    <TextField
+                        label="Sqft"
                         type="number"
                         value={draft.sqft}
-                        onChange={(e) =>
-                            setDraft((d) => ({ ...d, sqft: e.target.value === "" ? "" : Number(e.target.value) }))
+                        onChange={(v) =>
+                            setDraft((d) => ({ ...d, sqft: v === "" ? "" : Number(v) }))
                         }
-                        placeholder="1200"
+                        placeholder="1,200"
                     />
-                </Field>
-                <Field label="Land Size">
-                    <Input
+                    <TextField
+                        label="Land"
                         value={draft.landSize}
-                        onChange={(e) => setDraft((d) => ({ ...d, landSize: e.target.value }))}
-                        placeholder="0.10 acres"
+                        onChange={(v) => setDraft((d) => ({ ...d, landSize: v }))}
+                        placeholder="0.10 ac"
                     />
-                </Field>
+                </div>
+                <TextField
+                    label="Year built"
+                    type="number"
+                    value={draft.yearBuilt}
+                    onChange={(v) =>
+                        setDraft((d) => ({ ...d, yearBuilt: v === "" ? "" : Number(v) }))
+                    }
+                    placeholder="1950"
+                />
             </div>
 
-            <FieldRow>
-                <Field label="Year Built">
-                    <Input
-                        type="number"
-                        value={draft.yearBuilt}
-                        onChange={(e) =>
-                            setDraft((d) => ({
-                                ...d,
-                                yearBuilt: e.target.value === "" ? "" : Number(e.target.value),
-                            }))
-                        }
-                        placeholder="1950"
-                    />
-                </Field>
-            </FieldRow>
+            {/* Right — pull quote / margin note */}
+            <aside className="hidden md:block border-l border-[#E2DDD0] pl-10">
+                <div className="eyebrow">Note</div>
+                <p className="display text-[20px] mt-3 leading-snug text-[#1F2328]">
+                    Get the address exact. The investor's wire instructions key off this string.
+                </p>
+                <div className="eyebrow mt-10">Detroit</div>
+                <p className="text-[13px] text-[#6C7585] mt-2 leading-relaxed">
+                    Wayne County, MI. Section 8 voucher market. Cash-on-cash typically settles in
+                    the 11–14% band at current DSCR rates.
+                </p>
+            </aside>
         </div>
     )
 }
@@ -772,70 +965,80 @@ function StepRenovation({
         setDraft((d) => ({ ...d, renovationItems: d.renovationItems.filter((_, i) => i !== idx) }))
 
     return (
-        <div className="space-y-6">
-            <div>
-                <h2 className="text-xl font-bold text-[#1F2328]">Renovation scope</h2>
-                <p className="text-sm text-slate-500 mt-1">
-                    What work was done? Investors love a detailed scope.
+        <div className="grid md:grid-cols-2 gap-x-16 gap-y-10">
+            <div className="md:col-span-2">
+                <div className="eyebrow">Section · 02</div>
+                <h2 className="display text-[clamp(36px,4.5vw,52px)] mt-3">
+                    The <span className="italic text-[#C1A05E]">work</span> we did
+                </h2>
+                <p className="text-[14px] text-[#6C7585] mt-4 max-w-md leading-relaxed">
+                    A detailed scope is what separates wholesale from selling a problem.
                 </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-200 bg-slate-50/40 p-5">
-                <Label className="text-sm font-semibold mb-3 block">Renovation Items</Label>
-                <div className="flex gap-2">
-                    <Input
+            <div>
+                <div className="eyebrow text-[9px] mb-2">Renovation items</div>
+                <div className="flex items-end gap-3 border-b border-[#E2DDD0] pb-2">
+                    <input
                         value={item}
                         onChange={(e) => setItem(e.target.value)}
-                        placeholder="e.g. New roof, kitchen remodel..."
+                        placeholder="e.g. New roof, kitchen remodel…"
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
                                 e.preventDefault()
                                 addItem()
                             }
                         }}
+                        className="flex-1 bg-transparent border-0 py-1.5 text-[15px] focus:outline-none"
                     />
-                    <Button
+                    <button
                         type="button"
                         onClick={addItem}
-                        className="bg-[#1F2328] hover:bg-[#2D353F] text-white rounded-xl gap-2 flex-shrink-0"
+                        className="text-[#1F2328] hover:text-[#C1A05E] transition-colors"
+                        aria-label="Add item"
                     >
-                        <Plus size={16} /> Add
-                    </Button>
+                        <Plus size={16} strokeWidth={2.5} />
+                    </button>
                 </div>
 
                 {draft.renovationItems.length > 0 && (
-                    <ul className="mt-4 space-y-2">
+                    <ol className="mt-6 space-y-3">
                         {draft.renovationItems.map((it, i) => (
                             <motion.li
                                 key={`${it}-${i}`}
-                                initial={{ opacity: 0, x: -8 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="flex items-center justify-between bg-white px-4 py-3 rounded-xl border border-slate-200 group"
+                                initial={{ opacity: 0, y: 4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="group flex items-start gap-4 py-1"
                             >
-                                <div className="flex items-center gap-3">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#C1A05E]" />
-                                    <span className="text-sm text-[#1F2328]">{it}</span>
-                                </div>
+                                <span className="figure-numeral text-[13px] text-[#A8AEB6] w-6 flex-shrink-0 pt-0.5">
+                                    {String(i + 1).padStart(2, "0")}
+                                </span>
+                                <span className="flex-1 text-[15px] text-[#1F2328] leading-relaxed">
+                                    {it}
+                                </span>
                                 <button
                                     onClick={() => removeItem(i)}
-                                    className="text-slate-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                                    className="text-[#A8AEB6] hover:text-[#B04438] opacity-0 group-hover:opacity-100 transition-all"
+                                    aria-label="Remove"
                                 >
                                     <X size={14} />
                                 </button>
                             </motion.li>
                         ))}
-                    </ul>
+                    </ol>
                 )}
             </div>
 
-            <Field label="Additional Notes">
-                <Textarea
-                    rows={5}
+            <div>
+                <div className="eyebrow text-[9px] mb-2">Additional notes</div>
+                <textarea
+                    rows={10}
                     value={draft.renovationNotes}
                     onChange={(e) => setDraft((d) => ({ ...d, renovationNotes: e.target.value }))}
-                    placeholder="Any context the investor should know — permits, warranties, materials..."
+                    placeholder="Permits, warranties, materials, anything the investor should know…"
+                    className="w-full bg-transparent border border-[#E2DDD0] p-4 text-[14px] leading-relaxed focus:border-[#1F2328] focus:outline-none resize-none transition-colors"
                 />
-            </Field>
+            </div>
         </div>
     )
 }
@@ -849,24 +1052,29 @@ function StepPhotos({
     setDraft: React.Dispatch<React.SetStateAction<DraftListing>>
 }) {
     return (
-        <div className="space-y-8">
-            <div>
-                <h2 className="text-xl font-bold text-[#1F2328]">Before & after photos</h2>
-                <p className="text-sm text-slate-500 mt-1">Drag &amp; drop or click to upload. JPG, PNG, WEBP up to 8 MB.</p>
+        <div>
+            <div className="eyebrow">Section · 03</div>
+            <h2 className="display text-[clamp(36px,4.5vw,52px)] mt-3">
+                <span className="italic text-[#C1A05E]">Before</span> &amp; after
+            </h2>
+            <p className="text-[14px] text-[#6C7585] mt-4 max-w-md leading-relaxed">
+                Two contact sheets. Investors decide on photos first, numbers second.
+            </p>
+
+            <div className="mt-12 grid lg:grid-cols-2 gap-x-12 gap-y-12">
+                <PhotoSet
+                    label="Before"
+                    accent="ink"
+                    photos={draft.beforePhotos}
+                    onChange={(photos) => setDraft((d) => ({ ...d, beforePhotos: photos }))}
+                />
+                <PhotoSet
+                    label="After"
+                    accent="gold"
+                    photos={draft.afterPhotos}
+                    onChange={(photos) => setDraft((d) => ({ ...d, afterPhotos: photos }))}
+                />
             </div>
-
-            <PhotoSet
-                label="Before Photos"
-                accentBefore
-                photos={draft.beforePhotos}
-                onChange={(photos) => setDraft((d) => ({ ...d, beforePhotos: photos }))}
-            />
-
-            <PhotoSet
-                label="After Photos"
-                photos={draft.afterPhotos}
-                onChange={(photos) => setDraft((d) => ({ ...d, afterPhotos: photos }))}
-            />
         </div>
     )
 }
@@ -875,12 +1083,12 @@ function PhotoSet({
     label,
     photos,
     onChange,
-    accentBefore,
+    accent,
 }: {
     label: string
     photos: string[]
     onChange: (photos: string[]) => void
-    accentBefore?: boolean
+    accent: "ink" | "gold"
 }) {
     const inputRef = useRef<HTMLInputElement>(null)
     const [dragOver, setDragOver] = useState(false)
@@ -914,10 +1122,22 @@ function PhotoSet({
     const removeAt = (idx: number) => onChange(photos.filter((_, i) => i !== idx))
 
     return (
-        <div>
-            <div className="flex items-center justify-between mb-3">
-                <Label className="text-sm font-semibold">{label}</Label>
-                <span className="text-xs text-slate-400">{photos.length} uploaded</span>
+        <section>
+            <div className="flex items-baseline justify-between mb-5 pb-2 border-b border-[#E2DDD0]">
+                <div className="flex items-baseline gap-3">
+                    <span
+                        className={cn(
+                            "figure-numeral text-[14px]",
+                            accent === "gold" ? "text-[#C1A05E]" : "text-[#1F2328]"
+                        )}
+                    >
+                        {label === "Before" ? "I." : "II."}
+                    </span>
+                    <span className="display text-[22px]">{label}</span>
+                </div>
+                <span className="eyebrow text-[9px]">
+                    {photos.length} {photos.length === 1 ? "frame" : "frames"}
+                </span>
             </div>
 
             <div
@@ -933,21 +1153,17 @@ function PhotoSet({
                     if (e.dataTransfer.files?.length) uploadFiles(e.dataTransfer.files)
                 }}
                 className={cn(
-                    "relative flex flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed p-10 cursor-pointer transition-all",
+                    "border border-dashed cursor-pointer transition-colors p-8 flex flex-col items-center justify-center gap-2 aspect-[16/7]",
                     dragOver
-                        ? "border-[#C1A05E] bg-[#C1A05E]/5"
-                        : accentBefore
-                            ? "border-slate-200 hover:border-slate-400 bg-slate-50/30"
-                            : "border-[#C1A05E]/30 hover:border-[#C1A05E] bg-[#C1A05E]/5"
+                        ? "border-[#C1A05E] bg-[#F1E9D6]/40"
+                        : "border-[#C9C3B2] hover:border-[#1F2328] hover:bg-[#FBFAF6]"
                 )}
             >
-                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-500">
-                    <Upload size={20} />
+                <Upload size={18} className="text-[#6C7585]" />
+                <div className="text-[13px] text-[#1F2328]">
+                    {uploading ? "Uploading…" : "Drop or click"}
                 </div>
-                <div className="text-sm font-semibold text-[#1F2328]">
-                    {uploading ? "Uploading..." : "Drop files or click to browse"}
-                </div>
-                <div className="text-xs text-slate-400">JPG, PNG, WEBP — up to 8 MB each</div>
+                <div className="text-[11px] text-[#A8AEB6]">JPG, PNG, WEBP · 8 MB</div>
                 <input
                     ref={inputRef}
                     type="file"
@@ -962,28 +1178,33 @@ function PhotoSet({
             </div>
 
             {photos.length > 0 && (
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-4">
+                <div className="mt-5 grid grid-cols-3 gap-2">
                     {photos.map((url, i) => (
                         <motion.div
                             key={url}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            className="relative aspect-square rounded-xl overflow-hidden group bg-slate-100"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.2, delay: i * 0.03 }}
+                            className="relative aspect-[4/3] group bg-[#EFEBE1] overflow-hidden"
                         >
                             {/* eslint-disable-next-line @next/next/no-img-element */}
                             <img src={url} alt="" className="w-full h-full object-cover" />
+                            <span className="figure-numeral text-[10px] absolute top-1.5 left-2 text-white/90 mix-blend-difference">
+                                {String(i + 1).padStart(2, "0")}
+                            </span>
                             <button
                                 type="button"
                                 onClick={() => removeAt(i)}
-                                className="absolute top-2 right-2 w-7 h-7 rounded-full bg-black/60 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                className="absolute top-1.5 right-1.5 w-5 h-5 bg-[#1F2328]/70 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                                aria-label="Remove"
                             >
-                                <X size={14} />
+                                <X size={11} />
                             </button>
                         </motion.div>
                     ))}
                 </div>
             )}
-        </div>
+        </section>
     )
 }
 
@@ -1005,189 +1226,215 @@ function StepPricing({
 
     return (
         <div>
-            <div className="mb-6">
-                <h2 className="text-xl font-bold text-[#1F2328]">Pricing & DSCR analysis</h2>
-                <p className="text-sm text-slate-500 mt-1">
-                    Live cashflow calculator — recalculates as you type.
-                </p>
-            </div>
+            <div className="eyebrow">Section · 04</div>
+            <h2 className="display text-[clamp(36px,4.5vw,52px)] mt-3">
+                The <span className="italic text-[#C1A05E]">numbers</span>
+            </h2>
+            <p className="text-[14px] text-[#6C7585] mt-4 max-w-md leading-relaxed">
+                Type on the left, the deal sheet recalculates on the right.
+            </p>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="mt-12 grid lg:grid-cols-[20rem_minmax(0,1fr)] gap-x-14 gap-y-12">
                 {/* Left — inputs */}
-                <div className="space-y-4">
-                    <Field label="Monthly Rental Income ($)">
-                        <Input
-                            type="number"
-                            value={draft.monthlyRent}
-                            onChange={(e) =>
-                                setDraft((d) => ({
-                                    ...d,
-                                    monthlyRent: e.target.value === "" ? "" : Number(e.target.value),
-                                }))
-                            }
-                            placeholder="1160"
-                        />
-                    </Field>
-                    <Field label="DSCR Rate (%)">
-                        <Input
-                            type="number"
-                            step="0.01"
-                            value={draft.dscrRate}
-                            onChange={(e) =>
-                                setDraft((d) => ({
-                                    ...d,
-                                    dscrRate: e.target.value === "" ? "" : Number(e.target.value),
-                                }))
-                            }
-                            placeholder="7.5"
-                        />
-                    </Field>
-                    <Field label="Annual Taxes ($)">
-                        <Input
-                            type="number"
-                            value={draft.annualTaxes}
-                            onChange={(e) =>
-                                setDraft((d) => ({
-                                    ...d,
-                                    annualTaxes: e.target.value === "" ? "" : Number(e.target.value),
-                                }))
-                            }
-                            placeholder="2400"
-                        />
-                    </Field>
-                    <Field label="Annual Insurance ($)">
-                        <Input
-                            type="number"
-                            value={draft.annualInsurance}
-                            onChange={(e) =>
-                                setDraft((d) => ({
-                                    ...d,
-                                    annualInsurance: e.target.value === "" ? "" : Number(e.target.value),
-                                }))
-                            }
-                            placeholder="1200"
-                        />
-                    </Field>
+                <div className="space-y-7">
+                    <TextField
+                        label="Monthly rental income ($)"
+                        type="number"
+                        value={draft.monthlyRent}
+                        onChange={(v) =>
+                            setDraft((d) => ({
+                                ...d,
+                                monthlyRent: v === "" ? "" : Number(v),
+                            }))
+                        }
+                        placeholder="1,160"
+                    />
+                    <TextField
+                        label="DSCR rate (%)"
+                        type="number"
+                        step="0.01"
+                        value={draft.dscrRate}
+                        onChange={(v) =>
+                            setDraft((d) => ({
+                                ...d,
+                                dscrRate: v === "" ? "" : Number(v),
+                            }))
+                        }
+                        placeholder="7.5"
+                    />
+                    <TextField
+                        label="Annual taxes ($)"
+                        type="number"
+                        value={draft.annualTaxes}
+                        onChange={(v) =>
+                            setDraft((d) => ({
+                                ...d,
+                                annualTaxes: v === "" ? "" : Number(v),
+                            }))
+                        }
+                        placeholder="2,400"
+                    />
+                    <TextField
+                        label="Annual insurance ($)"
+                        type="number"
+                        value={draft.annualInsurance}
+                        onChange={(v) =>
+                            setDraft((d) => ({
+                                ...d,
+                                annualInsurance: v === "" ? "" : Number(v),
+                            }))
+                        }
+                        placeholder="1,200"
+                    />
                 </div>
 
-                {/* Right — live calculator */}
-                <div className="rounded-3xl bg-[#1F2328] text-white p-6 md:p-7 relative overflow-hidden">
-                    <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#C1A05E]/10 rounded-full blur-3xl" />
+                {/* Right — the deal sheet */}
+                <DealSheet draft={draft} math={math} />
+            </div>
+        </div>
+    )
+}
 
-                    <div className="relative z-10">
-                        <div className="text-[10px] uppercase tracking-[0.2em] text-[#C1A05E] font-bold mb-4">
-                            Live Cashflow Analysis
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-3 mb-6">
-                            <MetricCard label="Net Monthly" value={money(math.netMonthly)} accent />
-                            <MetricCard label="Net Annual" value={money(math.netAnnual)} accent />
-                            <MetricCard label="Cash-on-Cash" value={`${math.cocReturn.toFixed(1)}%`} accent gold />
-                        </div>
-
-                        {/* Purchase breakdown */}
-                        <div className="rounded-2xl bg-white/5 p-4 mb-4">
-                            <div className="text-xs uppercase tracking-wider text-white/40 font-semibold mb-3">
-                                Purchase Breakdown
-                            </div>
-                            <BreakdownRow label="Price" value={money(Number(draft.price) || 0)} />
-                            <BreakdownRow label="Down Payment (20%)" value={money(math.downPayment)} />
-                            <BreakdownRow label="Loan Amount" value={money(math.loanAmount)} />
-                            <BreakdownRow label="Closing Cost (7%)" value={money(math.closingCost)} />
-                            <BreakdownRow label="Pasiflow Fee" value={money(PASIFLOW_FEE)} />
-                            <BreakdownRow
-                                label="TOTAL CASH TO INVEST"
-                                value={money(math.totalCashNeeded)}
-                                bold
-                                emphasize
-                            />
-                        </div>
-
-                        {/* Monthly cashflow */}
-                        <div className="rounded-2xl bg-white/5 p-4">
-                            <div className="text-xs uppercase tracking-wider text-white/40 font-semibold mb-3">
-                                Monthly Cashflow
-                            </div>
-                            <BreakdownRow label="Gross Rental Income" value={money(Number(draft.monthlyRent) || 0)} />
-                            <BreakdownRow label="DSCR Mortgage" value={`- ${money(math.monthlyMortgage)}`} negative />
-                            <BreakdownRow label="Taxes" value={`- ${money(math.monthlyTaxes)}`} negative />
-                            <BreakdownRow label="Insurance" value={`- ${money(math.monthlyInsurance)}`} negative />
-                            <BreakdownRow label="Mgmt Fee (10%)" value={`- ${money(math.mgmtFee)}`} negative />
-                            <BreakdownRow label="NET MONTHLY" value={money(math.netMonthly)} bold emphasize />
-                            <BreakdownRow label="NET ANNUAL" value={money(math.netAnnual)} bold emphasize />
-                        </div>
-
-                        <div className="mt-4 px-4 py-3 rounded-xl bg-[#C1A05E]/10 border border-[#C1A05E]/30 text-xs">
-                            <span className="text-white/60">CoC formula:</span>{" "}
-                            <span className="text-white font-mono">
-                                {money(math.netAnnual)} ÷ {money(math.totalCashNeeded)} ={" "}
-                                <span className="text-[#C1A05E] font-bold">{math.cocReturn.toFixed(1)}%</span>
-                            </span>
-                        </div>
+function DealSheet({
+    draft,
+    math,
+}: {
+    draft: DraftListing
+    math: ReturnType<typeof analyzeDeal>
+}) {
+    return (
+        <article className="bg-[#FBFAF6] border border-[#E2DDD0] p-8 md:p-10">
+            {/* Sheet header */}
+            <header className="flex items-baseline justify-between pb-5 border-b border-[#E2DDD0]">
+                <div>
+                    <div className="eyebrow text-[9px]">Deal sheet</div>
+                    <div className="display text-[20px] mt-1.5 leading-tight">
+                        Live cashflow
                     </div>
                 </div>
+                <div className="text-right">
+                    <div className="eyebrow text-[9px]">Loan term</div>
+                    <div className="num text-[13px] text-[#1F2328] mt-1">{LOAN_TERM_YEARS} yr</div>
+                </div>
+            </header>
+
+            {/* Hero — the one figure that matters */}
+            <div className="py-10 text-center border-b border-[#E2DDD0]">
+                <div className="eyebrow text-[#A8AEB6]">Cash-on-Cash return</div>
+                <div className="display tabular-nums text-[clamp(72px,11vw,128px)] mt-1 leading-none text-[#C1A05E]">
+                    {math.cocReturn.toFixed(1)}
+                    <span className="text-[0.5em] align-top ml-1 italic">%</span>
+                </div>
+                <div className="num text-[12px] text-[#6C7585] mt-3">
+                    {money(math.netAnnual)} ÷ {money(math.totalCashNeeded)}
+                </div>
             </div>
+
+            {/* Two ledger columns */}
+            <div className="grid sm:grid-cols-2 gap-x-10 gap-y-8 pt-8">
+                <Ledger title="Purchase">
+                    <LedgerRow label="Price" value={money(Number(draft.price) || 0)} />
+                    <LedgerRow label="Down (20%)" value={money(math.downPayment)} />
+                    <LedgerRow label="Loan amount" value={money(math.loanAmount)} muted />
+                    <LedgerRow label="Closing (7%)" value={money(math.closingCost)} />
+                    <LedgerRow label="Pasiflow fee" value={money(PASIFLOW_FEE)} />
+                    <LedgerRow
+                        label="Cash to invest"
+                        value={money(math.totalCashNeeded)}
+                        total
+                    />
+                </Ledger>
+
+                <Ledger title="Monthly cashflow">
+                    <LedgerRow
+                        label="Gross rent"
+                        value={money(Number(draft.monthlyRent) || 0)}
+                    />
+                    <LedgerRow
+                        label="Mortgage"
+                        value={`−${money(math.monthlyMortgage)}`}
+                        debit
+                    />
+                    <LedgerRow label="Taxes" value={`−${money(math.monthlyTaxes)}`} debit />
+                    <LedgerRow
+                        label="Insurance"
+                        value={`−${money(math.monthlyInsurance)}`}
+                        debit
+                    />
+                    <LedgerRow
+                        label="Mgmt (10%)"
+                        value={`−${money(math.mgmtFee)}`}
+                        debit
+                    />
+                    <LedgerRow label="Net monthly" value={money(math.netMonthly)} total />
+                </Ledger>
+            </div>
+
+            {/* Foot — annualized */}
+            <div className="mt-8 pt-6 border-t border-[#E2DDD0] flex items-baseline justify-between">
+                <span className="eyebrow text-[#1F2328]">Net annual</span>
+                <span className="num text-[28px] text-[#1F2328]">
+                    {money(math.netAnnual)}
+                </span>
+            </div>
+        </article>
+    )
+}
+
+function Ledger({ title, children }: { title: string; children: React.ReactNode }) {
+    return (
+        <div>
+            <div className="eyebrow text-[9px] pb-3 border-b border-[#E2DDD0]">{title}</div>
+            <dl className="mt-3 space-y-1.5">{children}</dl>
         </div>
     )
 }
 
-function MetricCard({
+function LedgerRow({
     label,
     value,
-    accent,
-    gold,
+    muted,
+    debit,
+    total,
 }: {
     label: string
     value: string
-    accent?: boolean
-    gold?: boolean
+    muted?: boolean
+    debit?: boolean
+    total?: boolean
 }) {
     return (
         <div
             className={cn(
-                "rounded-2xl p-3.5 text-center",
-                accent ? "bg-white/8 border border-white/10" : "bg-slate-50"
+                "flex items-baseline justify-between gap-3 text-[14px]",
+                total && "pt-3 mt-2 border-t border-[#E2DDD0]"
             )}
         >
-            <div className="text-[9px] uppercase tracking-wider text-white/40 font-semibold mb-1">{label}</div>
-            <div className={cn("text-lg font-bold tracking-tight", gold ? "text-[#C1A05E]" : "text-white")}>
-                {value}
-            </div>
-        </div>
-    )
-}
-
-function BreakdownRow({
-    label,
-    value,
-    bold,
-    emphasize,
-    negative,
-}: {
-    label: string
-    value: string
-    bold?: boolean
-    emphasize?: boolean
-    negative?: boolean
-}) {
-    return (
-        <div
-            className={cn(
-                "flex items-center justify-between py-1.5 text-sm",
-                emphasize && "border-t border-white/10 mt-2 pt-3"
-            )}
-        >
-            <span className={cn("text-white/60", bold && "text-white/90 font-semibold uppercase text-xs tracking-wider")}>
-                {label}
-            </span>
-            <span
+            <dt
                 className={cn(
-                    "font-mono tabular-nums",
-                    bold ? "text-[#C1A05E] font-bold text-base" : negative ? "text-red-300/90" : "text-white"
+                    total
+                        ? "eyebrow text-[#1F2328] text-[10px]"
+                        : muted
+                            ? "text-[#A8AEB6]"
+                            : "text-[#6C7585]"
+                )}
+            >
+                {label}
+            </dt>
+            <dd
+                className={cn(
+                    "num tabular-nums",
+                    total
+                        ? "text-[#1F2328] text-[17px] font-medium"
+                        : debit
+                            ? "text-[#B04438]"
+                            : muted
+                                ? "text-[#A8AEB6]"
+                                : "text-[#1F2328]"
                 )}
             >
                 {value}
-            </span>
+            </dd>
         </div>
     )
 }
@@ -1204,167 +1451,159 @@ function StepReview({ draft }: { draft: DraftListing }) {
 
     return (
         <div>
-            <div className="mb-6">
-                <h2 className="text-xl font-bold text-[#1F2328]">Review & publish</h2>
-                <p className="text-sm text-slate-500 mt-1">
-                    Make sure everything looks right before publishing.
-                </p>
+            <div className="eyebrow">Section · 05</div>
+            <h2 className="display text-[clamp(36px,4.5vw,52px)] mt-3">
+                Final <span className="italic text-[#C1A05E]">proof</span>
+            </h2>
+            <p className="text-[14px] text-[#6C7585] mt-4 max-w-md leading-relaxed">
+                One last read before this hits the investor pipeline.
+            </p>
+
+            {/* Top — address as masthead */}
+            <div className="mt-12 pb-6 border-b border-[#E2DDD0]">
+                <div className="eyebrow">Property</div>
+                <div className="display text-[clamp(28px,4vw,44px)] mt-3 leading-tight">
+                    {draft.address || "—"}
+                </div>
+                <div className="text-[14px] text-[#6C7585] mt-3">
+                    {draft.propertyType} · {draft.bedrooms || 0}bd / {draft.bathrooms || 0}ba ·{" "}
+                    {draft.sqft || "—"} sqft · built {draft.yearBuilt || "—"}
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Left — summary */}
-                <div className="space-y-5">
-                    <SummaryCard title="Property" icon={HomeIcon}>
-                        <SummaryRow label="Address" value={draft.address || "—"} />
-                        <SummaryRow label="Price" value={money(Number(draft.price) || 0)} />
-                        <SummaryRow
-                            label="Type"
-                            value={`${draft.propertyType} · ${draft.bedrooms || 0}bd / ${draft.bathrooms || 0}ba`}
-                        />
-                        <SummaryRow
-                            label="Size"
-                            value={`${draft.sqft || "—"} sqft · ${draft.landSize || "—"}`}
-                        />
-                        <SummaryRow label="Year Built" value={String(draft.yearBuilt || "—")} />
-                    </SummaryCard>
+            <div className="mt-10 grid md:grid-cols-2 gap-x-14 gap-y-10">
+                {/* Renovation summary */}
+                <section>
+                    <div className="eyebrow text-[#A8AEB6] pb-3 border-b border-[#E2DDD0]">
+                        Renovation
+                    </div>
+                    {draft.renovationItems.length === 0 ? (
+                        <p className="text-[13px] text-[#A8AEB6] italic mt-4">No items recorded</p>
+                    ) : (
+                        <ol className="mt-4 space-y-2">
+                            {draft.renovationItems.map((it, i) => (
+                                <li key={i} className="flex gap-3 text-[14px] text-[#1F2328]">
+                                    <span className="figure-numeral text-[12px] text-[#A8AEB6] w-5">
+                                        {String(i + 1).padStart(2, "0")}
+                                    </span>
+                                    <span>{it}</span>
+                                </li>
+                            ))}
+                        </ol>
+                    )}
+                    {draft.renovationNotes && (
+                        <p className="mt-5 text-[13px] text-[#6C7585] leading-relaxed italic">
+                            “{draft.renovationNotes}”
+                        </p>
+                    )}
+                </section>
 
-                    <SummaryCard title="Renovation Items" icon={Wrench}>
-                        {draft.renovationItems.length === 0 ? (
-                            <p className="text-sm text-slate-400 italic">No items added</p>
-                        ) : (
-                            <ul className="space-y-1.5">
-                                {draft.renovationItems.map((it, i) => (
-                                    <li key={i} className="text-sm text-[#1F2328] flex gap-2">
-                                        <span className="text-[#C1A05E]">•</span>
-                                        {it}
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </SummaryCard>
+                {/* Photos summary */}
+                <section>
+                    <div className="eyebrow text-[#A8AEB6] pb-3 border-b border-[#E2DDD0]">
+                        Photographs
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 mt-4">
+                        <ContactSheet photos={draft.beforePhotos} label="Before" />
+                        <ContactSheet photos={draft.afterPhotos} label="After" />
+                    </div>
+                </section>
+            </div>
 
-                    <SummaryCard title="Photos" icon={ImageIcon}>
-                        <SummaryRow label="Before" value={`${draft.beforePhotos.length} photos`} />
-                        <SummaryRow label="After" value={`${draft.afterPhotos.length} photos`} />
-                    </SummaryCard>
-                </div>
+            {/* The big two-column financial proof */}
+            <div className="mt-14 border-t border-[#1F2328] pt-10">
+                <div className="grid md:grid-cols-2 gap-x-14 gap-y-10">
+                    {/* Returns */}
+                    <section>
+                        <div className="eyebrow">Returns</div>
+                        <div className="mt-4 space-y-3">
+                            <ProofRow label="Cash-on-Cash">
+                                <span className="num display text-[44px] text-[#C1A05E] leading-none">
+                                    {math.cocReturn.toFixed(1)}%
+                                </span>
+                            </ProofRow>
+                            <ProofRow label="Net monthly">
+                                <span className="num text-[20px] text-[#1F2328]">
+                                    {money(math.netMonthly)}
+                                </span>
+                            </ProofRow>
+                            <ProofRow label="Net annual">
+                                <span className="num text-[20px] text-[#1F2328]">
+                                    {money(math.netAnnual)}
+                                </span>
+                            </ProofRow>
+                            <ProofRow label="DSCR rate">
+                                <span className="num text-[14px] text-[#6C7585]">
+                                    {draft.dscrRate || 0}%
+                                </span>
+                            </ProofRow>
+                        </div>
+                    </section>
 
-                {/* Right — financial summary */}
-                <div className="space-y-5">
-                    <SummaryCard title="Financial Analysis" icon={Calculator} dark>
-                        <SummaryRow label="Monthly Rent" value={money(Number(draft.monthlyRent) || 0)} dark />
-                        <SummaryRow label="DSCR Rate" value={`${draft.dscrRate || 0}%`} dark />
-                        <SummaryRow label="Net Monthly" value={money(math.netMonthly)} dark bold />
-                        <SummaryRow label="Net Annual" value={money(math.netAnnual)} dark bold />
-                        <SummaryRow
-                            label="Cash-on-Cash Return"
-                            value={`${math.cocReturn.toFixed(1)}%`}
-                            dark
-                            highlight
-                        />
-                    </SummaryCard>
-
-                    <SummaryCard title="Client Cash Out of Pocket" icon={DollarSign}>
-                        <SummaryRow label="Down Payment (20%)" value={money(math.downPayment)} />
-                        <SummaryRow label="Closing Cost (7%)" value={money(math.closingCost)} />
-                        <SummaryRow label="Pasiflow Fee" value={money(PASIFLOW_FEE)} />
-                        <div className="border-t border-slate-200 mt-3 pt-3 flex items-center justify-between">
-                            <span className="text-sm font-bold text-[#1F2328] uppercase tracking-wider">
-                                Total to Wire
-                            </span>
-                            <span className="text-2xl font-bold text-red-600 tabular-nums">
+                    {/* Client wire instructions */}
+                    <section className="bg-[#1F2328] text-[#F6F4EE] p-8 md:p-10">
+                        <div className="eyebrow text-[#C1A05E]">Client cash out of pocket</div>
+                        <dl className="mt-5 space-y-2.5 text-[14px]">
+                            <WireRow
+                                label="Down payment (20%)"
+                                value={money(math.downPayment)}
+                            />
+                            <WireRow
+                                label="Closing cost (7%)"
+                                value={money(math.closingCost)}
+                            />
+                            <WireRow label="Pasiflow fee" value={money(PASIFLOW_FEE)} />
+                        </dl>
+                        <div className="mt-8 pt-5 border-t border-white/15 flex items-baseline justify-between">
+                            <span className="eyebrow text-[#F6F4EE]">Total to wire</span>
+                            <span className="num display text-[44px] text-[#E89A8E] leading-none">
                                 {money(math.totalCashNeeded)}
                             </span>
                         </div>
-                    </SummaryCard>
+                    </section>
                 </div>
             </div>
         </div>
     )
 }
 
-function SummaryCard({
-    title,
-    icon: Icon,
-    dark,
-    children,
-}: {
-    title: string
-    icon: React.ComponentType<{ size?: number; className?: string }>
-    dark?: boolean
-    children: React.ReactNode
-}) {
+function ProofRow({ label, children }: { label: string; children: React.ReactNode }) {
     return (
-        <div
-            className={cn(
-                "rounded-2xl p-5 border",
-                dark ? "bg-[#1F2328] border-white/10 text-white" : "bg-white border-slate-200"
-            )}
-        >
-            <div className="flex items-center gap-2 mb-4">
-                <Icon size={14} className={cn(dark ? "text-[#C1A05E]" : "text-[#C1A05E]")} />
-                <span
-                    className={cn(
-                        "text-[11px] uppercase tracking-[0.18em] font-bold",
-                        dark ? "text-[#C1A05E]" : "text-slate-500"
-                    )}
-                >
-                    {title}
-                </span>
-            </div>
-            <div className="space-y-2">{children}</div>
-        </div>
-    )
-}
-
-function SummaryRow({
-    label,
-    value,
-    dark,
-    bold,
-    highlight,
-}: {
-    label: string
-    value: string
-    dark?: boolean
-    bold?: boolean
-    highlight?: boolean
-}) {
-    return (
-        <div className="flex items-center justify-between text-sm">
-            <span className={cn(dark ? "text-white/50" : "text-slate-500")}>{label}</span>
-            <span
-                className={cn(
-                    "font-semibold tabular-nums",
-                    highlight && "text-[#C1A05E] text-base",
-                    bold && !highlight && (dark ? "text-white" : "text-[#1F2328]"),
-                    !bold && !highlight && (dark ? "text-white/90" : "text-[#1F2328]")
-                )}
-            >
-                {value}
-            </span>
-        </div>
-    )
-}
-
-// ───────────────── Form helpers ─────────────────
-function FieldRow({ children }: { children: React.ReactNode }) {
-    return <div className="grid grid-cols-1 md:grid-cols-2 gap-4">{children}</div>
-}
-
-function Field({
-    label,
-    children,
-    full,
-}: {
-    label: string
-    children: React.ReactNode
-    full?: boolean
-}) {
-    return (
-        <div className={cn("space-y-1.5", full && "md:col-span-2")}>
-            <Label className="text-xs uppercase tracking-wider font-semibold text-slate-500">{label}</Label>
+        <div className="flex items-baseline justify-between gap-4 py-2 border-b border-[#E2DDD0]">
+            <span className="eyebrow text-[#6C7585]">{label}</span>
             {children}
+        </div>
+    )
+}
+
+function WireRow({ label, value }: { label: string; value: string }) {
+    return (
+        <div className="flex items-baseline justify-between">
+            <dt className="text-white/60">{label}</dt>
+            <dd className="num text-white">{value}</dd>
+        </div>
+    )
+}
+
+function ContactSheet({ photos, label }: { photos: string[]; label: string }) {
+    return (
+        <div>
+            <div className="eyebrow text-[#A8AEB6] text-[9px] mb-2">{label}</div>
+            {photos.length === 0 ? (
+                <div className="aspect-[4/3] bg-[#EFEBE1] flex items-center justify-center">
+                    <span className="text-[11px] text-[#A8AEB6]">—</span>
+                </div>
+            ) : (
+                <div className="aspect-[4/3] bg-[#EFEBE1] overflow-hidden relative">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={photos[0]} alt="" className="w-full h-full object-cover" />
+                    {photos.length > 1 && (
+                        <span className="absolute bottom-1.5 right-2 figure-numeral text-[11px] text-white/90 mix-blend-difference">
+                            +{photos.length - 1}
+                        </span>
+                    )}
+                </div>
+            )}
         </div>
     )
 }
