@@ -14,7 +14,8 @@ import {
     ScrollText,
     Users,
     Settings,
-    LogOut
+    LogOut,
+    Briefcase
 } from "lucide-react"
 
 export function AdminSidebar() {
@@ -62,6 +63,12 @@ export function AdminSidebar() {
             icon: Users,
             href: "/admin/users",
             active: pathname.startsWith("/admin/users"),
+        },
+        {
+            label: "Manager Portal",
+            icon: Briefcase,
+            href: "/en/manager",
+            active: pathname.includes("/manager"),
         },
         {
             label: "Settings",

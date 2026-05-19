@@ -58,6 +58,10 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
 
                 if (data.user.role === "AGENT") {
                     router.push(`/${currentLocale}/agent/dashboard`)
+                } else if (data.user.role === "MANAGER") {
+                    router.push(`/${currentLocale}/manager`)
+                } else if (data.user.role === "ADMIN") {
+                    router.push(`/admin`)
                 } else {
                     router.push(`/${currentLocale}/dashboard`)
                 }

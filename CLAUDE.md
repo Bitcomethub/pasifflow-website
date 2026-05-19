@@ -104,6 +104,7 @@ Core models and their relationships:
 | Admin | erman@pasiflow.com | Pasiflow2026! |
 | Investor | investor@pasiflow.com | PasiInvestor2025! |
 | Agent | agent@pasiflow.com | PasiAgent2025! |
+| Manager (Detroit) | justin@pasiflow.com | Detroit2025! |
 
 ## Environment Variables
 

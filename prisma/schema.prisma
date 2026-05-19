@@ -13,7 +13,7 @@ model User {
   passwordHash String   @map("password_hash")
   fullName     String?  @map("full_name")
   phone        String?
-  role         String   @default("USER") // USER, AGENT, ADMIN
+  role         String   @default("USER") // USER, AGENT, ADMIN, MANAGER
   isVerified   Boolean  @default(false) @map("is_verified")
   createdAt    DateTime @default(now()) @map("created_at")
   updatedAt    DateTime @updatedAt @map("updated_at")
@@ -269,6 +269,36 @@ model AgentCommission {
   createdAt       DateTime @default(now()) @map("created_at")
   
   @@map("agent_commissions")
+}
+
+// ---------------------------------------------------------
+// Detroit Manager Portal — Listings (Justin's wholesale pipeline)
+// ---------------------------------------------------------
+
+model Listing {
+  id              String   @id @default(uuid())
+  address         String
+  price           Float
+  bedrooms        Int      @default(3)
+  bathrooms       Float    @default(1)
+  sqft            Int?
+  landSize        String?  @map("land_size")
+  propertyType    String   @default("Single Family") @map("property_type")
+  yearBuilt       Int?     @map("year_built")
+  monthlyRent     Float    @map("monthly_rent")
+  dscrRate        Float    @map("dscr_rate")
+  annualTaxes     Float    @default(0) @map("annual_taxes")
+  annualInsurance Float    @default(0) @map("annual_insurance")
+  renovationItems String   @default("[]") @map("renovation_items")
+  renovationNotes String?  @map("renovation_notes")
+  beforePhotos    String   @default("[]") @map("before_photos")
+  afterPhotos     String   @default("[]") @map("after_photos")
+  status          String   @default("draft") // draft, published
+  createdBy       String   @map("created_by")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  @@map("listings")
 }
 
 // ---------------------------------------------------------

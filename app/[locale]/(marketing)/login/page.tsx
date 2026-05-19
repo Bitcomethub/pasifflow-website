@@ -54,6 +54,10 @@ export default function LoginPage() {
 
             if (data.user.role === "AGENT") {
                 router.push(`/${locale}/agent/dashboard`)
+            } else if (data.user.role === "MANAGER") {
+                router.push(`/${locale}/manager`)
+            } else if (data.user.role === "ADMIN") {
+                router.push(`/admin`)
             } else {
                 router.push(`/${locale}/dashboard`)
             }
