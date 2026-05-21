@@ -14,7 +14,6 @@ import {
     Bath,
     Ruler,
     Calendar,
-    MapPin,
     X,
     ExternalLink,
 } from "lucide-react"
@@ -24,24 +23,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
 interface Listing {
-    id: string
-    zpid: string | null
+    zpid: number
     address: string
-    city: string
-    state: string
-    zipcode: string | null
     price: number
     beds: number
     baths: number
-    sqft: number | null
     yearBuilt: number | null
-    lotSize: number | null
-    propertyType: string | null
+    livingArea: number
     imageUrl: string | null
-    lat: number | null
-    lng: number | null
+    lat: number
+    lng: number
     detailUrl: string
-    daysOnMarket: number | null
     rent: number
     capRate: number
     grossYield: number
@@ -146,7 +138,7 @@ export default function DetroitScoutPage() {
             if (l.beds < minBeds || l.beds > maxBeds) return false
             if (scoreFilter !== "ALL" && l.score !== scoreFilter) return false
             if (term) {
-                const haystack = `${l.address} ${l.city} ${l.zipcode ?? ""}`.toLowerCase()
+                const haystack = l.address.toLowerCase()
                 if (!haystack.includes(term)) return false
             }
             return true
@@ -312,7 +304,7 @@ export default function DetroitScoutPage() {
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     {filtered.map((l) => (
-                        <ListingCard key={l.id} listing={l} onSelect={() => setSelected(l)} />
+                        <ListingCard key={l.zpid || l.address} listing={l} onSelect={() => setSelected(l)} />
                     ))}
                 </div>
             )}
@@ -384,17 +376,12 @@ function ListingCard({ listing, onSelect }: { listing: Listing; onSelect: () => 
                 </div>
             </div>
             <div className="p-4 space-y-3 bg-white">
-                <div>
-                    <div className="font-semibold text-sm line-clamp-1">{listing.address}</div>
-                    <div className="text-xs text-muted-foreground line-clamp-1">
-                        {listing.city}, {listing.state} {listing.zipcode ?? ""}
-                    </div>
-                </div>
+                <div className="font-semibold text-sm line-clamp-1">{listing.address}</div>
                 <div className="flex items-center gap-3 text-xs text-muted-foreground">
                     <span className="flex items-center gap-1"><BedDouble className="h-3.5 w-3.5" />{listing.beds || "—"}</span>
                     <span className="flex items-center gap-1"><Bath className="h-3.5 w-3.5" />{listing.baths || "—"}</span>
-                    {listing.sqft && (
-                        <span className="flex items-center gap-1"><Ruler className="h-3.5 w-3.5" />{listing.sqft.toLocaleString()} sqft</span>
+                    {listing.livingArea > 0 && (
+                        <span className="flex items-center gap-1"><Ruler className="h-3.5 w-3.5" />{listing.livingArea.toLocaleString()} sqft</span>
                     )}
                 </div>
                 <div className="grid grid-cols-3 gap-2 pt-2 border-t">
@@ -465,10 +452,6 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
                         <div>
                             <h2 className="text-2xl font-bold tracking-tight">{listing.address}</h2>
-                            <p className="text-muted-foreground flex items-center gap-1 mt-1">
-                                <MapPin className="h-4 w-4" />
-                                {listing.city}, {listing.state} {listing.zipcode ?? ""}
-                            </p>
                         </div>
                         <div className="text-right">
                             <div className="text-3xl font-bold text-[#B8A074]">{currency(listing.price)}</div>
@@ -492,7 +475,7 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <Stat label="Bedrooms" value={`${listing.beds || "—"}`} icon={BedDouble} />
                         <Stat label="Bathrooms" value={`${listing.baths || "—"}`} icon={Bath} />
-                        <Stat label="Sqft" value={listing.sqft ? listing.sqft.toLocaleString() : "—"} icon={Ruler} />
+                        <Stat label="Sqft" value={listing.livingArea > 0 ? listing.livingArea.toLocaleString() : "—"} icon={Ruler} />
                         <Stat label="Year built" value={listing.yearBuilt ? String(listing.yearBuilt) : "—"} icon={Calendar} />
                     </div>
 
