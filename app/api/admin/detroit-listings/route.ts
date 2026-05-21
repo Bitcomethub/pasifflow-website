@@ -95,24 +95,41 @@ function normalize(raw: Record<string, unknown>): ScoutedListing | null {
     const lotSize = toNumber(pickFirst(raw.lotAreaValue, raw.lotSize))
 
     // raw.address may be an object {streetAddress,city,state,zipcode} from
-    // the byaddress endpoint — only use it as a string when it actually is one.
-    const rawAddress = typeof raw.address === "string" ? raw.address : null
+    // the byaddress endpoint — read its sub-fields when so, treat as string otherwise.
+    const addrObj =
+        raw.address && typeof raw.address === "object"
+            ? (raw.address as Record<string, unknown>)
+            : null
+    const rawAddressString = typeof raw.address === "string" ? raw.address : null
     const address = String(
         pickFirst(
             (raw as any).streetAddress,
-            rawAddress,
+            (addrObj as any)?.streetAddress,
+            rawAddressString,
             (raw as any).addressStreet,
             (raw as any).hdpData?.homeInfo?.streetAddress
         ) ?? "Unknown address"
     )
     const city = String(
-        pickFirst(raw.city, (raw as any).addressCity, (raw as any).hdpData?.homeInfo?.city) ?? "Detroit"
+        pickFirst(
+            raw.city,
+            (addrObj as any)?.city,
+            (raw as any).addressCity,
+            (raw as any).hdpData?.homeInfo?.city
+        ) ?? "Detroit"
     )
     const state = String(
-        pickFirst(raw.state, (raw as any).addressState, (raw as any).hdpData?.homeInfo?.state) ?? "MI"
+        pickFirst(
+            raw.state,
+            (addrObj as any)?.state,
+            (raw as any).addressState,
+            (raw as any).hdpData?.homeInfo?.state
+        ) ?? "MI"
     )
     const zipcode = pickFirst(
         raw.zipcode,
+        (addrObj as any)?.zipcode,
+        (addrObj as any)?.postalCode,
         (raw as any).addressZipcode,
         (raw as any).hdpData?.homeInfo?.zipcode
     )
@@ -120,18 +137,34 @@ function normalize(raw: Record<string, unknown>): ScoutedListing | null {
     const zpidRaw = pickFirst(raw.zpid, (raw as any).id, (raw as any).hdpData?.homeInfo?.zpid)
     const zpid = zpidRaw ? String(zpidRaw) : null
 
+    const photoLinks = ((raw as any).media?.propertyPhotoLinks ?? {}) as Record<string, unknown>
     const imageUrl = pickFirst(
         raw.imgSrc,
+        photoLinks.mediumSizeLink as string | undefined,
+        photoLinks.smallSizeLink as string | undefined,
+        photoLinks.largeSizeLink as string | undefined,
+        photoLinks.xlargeSizeLink as string | undefined,
         (raw as any).image,
         (raw as any).photo,
         Array.isArray((raw as any).photos) ? (raw as any).photos[0]?.url ?? (raw as any).photos[0] : null
     ) as string | null
 
+    const locationObj = (raw as any).location as Record<string, unknown> | undefined
     const latitude = toNumber(
-        pickFirst((raw as any).latitude, (raw as any).latLong?.latitude, (raw as any).hdpData?.homeInfo?.latitude)
+        pickFirst(
+            (raw as any).latitude,
+            locationObj?.latitude,
+            (raw as any).latLong?.latitude,
+            (raw as any).hdpData?.homeInfo?.latitude
+        )
     )
     const longitude = toNumber(
-        pickFirst((raw as any).longitude, (raw as any).latLong?.longitude, (raw as any).hdpData?.homeInfo?.longitude)
+        pickFirst(
+            (raw as any).longitude,
+            locationObj?.longitude,
+            (raw as any).latLong?.longitude,
+            (raw as any).hdpData?.homeInfo?.longitude
+        )
     )
 
     const detailUrl = pickFirst(
@@ -180,80 +213,24 @@ function normalize(raw: Record<string, unknown>): ScoutedListing | null {
     }
 }
 
-/**
- * Flatten an item that wraps the real listing under `.property`. Pulls the
- * nested address parts and media link up to the top level so normalize()
- * can read raw.imgSrc / raw.streetAddress / raw.city directly.
- */
-function flattenPropertyWrapper(item: Record<string, unknown>): Record<string, unknown> {
-    const property = (item as any).property ?? null
-    if (!property || typeof property !== "object") return item
-
-    const addr = (property.address ?? {}) as Record<string, unknown>
-    // Media may live on the wrapper item or inside .property — check both.
-    const media = ((item as any).media ?? property.media ?? {}) as Record<string, unknown>
-    const photoLinks = ((media as any).propertyPhotoLinks ?? {}) as Record<string, unknown>
-
-    return {
-        ...property,
-        ...item,
-        // Flat address fields for normalize()
-        streetAddress: (addr as any).streetAddress ?? null,
-        city: (addr as any).city ?? null,
-        state: (addr as any).state ?? null,
-        zipcode: (addr as any).zipcode ?? (addr as any).postalCode ?? null,
-        // Photo: prefer medium, then small, then any string we can find
-        imgSrc:
-            (photoLinks as any).mediumSizeLink ??
-            (photoLinks as any).smallSizeLink ??
-            (photoLinks as any).xlargeSizeLink ??
-            (photoLinks as any).largeSizeLink ??
-            null,
-        // Lat/long can live under location.{lat,long}
-        latitude:
-            (property as any).latitude ??
-            ((property as any).location as any)?.latitude ??
-            null,
-        longitude:
-            (property as any).longitude ??
-            ((property as any).location as any)?.longitude ??
-            null,
+function extractResults(data: any): any[] {
+    // searchResults wrapper pattern (private-zillow byaddress)
+    if (Array.isArray(data?.searchResults)) {
+        return data.searchResults
+            .map((item: any) => item?.property ?? item)
+            .filter(Boolean)
     }
-}
-
-function extractResults(payload: unknown): Record<string, unknown>[] {
-    if (Array.isArray(payload)) return payload as Record<string, unknown>[]
-    if (!payload || typeof payload !== "object") return []
-    const obj = payload as Record<string, unknown>
-
-    // Primary shape from /search/byaddress: { searchResults: [{ property: {...} }] }
-    const searchResults = (obj as any).searchResults
-    if (Array.isArray(searchResults) && searchResults.length > 0) {
-        return (searchResults as Record<string, unknown>[]).map(flattenPropertyWrapper)
+    // flat array patterns
+    for (const key of ["results", "props", "listings", "mapResults", "listResults"]) {
+        if (Array.isArray(data?.[key]) && data[key].length > 0) return data[key]
     }
-
-    const candidates: unknown[] = [
-        obj.results,
-        obj.props,
-        obj.data,
-        obj.listings,
-        obj.mapResults,
-        obj.listResults,
-        (obj as any).searchResults?.listings,
-        (obj as any).searchResults?.mapResults,
-        (obj as any).searchResults?.listResults,
-        (obj as any).cat1?.searchResults?.mapResults,
-        (obj as any).cat1?.searchResults?.listResults,
-        (obj as any).cat2?.searchResults?.mapResults,
-        (obj as any).cat2?.searchResults?.listResults,
-    ]
-    for (const c of candidates) {
-        if (Array.isArray(c) && c.length > 0) {
-            return (c as Record<string, unknown>[]).map((item) =>
-                (item as any)?.property ? flattenPropertyWrapper(item) : item
-            )
-        }
+    // cat1 / cat2
+    for (const cat of ["cat1", "cat2"]) {
+        const sr = data?.[cat]?.searchResults
+        if (sr?.mapResults?.length) return sr.mapResults
+        if (sr?.listResults?.length) return sr.listResults
     }
+    if (Array.isArray(data) && data.length > 0) return data
     return []
 }
 
