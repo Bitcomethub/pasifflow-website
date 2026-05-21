@@ -1,11 +1,11 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { useLocale } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import { ClientSidebar } from "@/components/dashboard/client-sidebar"
 import { Menu, X, Shield } from "lucide-react"
 import { Logo } from "@/components/logo"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { AuthGuard } from "@/components/auth-guard"
 
 export default function DashboardLayout({
@@ -14,6 +14,7 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const locale = useLocale()
+  const tCommon = useTranslations("common")
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
 
@@ -72,13 +73,13 @@ export default function DashboardLayout({
       <main className="flex-grow md:pl-72 pt-16 md:pt-0">
         {isAdmin && (
           <div className="flex justify-end px-6 md:px-10 pt-4">
-            <Link
+            <a
               href="/admin"
               className="inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-[#C1A05E] transition-colors border border-slate-200 hover:border-[#C1A05E]/40 bg-white rounded-full px-3 py-1.5"
             >
               <Shield className="h-3.5 w-3.5" />
-              Admin Paneli
-            </Link>
+              {tCommon("adminPanel")}
+            </a>
           </div>
         )}
         <div className="p-6 md:p-10">

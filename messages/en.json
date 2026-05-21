@@ -18,7 +18,13 @@
         "showLess": "Show Less",
         "whatsapp": "Write on WhatsApp",
         "freeConsultation": "Get Free Consultation",
-        "whatsappCta": "Message on WhatsApp"
+        "whatsappCta": "Message on WhatsApp",
+        "adminPanel": "Admin Panel",
+        "managerPortal": "Manager Portal",
+        "dashboard": "Dashboard",
+        "signIn": "Sign In",
+        "signOut": "Sign Out",
+        "signUp": "Sign Up"
     },
     "footer": {
         "description": "The safest way to earn passive dollar income through government-backed (Section 8) rental real estate investment in America.",

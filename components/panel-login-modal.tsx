@@ -17,6 +17,8 @@ interface PanelLoginModalProps {
 
 export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
     const t = useTranslations("leadGenModal")
+    const tCommon = useTranslations("common")
+    const tModal = useTranslations("panelLoginModal")
     const router = useRouter()
     const currentLocale = useLocale()
 
@@ -48,6 +50,7 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
 
             localStorage.setItem("pasiflow_token", data.token)
             localStorage.setItem("pasiflow_user", JSON.stringify(data.user))
+            localStorage.setItem("pasiflow_locale", currentLocale)
 
             setStep("success")
             setTimeout(() => {
@@ -154,9 +157,9 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                                 </AnimatePresence>
                             </motion.div>
                             <h3 className="text-white font-bold text-xl tracking-tight">
-                                Panel Girişi
+                                {tModal("title")}
                             </h3>
-                            <p className="text-white/50 text-sm mt-1">Güvenli erişim portalı</p>
+                            <p className="text-white/50 text-sm mt-1">{tModal("subTitle")}</p>
                         </div>
                     </div>
 
@@ -273,11 +276,11 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                                             {loading ? (
                                                 <div className="flex items-center gap-2">
                                                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                                                    <span>Giriş yapılıyor...</span>
+                                                    <span>{tModal("processing")}</span>
                                                 </div>
                                             ) : (
                                                 <>
-                                                    Giriş Yap
+                                                    {tCommon("signIn")}
                                                     <ArrowRight size={18} />
                                                 </>
                                             )}
@@ -315,8 +318,8 @@ export function PanelLoginModal({ open, onOpenChange }: PanelLoginModalProps) {
                                         />
                                     </motion.div>
                                     <div className="text-center">
-                                        <p className="text-lg font-bold text-slate-900">Giriş Başarılı</p>
-                                        <p className="text-sm text-slate-500 mt-1">Yönlendiriliyorsunuz...</p>
+                                        <p className="text-lg font-bold text-slate-900">{tCommon("signIn")}</p>
+                                        <p className="text-sm text-slate-500 mt-1">{tModal("redirecting")}</p>
                                     </div>
                                 </motion.div>
                             )}

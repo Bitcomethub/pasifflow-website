@@ -1,8 +1,9 @@
-// Admin panel is English-only (internal-facing)
+// Admin panel is English-only (internal-facing), but logout returns to the user's preferred locale.
 "use client"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 // Use Lucide icons which are standard in shadcn/ui
 import {
@@ -21,6 +22,16 @@ import {
 
 export function AdminSidebar() {
     const pathname = usePathname()
+    const [locale, setLocale] = useState<"tr" | "en">("tr")
+
+    useEffect(() => {
+        try {
+            const stored = localStorage.getItem("pasiflow_locale")
+            if (stored === "en" || stored === "tr") setLocale(stored)
+        } catch {
+            // ignore
+        }
+    }, [])
 
     const routes = [
         {
@@ -74,7 +85,7 @@ export function AdminSidebar() {
         {
             label: "Manager Portal",
             icon: Briefcase,
-            href: "/manager",
+            href: `/${locale}/manager`,
             active: pathname.includes("/manager"),
         },
         {
@@ -122,7 +133,7 @@ export function AdminSidebar() {
                     onClick={() => {
                         localStorage.removeItem("pasiflow_token")
                         localStorage.removeItem("pasiflow_user")
-                        window.location.href = "/tr/login" // Refresh to clear state
+                        window.location.href = `/${locale}/login`
                     }}
                     className="w-full flex items-center p-3 text-zinc-400 hover:text-white hover:bg-white/10 rounded-lg cursor-pointer transition text-left"
                 >

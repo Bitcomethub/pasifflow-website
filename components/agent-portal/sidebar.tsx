@@ -1,7 +1,7 @@
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { Link, useRouter, usePathname } from "@/i18n/navigation"
+import { useLocale } from "next-intl"
 import {
     LayoutDashboard,
     Users,
@@ -22,6 +22,8 @@ interface AgentSidebarProps {
 
 export function AgentSidebar({ onClose }: AgentSidebarProps) {
     const pathname = usePathname()
+    const router = useRouter()
+    const locale = useLocale()
     const t = useTranslations("nav")
 
     const menuItems = [
@@ -33,6 +35,12 @@ export function AgentSidebar({ onClose }: AgentSidebarProps) {
     ]
 
     const handleNavClick = () => onClose?.()
+
+    const handleLogout = () => {
+        localStorage.removeItem("pasiflow_token")
+        localStorage.removeItem("pasiflow_user")
+        router.push("/login", { locale })
+    }
 
     return (
         <aside className="w-72 h-screen flex flex-col bg-white border-r border-slate-100 fixed top-0 left-0 z-40">
@@ -110,13 +118,9 @@ export function AgentSidebar({ onClose }: AgentSidebarProps) {
                     transition={{ delay: 0.35 }}
                 >
                     <button
-                        onClick={() => {
-                            localStorage.removeItem("pasiflow_token");
-                            localStorage.removeItem("pasiflow_user");
-                            window.location.href = "/";
-                        }}
+                        onClick={handleLogout}
                         className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-destructive hover:bg-destructive/5 transition-all group"
-                        aria-label="Log out"
+                        aria-label={t("logout")}
                     >
                         <LogOut className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                         {t("logout")}

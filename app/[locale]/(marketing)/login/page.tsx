@@ -51,6 +51,7 @@ export default function LoginPage() {
 
             localStorage.setItem("pasiflow_token", data.token)
             localStorage.setItem("pasiflow_user", JSON.stringify(data.user))
+            localStorage.setItem("pasiflow_locale", locale)
 
             if (data.user.role === "AGENT") {
                 router.push(`/${locale}/agent/dashboard`)

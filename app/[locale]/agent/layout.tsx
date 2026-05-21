@@ -5,7 +5,7 @@ import { useLocale } from "next-intl"
 import { AgentSidebar } from "@/components/agent-portal/sidebar"
 import { Menu, X } from "lucide-react"
 import { Logo } from "@/components/logo"
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { AuthGuard } from "@/components/auth-guard"
 
 export default function AgentLayout({

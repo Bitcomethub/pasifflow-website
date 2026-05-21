@@ -18,7 +18,13 @@
         "showLess": "Daha Az Göster",
         "whatsapp": "WhatsApp'tan Yaz",
         "freeConsultation": "Ücretsiz Danışmanlık Al",
-        "whatsappCta": "WhatsApp'tan Yaz"
+        "whatsappCta": "WhatsApp'tan Yaz",
+        "adminPanel": "Admin Paneli",
+        "managerPortal": "Manager Paneli",
+        "dashboard": "Panelim",
+        "signIn": "Giriş Yap",
+        "signOut": "Çıkış Yap",
+        "signUp": "Kayıt Ol"
     },
     "nav": {
         "howItWorks": "Nasıl Çalışır?",

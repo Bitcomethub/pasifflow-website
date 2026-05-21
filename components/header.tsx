@@ -260,7 +260,7 @@ export function Header() {
                         className="cursor-pointer flex items-center gap-2 text-[#3D4852] focus:bg-slate-100"
                       >
                         <LayoutDashboard className="h-4 w-4" />
-                        Dashboard
+                        {t("dashboard")}
                       </Link>
                     </DropdownMenuItem>
                     {currentUser.role === "MANAGER" && (
@@ -270,7 +270,7 @@ export function Header() {
                           className="cursor-pointer flex items-center gap-2 text-[#C1A05E] focus:bg-[#C1A05E]/10"
                         >
                           <Briefcase className="h-4 w-4" />
-                          Manager Portal
+                          {t("managerPortal")}
                         </Link>
                       </DropdownMenuItem>
                     )}
@@ -282,7 +282,7 @@ export function Header() {
                             className="cursor-pointer flex items-center gap-2 text-[#C1A05E] focus:bg-[#C1A05E]/10"
                           >
                             <Shield className="h-4 w-4" />
-                            Admin Panel
+                            {t("adminPanel")}
                           </a>
                         </DropdownMenuItem>
                         <DropdownMenuItem asChild>
@@ -291,7 +291,7 @@ export function Header() {
                             className="cursor-pointer flex items-center gap-2 text-[#C1A05E] focus:bg-[#C1A05E]/10"
                           >
                             <Briefcase className="h-4 w-4" />
-                            Manager Portal
+                            {t("managerPortal")}
                           </Link>
                         </DropdownMenuItem>
                       </>
@@ -301,7 +301,7 @@ export function Header() {
                       className="cursor-pointer flex items-center gap-2 text-destructive focus:bg-destructive/10"
                     >
                       <LogOut className="h-4 w-4" />
-                      {tNav("logout")}
+                      {t("signOut")}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>

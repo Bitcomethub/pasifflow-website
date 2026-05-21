@@ -1,8 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { Link, useRouter, usePathname } from "@/i18n/navigation"
+import { useLocale } from "next-intl"
 import { cn } from "@/lib/utils"
 import {
     LayoutDashboard,
@@ -23,6 +23,8 @@ interface ClientSidebarProps {
 
 export function ClientSidebar({ onClose }: ClientSidebarProps) {
     const pathname = usePathname()
+    const router = useRouter()
+    const locale = useLocale()
     const t = useTranslations("nav")
     const [user, setUser] = useState<{ fullName?: string; email?: string } | null>(null)
 
@@ -48,6 +50,12 @@ export function ClientSidebar({ onClose }: ClientSidebarProps) {
     ]
 
     const handleNavClick = () => onClose?.()
+
+    const handleLogout = () => {
+        localStorage.removeItem("pasiflow_token")
+        localStorage.removeItem("pasiflow_user")
+        router.push("/login", { locale })
+    }
 
     return (
         <aside className="fixed left-0 top-0 z-40 h-screen w-72 bg-[#1F2328] text-white transition-transform flex flex-col">
@@ -139,13 +147,9 @@ export function ClientSidebar({ onClose }: ClientSidebarProps) {
                         transition={{ delay: 0.4 }}
                     >
                         <button
-                            onClick={() => {
-                                localStorage.removeItem("pasiflow_token");
-                                localStorage.removeItem("pasiflow_user");
-                                window.location.href = "/";
-                            }}
+                            onClick={handleLogout}
                             className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-slate-400 transition-all hover:bg-red-500/10 hover:text-red-500 group"
-                            aria-label="Log out"
+                            aria-label={t("logout")}
                         >
                             <LogOut className="h-5 w-5 transition-transform group-hover:translate-x-1" />
                             {t("logout")}
