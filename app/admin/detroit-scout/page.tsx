@@ -99,8 +99,9 @@ export default function DetroitScoutPage() {
         async (priceCeiling: number) => {
             const token = typeof window !== "undefined" ? localStorage.getItem("pasiflow_token") || "" : ""
             try {
-                const res = await fetch(`/api/admin/detroit-listings?price_max=${priceCeiling}`, {
+                const res = await fetch(`/api/admin/detroit-listings?price_max=${priceCeiling}&_t=${Date.now()}`, {
                     headers: { Authorization: `Bearer ${token}` },
+                    cache: "no-store",
                 })
                 if (!res.ok) {
                     const data = await res.json().catch(() => ({}))
@@ -427,7 +428,7 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                         <img
                             src={listing.imageUrl}
                             alt={listing.address}
-                            className="w-full h-64 object-cover rounded-t-2xl"
+                            className="w-full h-64 object-cover rounded-t-xl"
                         />
                     ) : (
                         <div className="w-full h-64 bg-zinc-100 rounded-t-2xl flex items-center justify-center text-zinc-400">
@@ -496,11 +497,14 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-3">
-                        <Button asChild className="bg-[#006AFF] hover:bg-[#0055d4] text-white gap-2 flex-1">
-                            <a href={listing.detailUrl} target="_blank" rel="noopener noreferrer">
-                                <ExternalLink className="h-4 w-4" /> View on Zillow
-                            </a>
-                        </Button>
+                        <a
+                            href={listing.detailUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center justify-center gap-2 flex-1 h-10 px-4 py-2 rounded-md text-sm font-medium bg-[#006AFF] hover:bg-[#0055d4] text-white transition-colors"
+                        >
+                            <ExternalLink className="h-4 w-4" /> View on Zillow
+                        </a>
                         <Button variant="outline" onClick={onClose} className="sm:w-32">Close</Button>
                     </div>
                 </div>

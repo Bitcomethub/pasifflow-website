@@ -64,11 +64,22 @@ export async function GET(req: NextRequest) {
       .map((item: any) => {
         const p = item?.property
         if (!p) return null
-        const price = Number(p.price || p.listingPrice || 0)
+
+        const price = Number(
+          p.price ?? p.unformattedPrice ?? p.listingPrice ??
+          p.priceForHDP ?? p.hdpData?.homeInfo?.price ?? 0
+        )
         if (price <= 0 || price > priceMax) return null
+
         const beds = Number(p.bedrooms || 2)
         const baths = Number(p.bathrooms || 1)
         const metrics = calcMetrics(price, beds)
+
+        const hdpUrl = p.hdpUrl ?? p.detailUrl ?? p.url ?? ""
+        const detailUrl = hdpUrl
+          ? (hdpUrl.startsWith("http") ? hdpUrl : `https://www.zillow.com${hdpUrl}`)
+          : `https://www.zillow.com/homes/${p.zpid}_zpid/`
+
         return {
           zpid: p.zpid,
           price,
@@ -80,7 +91,7 @@ export async function GET(req: NextRequest) {
             ? `${p.address.streetAddress}, ${p.address.city}, ${p.address.state}`
             : "Detroit, MI",
           imageUrl: p.media?.propertyPhotoLinks?.mediumSizeLink || "",
-          detailUrl: p.hdpUrl ? `https://www.zillow.com${p.hdpUrl}` : "",
+          detailUrl,
           lat: p.location?.latitude || 0,
           lng: p.location?.longitude || 0,
           leadPaintRisk: Number(p.yearBuilt || 0) > 0 && Number(p.yearBuilt || 0) < 1978,
