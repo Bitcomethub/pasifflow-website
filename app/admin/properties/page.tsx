@@ -57,7 +57,7 @@ export default async function PropertiesPage() {
                                 </TableCell>
                                 <TableCell className="text-right">
                                     <Button variant="ghost" size="sm" asChild>
-                                        <Link href={`/admin/properties/${property.id}`}>Edit</Link>
+                                        <Link href={`/admin/properties/${property.id}/edit`}>Edit</Link>
                                     </Button>
                                 </TableCell>
                             </TableRow>
