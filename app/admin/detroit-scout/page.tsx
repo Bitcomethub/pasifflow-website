@@ -94,6 +94,7 @@ export default function DetroitScoutPage() {
     const [search, setSearch] = useState("")
 
     const [selected, setSelected] = useState<Listing | null>(null)
+    const [totalAvailable, setTotalAvailable] = useState<number>(0)
 
     const fetchListings = useCallback(
         async (priceCeiling: number) => {
@@ -110,6 +111,7 @@ export default function DetroitScoutPage() {
                 const data = await res.json()
                 setListings(data.listings as Listing[])
                 setStats(data.stats as Stats)
+                setTotalAvailable(typeof data.totalAvailable === "number" ? data.totalAvailable : 0)
                 setError(null)
             } catch (err) {
                 setError(err instanceof Error ? err.message : "Failed to load listings")
@@ -171,7 +173,9 @@ export default function DetroitScoutPage() {
                         <div>
                             <h1 className="text-2xl md:text-3xl font-bold tracking-tight">Detroit Scout</h1>
                             <p className="text-sm text-muted-foreground">
-                                Live Zillow listings under $125k, scored for Section 8 rental yield.
+                                {stats
+                                    ? `${listings.length} uygun mülk / ${totalAvailable} toplam Detroit ilanı`
+                                    : "Live Zillow listings, scored for Section 8 rental yield."}
                             </p>
                         </div>
                     </div>
@@ -192,6 +196,7 @@ export default function DetroitScoutPage() {
                 <StatCard
                     label="Total properties"
                     value={stats ? stats.total.toString() : "—"}
+                    subtext={totalAvailable > 0 ? `/ ${totalAvailable} toplam ilan` : undefined}
                     icon={Building2}
                     tint="text-blue-600 bg-blue-50"
                 />
@@ -284,7 +289,7 @@ export default function DetroitScoutPage() {
             {loading ? (
                 <div className="flex items-center justify-center py-32 text-muted-foreground">
                     <Loader2 className="h-6 w-6 animate-spin mr-2" />
-                    Fetching live listings from Zillow…
+                    5 sayfa Zillow verisi yükleniyor...
                 </div>
             ) : error ? (
                 <Card className="border-red-200 bg-red-50">
@@ -320,11 +325,13 @@ function StatCard({
     value,
     icon: Icon,
     tint,
+    subtext,
 }: {
     label: string
     value: string
     icon: React.ComponentType<{ className?: string }>
     tint: string
+    subtext?: string
 }) {
     return (
         <Card>
@@ -336,6 +343,7 @@ function StatCard({
             </CardHeader>
             <CardContent>
                 <div className="text-2xl font-bold tracking-tight">{value}</div>
+                {subtext && <div className="text-xs text-muted-foreground mt-1">{subtext}</div>}
             </CardContent>
         </Card>
     )

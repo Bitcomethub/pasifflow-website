@@ -5,7 +5,8 @@ export const dynamic = "force-dynamic"
 export const fetchCache = "force-no-store"
 
 const HOST = "private-zillow.p.rapidapi.com"
-const FMR: Record<number, number> = { 1: 950, 2: 1150, 3: 1450, 4: 1700 }
+// HUD 2025 Detroit-Warren-Dearborn MSA Fair Market Rents
+const FMR: Record<number, number> = { 1: 855, 2: 1024, 3: 1311, 4: 1542 }
 
 function getFMR(beds: number) {
   return FMR[Math.min(Math.max(beds, 1), 4)]
@@ -18,6 +19,10 @@ function calcMetrics(price: number, beds: number) {
   const cashFlow = (rent * 12 * 0.55) / 12
   const score = capRate >= 10 ? "A" : capRate >= 7 ? "B" : "C"
   return { rent, capRate, grossYield, cashFlow, score }
+}
+
+function buildUrl(priceMax: number, page: number) {
+  return `https://${HOST}/search/byaddress?location=Detroit%2C+MI&status_type=For_Sale&price_max=${priceMax}&page=${page}`
 }
 
 export async function GET(req: NextRequest) {
@@ -37,30 +42,31 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const url = `https://${HOST}/search/byaddress?location=Detroit%2C+MI&status_type=For_Sale&price_max=${priceMax}&page=1`
+    // Zillow paginates Detroit results — pull all 5 pages in parallel (~200/page = ~1000 raw rows)
+    const pageResponses = await Promise.all(
+      [1, 2, 3, 4, 5].map((page) =>
+        fetch(buildUrl(priceMax, page), {
+          headers: {
+            "X-RapidAPI-Key": apiKey,
+            "X-RapidAPI-Host": HOST,
+          },
+          cache: "no-store",
+        })
+      )
+    )
 
-    const res = await fetch(url, {
-      headers: {
-        "X-RapidAPI-Key": apiKey,
-        "X-RapidAPI-Host": HOST,
-      },
-      cache: "no-store",
-    })
-
-    if (!res.ok) {
-      return NextResponse.json({ error: `Upstream ${res.status}` }, { status: 502 })
+    const firstFailure = pageResponses.find((r) => !r.ok)
+    if (firstFailure) {
+      return NextResponse.json({ error: `Upstream ${firstFailure.status}` }, { status: 502 })
     }
 
-    const data = await res.json()
+    const datas = await Promise.all(pageResponses.map((r) => r.json()))
+    const allResults: any[] = datas.flatMap((d) =>
+      Array.isArray(d?.searchResults) ? d.searchResults : []
+    )
 
-    // Extract — searchResults[].property yapısı
-    const searchResults = data?.searchResults
-    if (!Array.isArray(searchResults) || searchResults.length === 0) {
-      return NextResponse.json({ listings: [], count: 0, stats: { total: 0, avgPrice: 0, avgCapRate: 0, aScoreCount: 0 } })
-    }
-
-    // Map ve filtrele — sadece $priceMax altı, max 50 listing
-    const listings = searchResults
+    // Parse — every Zillow row we can read counts toward totalAvailable
+    const allListings = allResults
       .map((item: any) => {
         const p = item?.property
         if (!p) return null
@@ -69,13 +75,13 @@ export async function GET(req: NextRequest) {
         const price = Number(
           p.price?.value ?? p.price ?? p.listingPrice ?? p.unformattedPrice ?? 0
         )
-        if (price <= 0 || price > priceMax) return null
+        if (!Number.isFinite(price)) return null
 
         const beds = Number(p.bedrooms || 2)
         const baths = Number(p.bathrooms || 1)
         const metrics = calcMetrics(price, beds)
 
-        // DETAIL URL — hdpView.hdpUrl karmaşık, zpid ile doğrudan Zillow linki daha temiz
+        // DETAIL URL — zpid ile doğrudan Zillow detayfsayfası kanonik URL
         const detailUrl = `https://www.zillow.com/homedetails/${p.zpid}_zpid/`
 
         return {
@@ -96,20 +102,24 @@ export async function GET(req: NextRequest) {
           ...metrics,
         }
       })
-      .filter(Boolean)
-      .slice(0, 50) // max 50, cache limit aşmasın
+      .filter(Boolean) as any[]
+
+    // Quality filter — drop sub-$10k parcels/teardowns and >50% capRate data artifacts
+    const listings = allListings
+      .filter((l) => l.price > 10000 && l.price <= priceMax && l.capRate <= 50)
+      .sort((a, b) => b.capRate - a.capRate)
 
     const total = listings.length
-    const avgPrice = total > 0 ? listings.reduce((a: number, b: any) => a + b.price, 0) / total : 0
-    const avgCapRate = total > 0 ? listings.reduce((a: number, b: any) => a + b.capRate, 0) / total : 0
-    const aScoreCount = listings.filter((l: any) => l.score === "A").length
+    const avgPrice = total > 0 ? listings.reduce((a, b) => a + b.price, 0) / total : 0
+    const avgCapRate = total > 0 ? listings.reduce((a, b) => a + b.capRate, 0) / total : 0
+    const aScoreCount = listings.filter((l) => l.score === "A").length
 
     return NextResponse.json({
       listings,
       count: total,
+      totalAvailable: allListings.length,
       stats: { total, avgPrice, avgCapRate, aScoreCount },
     })
-
   } catch (err: any) {
     return NextResponse.json({ error: err.message }, { status: 500 })
   }
