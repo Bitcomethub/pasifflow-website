@@ -1,19 +1,23 @@
 "use client"
 
 import { useState } from "react"
+import { useLocale } from "next-intl"
 import { AgentSidebar } from "@/components/agent-portal/sidebar"
 import { Menu, X } from "lucide-react"
 import { Logo } from "@/components/logo"
 import Link from "next/link"
+import { AuthGuard } from "@/components/auth-guard"
 
 export default function AgentLayout({
     children,
 }: {
     children: React.ReactNode
 }) {
+    const locale = useLocale()
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
     return (
+        <AuthGuard allowedRoles={["AGENT", "ADMIN"]} loginPath={`/${locale}/login`}>
         <div className="flex min-h-screen bg-slate-50/50">
             {/* Mobile overlay */}
             {sidebarOpen && (
@@ -56,5 +60,6 @@ export default function AgentLayout({
                 {children}
             </main>
         </div>
+        </AuthGuard>
     )
 }

@@ -1,16 +1,19 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { useLocale } from "next-intl"
 import { ClientSidebar } from "@/components/dashboard/client-sidebar"
 import { Menu, X, Shield } from "lucide-react"
 import { Logo } from "@/components/logo"
 import Link from "next/link"
+import { AuthGuard } from "@/components/auth-guard"
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const locale = useLocale()
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
 
@@ -27,6 +30,7 @@ export default function DashboardLayout({
   }, [])
 
   return (
+    <AuthGuard allowedRoles={["USER", "ADMIN"]} loginPath={`/${locale}/login`}>
     <div className="flex min-h-screen bg-slate-50/50">
       {/* Mobile overlay */}
       {sidebarOpen && (
@@ -82,5 +86,6 @@ export default function DashboardLayout({
         </div>
       </main>
     </div>
+    </AuthGuard>
   )
 }
