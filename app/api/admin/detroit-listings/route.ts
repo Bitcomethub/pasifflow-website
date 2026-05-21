@@ -69,71 +69,29 @@ function scoreForCap(capRate: number): Section8Score {
 }
 
 function normalize(raw: Record<string, unknown>): ScoutedListing | null {
-    const price = Number(
-        (raw as any).price
-        || (raw as any).listingPrice
-        || (raw as any).unformattedPrice
-        || 0
-    )
+    const r = raw as any
+
+    const price = Number(r.price) || 0
     if (!price || price <= 0) return null
 
-    const beds = toNumber(
-        pickFirst(raw.bedrooms, raw.beds, (raw as any).hdpData?.homeInfo?.bedrooms)
-    ) ?? 0
-    const baths = toNumber(
-        pickFirst(raw.bathrooms, raw.baths, (raw as any).hdpData?.homeInfo?.bathrooms)
-    ) ?? 0
-    const sqft = toNumber(
-        pickFirst(raw.livingArea, raw.sqft, raw.area, (raw as any).hdpData?.homeInfo?.livingArea)
-    )
-    const yearBuilt = toNumber(
-        pickFirst(raw.yearBuilt, (raw as any).hdpData?.homeInfo?.yearBuilt)
-    )
-    const lotSize = toNumber(pickFirst(raw.lotAreaValue, raw.lotSize))
+    const beds = Number(r.bedrooms) || 2
+    const baths = Number(r.bathrooms) || 1
+    const yearBuilt = Number(r.yearBuilt) || 0
+    const livingArea = Number(r.livingArea) || 0
 
-    const streetAddress = (raw as any).streetAddress as string | undefined
-    const city = String((raw as any).city ?? "Detroit")
-    const state = String((raw as any).state ?? "MI")
-    const zipcode = (raw as any).zipcode as string | null | undefined
-    const address = streetAddress
-        ? `${streetAddress}, ${city}, ${state}`
-        : typeof raw.address === "string"
-            ? (raw.address as string)
-            : "Detroit, MI"
+    const city = String(r.city || "Detroit")
+    const state = String(r.state || "MI")
+    const zipcode = r.zipcode ? String(r.zipcode) : null
+    const address = r.streetAddress
+        ? `${r.streetAddress}, ${city}, ${state} ${r.zipcode ?? ""}`.trim()
+        : "Detroit, MI"
 
-    const zpidRaw = pickFirst(raw.zpid, (raw as any).id, (raw as any).hdpData?.homeInfo?.zpid)
-    const zpid = zpidRaw ? String(zpidRaw) : null
+    const imageUrl = (r.imgSrc as string) || ""
+    const detailUrl = r.hdpUrl ? `https://www.zillow.com${r.hdpUrl}` : ""
+    const latitude = Number(r.latitude) || 0
+    const longitude = Number(r.longitude) || 0
 
-    const imageUrl = ((raw as any).imgSrc || (raw as any).image || "") as string
-
-    const locationObj = (raw as any).location as Record<string, unknown> | undefined
-    const latitude = toNumber(
-        pickFirst(
-            (raw as any).latitude,
-            locationObj?.latitude,
-            (raw as any).latLong?.latitude,
-            (raw as any).hdpData?.homeInfo?.latitude
-        )
-    )
-    const longitude = toNumber(
-        pickFirst(
-            (raw as any).longitude,
-            locationObj?.longitude,
-            (raw as any).latLong?.longitude,
-            (raw as any).hdpData?.homeInfo?.longitude
-        )
-    )
-
-    const detailUrl = pickFirst(
-        (raw as any).detailUrl,
-        (raw as any).hdpUrl,
-        (raw as any).url
-    ) as string | null
-    const listingUrl = detailUrl
-        ? (detailUrl.startsWith("http") ? detailUrl : `https://www.zillow.com${detailUrl}`)
-        : zpid
-            ? `https://www.zillow.com/homedetails/${zpid}_zpid/`
-            : `https://www.zillow.com/homes/${encodeURIComponent(address)}_rb/`
+    const zpid = r.zpid ? String(r.zpid) : null
 
     const fmrRent = fmrForBeds(beds)
     const annualGross = fmrRent * 12
@@ -148,57 +106,56 @@ function normalize(raw: Record<string, unknown>): ScoutedListing | null {
         address,
         city,
         state,
-        zipcode: zipcode ? String(zipcode) : null,
+        zipcode,
         price,
         beds,
         baths,
-        sqft,
-        yearBuilt,
-        lotSize,
-        propertyType: (pickFirst((raw as any).homeType, (raw as any).propertyType) as string | null) ?? null,
-        imageUrl: imageUrl ?? null,
-        latitude,
-        longitude,
-        listingUrl,
-        daysOnMarket: toNumber((raw as any).daysOnZillow ?? (raw as any).daysOnMarket),
+        sqft: livingArea || null,
+        yearBuilt: yearBuilt || null,
+        lotSize: null,
+        propertyType: null,
+        imageUrl: imageUrl || null,
+        latitude: latitude || null,
+        longitude: longitude || null,
+        listingUrl: detailUrl || (zpid ? `https://www.zillow.com/homedetails/${zpid}_zpid/` : ""),
+        daysOnMarket: null,
         fmrRent,
         capRate: Number(capRate.toFixed(2)),
         grossYield: Number(grossYield.toFixed(2)),
         monthlyCashFlow: Number(monthlyCashFlow.toFixed(0)),
         section8Score: scoreForCap(capRate),
-        leadPaintRisk: yearBuilt !== null && yearBuilt < 1978,
+        leadPaintRisk: yearBuilt > 0 && yearBuilt < 1978,
     }
 }
 
 function extractResults(data: any): any[] {
-    // Primary: searchResults wrapper (private-zillow byaddress)
-    if (Array.isArray(data?.searchResults) && data.searchResults.length > 0) {
-        return data.searchResults.map((item: any) => {
-            const prop = item?.property ?? item
+    if (!data) return []
+
+    // private-zillow byaddress — searchResults[].property
+    const sr = data.searchResults
+    if (Array.isArray(sr) && sr.length > 0) {
+        console.log("HIT searchResults, count:", sr.length)
+        return sr.map((item: any) => {
+            const p = item?.property || item
             return {
-                ...prop,
-                imgSrc:
-                    prop?.media?.propertyPhotoLinks?.mediumSizeLink
-                    || prop?.media?.propertyPhotoLinks?.smallSizeLink
-                    || prop?.imgSrc
-                    || "",
-                streetAddress: prop?.address?.streetAddress || "",
-                city: prop?.address?.city || "Detroit",
-                state: prop?.address?.state || "MI",
-                zipcode: prop?.address?.zipcode || "",
+                zpid: p.zpid,
+                price: p.price || p.listingPrice || p.unformattedPrice || 0,
+                bedrooms: p.bedrooms || p.beds || 2,
+                bathrooms: p.bathrooms || p.baths || 1,
+                yearBuilt: p.yearBuilt || 0,
+                livingArea: p.livingArea || 0,
+                hdpUrl: p.hdpUrl || "",
+                imgSrc: p.media?.propertyPhotoLinks?.mediumSizeLink || "",
+                streetAddress: p.address?.streetAddress || "",
+                city: p.address?.city || "Detroit",
+                state: p.address?.state || "MI",
+                zipcode: p.address?.zipcode || "",
+                latitude: p.location?.latitude || 0,
+                longitude: p.location?.longitude || 0,
             }
         })
     }
-    // Fallbacks
-    for (const key of ["results", "props", "listings", "mapResults", "listResults"]) {
-        if (Array.isArray(data?.[key]) && data[key].length > 0) return data[key]
-    }
-    for (const cat of ["cat1", "cat2"]) {
-        const sr = data?.[cat]?.searchResults
-        if (sr?.mapResults?.length) return sr.mapResults
-        if (sr?.listResults?.length) return sr.listResults
-    }
-    if (Array.isArray(data) && data.length > 0) return data
+
     return []
 }
 
@@ -237,6 +194,11 @@ async function callUpstream(
         } catch {
             parsed = null
         }
+        // Diagnostic: what does the raw upstream payload actually look like?
+        const data: any = parsed
+        console.log(`[detroit-listings] /${endpoint} RAW KEYS:`, data && typeof data === "object" ? Object.keys(data) : typeof data)
+        console.log(`[detroit-listings] /${endpoint} searchResults length:`, data?.searchResults?.length)
+        console.log(`[detroit-listings] /${endpoint} FIRST ITEM:`, JSON.stringify(data?.searchResults?.[0]))
         const results = extractResults(parsed)
         const rawSample = Array.isArray(parsed)
             ? (parsed as unknown[]).slice(0, 1)
