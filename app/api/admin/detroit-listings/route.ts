@@ -65,9 +65,9 @@ export async function GET(req: NextRequest) {
         const p = item?.property
         if (!p) return null
 
+        // PRICE — p.price bir object: {value: 209900, pricePerSquareFoot: 161}
         const price = Number(
-          p.price ?? p.unformattedPrice ?? p.listingPrice ??
-          p.priceForHDP ?? p.hdpData?.homeInfo?.price ?? 0
+          p.price?.value ?? p.price ?? p.listingPrice ?? p.unformattedPrice ?? 0
         )
         if (price <= 0 || price > priceMax) return null
 
@@ -75,10 +75,8 @@ export async function GET(req: NextRequest) {
         const baths = Number(p.bathrooms || 1)
         const metrics = calcMetrics(price, beds)
 
-        const hdpUrl = p.hdpUrl ?? p.detailUrl ?? p.url ?? ""
-        const detailUrl = hdpUrl
-          ? (hdpUrl.startsWith("http") ? hdpUrl : `https://www.zillow.com${hdpUrl}`)
-          : `https://www.zillow.com/homes/${p.zpid}_zpid/`
+        // DETAIL URL — hdpView.hdpUrl karmaşık, zpid ile doğrudan Zillow linki daha temiz
+        const detailUrl = `https://www.zillow.com/homedetails/${p.zpid}_zpid/`
 
         return {
           zpid: p.zpid,
