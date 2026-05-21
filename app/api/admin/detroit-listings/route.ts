@@ -70,7 +70,13 @@ function scoreForCap(capRate: number): Section8Score {
 
 function normalize(raw: Record<string, unknown>): ScoutedListing | null {
     const price = toNumber(
-        pickFirst(raw.price, raw.listPrice, raw.unformattedPrice, (raw as any).hdpData?.homeInfo?.price)
+        pickFirst(
+            raw.price,
+            (raw as any).listingPrice,
+            raw.listPrice,
+            raw.unformattedPrice,
+            (raw as any).hdpData?.homeInfo?.price
+        )
     )
     if (!price || price <= 0) return null
 
@@ -88,10 +94,13 @@ function normalize(raw: Record<string, unknown>): ScoutedListing | null {
     )
     const lotSize = toNumber(pickFirst(raw.lotAreaValue, raw.lotSize))
 
+    // raw.address may be an object {streetAddress,city,state,zipcode} from
+    // the byaddress endpoint — only use it as a string when it actually is one.
+    const rawAddress = typeof raw.address === "string" ? raw.address : null
     const address = String(
         pickFirst(
-            raw.address,
             (raw as any).streetAddress,
+            rawAddress,
             (raw as any).addressStreet,
             (raw as any).hdpData?.homeInfo?.streetAddress
         ) ?? "Unknown address"
@@ -171,10 +180,58 @@ function normalize(raw: Record<string, unknown>): ScoutedListing | null {
     }
 }
 
+/**
+ * Flatten an item that wraps the real listing under `.property`. Pulls the
+ * nested address parts and media link up to the top level so normalize()
+ * can read raw.imgSrc / raw.streetAddress / raw.city directly.
+ */
+function flattenPropertyWrapper(item: Record<string, unknown>): Record<string, unknown> {
+    const property = (item as any).property ?? null
+    if (!property || typeof property !== "object") return item
+
+    const addr = (property.address ?? {}) as Record<string, unknown>
+    // Media may live on the wrapper item or inside .property — check both.
+    const media = ((item as any).media ?? property.media ?? {}) as Record<string, unknown>
+    const photoLinks = ((media as any).propertyPhotoLinks ?? {}) as Record<string, unknown>
+
+    return {
+        ...property,
+        ...item,
+        // Flat address fields for normalize()
+        streetAddress: (addr as any).streetAddress ?? null,
+        city: (addr as any).city ?? null,
+        state: (addr as any).state ?? null,
+        zipcode: (addr as any).zipcode ?? (addr as any).postalCode ?? null,
+        // Photo: prefer medium, then small, then any string we can find
+        imgSrc:
+            (photoLinks as any).mediumSizeLink ??
+            (photoLinks as any).smallSizeLink ??
+            (photoLinks as any).xlargeSizeLink ??
+            (photoLinks as any).largeSizeLink ??
+            null,
+        // Lat/long can live under location.{lat,long}
+        latitude:
+            (property as any).latitude ??
+            ((property as any).location as any)?.latitude ??
+            null,
+        longitude:
+            (property as any).longitude ??
+            ((property as any).location as any)?.longitude ??
+            null,
+    }
+}
+
 function extractResults(payload: unknown): Record<string, unknown>[] {
     if (Array.isArray(payload)) return payload as Record<string, unknown>[]
     if (!payload || typeof payload !== "object") return []
     const obj = payload as Record<string, unknown>
+
+    // Primary shape from /search/byaddress: { searchResults: [{ property: {...} }] }
+    const searchResults = (obj as any).searchResults
+    if (Array.isArray(searchResults) && searchResults.length > 0) {
+        return (searchResults as Record<string, unknown>[]).map(flattenPropertyWrapper)
+    }
+
     const candidates: unknown[] = [
         obj.results,
         obj.props,
@@ -191,7 +248,11 @@ function extractResults(payload: unknown): Record<string, unknown>[] {
         (obj as any).cat2?.searchResults?.listResults,
     ]
     for (const c of candidates) {
-        if (Array.isArray(c) && c.length > 0) return c as Record<string, unknown>[]
+        if (Array.isArray(c) && c.length > 0) {
+            return (c as Record<string, unknown>[]).map((item) =>
+                (item as any)?.property ? flattenPropertyWrapper(item) : item
+            )
+        }
     }
     return []
 }
@@ -284,14 +345,17 @@ export async function GET(request: Request) {
     const priceMax = url.searchParams.get("price_max") ?? "125000"
     const debug = url.searchParams.get("debug") === "1"
 
-    // Attempt 1: /search/bymls with the new param shape.
+    // Attempt 1 (primary): /search/byaddress — confirmed shape is
+    //   { searchResults: [{ property: {...} }] }
+    // Note: status_type uses underscore form "For_Sale" (bymls rejected "ForSale").
     const attempts: AttemptOutcome[] = []
     const first = await callUpstream(
-        "bymls",
+        "byaddress",
         {
             location: "Detroit, MI",
-            status_type: "ForSale",
+            status_type: "For_Sale",
             price_max: priceMax,
+            page: "1",
         },
         rapidKey
     )
@@ -299,12 +363,14 @@ export async function GET(request: Request) {
 
     let chosen = first
     if (first.results.length === 0) {
-        // Attempt 2: /search/byaddress as fallback.
+        // Attempt 2 (fallback): /search/bymls with the corrected underscore form.
         const second = await callUpstream(
-            "byaddress",
+            "bymls",
             {
                 location: "Detroit, MI",
-                status_type: "ForSale",
+                status_type: "For_Sale",
+                price_max: priceMax,
+                page: "1",
             },
             rapidKey
         )
