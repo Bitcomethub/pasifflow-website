@@ -38,15 +38,15 @@ interface Listing {
     lotSize: number | null
     propertyType: string | null
     imageUrl: string | null
-    latitude: number | null
-    longitude: number | null
-    listingUrl: string
+    lat: number | null
+    lng: number | null
+    detailUrl: string
     daysOnMarket: number | null
-    fmrRent: number
+    rent: number
     capRate: number
     grossYield: number
-    monthlyCashFlow: number
-    section8Score: "A" | "B" | "C"
+    cashFlow: number
+    score: "A" | "B" | "C"
     leadPaintRisk: boolean
 }
 
@@ -66,13 +66,13 @@ const SORT_OPTIONS = [
     { value: "cashFlow-desc", label: "Cash flow (high → low)" },
 ]
 
-const SCORE_STYLES: Record<Listing["section8Score"], string> = {
+const SCORE_STYLES: Record<Listing["score"], string> = {
     A: "bg-emerald-500 text-white border-emerald-600",
     B: "bg-amber-400 text-amber-950 border-amber-500",
     C: "bg-red-500 text-white border-red-600",
 }
 
-const SCORE_BG: Record<Listing["section8Score"], string> = {
+const SCORE_BG: Record<Listing["score"], string> = {
     A: "from-emerald-500/10 to-emerald-500/0 border-emerald-500/30",
     B: "from-amber-400/10 to-amber-400/0 border-amber-400/30",
     C: "from-red-500/10 to-red-500/0 border-red-500/30",
@@ -144,7 +144,7 @@ export default function DetroitScoutPage() {
         const term = search.trim().toLowerCase()
         const arr = listings.filter((l) => {
             if (l.beds < minBeds || l.beds > maxBeds) return false
-            if (scoreFilter !== "ALL" && l.section8Score !== scoreFilter) return false
+            if (scoreFilter !== "ALL" && l.score !== scoreFilter) return false
             if (term) {
                 const haystack = `${l.address} ${l.city} ${l.zipcode ?? ""}`.toLowerCase()
                 if (!haystack.includes(term)) return false
@@ -157,11 +157,11 @@ export default function DetroitScoutPage() {
             const av =
                 field === "capRate" ? a.capRate :
                     field === "price" ? a.price :
-                        field === "cashFlow" ? a.monthlyCashFlow : 0
+                        field === "cashFlow" ? a.cashFlow : 0
             const bv =
                 field === "capRate" ? b.capRate :
                     field === "price" ? b.price :
-                        field === "cashFlow" ? b.monthlyCashFlow : 0
+                        field === "cashFlow" ? b.cashFlow : 0
             return dir === "asc" ? av - bv : bv - av
         })
         return arr
@@ -353,7 +353,7 @@ function ListingCard({ listing, onSelect }: { listing: Listing; onSelect: () => 
         <button
             type="button"
             onClick={onSelect}
-            className={`group text-left rounded-xl border bg-gradient-to-b ${SCORE_BG[listing.section8Score]} hover:shadow-lg hover:-translate-y-0.5 transition-all overflow-hidden`}
+            className={`group text-left rounded-xl border bg-gradient-to-b ${SCORE_BG[listing.score]} hover:shadow-lg hover:-translate-y-0.5 transition-all overflow-hidden`}
         >
             <div className="relative aspect-[4/3] bg-zinc-100">
                 {listing.imageUrl ? (
@@ -370,8 +370,8 @@ function ListingCard({ listing, onSelect }: { listing: Listing; onSelect: () => 
                     </div>
                 )}
                 <div className="absolute top-2 right-2 flex flex-col gap-1 items-end">
-                    <Badge className={`${SCORE_STYLES[listing.section8Score]} text-sm font-bold`}>
-                        Score {listing.section8Score}
+                    <Badge className={`${SCORE_STYLES[listing.score]} text-sm font-bold`}>
+                        Score {listing.score}
                     </Badge>
                     {listing.leadPaintRisk && (
                         <Badge variant="outline" className="bg-white/95 text-amber-700 border-amber-300 gap-1">
@@ -399,8 +399,8 @@ function ListingCard({ listing, onSelect }: { listing: Listing; onSelect: () => 
                 </div>
                 <div className="grid grid-cols-3 gap-2 pt-2 border-t">
                     <Metric label="Cap" value={`${listing.capRate.toFixed(1)}%`} accent />
-                    <Metric label="FMR" value={`${currency(listing.fmrRent)}`} />
-                    <Metric label="CF/mo" value={currency(listing.monthlyCashFlow)} />
+                    <Metric label="FMR" value={`${currency(listing.rent)}`} />
+                    <Metric label="CF/mo" value={currency(listing.cashFlow)} />
                 </div>
             </div>
         </button>
@@ -455,9 +455,9 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                         <X className="h-4 w-4" />
                     </button>
                     <Badge
-                        className={`absolute top-3 left-3 ${SCORE_STYLES[listing.section8Score]} text-sm font-bold`}
+                        className={`absolute top-3 left-3 ${SCORE_STYLES[listing.score]} text-sm font-bold`}
                     >
-                        Section 8 Score: {listing.section8Score}
+                        Section 8 Score: {listing.score}
                     </Badge>
                 </div>
 
@@ -503,8 +503,8 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <BigMetric label="Cap rate" value={`${listing.capRate.toFixed(2)}%`} tone="emerald" />
                             <BigMetric label="Gross yield" value={`${listing.grossYield.toFixed(2)}%`} tone="blue" />
-                            <BigMetric label="FMR rent" value={`${currency(listing.fmrRent)}/mo`} tone="violet" />
-                            <BigMetric label="Net cash flow" value={`${currency(listing.monthlyCashFlow)}/mo`} tone="amber" />
+                            <BigMetric label="FMR rent" value={`${currency(listing.rent)}/mo`} tone="violet" />
+                            <BigMetric label="Net cash flow" value={`${currency(listing.cashFlow)}/mo`} tone="amber" />
                         </div>
                         <p className="text-xs text-muted-foreground mt-4">
                             Cap rate assumes 45% expense load (taxes, insurance, vacancy, management, repairs).
@@ -514,7 +514,7 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
 
                     <div className="flex flex-col sm:flex-row gap-3">
                         <Button asChild className="bg-[#006AFF] hover:bg-[#0055d4] text-white gap-2 flex-1">
-                            <a href={listing.listingUrl} target="_blank" rel="noopener noreferrer">
+                            <a href={listing.detailUrl} target="_blank" rel="noopener noreferrer">
                                 <ExternalLink className="h-4 w-4" /> View on Zillow
                             </a>
                         </Button>
