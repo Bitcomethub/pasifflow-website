@@ -15,7 +15,8 @@ import {
     Users,
     Settings,
     LogOut,
-    Briefcase
+    Briefcase,
+    Compass
 } from "lucide-react"
 
 export function AdminSidebar() {
@@ -33,6 +34,12 @@ export function AdminSidebar() {
             icon: Building2,
             href: "/admin/properties",
             active: pathname.startsWith("/admin/properties"),
+        },
+        {
+            label: "Detroit Scout",
+            icon: Compass,
+            href: "/admin/detroit-scout",
+            active: pathname.startsWith("/admin/detroit-scout"),
         },
         {
             label: "Maintenance",
