@@ -5,7 +5,6 @@ export const dynamic = "force-dynamic"
 export const revalidate = 0
 
 const RAPIDAPI_HOST = "private-zillow.p.rapidapi.com"
-const RAPIDAPI_FALLBACK_KEY = "bfac230979mshb0e411388f96540p188140jsnc71dc68249d0"
 
 const FMR_BY_BEDS: Record<number, number> = {
     1: 950,
@@ -176,19 +175,90 @@ function extractResults(payload: unknown): Record<string, unknown>[] {
     if (Array.isArray(payload)) return payload as Record<string, unknown>[]
     if (!payload || typeof payload !== "object") return []
     const obj = payload as Record<string, unknown>
-    const candidates = [
+    const candidates: unknown[] = [
         obj.results,
         obj.props,
         obj.data,
         obj.listings,
+        obj.mapResults,
+        obj.listResults,
         (obj as any).searchResults?.listings,
+        (obj as any).searchResults?.mapResults,
+        (obj as any).searchResults?.listResults,
         (obj as any).cat1?.searchResults?.mapResults,
         (obj as any).cat1?.searchResults?.listResults,
+        (obj as any).cat2?.searchResults?.mapResults,
+        (obj as any).cat2?.searchResults?.listResults,
     ]
     for (const c of candidates) {
-        if (Array.isArray(c)) return c as Record<string, unknown>[]
+        if (Array.isArray(c) && c.length > 0) return c as Record<string, unknown>[]
     }
     return []
+}
+
+type AttemptOutcome = {
+    endpoint: string
+    upstreamUrl: string
+    status: number
+    rawPreview: string
+    rawSample: unknown
+    results: Record<string, unknown>[]
+    error?: string
+}
+
+async function callUpstream(
+    endpoint: "bymls" | "byaddress",
+    params: Record<string, string>,
+    rapidKey: string
+): Promise<AttemptOutcome> {
+    const query = new URLSearchParams(params).toString()
+    const upstreamUrl = `https://${RAPIDAPI_HOST}/search/${endpoint}?${query}`
+    try {
+        const upstream = await fetch(upstreamUrl, {
+            headers: {
+                "x-rapidapi-key": rapidKey,
+                "x-rapidapi-host": RAPIDAPI_HOST,
+            },
+            next: { revalidate: 300 },
+        })
+        const text = await upstream.text()
+        const preview = text.slice(0, 500)
+        console.log(`[detroit-listings] /${endpoint} status=${upstream.status} preview=${preview}`)
+
+        let parsed: unknown = null
+        try {
+            parsed = JSON.parse(text)
+        } catch {
+            parsed = null
+        }
+        const results = extractResults(parsed)
+        const rawSample = Array.isArray(parsed)
+            ? (parsed as unknown[]).slice(0, 1)
+            : parsed && typeof parsed === "object"
+                ? Object.keys(parsed as object).slice(0, 20)
+                : null
+
+        return {
+            endpoint,
+            upstreamUrl,
+            status: upstream.status,
+            rawPreview: preview,
+            rawSample,
+            results,
+        }
+    } catch (error) {
+        const message = error instanceof Error ? error.message : "unknown error"
+        console.error(`[detroit-listings] /${endpoint} fetch threw: ${message}`)
+        return {
+            endpoint,
+            upstreamUrl,
+            status: 0,
+            rawPreview: "",
+            rawSample: null,
+            results: [],
+            error: message,
+        }
+    }
 }
 
 export async function GET(request: Request) {
@@ -202,64 +272,81 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 })
     }
 
-    const url = new URL(request.url)
-    const priceMax = url.searchParams.get("price_max") ?? "125000"
-    const page = url.searchParams.get("page") ?? "1"
-
-    const rapidKey = process.env.RAPIDAPI_KEY || RAPIDAPI_FALLBACK_KEY
-
-    const upstreamUrl =
-        `https://${RAPIDAPI_HOST}/search/bymls` +
-        `?city=Detroit&state=MI&listing_type=for_sale&price_max=${encodeURIComponent(priceMax)}&page=${encodeURIComponent(page)}`
-
-    try {
-        const upstream = await fetch(upstreamUrl, {
-            headers: {
-                "x-rapidapi-key": rapidKey,
-                "x-rapidapi-host": RAPIDAPI_HOST,
-            },
-            // Cache server-side for 5 minutes to spare the RapidAPI quota.
-            next: { revalidate: 300 },
-        })
-
-        if (!upstream.ok) {
-            const text = await upstream.text().catch(() => "")
-            return NextResponse.json(
-                { error: "Upstream RapidAPI error", status: upstream.status, detail: text.slice(0, 500) },
-                { status: 502 }
-            )
-        }
-
-        const raw = await upstream.json()
-        const results = extractResults(raw)
-
-        const listings = results
-            .map((item) => normalize(item))
-            .filter((l): l is ScoutedListing => l !== null)
-            // Final guard: enforce the $125k ceiling client-trusted.
-            .filter((l) => l.price <= Number(priceMax))
-            // Highest cap rate first — most interesting deals on top.
-            .sort((a, b) => b.capRate - a.capRate)
-
-        const totalPrice = listings.reduce((sum, l) => sum + l.price, 0)
-        const totalCap = listings.reduce((sum, l) => sum + l.capRate, 0)
-        const aCount = listings.filter((l) => l.section8Score === "A").length
-
-        return NextResponse.json({
-            count: listings.length,
-            stats: {
-                total: listings.length,
-                avgPrice: listings.length ? Math.round(totalPrice / listings.length) : 0,
-                avgCapRate: listings.length ? Number((totalCap / listings.length).toFixed(2)) : 0,
-                aScoreCount: aCount,
-            },
-            listings,
-        })
-    } catch (error) {
-        console.error("[detroit-listings] fetch failed:", error)
+    const rapidKey = process.env.RAPIDAPI_KEY
+    if (!rapidKey) {
         return NextResponse.json(
-            { error: "Failed to fetch Detroit listings" },
+            { error: "RAPIDAPI_KEY is not configured on this deployment" },
             { status: 500 }
         )
     }
+
+    const url = new URL(request.url)
+    const priceMax = url.searchParams.get("price_max") ?? "125000"
+    const debug = url.searchParams.get("debug") === "1"
+
+    // Attempt 1: /search/bymls with the new param shape.
+    const attempts: AttemptOutcome[] = []
+    const first = await callUpstream(
+        "bymls",
+        {
+            location: "Detroit, MI",
+            status_type: "ForSale",
+            price_max: priceMax,
+        },
+        rapidKey
+    )
+    attempts.push(first)
+
+    let chosen = first
+    if (first.results.length === 0) {
+        // Attempt 2: /search/byaddress as fallback.
+        const second = await callUpstream(
+            "byaddress",
+            {
+                location: "Detroit, MI",
+                status_type: "ForSale",
+            },
+            rapidKey
+        )
+        attempts.push(second)
+        if (second.results.length > 0) {
+            chosen = second
+        }
+    }
+
+    const listings = chosen.results
+        .map((item) => normalize(item))
+        .filter((l): l is ScoutedListing => l !== null)
+        .filter((l) => l.price <= Number(priceMax))
+        .sort((a, b) => b.capRate - a.capRate)
+
+    const totalPrice = listings.reduce((sum, l) => sum + l.price, 0)
+    const totalCap = listings.reduce((sum, l) => sum + l.capRate, 0)
+    const aCount = listings.filter((l) => l.section8Score === "A").length
+
+    return NextResponse.json({
+        count: listings.length,
+        endpointUsed: chosen.endpoint,
+        upstreamStatus: chosen.status,
+        stats: {
+            total: listings.length,
+            avgPrice: listings.length ? Math.round(totalPrice / listings.length) : 0,
+            avgCapRate: listings.length ? Number((totalCap / listings.length).toFixed(2)) : 0,
+            aScoreCount: aCount,
+        },
+        listings,
+        ...(debug
+            ? {
+                debug: attempts.map((a) => ({
+                    endpoint: a.endpoint,
+                    upstreamUrl: a.upstreamUrl,
+                    status: a.status,
+                    resultsFound: a.results.length,
+                    rawPreview: a.rawPreview,
+                    rawSample: a.rawSample,
+                    error: a.error,
+                })),
+            }
+            : {}),
+    })
 }
