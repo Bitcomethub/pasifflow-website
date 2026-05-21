@@ -69,14 +69,11 @@ function scoreForCap(capRate: number): Section8Score {
 }
 
 function normalize(raw: Record<string, unknown>): ScoutedListing | null {
-    const price = toNumber(
-        pickFirst(
-            raw.price,
-            (raw as any).listingPrice,
-            raw.listPrice,
-            raw.unformattedPrice,
-            (raw as any).hdpData?.homeInfo?.price
-        )
+    const price = Number(
+        (raw as any).price
+        || (raw as any).listingPrice
+        || (raw as any).unformattedPrice
+        || 0
     )
     if (!price || price <= 0) return null
 
@@ -94,60 +91,20 @@ function normalize(raw: Record<string, unknown>): ScoutedListing | null {
     )
     const lotSize = toNumber(pickFirst(raw.lotAreaValue, raw.lotSize))
 
-    // raw.address may be an object {streetAddress,city,state,zipcode} from
-    // the byaddress endpoint — read its sub-fields when so, treat as string otherwise.
-    const addrObj =
-        raw.address && typeof raw.address === "object"
-            ? (raw.address as Record<string, unknown>)
-            : null
-    const rawAddressString = typeof raw.address === "string" ? raw.address : null
-    const address = String(
-        pickFirst(
-            (raw as any).streetAddress,
-            (addrObj as any)?.streetAddress,
-            rawAddressString,
-            (raw as any).addressStreet,
-            (raw as any).hdpData?.homeInfo?.streetAddress
-        ) ?? "Unknown address"
-    )
-    const city = String(
-        pickFirst(
-            raw.city,
-            (addrObj as any)?.city,
-            (raw as any).addressCity,
-            (raw as any).hdpData?.homeInfo?.city
-        ) ?? "Detroit"
-    )
-    const state = String(
-        pickFirst(
-            raw.state,
-            (addrObj as any)?.state,
-            (raw as any).addressState,
-            (raw as any).hdpData?.homeInfo?.state
-        ) ?? "MI"
-    )
-    const zipcode = pickFirst(
-        raw.zipcode,
-        (addrObj as any)?.zipcode,
-        (addrObj as any)?.postalCode,
-        (raw as any).addressZipcode,
-        (raw as any).hdpData?.homeInfo?.zipcode
-    )
+    const streetAddress = (raw as any).streetAddress as string | undefined
+    const city = String((raw as any).city ?? "Detroit")
+    const state = String((raw as any).state ?? "MI")
+    const zipcode = (raw as any).zipcode as string | null | undefined
+    const address = streetAddress
+        ? `${streetAddress}, ${city}, ${state}`
+        : typeof raw.address === "string"
+            ? (raw.address as string)
+            : "Detroit, MI"
 
     const zpidRaw = pickFirst(raw.zpid, (raw as any).id, (raw as any).hdpData?.homeInfo?.zpid)
     const zpid = zpidRaw ? String(zpidRaw) : null
 
-    const photoLinks = ((raw as any).media?.propertyPhotoLinks ?? {}) as Record<string, unknown>
-    const imageUrl = pickFirst(
-        raw.imgSrc,
-        photoLinks.mediumSizeLink as string | undefined,
-        photoLinks.smallSizeLink as string | undefined,
-        photoLinks.largeSizeLink as string | undefined,
-        photoLinks.xlargeSizeLink as string | undefined,
-        (raw as any).image,
-        (raw as any).photo,
-        Array.isArray((raw as any).photos) ? (raw as any).photos[0]?.url ?? (raw as any).photos[0] : null
-    ) as string | null
+    const imageUrl = ((raw as any).imgSrc || (raw as any).image || "") as string
 
     const locationObj = (raw as any).location as Record<string, unknown> | undefined
     const latitude = toNumber(
@@ -214,17 +171,28 @@ function normalize(raw: Record<string, unknown>): ScoutedListing | null {
 }
 
 function extractResults(data: any): any[] {
-    // searchResults wrapper pattern (private-zillow byaddress)
-    if (Array.isArray(data?.searchResults)) {
-        return data.searchResults
-            .map((item: any) => item?.property ?? item)
-            .filter(Boolean)
+    // Primary: searchResults wrapper (private-zillow byaddress)
+    if (Array.isArray(data?.searchResults) && data.searchResults.length > 0) {
+        return data.searchResults.map((item: any) => {
+            const prop = item?.property ?? item
+            return {
+                ...prop,
+                imgSrc:
+                    prop?.media?.propertyPhotoLinks?.mediumSizeLink
+                    || prop?.media?.propertyPhotoLinks?.smallSizeLink
+                    || prop?.imgSrc
+                    || "",
+                streetAddress: prop?.address?.streetAddress || "",
+                city: prop?.address?.city || "Detroit",
+                state: prop?.address?.state || "MI",
+                zipcode: prop?.address?.zipcode || "",
+            }
+        })
     }
-    // flat array patterns
+    // Fallbacks
     for (const key of ["results", "props", "listings", "mapResults", "listResults"]) {
         if (Array.isArray(data?.[key]) && data[key].length > 0) return data[key]
     }
-    // cat1 / cat2
     for (const cat of ["cat1", "cat2"]) {
         const sr = data?.[cat]?.searchResults
         if (sr?.mapResults?.length) return sr.mapResults
