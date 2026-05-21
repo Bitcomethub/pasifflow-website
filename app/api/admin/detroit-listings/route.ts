@@ -1,325 +1,107 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { verifyToken, extractBearerToken } from "@/lib/auth"
 
 export const dynamic = "force-dynamic"
-export const revalidate = 0
+export const fetchCache = "force-no-store"
 
-const RAPIDAPI_HOST = "private-zillow.p.rapidapi.com"
+const HOST = "private-zillow.p.rapidapi.com"
+const FMR: Record<number, number> = { 1: 950, 2: 1150, 3: 1450, 4: 1700 }
 
-const FMR_BY_BEDS: Record<number, number> = {
-    1: 950,
-    2: 1150,
-    3: 1450,
-    4: 1700,
+function getFMR(beds: number) {
+  return FMR[Math.min(Math.max(beds, 1), 4)]
 }
 
-type Section8Score = "A" | "B" | "C"
-
-interface ScoutedListing {
-    id: string
-    zpid: string | null
-    address: string
-    city: string
-    state: string
-    zipcode: string | null
-    price: number
-    beds: number
-    baths: number
-    sqft: number | null
-    yearBuilt: number | null
-    lotSize: number | null
-    propertyType: string | null
-    imageUrl: string | null
-    latitude: number | null
-    longitude: number | null
-    listingUrl: string
-    daysOnMarket: number | null
-    // Computed metrics
-    fmrRent: number
-    capRate: number
-    grossYield: number
-    monthlyCashFlow: number
-    section8Score: Section8Score
-    leadPaintRisk: boolean
+function calcMetrics(price: number, beds: number) {
+  const rent = getFMR(beds)
+  const capRate = price > 0 ? ((rent * 12 * 0.55) / price) * 100 : 0
+  const grossYield = price > 0 ? ((rent * 12) / price) * 100 : 0
+  const cashFlow = (rent * 12 * 0.55) / 12
+  const score = capRate >= 10 ? "A" : capRate >= 7 ? "B" : "C"
+  return { rent, capRate, grossYield, cashFlow, score }
 }
 
-function pickFirst<T>(...values: (T | null | undefined)[]): T | null {
-    for (const v of values) {
-        if (v !== undefined && v !== null && v !== "") return v as T
-    }
-    return null
-}
+export async function GET(req: NextRequest) {
+  // Auth
+  const token = extractBearerToken(req)
+  const user = token ? verifyToken(token) : null
+  if (!user || user.role !== "ADMIN") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
 
-function toNumber(value: unknown): number | null {
-    if (value === null || value === undefined || value === "") return null
-    const n = typeof value === "number" ? value : Number(value)
-    return Number.isFinite(n) ? n : null
-}
+  const { searchParams } = new URL(req.url)
+  const priceMax = Number(searchParams.get("price_max") || 125000)
 
-function fmrForBeds(beds: number): number {
-    if (beds <= 1) return FMR_BY_BEDS[1]
-    if (beds >= 4) return FMR_BY_BEDS[4]
-    return FMR_BY_BEDS[beds] ?? FMR_BY_BEDS[2]
-}
+  const apiKey = process.env.RAPIDAPI_KEY
+  if (!apiKey) {
+    return NextResponse.json({ error: "RAPIDAPI_KEY not configured" }, { status: 500 })
+  }
 
-function scoreForCap(capRate: number): Section8Score {
-    if (capRate >= 10) return "A"
-    if (capRate >= 7) return "B"
-    return "C"
-}
+  try {
+    const url = `https://${HOST}/search/byaddress?location=Detroit%2C+MI&status_type=For_Sale&price_max=${priceMax}&page=1`
 
-function normalize(raw: Record<string, unknown>): ScoutedListing | null {
-    const r = raw as any
+    const res = await fetch(url, {
+      headers: {
+        "X-RapidAPI-Key": apiKey,
+        "X-RapidAPI-Host": HOST,
+      },
+      cache: "no-store",
+    })
 
-    const price = Number(r.price) || 0
-    if (!price || price <= 0) return null
-
-    const beds = Number(r.bedrooms) || 2
-    const baths = Number(r.bathrooms) || 1
-    const yearBuilt = Number(r.yearBuilt) || 0
-    const livingArea = Number(r.livingArea) || 0
-
-    const city = String(r.city || "Detroit")
-    const state = String(r.state || "MI")
-    const zipcode = r.zipcode ? String(r.zipcode) : null
-    const address = r.streetAddress
-        ? `${r.streetAddress}, ${city}, ${state} ${r.zipcode ?? ""}`.trim()
-        : "Detroit, MI"
-
-    const imageUrl = (r.imgSrc as string) || ""
-    const detailUrl = r.hdpUrl ? `https://www.zillow.com${r.hdpUrl}` : ""
-    const latitude = Number(r.latitude) || 0
-    const longitude = Number(r.longitude) || 0
-
-    const zpid = r.zpid ? String(r.zpid) : null
-
-    const fmrRent = fmrForBeds(beds)
-    const annualGross = fmrRent * 12
-    const annualNoi = annualGross * 0.55
-    const capRate = (annualNoi / price) * 100
-    const grossYield = (annualGross / price) * 100
-    const monthlyCashFlow = annualNoi / 12
-
-    return {
-        id: zpid ?? `${address}-${price}`,
-        zpid,
-        address,
-        city,
-        state,
-        zipcode,
-        price,
-        beds,
-        baths,
-        sqft: livingArea || null,
-        yearBuilt: yearBuilt || null,
-        lotSize: null,
-        propertyType: null,
-        imageUrl: imageUrl || null,
-        latitude: latitude || null,
-        longitude: longitude || null,
-        listingUrl: detailUrl || (zpid ? `https://www.zillow.com/homedetails/${zpid}_zpid/` : ""),
-        daysOnMarket: null,
-        fmrRent,
-        capRate: Number(capRate.toFixed(2)),
-        grossYield: Number(grossYield.toFixed(2)),
-        monthlyCashFlow: Number(monthlyCashFlow.toFixed(0)),
-        section8Score: scoreForCap(capRate),
-        leadPaintRisk: yearBuilt > 0 && yearBuilt < 1978,
-    }
-}
-
-function extractResults(data: any): any[] {
-    if (!data) return []
-
-    // private-zillow byaddress — searchResults[].property
-    const sr = data.searchResults
-    if (Array.isArray(sr) && sr.length > 0) {
-        console.log("HIT searchResults, count:", sr.length)
-        return sr.map((item: any) => {
-            const p = item?.property || item
-            return {
-                zpid: p.zpid,
-                price: p.price || p.listingPrice || p.unformattedPrice || 0,
-                bedrooms: p.bedrooms || p.beds || 2,
-                bathrooms: p.bathrooms || p.baths || 1,
-                yearBuilt: p.yearBuilt || 0,
-                livingArea: p.livingArea || 0,
-                hdpUrl: p.hdpUrl || "",
-                imgSrc: p.media?.propertyPhotoLinks?.mediumSizeLink || "",
-                streetAddress: p.address?.streetAddress || "",
-                city: p.address?.city || "Detroit",
-                state: p.address?.state || "MI",
-                zipcode: p.address?.zipcode || "",
-                latitude: p.location?.latitude || 0,
-                longitude: p.location?.longitude || 0,
-            }
-        })
+    if (!res.ok) {
+      return NextResponse.json({ error: `Upstream ${res.status}` }, { status: 502 })
     }
 
-    return []
-}
+    const data = await res.json()
 
-type AttemptOutcome = {
-    endpoint: string
-    upstreamUrl: string
-    status: number
-    rawPreview: string
-    rawSample: unknown
-    results: Record<string, unknown>[]
-    error?: string
-}
+    // Extract — searchResults[].property yapısı
+    const searchResults = data?.searchResults
+    if (!Array.isArray(searchResults) || searchResults.length === 0) {
+      return NextResponse.json({ listings: [], count: 0, stats: { total: 0, avgPrice: 0, avgCapRate: 0, aScoreCount: 0 } })
+    }
 
-async function callUpstream(
-    endpoint: "bymls" | "byaddress",
-    params: Record<string, string>,
-    rapidKey: string
-): Promise<AttemptOutcome> {
-    const query = new URLSearchParams(params).toString()
-    const upstreamUrl = `https://${RAPIDAPI_HOST}/search/${endpoint}?${query}`
-    try {
-        const upstream = await fetch(upstreamUrl, {
-            headers: {
-                "x-rapidapi-key": rapidKey,
-                "x-rapidapi-host": RAPIDAPI_HOST,
-            },
-            next: { revalidate: 300 },
-        })
-        const text = await upstream.text()
-        const preview = text.slice(0, 500)
-        console.log(`[detroit-listings] /${endpoint} status=${upstream.status} preview=${preview}`)
-
-        let parsed: unknown = null
-        try {
-            parsed = JSON.parse(text)
-        } catch {
-            parsed = null
-        }
-        // Diagnostic: what does the raw upstream payload actually look like?
-        const data: any = parsed
-        console.log(`[detroit-listings] /${endpoint} RAW KEYS:`, data && typeof data === "object" ? Object.keys(data) : typeof data)
-        console.log(`[detroit-listings] /${endpoint} searchResults length:`, data?.searchResults?.length)
-        console.log(`[detroit-listings] /${endpoint} FIRST ITEM:`, JSON.stringify(data?.searchResults?.[0]))
-        const results = extractResults(parsed)
-        const rawSample = Array.isArray(parsed)
-            ? (parsed as unknown[]).slice(0, 1)
-            : parsed && typeof parsed === "object"
-                ? Object.keys(parsed as object).slice(0, 20)
-                : null
-
+    // Map ve filtrele — sadece $priceMax altı, max 50 listing
+    const listings = searchResults
+      .map((item: any) => {
+        const p = item?.property
+        if (!p) return null
+        const price = Number(p.price || p.listingPrice || 0)
+        if (price <= 0 || price > priceMax) return null
+        const beds = Number(p.bedrooms || 2)
+        const baths = Number(p.bathrooms || 1)
+        const metrics = calcMetrics(price, beds)
         return {
-            endpoint,
-            upstreamUrl,
-            status: upstream.status,
-            rawPreview: preview,
-            rawSample,
-            results,
+          zpid: p.zpid,
+          price,
+          beds,
+          baths,
+          yearBuilt: Number(p.yearBuilt || 0),
+          livingArea: Number(p.livingArea || 0),
+          address: p.address?.streetAddress
+            ? `${p.address.streetAddress}, ${p.address.city}, ${p.address.state}`
+            : "Detroit, MI",
+          imageUrl: p.media?.propertyPhotoLinks?.mediumSizeLink || "",
+          detailUrl: p.hdpUrl ? `https://www.zillow.com${p.hdpUrl}` : "",
+          lat: p.location?.latitude || 0,
+          lng: p.location?.longitude || 0,
+          leadPaintRisk: Number(p.yearBuilt || 0) > 0 && Number(p.yearBuilt || 0) < 1978,
+          ...metrics,
         }
-    } catch (error) {
-        const message = error instanceof Error ? error.message : "unknown error"
-        console.error(`[detroit-listings] /${endpoint} fetch threw: ${message}`)
-        return {
-            endpoint,
-            upstreamUrl,
-            status: 0,
-            rawPreview: "",
-            rawSample: null,
-            results: [],
-            error: message,
-        }
-    }
-}
+      })
+      .filter(Boolean)
+      .slice(0, 50) // max 50, cache limit aşmasın
 
-export async function GET(request: Request) {
-    const token = extractBearerToken(request)
-    if (!token) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
-
-    const payload = verifyToken(token)
-    if (!payload || payload.role !== "ADMIN") {
-        return NextResponse.json({ error: "Forbidden" }, { status: 403 })
-    }
-
-    const rapidKey = process.env.RAPIDAPI_KEY
-    if (!rapidKey) {
-        return NextResponse.json(
-            { error: "RAPIDAPI_KEY is not configured on this deployment" },
-            { status: 500 }
-        )
-    }
-
-    const url = new URL(request.url)
-    const priceMax = url.searchParams.get("price_max") ?? "125000"
-    const debug = url.searchParams.get("debug") === "1"
-
-    // Attempt 1 (primary): /search/byaddress — confirmed shape is
-    //   { searchResults: [{ property: {...} }] }
-    // Note: status_type uses underscore form "For_Sale" (bymls rejected "ForSale").
-    const attempts: AttemptOutcome[] = []
-    const first = await callUpstream(
-        "byaddress",
-        {
-            location: "Detroit, MI",
-            status_type: "For_Sale",
-            price_max: priceMax,
-            page: "1",
-        },
-        rapidKey
-    )
-    attempts.push(first)
-
-    let chosen = first
-    if (first.results.length === 0) {
-        // Attempt 2 (fallback): /search/bymls with the corrected underscore form.
-        const second = await callUpstream(
-            "bymls",
-            {
-                location: "Detroit, MI",
-                status_type: "For_Sale",
-                price_max: priceMax,
-                page: "1",
-            },
-            rapidKey
-        )
-        attempts.push(second)
-        if (second.results.length > 0) {
-            chosen = second
-        }
-    }
-
-    const listings = chosen.results
-        .map((item) => normalize(item))
-        .filter((l): l is ScoutedListing => l !== null)
-        .filter((l) => l.price <= Number(priceMax))
-        .sort((a, b) => b.capRate - a.capRate)
-
-    const totalPrice = listings.reduce((sum, l) => sum + l.price, 0)
-    const totalCap = listings.reduce((sum, l) => sum + l.capRate, 0)
-    const aCount = listings.filter((l) => l.section8Score === "A").length
+    const total = listings.length
+    const avgPrice = total > 0 ? listings.reduce((a: number, b: any) => a + b.price, 0) / total : 0
+    const avgCapRate = total > 0 ? listings.reduce((a: number, b: any) => a + b.capRate, 0) / total : 0
+    const aScoreCount = listings.filter((l: any) => l.score === "A").length
 
     return NextResponse.json({
-        count: listings.length,
-        endpointUsed: chosen.endpoint,
-        upstreamStatus: chosen.status,
-        stats: {
-            total: listings.length,
-            avgPrice: listings.length ? Math.round(totalPrice / listings.length) : 0,
-            avgCapRate: listings.length ? Number((totalCap / listings.length).toFixed(2)) : 0,
-            aScoreCount: aCount,
-        },
-        listings,
-        ...(debug
-            ? {
-                debug: attempts.map((a) => ({
-                    endpoint: a.endpoint,
-                    upstreamUrl: a.upstreamUrl,
-                    status: a.status,
-                    resultsFound: a.results.length,
-                    rawPreview: a.rawPreview,
-                    rawSample: a.rawSample,
-                    error: a.error,
-                })),
-            }
-            : {}),
+      listings,
+      count: total,
+      stats: { total, avgPrice, avgCapRate, aScoreCount },
     })
+
+  } catch (err: any) {
+    return NextResponse.json({ error: err.message }, { status: 500 })
+  }
 }
