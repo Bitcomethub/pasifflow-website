@@ -10,14 +10,13 @@ function requireSession(req: Request) {
     return verifyToken(token)
 }
 
-// GET /api/listings — list all (any authenticated user)
+// GET /api/listings — published listings are public; drafts only for MANAGER/ADMIN
 export async function GET(req: Request) {
     const session = requireSession(req)
-    if (!session) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
-    }
+    const canSeeDrafts = Boolean(session && ALLOWED_ROLES.has(session.role))
 
     const listings = await prisma.listing.findMany({
+        where: canSeeDrafts ? undefined : { status: "published" },
         orderBy: { createdAt: "desc" },
     })
 

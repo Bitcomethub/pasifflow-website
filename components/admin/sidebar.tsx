@@ -74,7 +74,7 @@ export function AdminSidebar() {
         {
             label: "Manager Portal",
             icon: Briefcase,
-            href: "/en/manager",
+            href: "/manager",
             active: pathname.includes("/manager"),
         },
         {

@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server"
-import { writeFile, mkdir } from "fs/promises"
-import path from "path"
+import { put } from "@vercel/blob"
 import { extractBearerToken, verifyToken } from "@/lib/auth"
 
 const ALLOWED_ROLES = new Set(["MANAGER", "ADMIN"])
@@ -19,6 +18,15 @@ export async function POST(req: Request) {
 
     if (!session || !ALLOWED_ROLES.has(session.role)) {
         return NextResponse.json({ error: "Forbidden" }, { status: 403 })
+    }
+
+    const blobToken = process.env.BLOB_READ_WRITE_TOKEN
+    if (!blobToken) {
+        console.error("BLOB_READ_WRITE_TOKEN is not configured")
+        return NextResponse.json(
+            { error: "Storage is not configured" },
+            { status: 500 }
+        )
     }
 
     try {
@@ -40,17 +48,17 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "File too large" }, { status: 413 })
         }
 
-        const buf = Buffer.from(await file.arrayBuffer())
         const ext = (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "")
         const safeExt = ext.length > 0 && ext.length <= 5 ? ext : "jpg"
-        const fileName = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${safeExt}`
+        const key = `listings/${Date.now()}-${Math.random().toString(36).slice(2, 10)}.${safeExt}`
 
-        const uploadsDir = path.join(process.cwd(), "public", "uploads")
-        await mkdir(uploadsDir, { recursive: true })
-        const filePath = path.join(uploadsDir, fileName)
-        await writeFile(filePath, buf)
+        const blob = await put(key, file, {
+            access: "public",
+            token: blobToken,
+            contentType: file.type,
+        })
 
-        return NextResponse.json({ url: `/uploads/${fileName}` })
+        return NextResponse.json({ url: blob.url })
     } catch (error) {
         console.error("Upload error:", error)
         return NextResponse.json({ error: "Upload failed" }, { status: 500 })
