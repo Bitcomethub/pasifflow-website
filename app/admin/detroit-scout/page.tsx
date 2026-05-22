@@ -18,6 +18,10 @@ import {
     ExternalLink,
     ChevronLeft,
     ChevronRight,
+    CheckCircle2,
+    Wrench,
+    Clock,
+    Target,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -43,6 +47,15 @@ interface Listing {
     cashFlow: number
     score: "A" | "B" | "C"
     leadPaintRisk: boolean
+    rehabEstimate: "low" | "medium" | "high"
+    rehabCost: number
+    allInCost: number
+    realCapRate: number
+    paybackYears: number
+    s8Score: number
+    investorType: string
+    warnings: string[]
+    highlights: string[]
 }
 
 interface Stats {
@@ -377,6 +390,12 @@ function ListingCard({ listing, onSelect }: { listing: Listing; onSelect: () => 
                     <Badge className={`${SCORE_STYLES[listing.score]} text-sm font-bold`}>
                         Score {listing.score}
                     </Badge>
+                    <Badge
+                        variant="outline"
+                        className={`text-xs font-semibold ${s8BadgeStyle(listing.s8Score)}`}
+                    >
+                        S8: {listing.s8Score}
+                    </Badge>
                     {listing.leadPaintRisk && (
                         <Badge variant="outline" className="bg-white/95 text-amber-700 border-amber-300 gap-1">
                             <AlertTriangle className="h-3 w-3" /> Lead paint
@@ -397,7 +416,12 @@ function ListingCard({ listing, onSelect }: { listing: Listing; onSelect: () => 
                     )}
                 </div>
                 <div className="grid grid-cols-3 gap-2 pt-2 border-t">
-                    <Metric label="Cap" value={`${listing.capRate.toFixed(1)}%`} accent />
+                    <Metric
+                        label="Cap"
+                        value={`${listing.capRate.toFixed(1)}%`}
+                        sub={`rehab: %${listing.realCapRate.toFixed(1)}`}
+                        accent
+                    />
                     <Metric label="FMR" value={`${currency(listing.rent)}`} />
                     <Metric label="CF/mo" value={currency(listing.cashFlow)} />
                 </div>
@@ -406,11 +430,28 @@ function ListingCard({ listing, onSelect }: { listing: Listing; onSelect: () => 
     )
 }
 
-function Metric({ label, value, accent }: { label: string; value: string; accent?: boolean }) {
+function s8BadgeStyle(score: number): string {
+    if (score >= 80) return "bg-emerald-50 text-emerald-700 border-emerald-300"
+    if (score >= 60) return "bg-amber-50 text-amber-700 border-amber-300"
+    return "bg-red-50 text-red-700 border-red-300"
+}
+
+function Metric({
+    label,
+    value,
+    accent,
+    sub,
+}: {
+    label: string
+    value: string
+    accent?: boolean
+    sub?: string
+}) {
     return (
         <div className="text-center">
             <div className={`text-sm font-bold ${accent ? "text-emerald-600" : "text-foreground"}`}>{value}</div>
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground">{label}</div>
+            {sub && <div className="text-[10px] text-muted-foreground/80 mt-0.5">{sub}</div>}
         </div>
     )
 }
@@ -580,6 +621,8 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                         </p>
                     </div>
 
+                    <InsightsPanel listing={listing} />
+
                     <div className="flex flex-col sm:flex-row gap-3">
                         <a
                             href={listing.detailUrl}
@@ -637,4 +680,136 @@ function BigMetric({
             <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{label}</div>
         </div>
     )
+}
+
+function InsightsPanel({ listing }: { listing: Listing }) {
+    const s8 = Math.max(0, Math.min(100, listing.s8Score))
+    const s8Tone =
+        s8 >= 80
+            ? { bar: "bg-emerald-500", text: "text-emerald-600", chip: "bg-emerald-50 text-emerald-700 border-emerald-200" }
+            : s8 >= 60
+            ? { bar: "bg-amber-500", text: "text-amber-600", chip: "bg-amber-50 text-amber-700 border-amber-200" }
+            : { bar: "bg-red-500", text: "text-red-600", chip: "bg-red-50 text-red-700 border-red-200" }
+
+    const investorTone = listing.investorType.startsWith("Agresif")
+        ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+        : listing.investorType.startsWith("Orta")
+        ? "bg-blue-50 text-blue-700 border-blue-200"
+        : "bg-zinc-50 text-zinc-700 border-zinc-200"
+
+    return (
+        <div className="rounded-xl border bg-white p-5 space-y-5">
+            <div className="flex items-center justify-between gap-3">
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                    Yatırım Analizi
+                </h3>
+                <Badge variant="outline" className={`gap-1.5 ${investorTone}`}>
+                    <Target className="h-3 w-3" /> {listing.investorType}
+                </Badge>
+            </div>
+
+            {/* S8 score */}
+            <div>
+                <div className="flex items-center justify-between mb-2">
+                    <div className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                        Section 8 Uygunluk Skoru
+                    </div>
+                    <div className={`text-sm font-bold ${s8Tone.text}`}>{s8}/100</div>
+                </div>
+                <div className="h-2.5 w-full rounded-full bg-zinc-100 overflow-hidden">
+                    <div
+                        className={`h-full ${s8Tone.bar} transition-all`}
+                        style={{ width: `${s8}%` }}
+                    />
+                </div>
+            </div>
+
+            {/* Cost analysis */}
+            <div className="rounded-lg border bg-zinc-50/50">
+                <div className="px-4 py-2 border-b bg-zinc-50 text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2">
+                    <Wrench className="h-3.5 w-3.5" /> Maliyet Analizi
+                </div>
+                <div className="px-4 py-3 space-y-2 text-sm">
+                    <CostRow label="Liste fiyatı" value={currency(listing.price)} />
+                    <CostRow
+                        label={`Tahmini rehab (${rehabLabel(listing.rehabEstimate)})`}
+                        value={`~${currency(listing.rehabCost)}`}
+                    />
+                    <div className="border-t pt-2 flex items-center justify-between font-semibold">
+                        <span>Toplam maliyet</span>
+                        <span>{currency(listing.allInCost)}</span>
+                    </div>
+                    <div className="border-t pt-2 grid grid-cols-2 gap-3">
+                        <div>
+                            <div className="text-[10px] uppercase tracking-wider text-muted-foreground">
+                                Gerçekçi cap rate
+                            </div>
+                            <div className="text-base font-bold text-emerald-600">
+                                {listing.realCapRate.toFixed(2)}%
+                            </div>
+                            <div className="text-[10px] text-muted-foreground">rehab dahil</div>
+                        </div>
+                        <div>
+                            <div className="text-[10px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                                <Clock className="h-3 w-3" /> Geri dönüş
+                            </div>
+                            <div className="text-base font-bold text-blue-600">
+                                {listing.paybackYears > 0 ? `${listing.paybackYears.toFixed(1)} yıl` : "—"}
+                            </div>
+                            <div className="text-[10px] text-muted-foreground">net kira ile</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Highlights */}
+            {listing.highlights.length > 0 && (
+                <div>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                        Güçlü Yanlar
+                    </div>
+                    <ul className="space-y-1.5">
+                        {listing.highlights.map((h, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm">
+                                <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0 mt-0.5" />
+                                <span>{h}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+
+            {/* Warnings */}
+            {listing.warnings.length > 0 && (
+                <div>
+                    <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                        Dikkat Edilmesi Gerekenler
+                    </div>
+                    <ul className="space-y-1.5">
+                        {listing.warnings.map((w, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm">
+                                <AlertTriangle className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
+                                <span>{w}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </div>
+    )
+}
+
+function CostRow({ label, value }: { label: string; value: string }) {
+    return (
+        <div className="flex items-center justify-between">
+            <span className="text-muted-foreground">{label}</span>
+            <span className="font-medium">{value}</span>
+        </div>
+    )
+}
+
+function rehabLabel(band: Listing["rehabEstimate"]): string {
+    if (band === "high") return "yüksek"
+    if (band === "medium") return "orta"
+    return "düşük"
 }

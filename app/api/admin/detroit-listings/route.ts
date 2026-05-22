@@ -21,6 +21,62 @@ function calcMetrics(price: number, beds: number) {
   return { rent, capRate, grossYield, cashFlow, score }
 }
 
+type RehabBand = "low" | "medium" | "high"
+
+function buildInsights(args: {
+  price: number
+  beds: number
+  livingArea: number
+  leadPaintRisk: boolean
+  rent: number
+}) {
+  const { price, beds, livingArea, leadPaintRisk, rent } = args
+
+  // Rehab tahmini fiyat bandına göre — düşük fiyat = daha derin rehab varsayımı
+  const rehabEstimate: RehabBand = price < 30000 ? "high" : price < 60000 ? "medium" : "low"
+  const rehabCost = rehabEstimate === "high" ? 35000 : rehabEstimate === "medium" ? 20000 : 10000
+
+  const allInCost = price + rehabCost
+  const netAnnualRent = rent * 12 * 0.55
+  const realCapRate = allInCost > 0 ? (netAnnualRent / allInCost) * 100 : 0
+  const paybackYears = netAnnualRent > 0 ? allInCost / netAnnualRent : 0
+
+  // Section 8 uygunluk skoru (0-100)
+  let s8Score = 0
+  if (beds >= 3) s8Score += 25
+  if (!leadPaintRisk) s8Score += 20
+  if (price >= 25000) s8Score += 20
+  if (realCapRate >= 8) s8Score += 20
+  if (livingArea >= 1000) s8Score += 15
+
+  const investorType =
+    realCapRate >= 12 ? "Agresif yatırımcı" : realCapRate >= 8 ? "Orta profil yatırımcı" : "Muhafazakar yatırımcı"
+
+  const warnings: string[] = []
+  if (leadPaintRisk) warnings.push("Lead paint testi + renovasyon zorunlu ($3-8k)")
+  if (price < 25000) warnings.push("Harap risk yüksek, fiziksel inspection şart")
+  if (beds < 2) warnings.push("1BR Section 8 talebi düşük")
+  if (rehabEstimate === "high") warnings.push("Yüksek rehab bütçesi gerekli (~$35k)")
+
+  const highlights: string[] = []
+  if (beds >= 3) highlights.push("3BR+ — Section 8 yüksek talep")
+  if (!leadPaintRisk) highlights.push("1978+ yapı — lead paint yok")
+  if (realCapRate >= 10) highlights.push(`Rehab dahil %${realCapRate.toFixed(1)} cap rate`)
+  if (livingArea >= 1200) highlights.push("Geniş alan — kaliteli kiracı çeker")
+
+  return {
+    rehabEstimate,
+    rehabCost,
+    allInCost,
+    realCapRate,
+    paybackYears,
+    s8Score,
+    investorType,
+    warnings,
+    highlights,
+  }
+}
+
 function buildUrl(priceMax: number, page: number) {
   return `https://${HOST}/search/byaddress?location=Detroit%2C+MI&status_type=For_Sale&price_max=${priceMax}&page=${page}`
 }
@@ -84,7 +140,17 @@ export async function GET(req: NextRequest) {
 
         const beds = Number(p.bedrooms || 2)
         const baths = Number(p.bathrooms || 1)
+        const livingArea = Number(p.livingArea || 0)
+        const yearBuilt = Number(p.yearBuilt || 0)
+        const leadPaintRisk = yearBuilt > 0 && yearBuilt < 1978
         const metrics = calcMetrics(price, beds)
+        const insights = buildInsights({
+          price,
+          beds,
+          livingArea,
+          leadPaintRisk,
+          rent: metrics.rent,
+        })
 
         // DETAIL URL — zpid ile doğrudan Zillow detayfsayfası kanonik URL
         const detailUrl = `https://www.zillow.com/homedetails/${p.zpid}_zpid/`
@@ -104,8 +170,8 @@ export async function GET(req: NextRequest) {
           price,
           beds,
           baths,
-          yearBuilt: Number(p.yearBuilt || 0),
-          livingArea: Number(p.livingArea || 0),
+          yearBuilt,
+          livingArea,
           address: p.address?.streetAddress
             ? `${p.address.streetAddress}, ${p.address.city}, ${p.address.state}`
             : "Detroit, MI",
@@ -114,8 +180,9 @@ export async function GET(req: NextRequest) {
           detailUrl,
           lat: p.location?.latitude || 0,
           lng: p.location?.longitude || 0,
-          leadPaintRisk: Number(p.yearBuilt || 0) > 0 && Number(p.yearBuilt || 0) < 1978,
+          leadPaintRisk,
           ...metrics,
+          ...insights,
         }
       })
       .filter(Boolean) as any[]
