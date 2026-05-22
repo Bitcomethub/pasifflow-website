@@ -141,7 +141,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
                 )}
 
                 <main className="flex-1 md:pl-64 pt-12 md:pt-0 min-w-0">
-                    <div className="px-6 py-10 md:px-14 md:py-16 max-w-[1180px]">{children}</div>
+                    <div className="px-4 sm:px-6 py-8 sm:py-10 md:px-14 md:py-16 max-w-[1180px]">{children}</div>
                 </main>
             </div>
         </AuthGuard>

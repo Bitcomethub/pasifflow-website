@@ -302,11 +302,11 @@ export function PortfolioSection() {
                 </span>
               </motion.div>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1F2328] tracking-tight leading-[1.1]">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#1F2328] tracking-tight leading-[1.15] sm:leading-[1.1]">
                 {t("title")}
               </h2>
 
-              <p className="text-lg md:text-xl text-[#A8B0B8] font-medium">
+              <p className="text-base sm:text-lg md:text-xl text-[#A8B0B8] font-medium">
                 {t("subtitle")}
               </p>
             </div>

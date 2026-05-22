@@ -179,7 +179,7 @@ export default function ContactPage() {
             {/* ═══════════════════════════════════════════════════════════
                 HERO SECTION - Dark gradient, animated mesh, particles
                ═══════════════════════════════════════════════════════════ */}
-            <section className="relative bg-[#1F2328] pt-32 pb-20 md:pt-36 md:pb-24 overflow-hidden">
+            <section className="relative bg-[#1F2328] pt-24 pb-14 sm:pt-28 sm:pb-20 md:pt-36 md:pb-24 overflow-hidden">
                 {/* Animated Mesh Gradient Background */}
                 <div className="absolute inset-0">
                     <div className="absolute inset-0 bg-gradient-to-br from-[#1F2328] via-[#1a1e23] to-[#0f1215]" />
@@ -229,7 +229,7 @@ export default function ContactPage() {
                 </div>
 
                 {/* Hero Content */}
-                <div className="container relative z-10 mx-auto px-4 md:px-6">
+                <div className="container relative z-10 mx-auto px-5 md:px-6">
                     <motion.div
                         initial="hidden"
                         animate="visible"
@@ -247,7 +247,7 @@ export default function ContactPage() {
                         {/* Title */}
                         <motion.h1
                             variants={fadeUpItem}
-                            className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight"
+                            className="text-4xl sm:text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-[1.1] tracking-tight"
                         >
                             {t("pageTitle")}
                         </motion.h1>
@@ -281,7 +281,7 @@ export default function ContactPage() {
                ═══════════════════════════════════════════════════════════ */}
             <section className="relative py-16 md:py-20 bg-[#f8f9fb]">
                 <DotGrid />
-                <div className="container relative z-10 mx-auto px-4 md:px-6">
+                <div className="container relative z-10 mx-auto px-5 md:px-6">
                     <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-10 xl:gap-14">
 
                         {/* ── Left Column: Glassmorphism Contact Form ── */}
@@ -656,7 +656,7 @@ export default function ContactPage() {
             {/* ═══════════════════════════════════════════════════════════
                 TRUST STATS SECTION - Animated counters with spring physics
                ═══════════════════════════════════════════════════════════ */}
-            <section className="relative py-20 md:py-24 bg-[#1F2328] overflow-hidden">
+            <section className="relative py-14 sm:py-20 md:py-24 bg-[#1F2328] overflow-hidden">
                 {/* Background decorations */}
                 <div className="absolute inset-0">
                     <motion.div
@@ -681,7 +681,7 @@ export default function ContactPage() {
                     </svg>
                 </div>
 
-                <div className="container relative z-10 mx-auto px-4 md:px-6">
+                <div className="container relative z-10 mx-auto px-5 md:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -692,7 +692,7 @@ export default function ContactPage() {
                         {/* Stat 1 - Years */}
                         <motion.div variants={fadeUpItem} className="text-center group">
                             <div className="relative inline-block">
-                                <div className="text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
+                                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
                                     <AnimatedCounter target={20} suffix="+" />
                                 </div>
                                 <motion.div
@@ -711,7 +711,7 @@ export default function ContactPage() {
                             {/* Gold Glow Behind */}
                             <div className="absolute inset-0 bg-[#C1A05E]/5 rounded-3xl -m-4 md:-m-6" />
                             <div className="relative">
-                                <div className="text-5xl md:text-6xl font-bold text-[#C1A05E] mb-3 tracking-tight">
+                                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-[#C1A05E] mb-3 tracking-tight">
                                     $<AnimatedCounter target={250} />M+
                                 </div>
                                 <motion.div
@@ -728,7 +728,7 @@ export default function ContactPage() {
                         {/* Stat 3 - Occupancy */}
                         <motion.div variants={fadeUpItem} className="text-center group">
                             <div className="relative inline-block">
-                                <div className="text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
+                                <div className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-3 tracking-tight">
                                     <AnimatedCounter target={98} suffix="%+" />
                                 </div>
                                 <motion.div

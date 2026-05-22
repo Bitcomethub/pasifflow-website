@@ -86,11 +86,11 @@ export default function AcademyPage() {
     const progressPct = Math.round((completed / total) * 100)
 
     return (
-        <div className="p-6 md:p-10 space-y-8">
+        <div className="p-4 sm:p-6 md:p-10 space-y-6 md:space-y-8">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
+                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm"
             >
                 <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
                 <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-6">
@@ -99,12 +99,12 @@ export default function AcademyPage() {
                             <GraduationCap size={16} className="text-[#C1A05E]" />
                             <span className="text-xs font-bold text-[#C1A05E] uppercase tracking-wider">Agent Akademi</span>
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">ABD Gayrimenkul Eğitimleri</h1>
-                        <p className="text-[#A8B0B8] mt-2 font-medium">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">ABD Gayrimenkul Eğitimleri</h1>
+                        <p className="text-[#A8B0B8] mt-2 font-medium text-sm md:text-base">
                             Türk yatırımcılara ABD gayrimenkul satışı için profesyonel eğitim modülleri ve sertifika programı.
                         </p>
                     </div>
-                    <div className="bg-white rounded-2xl border border-slate-100 p-5 min-w-[200px] shadow-sm">
+                    <div className="bg-white rounded-2xl border border-slate-100 p-4 sm:p-5 sm:min-w-[200px] shadow-sm">
                         <p className="text-xs text-[#A8B0B8] font-semibold uppercase tracking-wider mb-1">İlerlemeniz</p>
                         <div className="flex items-baseline gap-2">
                             <p className="text-3xl font-extrabold text-[#1F2328]">{completed}</p>
@@ -118,7 +118,7 @@ export default function AcademyPage() {
                 </div>
             </motion.div>
 
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {MODULES.map((mod, i) => (
                     <motion.div
                         key={mod.id}
@@ -167,7 +167,7 @@ export default function AcademyPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6"
+                className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-6"
             >
                 <div className="flex items-center gap-2 mb-1">
                     <FileText size={18} className="text-[#C1A05E]" />
@@ -198,12 +198,12 @@ export default function AcademyPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
-                className="relative overflow-hidden bg-[#1F2328] p-6 md:p-8 rounded-3xl text-white"
+                className="relative overflow-hidden bg-[#1F2328] p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl text-white"
             >
                 <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#C1A05E]/10 rounded-full blur-3xl" />
                 <div className="relative flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-[#C1A05E]/20 rounded-xl flex items-center justify-center">
+                        <div className="w-12 h-12 bg-[#C1A05E]/20 rounded-xl flex items-center justify-center flex-shrink-0">
                             <Award size={24} className="text-[#C1A05E]" />
                         </div>
                         <div>
@@ -211,7 +211,7 @@ export default function AcademyPage() {
                             <p className="text-slate-400 text-sm">Tüm modülleri tamamladığınızda Pasiflow Certified Agent unvanını kazanın.</p>
                         </div>
                     </div>
-                    <Button className="bg-[#C1A05E] hover:bg-[#a38d5d] text-white rounded-xl">
+                    <Button className="bg-[#C1A05E] hover:bg-[#a38d5d] text-white rounded-xl w-full md:w-auto">
                         Programa Göz At
                     </Button>
                 </div>

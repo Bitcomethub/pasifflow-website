@@ -220,7 +220,7 @@ export default function DetroitScoutPage() {
     }, [listings, minBeds, maxBeds, scoreFilter, sort, search])
 
     return (
-        <div className="p-6 md:p-8 space-y-6">
+        <div className="p-4 sm:p-6 md:p-8 space-y-6">
             <header className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <div className="flex items-center gap-3">
@@ -577,11 +577,11 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
 
     return (
         <div
-            className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/60 z-[100] flex items-stretch sm:items-center justify-center sm:p-4 overflow-y-auto"
             onClick={onClose}
         >
             <div
-                className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
+                className="bg-white sm:rounded-2xl sm:max-w-3xl w-full max-h-screen sm:max-h-[90vh] overflow-y-auto shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="relative bg-zinc-900">
@@ -590,10 +590,10 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                         <img
                             src={photos[activePhotoIdx]}
                             alt={`${listing.address} — photo ${activePhotoIdx + 1}`}
-                            className="w-full h-72 object-cover object-center rounded-t-xl"
+                            className="w-full h-56 sm:h-72 object-cover object-center sm:rounded-t-xl"
                         />
                     ) : (
-                        <div className="w-full h-72 bg-zinc-100 rounded-t-2xl flex items-center justify-center text-zinc-400">
+                        <div className="w-full h-56 sm:h-72 bg-zinc-100 sm:rounded-t-2xl flex items-center justify-center text-zinc-400">
                             <Building2 className="h-16 w-16" />
                         </div>
                     )}
@@ -661,13 +661,13 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                     </div>
                 )}
 
-                <div className="p-6 space-y-6">
+                <div className="p-4 sm:p-6 space-y-6">
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
                         <div>
-                            <h2 className="text-2xl font-bold tracking-tight">{listing.address}</h2>
+                            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">{listing.address}</h2>
                         </div>
-                        <div className="text-right">
-                            <div className="text-3xl font-bold text-[#B8A074]">{currency(listing.price)}</div>
+                        <div className="md:text-right">
+                            <div className="text-2xl sm:text-3xl font-bold text-[#B8A074]">{currency(listing.price)}</div>
                             <div className="text-xs text-muted-foreground">List price</div>
                         </div>
                     </div>

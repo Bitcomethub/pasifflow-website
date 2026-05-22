@@ -29,7 +29,7 @@ export default function WhyUsaPage() {
                     transition={{ duration: 0.6 }}
                     className="max-w-3xl mx-auto text-center mb-16 space-y-4"
                 >
-                    <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary">
+                    <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-primary">
                         {t("title")}
                     </h1>
                     <p className="text-xl text-muted-foreground leading-relaxed">

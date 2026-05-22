@@ -187,20 +187,20 @@ export function PropertyForm({ mode, propertyId, initialValues }: Props) {
     }
 
     return (
-        <div className="p-8 space-y-8 max-w-4xl">
-            <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-4">
-                    <Button asChild variant="ghost" size="sm" className="gap-2">
+        <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8 max-w-4xl">
+            <div className="flex items-start sm:items-center justify-between gap-3 flex-col sm:flex-row">
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4">
+                    <Button asChild variant="ghost" size="sm" className="gap-2 shrink-0">
                         <Link href="/admin/properties">
                             <ArrowLeft className="w-4 h-4" />
                             Back
                         </Link>
                     </Button>
                     <div>
-                        <h2 className="text-3xl font-bold tracking-tight">
+                        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
                             {isEditing ? "Edit Property" : "Add Property"}
                         </h2>
-                        <p className="text-muted-foreground mt-1 text-sm">
+                        <p className="text-muted-foreground mt-1 text-xs md:text-sm">
                             {isEditing
                                 ? "Update property details, tenant info, and assignment."
                                 : "Add a new rental property to an existing LLC."}
@@ -430,14 +430,14 @@ export function PropertyForm({ mode, propertyId, initialValues }: Props) {
                     </CardContent>
                 </Card>
 
-                <div className="flex justify-end gap-3 pt-2">
+                <div className="flex justify-stretch sm:justify-end gap-3 pt-2 flex-col-reverse sm:flex-row">
                     <Button asChild type="button" variant="outline">
                         <Link href="/admin/properties">Cancel</Link>
                     </Button>
                     <Button
                         type="submit"
                         disabled={saving || llcsLoading || llcs.length === 0}
-                        className="bg-[#C1A05E] hover:bg-[#a38d5d] text-white min-w-[160px] gap-2"
+                        className="bg-[#C1A05E] hover:bg-[#a38d5d] text-white sm:min-w-[160px] gap-2"
                     >
                         {saving ? (
                             <Loader2 className="w-4 h-4 animate-spin" />

@@ -1,6 +1,6 @@
 import { Inter, Playfair_Display } from "next/font/google";
-import { AdminSidebar } from "@/components/admin/sidebar";
 import { AuthGuard } from "@/components/auth-guard";
+import { AdminShell } from "@/components/admin/admin-shell";
 import "../globals.css";
 
 const inter = Inter({
@@ -26,14 +26,7 @@ export default function AdminLayout({
         <html lang="en">
             <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
                 <AuthGuard allowedRoles={["ADMIN"]}>
-                    <div className="h-full relative">
-                        <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-[80] bg-gray-900">
-                            <AdminSidebar />
-                        </div>
-                        <main className="md:pl-72 pb-10">
-                            {children}
-                        </main>
-                    </div>
+                    <AdminShell>{children}</AdminShell>
                 </AuthGuard>
             </body>
         </html>

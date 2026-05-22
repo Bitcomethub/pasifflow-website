@@ -10,7 +10,7 @@ export function AboutSection() {
     return (
         <section className="relative w-full bg-white">
             {/* Hero Section - Clean, Minimal, Fundrise-style */}
-            <div className="relative w-full py-32 md:py-40 bg-[#F5F5F5] overflow-hidden">
+            <div className="relative w-full py-20 sm:py-28 md:py-40 bg-[#F5F5F5] overflow-hidden">
                 <div className="container mx-auto px-6 md:px-12 lg:px-20 relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
@@ -19,7 +19,7 @@ export function AboutSection() {
                         className="max-w-4xl"
                     >
 
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#C1A05E] leading-[1.15]">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-[#C1A05E] leading-[1.15]">
                             {t("title")}
                         </h1>
                     </motion.div>
@@ -54,7 +54,7 @@ export function AboutSection() {
                                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
                                 className="text-center md:text-left md:border-l md:border-border md:pl-8 first:md:border-l-0 first:md:pl-0"
                             >
-                                <div className="text-4xl md:text-5xl font-bold text-[#C1A05E] tracking-tight mb-2">
+                                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-[#C1A05E] tracking-tight mb-2">
                                     {stat.value}
                                 </div>
                                 <div className="text-sm md:text-base text-secondary font-medium leading-snug">
@@ -67,7 +67,7 @@ export function AboutSection() {
             </div>
 
             {/* Main Content Section - Storytelling */}
-            <div className="py-20 md:py-28">
+            <div className="py-14 sm:py-20 md:py-28">
                 <div className="container mx-auto px-6 md:px-12 lg:px-20">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

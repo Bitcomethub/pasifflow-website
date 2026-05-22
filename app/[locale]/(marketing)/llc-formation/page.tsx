@@ -136,30 +136,30 @@ export default function LlcFormationPage() {
     return (
         <div className="bg-white">
             {/* ═══════════════ SECTION 1: HERO ═══════════════ */}
-            <section className="relative pt-28 pb-20 bg-gradient-to-b from-[#F8F8F6] via-[#F5F5F5] to-[#EDE9E0] overflow-hidden">
-                <div className="container mx-auto px-4 md:px-6 text-center relative z-10">
+            <section className="relative pt-24 pb-14 sm:pt-28 sm:pb-20 bg-gradient-to-b from-[#F8F8F6] via-[#F5F5F5] to-[#EDE9E0] overflow-hidden">
+                <div className="container mx-auto px-5 md:px-6 text-center relative z-10">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6 }}
                         className="max-w-3xl mx-auto"
                     >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#C1A05E]/10 text-[#C1A05E] text-sm font-medium mb-6">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#C1A05E]/10 text-[#C1A05E] text-xs sm:text-sm font-medium mb-5 sm:mb-6">
                             <Shield className="w-4 h-4" />
                             {t("heroSubtitle")}
                         </div>
                         <h1
-                            className="text-4xl md:text-6xl font-bold text-[#1F2328] mb-6 leading-tight"
+                            className="text-3xl sm:text-4xl md:text-6xl font-bold text-[#1F2328] mb-5 sm:mb-6 leading-tight tracking-tight"
                             style={{ fontFamily: "Playfair Display, serif" }}
                         >
                             {t("heroTitle")}
                         </h1>
-                        <p className="text-lg md:text-xl text-[#6B7280] mb-8 max-w-2xl mx-auto">
+                        <p className="text-base sm:text-lg md:text-xl text-[#6B7280] mb-6 sm:mb-8 max-w-2xl mx-auto">
                             {t("heroDescription")}
                         </p>
                         <Button
                             onClick={scrollToForm}
-                            className="bg-[#1F2328] hover:bg-[#2D353F] text-white text-lg px-8 py-6 rounded-xl font-semibold"
+                            className="w-full sm:w-auto min-h-[52px] bg-[#1F2328] hover:bg-[#2D353F] text-white text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 rounded-xl font-semibold"
                         >
                             {t("heroCta")}
                         </Button>
@@ -168,8 +168,8 @@ export default function LlcFormationPage() {
             </section>
 
             {/* ═══════════════ SECTION 2: $499 VALUE PACKAGE ═══════════════ */}
-            <section className="py-20 bg-white">
-                <div className="container mx-auto px-4 md:px-6">
+            <section className="py-14 sm:py-20 bg-white">
+                <div className="container mx-auto px-5 md:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -179,7 +179,7 @@ export default function LlcFormationPage() {
                         <motion.h2
                             custom={0}
                             variants={fadeUp}
-                            className="text-3xl md:text-5xl font-bold text-[#1F2328] mb-4"
+                            className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1F2328] mb-4"
                             style={{ fontFamily: "Playfair Display, serif" }}
                         >
                             {t("valueTitle")}
@@ -260,8 +260,8 @@ export default function LlcFormationPage() {
             </section>
 
             {/* ═══════════════ SECTION 3: COMPARISON TABLE ═══════════════ */}
-            <section className="py-20 bg-[#1F2328]">
-                <div className="container mx-auto px-4 md:px-6">
+            <section className="py-14 sm:py-20 bg-[#1F2328]">
+                <div className="container mx-auto px-5 md:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -271,7 +271,7 @@ export default function LlcFormationPage() {
                         <motion.h2
                             custom={0}
                             variants={fadeUp}
-                            className="text-3xl md:text-5xl font-bold text-white mb-4"
+                            className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-4"
                             style={{ fontFamily: "Playfair Display, serif" }}
                         >
                             {t("comparisonTitle")}
@@ -282,9 +282,9 @@ export default function LlcFormationPage() {
                         initial="hidden"
                         whileInView="visible"
                         viewport={{ once: true, margin: "-100px" }}
-                        className="max-w-4xl mx-auto overflow-x-auto"
+                        className="max-w-4xl mx-auto overflow-x-auto -mx-5 sm:mx-auto px-5 sm:px-0 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full"
                     >
-                        <table className="w-full">
+                        <table className="w-full min-w-[560px]">
                             <thead>
                                 <tr>
                                     <th className="py-4 px-4 text-left text-sm text-gray-400" />
@@ -346,8 +346,8 @@ export default function LlcFormationPage() {
             </section>
 
             {/* ═══════════════ SECTION 4: HOW IT WORKS (5 STEPS) ═══════════════ */}
-            <section className="py-20 bg-[#F5F5F5]">
-                <div className="container mx-auto px-4 md:px-6">
+            <section className="py-14 sm:py-20 bg-[#F5F5F5]">
+                <div className="container mx-auto px-5 md:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -357,7 +357,7 @@ export default function LlcFormationPage() {
                         <motion.h2
                             custom={0}
                             variants={fadeUp}
-                            className="text-3xl md:text-5xl font-bold text-[#1F2328] mb-4"
+                            className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1F2328] mb-4"
                             style={{ fontFamily: "Playfair Display, serif" }}
                         >
                             {t("stepsTitle")}
@@ -405,8 +405,8 @@ export default function LlcFormationPage() {
             </section>
 
             {/* ═══════════════ SECTION 5: MULTI-STEP FORM ═══════════════ */}
-            <section ref={formRef} className="py-20 bg-white" id="form">
-                <div className="container mx-auto px-4 md:px-6">
+            <section ref={formRef} className="py-14 sm:py-20 bg-white" id="form">
+                <div className="container mx-auto px-5 md:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -416,7 +416,7 @@ export default function LlcFormationPage() {
                         <motion.h2
                             custom={0}
                             variants={fadeUp}
-                            className="text-3xl md:text-5xl font-bold text-[#1F2328] mb-4"
+                            className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1F2328] mb-4"
                             style={{ fontFamily: "Playfair Display, serif" }}
                         >
                             {t("formTitle")}
@@ -428,13 +428,17 @@ export default function LlcFormationPage() {
 
                     <div className="max-w-2xl mx-auto">
                         {/* Progress Bar */}
-                        <div className="mb-8">
+                        <div className="mb-6 sm:mb-8">
+                            {/* Compact mobile step label */}
+                            <p className="sm:hidden text-xs font-semibold tracking-[0.18em] uppercase text-[#6B7280] mb-2 text-center">
+                                {`${formStep + 1} / 4`} · {[t("formStep1"), t("formStep2"), t("formStep3"), t("formStep4")][formStep]}
+                            </p>
                             <div className="flex items-center justify-between mb-3">
                                 {[t("formStep1"), t("formStep2"), t("formStep3"), t("formStep4")].map((label, i) => (
-                                    <div key={i} className="flex items-center gap-2">
+                                    <div key={i} className="flex items-center gap-2 flex-1 sm:flex-none">
                                         <span
                                             className={cn(
-                                                "w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all",
+                                                "w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-bold transition-all mx-auto sm:mx-0",
                                                 formStep >= i
                                                     ? "bg-[#C1A05E] text-white"
                                                     : "bg-[#E5E5E5] text-[#6B7280]"
@@ -455,7 +459,7 @@ export default function LlcFormationPage() {
                         </div>
 
                         {/* Form Card */}
-                        <div className="rounded-2xl border border-[#E5E5E5] shadow-lg p-6 md:p-8">
+                        <div className="rounded-2xl border border-[#E5E5E5] shadow-lg p-5 sm:p-6 md:p-8">
                             {/* Step 1: LLC Details */}
                             {formStep === 0 && (
                                 <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} className="space-y-5">
@@ -465,7 +469,7 @@ export default function LlcFormationPage() {
                                             value={form.llcName}
                                             onChange={(e) => updateForm("llcName", e.target.value)}
                                             placeholder={t("formLlcNamePlaceholder")}
-                                            className="border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
+                                            className="h-12 sm:h-11 text-base sm:text-sm border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -473,7 +477,7 @@ export default function LlcFormationPage() {
                                         <Input
                                             value={form.alternativeName}
                                             onChange={(e) => updateForm("alternativeName", e.target.value)}
-                                            className="border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
+                                            className="h-12 sm:h-11 text-base sm:text-sm border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
                                         />
                                         <p className="text-xs text-[#6B7280]">{t("formAlternativeNameHint")}</p>
                                     </div>
@@ -535,7 +539,7 @@ export default function LlcFormationPage() {
                                         <Input
                                             value={form.fullName}
                                             onChange={(e) => updateForm("fullName", e.target.value)}
-                                            className="border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
+                                            className="h-12 sm:h-11 text-base sm:text-sm border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
                                         />
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -545,7 +549,7 @@ export default function LlcFormationPage() {
                                                 type="email"
                                                 value={form.email}
                                                 onChange={(e) => updateForm("email", e.target.value)}
-                                                className="border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
+                                                className="h-12 sm:h-11 text-base sm:text-sm border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
                                             />
                                         </div>
                                         <div className="space-y-2">
@@ -554,7 +558,7 @@ export default function LlcFormationPage() {
                                                 type="tel"
                                                 value={form.phone}
                                                 onChange={(e) => updateForm("phone", e.target.value)}
-                                                className="border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
+                                                className="h-12 sm:h-11 text-base sm:text-sm border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
                                             />
                                         </div>
                                     </div>
@@ -563,7 +567,7 @@ export default function LlcFormationPage() {
                                         <select
                                             value={form.country}
                                             onChange={(e) => updateForm("country", e.target.value)}
-                                            className="w-full h-10 rounded-md border border-[#E5E5E5] bg-white px-3 py-2 text-sm focus:border-[#C1A05E] focus:outline-none focus:ring-1 focus:ring-[#C1A05E]"
+                                            className="w-full h-12 sm:h-11 rounded-md border border-[#E5E5E5] bg-white px-3 py-2 text-base sm:text-sm focus:border-[#C1A05E] focus:outline-none focus:ring-1 focus:ring-[#C1A05E]"
                                         >
                                             {countries.map((c) => (
                                                 <option key={c} value={c}>{c}</option>
@@ -575,7 +579,7 @@ export default function LlcFormationPage() {
                                         <Input
                                             value={form.passportNumber}
                                             onChange={(e) => updateForm("passportNumber", e.target.value)}
-                                            className="border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
+                                            className="h-12 sm:h-11 text-base sm:text-sm border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
                                         />
                                     </div>
                                     <div className="space-y-2">
@@ -583,7 +587,7 @@ export default function LlcFormationPage() {
                                         <Input
                                             value={form.mailingAddress}
                                             onChange={(e) => updateForm("mailingAddress", e.target.value)}
-                                            className="border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
+                                            className="h-12 sm:h-11 text-base sm:text-sm border-[#E5E5E5] focus:border-[#C1A05E] focus:ring-[#C1A05E]"
                                         />
                                     </div>
                                 </motion.div>
@@ -673,7 +677,7 @@ export default function LlcFormationPage() {
                                     <Button
                                         onClick={handleSubmit}
                                         disabled={submitting}
-                                        className="w-full bg-[#C1A05E] hover:bg-[#a38d5d] text-white text-lg py-6 rounded-xl font-semibold"
+                                        className="w-full min-h-[56px] bg-[#C1A05E] hover:bg-[#a38d5d] text-white text-base sm:text-lg py-5 sm:py-6 rounded-xl font-semibold"
                                     >
                                         {submitting ? (
                                             <Loader2 className="w-5 h-5 animate-spin" />
@@ -692,18 +696,18 @@ export default function LlcFormationPage() {
 
                             {/* Navigation Buttons */}
                             {formStep < 3 && (
-                                <div className="flex justify-between mt-8">
+                                <div className="flex flex-col-reverse sm:flex-row sm:justify-between gap-3 mt-6 sm:mt-8">
                                     {formStep > 0 ? (
                                         <Button
                                             variant="outline"
                                             onClick={() => setFormStep((s) => s - 1)}
-                                            className="gap-2 border-[#E5E5E5]"
+                                            className="w-full sm:w-auto min-h-[48px] gap-2 border-[#E5E5E5]"
                                         >
                                             <ChevronLeft className="w-4 h-4" />
                                             {t("formBack")}
                                         </Button>
                                     ) : (
-                                        <div />
+                                        <div className="hidden sm:block" />
                                     )}
                                     <Button
                                         onClick={() => setFormStep((s) => s + 1)}
@@ -711,7 +715,7 @@ export default function LlcFormationPage() {
                                             (formStep === 0 && !isStep1Valid) ||
                                             (formStep === 1 && !isStep2Valid)
                                         }
-                                        className="gap-2 bg-[#1F2328] hover:bg-[#2D353F] text-white"
+                                        className="w-full sm:w-auto min-h-[52px] gap-2 bg-[#1F2328] hover:bg-[#2D353F] text-white font-semibold"
                                     >
                                         {t("formNext")}
                                         <ChevronRight className="w-4 h-4" />
@@ -736,8 +740,8 @@ export default function LlcFormationPage() {
             </section>
 
             {/* ═══════════════ SECTION 6: FAQ ═══════════════ */}
-            <section className="py-20 bg-[#F5F5F5]">
-                <div className="container mx-auto px-4 md:px-6">
+            <section className="py-14 sm:py-20 bg-[#F5F5F5]">
+                <div className="container mx-auto px-5 md:px-6">
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -747,7 +751,7 @@ export default function LlcFormationPage() {
                         <motion.h2
                             custom={0}
                             variants={fadeUp}
-                            className="text-3xl md:text-5xl font-bold text-[#1F2328] mb-4"
+                            className="text-2xl sm:text-3xl md:text-5xl font-bold text-[#1F2328] mb-4"
                             style={{ fontFamily: "Playfair Display, serif" }}
                         >
                             {t("faqTitle")}

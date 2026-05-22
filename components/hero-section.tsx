@@ -22,20 +22,20 @@ export function HeroSection() {
   }, [rotatingTitles.length])
 
   return (
-    <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-gradient-to-br from-[#F8F8F6] via-[#F5F5F5] to-[#EDE9E0] pt-20 pb-12 md:pt-40 md:pb-24">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16 z-10 relative">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section className="relative min-h-[80vh] lg:min-h-[85vh] flex items-center overflow-hidden bg-gradient-to-br from-[#F8F8F6] via-[#F5F5F5] to-[#EDE9E0] pt-24 pb-14 sm:pt-28 md:pt-40 md:pb-24">
+      <div className="container mx-auto px-5 sm:px-6 md:px-12 lg:px-16 z-10 relative">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-20 items-center">
           {/* LEFT-ALIGNED Text Content */}
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8 text-center lg:text-left">
             {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/80 rounded-full border border-[#C1A05E]/20 shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 bg-white/80 rounded-full border border-[#C1A05E]/20 shadow-sm"
             >
               <div className="w-2 h-2 rounded-full bg-[#C1A05E] animate-pulse" />
-              <span className="text-sm font-semibold text-[#1F2328]">{t("badge")}</span>
+              <span className="text-xs sm:text-sm font-semibold text-[#1F2328]">{t("badge")}</span>
             </motion.div>
 
             {/* Main Headline with animated title swap */}
@@ -43,7 +43,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1F2328] leading-[1.1]"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-[#1F2328] leading-[1.15] sm:leading-[1.1] tracking-tight"
             >
               {t("headline")}{" "}
               <span className="relative inline-block">
@@ -74,21 +74,21 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="text-lg md:text-xl text-[#6B7280] max-w-xl leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-[#6B7280] max-w-xl mx-auto lg:mx-0 leading-relaxed"
             >
               {t("subheadline")}
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons — full-width on mobile */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.3 }}
-              className="flex flex-col sm:flex-row gap-4 pt-4"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4"
             >
               <Button
                 size="lg"
-                className="bg-[#1F2328] hover:bg-[#2D353F] text-white px-8 py-6 text-lg rounded-xl transition-all shadow-lg shadow-[#1F2328]/20 hover:shadow-xl hover:shadow-[#1F2328]/30 hover:-translate-y-0.5"
+                className="w-full sm:w-auto min-h-[52px] bg-[#1F2328] hover:bg-[#2D353F] text-white px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-xl transition-all shadow-lg shadow-[#1F2328]/20 hover:shadow-xl hover:shadow-[#1F2328]/30 sm:hover:-translate-y-0.5"
                 asChild
               >
                 <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
@@ -98,7 +98,7 @@ export function HeroSection() {
               <Button
                 variant="outline"
                 size="lg"
-                className="border-[#E5E6E8] text-[#3D4852] hover:bg-white hover:border-[#C1A05E]/30 px-8 py-6 text-lg rounded-xl transition-all hover:shadow-md"
+                className="w-full sm:w-auto min-h-[52px] border-[#E5E6E8] text-[#3D4852] hover:bg-white hover:border-[#C1A05E]/30 px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-xl transition-all hover:shadow-md"
                 asChild
               >
                 <a href="#portfoy">{t("ctaSecondary")}</a>
@@ -110,7 +110,7 @@ export function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.5 }}
-              className="flex items-center gap-4 pt-4"
+              className="flex items-center justify-center lg:justify-start gap-4 pt-2 sm:pt-4"
             >
               <div className="flex -space-x-2">
                 {[...Array(4)].map((_, i) => (
@@ -136,7 +136,7 @@ export function HeroSection() {
             className="relative hidden lg:block"
           >
             {/* Property Image */}
-            <div className="relative w-full h-[520px] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
+            <div className="relative w-full h-[420px] lg:h-[520px] rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
               <Image
                 src="/investment-house.png"
                 alt="American Investment Property"

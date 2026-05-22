@@ -218,7 +218,7 @@ export default function AgentDashboard() {
             <motion.header
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                className="h-20 bg-white border-b border-slate-100 flex items-center justify-between px-6 md:px-10 sticky top-0 z-30"
+                className="h-16 md:h-20 bg-white border-b border-slate-100 flex items-center justify-between px-4 sm:px-6 md:px-10 sticky top-0 z-30 gap-3"
             >
                 <div className="flex items-center gap-4 flex-grow max-w-xl">
                     <div className="relative w-full">
@@ -230,7 +230,7 @@ export default function AgentDashboard() {
                     </div>
                 </div>
 
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-3 sm:gap-6 flex-shrink-0">
                     <motion.button
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
@@ -243,14 +243,14 @@ export default function AgentDashboard() {
                             transition={{ duration: 2, repeat: Infinity }}
                         />
                     </motion.button>
-                    <div className="flex items-center gap-3 pl-6 border-l border-slate-100">
-                        <div className="text-right hidden sm:block">
+                    <div className="flex items-center gap-3 sm:pl-6 sm:border-l border-slate-100">
+                        <div className="text-right hidden md:block">
                             <p className="text-sm font-bold text-slate-900">{agentName}</p>
                             <p className="text-xs text-[#C1A05E] font-bold capitalize">{(data?.level ?? "Starter").toLowerCase()} Agent</p>
                         </div>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
-                            className="w-10 h-10 rounded-full bg-[#1F2328] flex items-center justify-center text-white font-bold relative"
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#1F2328] flex items-center justify-center text-white font-bold text-sm relative"
                         >
                             {agentInitials}
                             <motion.span
@@ -263,12 +263,12 @@ export default function AgentDashboard() {
                 </div>
             </motion.header>
 
-            <div className="p-6 md:p-10 space-y-8">
+            <div className="p-4 sm:p-6 md:p-10 space-y-6 md:space-y-8">
                 {/* Welcome Hero */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
+                    className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm"
                 >
                     <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
                     <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-[#1F2328]/5 rounded-full blur-3xl" />
@@ -281,7 +281,7 @@ export default function AgentDashboard() {
                                     {new Date().toLocaleDateString("tr-TR", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                                 </span>
                             </div>
-                            <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">
+                            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">
                                 Hoş Geldiniz, <span className="text-[#C1A05E]">{agentName}</span>
                             </h1>
                             <p className="text-[#A8B0B8] mt-2 font-medium flex items-center gap-2">
@@ -292,13 +292,13 @@ export default function AgentDashboard() {
                         <motion.div
                             initial={{ opacity: 0, x: 20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            className="flex items-center gap-3"
+                            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
                         >
                             <Button variant="outline" className="border-slate-200 text-slate-600 hover:text-[#C1A05E] hover:border-[#C1A05E]/30 rounded-xl">
                                 <Target size={15} className="mr-2" />
                                 Hedeflerim
                             </Button>
-                            <Button className="bg-[#1F2328] text-white hover:bg-[#C1A05E] rounded-xl shadow-lg transition-all duration-300 flex items-center gap-2">
+                            <Button className="bg-[#1F2328] text-white hover:bg-[#C1A05E] rounded-xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2">
                                 <Zap className="w-4 h-4" />
                                 Yeni Referans Ekle
                             </Button>
@@ -307,7 +307,7 @@ export default function AgentDashboard() {
                 </motion.div>
 
                 {/* Stats Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
                     {stats.map((stat, i) => (
                         <motion.div
                             key={stat.title}

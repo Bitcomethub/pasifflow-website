@@ -62,15 +62,15 @@ export default async function AdminDashboardPage() {
     })
 
     return (
-        <div className="p-8 space-y-8">
-            <div className="flex items-center justify-between space-y-2">
-                <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+        <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Dashboard</h2>
                 <div className="flex items-center space-x-2">
-                    <span className="text-sm text-muted-foreground">Mayıs 2026</span>
+                    <span className="text-xs md:text-sm text-muted-foreground">Mayıs 2026</span>
                 </div>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">
@@ -129,8 +129,8 @@ export default async function AdminDashboardPage() {
                 </Card>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-                <Card className="col-span-4">
+            <div className="grid gap-4 grid-cols-1 lg:grid-cols-7">
+                <Card className="lg:col-span-4">
                     <CardHeader>
                         <CardTitle>Gelir Grafiği</CardTitle>
                         <p className="text-xs text-muted-foreground">Son 6 ay — ödenmiş kira toplamı</p>
@@ -139,7 +139,7 @@ export default async function AdminDashboardPage() {
                         <RevenueChart data={revenueSeries} />
                     </CardContent>
                 </Card>
-                <Card className="col-span-3">
+                <Card className="lg:col-span-3">
                     <CardHeader>
                         <CardTitle>Son Aktiviteler</CardTitle>
                     </CardHeader>

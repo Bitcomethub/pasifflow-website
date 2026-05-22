@@ -127,11 +127,11 @@ export default function MarketingPage() {
     }
 
     return (
-        <div className="p-6 md:p-10 space-y-8">
+        <div className="p-4 sm:p-6 md:p-10 space-y-6 md:space-y-8">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
+                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm"
             >
                 <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
                 <div className="relative">
@@ -139,14 +139,14 @@ export default function MarketingPage() {
                         <Sparkles size={16} className="text-[#C1A05E]" />
                         <span className="text-xs font-bold text-[#C1A05E] uppercase tracking-wider">Pazarlama Araçları</span>
                     </div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">Hazır Materyaller</h1>
-                    <p className="text-[#A8B0B8] mt-2 font-medium">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">Hazır Materyaller</h1>
+                    <p className="text-[#A8B0B8] mt-2 font-medium text-sm md:text-base">
                         Sosyal medya görselleri, sunum dosyaları, video şablonları ve onaylı e-posta metinleri.
                     </p>
                 </div>
             </motion.div>
 
-            <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {ASSETS.map((asset, i) => {
                     const Icon = categoryIcon(asset.category)
                     return (
@@ -185,7 +185,7 @@ export default function MarketingPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6"
+                className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-6"
             >
                 <div className="flex items-center gap-2 mb-1">
                     <Megaphone size={18} className="text-[#C1A05E]" />
@@ -196,14 +196,14 @@ export default function MarketingPage() {
                 <div className="space-y-4">
                     {SCRIPTS.map((s) => (
                         <div key={s.id} className="border border-slate-100 rounded-xl p-4 hover:bg-slate-50/50 transition-colors">
-                            <div className="flex items-center justify-between mb-2 gap-3">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2 sm:gap-3">
                                 <p className="text-sm font-bold text-[#1F2328]">{s.label}</p>
                                 <Button
                                     size="sm"
                                     variant="outline"
                                     onClick={() => handleCopy(s.id, s.content)}
                                     className={cn(
-                                        "h-8 text-xs rounded-lg border-slate-200",
+                                        "h-8 text-xs rounded-lg border-slate-200 self-start sm:self-auto",
                                         copied === s.id && "border-emerald-300 bg-emerald-50 text-emerald-600"
                                     )}
                                 >

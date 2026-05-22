@@ -43,7 +43,7 @@ export default function TaxationPage() {
                             <CheckCircle2 size={16} />
                             {t("irsBadge")}
                         </div>
-                        <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-primary">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-primary">
                             {t("title")}
                         </h1>
                         <p className="text-xl text-muted-foreground leading-relaxed">

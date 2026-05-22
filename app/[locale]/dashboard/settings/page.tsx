@@ -29,8 +29,8 @@ export default function SettingsPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-slate-900">Ayarlar</h1>
-                <p className="text-slate-500 mt-2">Hesap bilgilerinizi ve tercihlerinizi yönetin.</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-900">Ayarlar</h1>
+                <p className="text-sm md:text-base text-slate-500 mt-2">Hesap bilgilerinizi ve tercihlerinizi yönetin.</p>
             </div>
 
             <div className="grid gap-6">
@@ -40,7 +40,7 @@ export default function SettingsPage() {
                         <CardDescription>Kişisel bilgilerinizi güncelleyin.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="name">Ad</Label>
                                 <Input id="name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
@@ -64,15 +64,15 @@ export default function SettingsPage() {
                         <CardDescription>Hangi konularda bildirim almak istediğinizi seçin.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <div className="space-y-0.5">
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-0.5 min-w-0">
                                 <Label className="text-base">E-posta Bildirimleri</Label>
                                 <p className="text-sm text-muted-foreground">Yeni fırsatlar ve güncellemeler hakkında e-posta alın.</p>
                             </div>
                             <Switch defaultChecked />
                         </div>
-                        <div className="flex items-center justify-between">
-                            <div className="space-y-0.5">
+                        <div className="flex items-center justify-between gap-4">
+                            <div className="space-y-0.5 min-w-0">
                                 <Label className="text-base">Yatırım Raporları</Label>
                                 <p className="text-sm text-muted-foreground">Aylık portföy raporlarını otomatik alın.</p>
                             </div>

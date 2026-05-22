@@ -104,6 +104,18 @@ export function Header() {
     { name: tNav("map"), href: "/harita" },
   ]
 
+  // Lock body scroll while the mobile menu overlay is open
+  useEffect(() => {
+    if (typeof document === "undefined") return
+    if (mobileMenuOpen) {
+      const previous = document.body.style.overflow
+      document.body.style.overflow = "hidden"
+      return () => {
+        document.body.style.overflow = previous
+      }
+    }
+  }, [mobileMenuOpen])
+
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
@@ -115,9 +127,13 @@ export function Header() {
               : ""
           )}
         >
-          <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 h-16 sm:h-20 md:h-24 flex items-center justify-between">
+          <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 h-16 sm:h-20 md:h-24 flex items-center justify-between gap-2">
             {/* LEFT: Logo - vertically centered */}
-            <Link href="/" className="flex items-center flex-shrink-0 h-full">
+            <Link
+              href="/"
+              className="flex items-center flex-shrink-0 h-full min-h-[44px]"
+              aria-label="Pasiflow"
+            >
               <Logo size="sm" theme="light" showMotto={false} className="w-28 sm:w-32 md:w-40" />
             </Link>
 
@@ -331,79 +347,144 @@ export function Header() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden z-[70] p-2 rounded-lg text-[#3D4852] hover:bg-[#E5E5E5] transition-colors"
+              className="md:hidden z-[70] inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded-lg text-[#3D4852] hover:bg-[#E5E5E5] active:bg-[#E5E5E5] transition-colors"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={mobileMenuOpen ? "Menüyü kapat" : "Menüyü aç"}
               aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav"
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={26} /> : <Menu size={26} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Nav */}
-        {
-          mobileMenuOpen && (
-            <div
-              className="fixed inset-0 top-16 bg-[#F6F7F9] z-[60] flex flex-col p-6"
-            >
-              <div className="space-y-4">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="block text-xl font-medium text-[#1F2328] hover:text-[#B8A074] py-2"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-                <div className="h-px bg-[#E5E6E8] my-4" />
-                {extraLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className="block text-lg text-[#535454] hover:text-[#B8A074] py-2"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {link.name}
-                  </Link>
-                ))}
-              </div>
+        {/* Mobile Nav — full screen overlay */}
+        {mobileMenuOpen && (
+          <div
+            id="mobile-nav"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Mobil menü"
+            className="md:hidden fixed inset-0 top-16 bg-white z-[60] flex flex-col px-5 pt-4 pb-8 overflow-y-auto overscroll-contain"
+            style={{ height: "calc(100dvh - 4rem)" }}
+          >
+            <nav className="flex-1 flex flex-col gap-1" aria-label="Ana navigasyon">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center text-lg font-semibold text-[#1F2328] hover:text-[#B8A074] active:text-[#B8A074] min-h-[52px] px-2 border-b border-[#F1EFEA]"
+                >
+                  {link.name}
+                </Link>
+              ))}
 
-              <div className="flex gap-2 mt-6">
+              <div className="h-6" />
+
+              <p className="px-2 pb-2 text-[11px] font-semibold tracking-[0.18em] uppercase text-[#A8AEB6]">
+                {tNav("resources")}
+              </p>
+              {extraLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center text-base font-medium text-[#535454] hover:text-[#B8A074] active:text-[#B8A074] min-h-[48px] px-2"
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </nav>
+
+            <div className="mt-6 pt-6 border-t border-[#E5E6E8] space-y-4">
+              <div className="flex gap-2">
                 {languages.map((lang) => (
                   <button
                     key={lang.code}
+                    type="button"
                     onClick={() => {
                       switchLocale(lang.code)
                       setMobileMenuOpen(false)
                     }}
                     className={cn(
-                      "flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-[#E5E6E8] transition-colors border border-[#E5E6E8]",
-                      currentLocale === lang.code && "bg-[#B8A074]/10 border-[#B8A074]/30"
+                      "flex-1 inline-flex items-center justify-center gap-2 min-h-[44px] px-3 rounded-lg border transition-colors",
+                      currentLocale === lang.code
+                        ? "bg-[#B8A074]/10 border-[#B8A074]/40 text-[#B8A074]"
+                        : "border-[#E5E6E8] text-slate-600 hover:bg-[#F5F5F5]"
                     )}
+                    aria-pressed={currentLocale === lang.code}
                   >
-                    <span className="text-xl">{lang.flag}</span>
-                    <span className={cn(
-                      "text-xs font-medium",
-                      currentLocale === lang.code ? "text-[#B8A074]" : "text-slate-500"
-                    )}>{lang.code.toUpperCase()}</span>
+                    <span className="text-xl" aria-hidden>{lang.flag}</span>
+                    <span className="text-sm font-semibold">{lang.code.toUpperCase()}</span>
                   </button>
                 ))}
               </div>
 
-              <Button
-                className="mt-6 w-full bg-[#B8A074] hover:bg-[#a38d5d] text-white font-semibold py-4 text-base rounded-lg"
-                asChild
-              >
-                <a href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89" target="_blank" rel="noopener noreferrer">
-                  {t("getConsultation")}
-                </a>
-              </Button>
+              {currentUser ? (
+                <div className="space-y-2">
+                  <Button
+                    asChild
+                    className="w-full min-h-[52px] text-base font-semibold bg-[#1F2328] hover:bg-[#2D353F] text-white rounded-xl"
+                  >
+                    <Link
+                      href={
+                        currentUser.role === "AGENT"
+                          ? "/agent/dashboard"
+                          : currentUser.role === "MANAGER"
+                            ? "/manager"
+                            : "/dashboard"
+                      }
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      <LayoutDashboard className="h-5 w-5 mr-2" />
+                      {t("dashboard")}
+                    </Link>
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full min-h-[52px] text-base font-semibold border-[#E5E5E5] text-[#3D4852] rounded-xl"
+                    onClick={() => {
+                      handleLogout()
+                      setMobileMenuOpen(false)
+                    }}
+                  >
+                    <LogOut className="h-5 w-5 mr-2" />
+                    {t("signOut")}
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full min-h-[52px] text-base font-semibold border-[#C1A05E] text-[#C1A05E] hover:bg-[#C1A05E] hover:text-white rounded-xl"
+                    onClick={() => {
+                      setMobileMenuOpen(false)
+                      setShowPanelLoginModal(true)
+                    }}
+                  >
+                    {tNav("panelLogin")}
+                  </Button>
+                  <Button
+                    asChild
+                    className="w-full min-h-[52px] text-base font-semibold bg-[#C1A05E] hover:bg-[#a38d5d] text-white rounded-xl shadow-lg shadow-[#C1A05E]/20"
+                  >
+                    <a
+                      href="https://meetings-na2.hubspot.com/erman?uuid=e269fedf-d614-4f0b-91c5-cad583673f89"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {t("getConsultation")}
+                    </a>
+                  </Button>
+                </div>
+              )}
             </div>
-          )
-        }
+          </div>
+        )}
       </header>
 
       {/* Modals - rendered outside motion.header to avoid transform breaking position:fixed */}

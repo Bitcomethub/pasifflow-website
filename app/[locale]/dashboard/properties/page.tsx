@@ -161,19 +161,19 @@ export default function PropertiesPage() {
     }
 
     return (
-        <div className="space-y-8 p-6 md:p-8">
+        <div className="space-y-6 md:space-y-8 p-4 sm:p-6 md:p-8">
             {/* Header */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
+                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm"
             >
                 <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
 
                 <div className="relative flex flex-col lg:flex-row justify-between lg:items-end gap-6">
                     <div>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">Mülklerim</h1>
-                        <p className="text-[#A8B0B8] mt-2 font-medium">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">Mülklerim</h1>
+                        <p className="text-sm md:text-base text-[#A8B0B8] mt-2 font-medium">
                             Aktif portföyünüzdeki mülklerin detayları ve güncel durumları.
                         </p>
                     </div>
@@ -204,7 +204,7 @@ export default function PropertiesPage() {
             </motion.div>
 
             {/* Property Cards */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 md:gap-6">
                 {properties.map((property, index) => (
                     <motion.div
                         key={property.id}

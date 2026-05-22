@@ -1303,7 +1303,7 @@ function DealSheet({
     math: ReturnType<typeof analyzeDeal>
 }) {
     return (
-        <article className="bg-[#FBFAF6] border border-[#E2DDD0] p-8 md:p-10">
+        <article className="bg-[#FBFAF6] border border-[#E2DDD0] p-6 sm:p-8 md:p-10">
             {/* Sheet header */}
             <header className="flex items-baseline justify-between pb-5 border-b border-[#E2DDD0]">
                 <div>
@@ -1541,7 +1541,7 @@ function StepReview({ draft }: { draft: DraftListing }) {
                     </section>
 
                     {/* Client wire instructions */}
-                    <section className="bg-[#1F2328] text-[#F6F4EE] p-8 md:p-10">
+                    <section className="bg-[#1F2328] text-[#F6F4EE] p-6 sm:p-8 md:p-10">
                         <div className="eyebrow text-[#C1A05E]">Client cash out of pocket</div>
                         <dl className="mt-5 space-y-2.5 text-[14px]">
                             <WireRow

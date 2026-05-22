@@ -60,8 +60,8 @@ export default function DocumentsPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-slate-900">Dokümanlar</h1>
-                <p className="text-slate-500 mt-2">Tüm yasal belgelerinizi ve sözleşmelerinizi buradan yönetin.</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-900">Dokümanlar</h1>
+                <p className="text-sm md:text-base text-slate-500 mt-2">Tüm yasal belgelerinizi ve sözleşmelerinizi buradan yönetin.</p>
             </div>
 
             <div className="grid gap-6">

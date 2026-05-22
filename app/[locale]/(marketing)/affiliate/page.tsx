@@ -37,7 +37,7 @@ export default function AffiliatePage() {
     return (
         <>
             {/* Hero Section */}
-            <section className="relative py-20 md:py-32 overflow-hidden">
+            <section className="relative py-14 sm:py-20 md:py-32 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-accent/10" />
                 <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2" />
 
@@ -51,7 +51,7 @@ export default function AffiliatePage() {
                         <Badge className="mb-6 bg-accent/20 text-accent border-accent/30 px-4 py-2">
                             {t("badge")}
                         </Badge>
-                        <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
+                        <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold text-foreground mb-6 leading-tight">
                             {t("heroTitle")} <br />
                             <span className="text-primary">{t("heroTitleAccent")}</span>
                         </h1>
@@ -73,7 +73,7 @@ export default function AffiliatePage() {
             </section>
 
             {/* How It Works */}
-            <section className="py-20 bg-muted/30">
+            <section className="py-14 sm:py-20 bg-muted/30">
                 <div className="container mx-auto px-4 md:px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -81,7 +81,7 @@ export default function AffiliatePage() {
                         viewport={{ once: true }}
                         className="text-center mb-12"
                     >
-                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
                             {t("howItWorksTitle")}
                         </h2>
                         <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -117,7 +117,7 @@ export default function AffiliatePage() {
             </section>
 
             {/* Benefits */}
-            <section className="py-20">
+            <section className="py-14 sm:py-20">
                 <div className="container mx-auto px-4 md:px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -125,7 +125,7 @@ export default function AffiliatePage() {
                         viewport={{ once: true }}
                         className="text-center mb-12"
                     >
-                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
                             {t("benefitsTitle")}
                         </h2>
                     </motion.div>
@@ -155,7 +155,7 @@ export default function AffiliatePage() {
             </section>
 
             {/* Commission Structure */}
-            <section className="py-20 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
+            <section className="py-14 sm:py-20 bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">
                 <div className="container mx-auto px-4 md:px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -163,11 +163,11 @@ export default function AffiliatePage() {
                         viewport={{ once: true }}
                         className="text-center max-w-3xl mx-auto"
                     >
-                        <h2 className="text-3xl md:text-4xl font-bold mb-6">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6">
                             {t("commissionTitle")}
                         </h2>
                         <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
-                            <div className="text-6xl md:text-8xl font-bold mb-2">$1,000</div>
+                            <div className="text-5xl sm:text-6xl md:text-8xl font-bold mb-2">$1,000</div>
                             <div className="text-xl opacity-80">{t("commissionPerSale")}</div>
                         </div>
                         <div className="grid md:grid-cols-3 gap-6 text-left">
@@ -189,7 +189,7 @@ export default function AffiliatePage() {
             </section>
 
             {/* CTA Section */}
-            <section className="py-20">
+            <section className="py-14 sm:py-20">
                 <div className="container mx-auto px-4 md:px-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -197,7 +197,7 @@ export default function AffiliatePage() {
                         viewport={{ once: true }}
                         className="text-center max-w-2xl mx-auto"
                     >
-                        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+                        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4">
                             {t("ctaTitle")}
                         </h2>
                         <p className="text-muted-foreground text-lg mb-8">

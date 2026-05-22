@@ -63,7 +63,7 @@ export function FoundersSection() {
   }
 
   return (
-    <section className="py-24 bg-background border-t border-border/50 overflow-hidden">
+    <section className="py-14 sm:py-20 md:py-24 bg-background border-t border-border/50 overflow-hidden">
       <div className="container mx-auto px-4 md:px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

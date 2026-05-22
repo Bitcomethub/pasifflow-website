@@ -35,15 +35,15 @@ export default async function MaintenancePage() {
     }
 
     return (
-        <div className="p-6 space-y-6">
-            <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold text-[#3D4852]">Maintenance Requests</h1>
-                <Button className="bg-[#B8A074] hover:bg-[#B8A074]/90 text-white">
+        <div className="p-4 sm:p-6 space-y-6">
+            <div className="flex justify-between items-center gap-3 flex-wrap">
+                <h1 className="text-2xl md:text-3xl font-bold text-[#3D4852]">Maintenance Requests</h1>
+                <Button size="sm" className="bg-[#B8A074] hover:bg-[#B8A074]/90 text-white md:size-default">
                     Export Report
                 </Button>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 {requests.map((request) => (
                     <Card key={request.id} className="hover:shadow-lg transition-shadow">
                         <CardHeader className="flex flex-row items-start justify-between space-y-0 pb-2">

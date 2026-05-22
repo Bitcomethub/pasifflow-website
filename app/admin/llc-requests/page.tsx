@@ -151,16 +151,16 @@ export default function AdminLlcRequestsPage() {
     }
 
     return (
-        <div className="p-8 space-y-8">
+        <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8">
             <div>
-                <h2 className="text-3xl font-bold tracking-tight">LLC Requests</h2>
-                <p className="text-muted-foreground mt-1">
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight">LLC Requests</h2>
+                <p className="text-sm md:text-base text-muted-foreground mt-1">
                     Manage LLC formation requests and send formation links.
                 </p>
             </div>
 
             {/* Stats */}
-            <div className="grid gap-4 md:grid-cols-4">
+            <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Total Requests</CardTitle>
@@ -201,7 +201,7 @@ export default function AdminLlcRequestsPage() {
 
             {/* Search & Filter */}
             <div className="flex flex-col sm:flex-row gap-4">
-                <div className="relative flex-1 max-w-sm">
+                <div className="relative w-full sm:flex-1 sm:max-w-sm">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                         placeholder="Search by name, email, or LLC name..."
@@ -210,7 +210,7 @@ export default function AdminLlcRequestsPage() {
                         className="pl-10"
                     />
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                     {["ALL", "PENDING", "LINK_SENT", "COMPLETED"].map((status) => (
                         <Button
                             key={status}
@@ -324,9 +324,9 @@ export default function AdminLlcRequestsPage() {
 
             {/* Detail / Send Link Modal */}
             {selectedRequest && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-                    <div className="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-                        <div className="flex items-center justify-between p-6 border-b">
+                <div className="fixed inset-0 z-[100] flex items-stretch sm:items-center justify-center bg-black/50 sm:p-4 overflow-y-auto">
+                    <div className="bg-white sm:rounded-2xl shadow-2xl w-full sm:max-w-lg max-h-screen sm:max-h-[90vh] overflow-y-auto">
+                        <div className="flex items-center justify-between p-5 sm:p-6 border-b sticky top-0 bg-white z-10">
                             <h3 className="text-lg font-bold">LLC Request Details</h3>
                             <button
                                 onClick={() => setSelectedRequest(null)}
@@ -336,8 +336,8 @@ export default function AdminLlcRequestsPage() {
                             </button>
                         </div>
 
-                        <div className="p-6 space-y-4">
-                            <div className="grid grid-cols-2 gap-4 text-sm">
+                        <div className="p-5 sm:p-6 space-y-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                                 <div>
                                     <p className="text-muted-foreground">Full Name</p>
                                     <p className="font-medium">{selectedRequest.fullName}</p>
@@ -370,7 +370,7 @@ export default function AdminLlcRequestsPage() {
                                     <p className="text-muted-foreground">Passport</p>
                                     <p className="font-medium">{selectedRequest.passportNumber}</p>
                                 </div>
-                                <div className="col-span-2">
+                                <div className="sm:col-span-2">
                                     <p className="text-muted-foreground">Mailing Address</p>
                                     <p className="font-medium">{selectedRequest.mailingAddress}</p>
                                 </div>
@@ -428,7 +428,7 @@ export default function AdminLlcRequestsPage() {
                             {selectedRequest.paymentStatus === "PAID" && selectedRequest.status !== "COMPLETED" && (
                                 <div className="border-t pt-4 space-y-3">
                                     <Label className="font-medium">Send Formation Link</Label>
-                                    <div className="flex gap-2">
+                                    <div className="flex flex-col sm:flex-row gap-2">
                                         <Input
                                             value={linkInput}
                                             onChange={(e) => setLinkInput(e.target.value)}

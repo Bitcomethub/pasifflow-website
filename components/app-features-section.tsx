@@ -18,15 +18,15 @@ export function AppFeaturesSection() {
     ]
 
     return (
-        <section className="py-24 bg-[#1A1A1A] text-white relative overflow-hidden">
+        <section className="py-14 sm:py-20 lg:py-24 bg-[#1A1A1A] text-white relative overflow-hidden">
             {/* Decorative background */}
             <div className="absolute inset-0">
                 <div className="absolute top-20 right-20 w-64 h-64 bg-[#B8A074]/20 rounded-full blur-3xl" />
                 <div className="absolute bottom-20 left-20 w-80 h-80 bg-[#3D4852]/30 rounded-full blur-3xl" />
             </div>
 
-            <div className="container mx-auto px-4 md:px-6 relative z-10">
-                <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="container mx-auto px-5 md:px-6 relative z-10">
+                <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
                     {/* Content */}
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
@@ -37,8 +37,8 @@ export function AppFeaturesSection() {
                             <Smartphone className="w-4 h-4" />
                             <span>{t("badge")}</span>
                         </div>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">{t("title")}</h2>
-                        <p className="text-xl text-white/80 mb-8">{t("subtitle")}</p>
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 text-white leading-tight">{t("title")}</h2>
+                        <p className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8">{t("subtitle")}</p>
                         <p className="text-white/60 mb-8">{t("description")}</p>
 
                         <div className="grid gap-4">

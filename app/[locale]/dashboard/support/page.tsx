@@ -8,8 +8,8 @@ export default function SupportPage() {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-3xl font-bold text-slate-900">Destek Merkezi</h1>
-                <p className="text-slate-500 mt-2">Size nasıl yardımcı olabiliriz?</p>
+                <h1 className="text-2xl md:text-3xl font-bold text-slate-900">Destek Merkezi</h1>
+                <p className="text-sm md:text-base text-slate-500 mt-2">Size nasıl yardımcı olabiliriz?</p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
@@ -20,7 +20,7 @@ export default function SupportPage() {
                     </CardHeader>
                     <CardContent>
                         <form className="space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <Input placeholder="Adınız" />
                                 <Input placeholder="Soyadınız" />
                             </div>

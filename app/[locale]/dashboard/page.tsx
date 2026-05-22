@@ -218,12 +218,12 @@ export default function DashboardPage() {
     }
 
     return (
-        <div className="space-y-8 p-6 md:p-8">
+        <div className="space-y-6 md:space-y-8 p-4 sm:p-6 md:p-8">
             {/* Welcome Hero */}
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
+                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm"
             >
                 <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
                 <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-[#1F2328]/5 rounded-full blur-3xl" />
@@ -236,14 +236,14 @@ export default function DashboardPage() {
                                 {new Date().toLocaleDateString("tr-TR", { weekday: "long", year: "numeric", month: "long", day: "numeric" })}
                             </span>
                         </div>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">
                             Hoş Geldiniz, <span className="text-[#C1A05E]">{userName}</span>
                         </h1>
-                        <p className="text-[#A8B0B8] mt-2 font-medium">
+                        <p className="text-sm md:text-base text-[#A8B0B8] mt-2 font-medium">
                             Portföy durumunuz ve güncel piyasa verileri aşağıda özetlenmiştir.
                         </p>
                     </div>
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-stretch sm:items-center gap-3 flex-col sm:flex-row">
                         <Button variant="outline" className="border-slate-200 text-slate-600 hover:text-[#C1A05E] hover:border-[#C1A05E]/30 rounded-xl">
                             <Download size={15} className="mr-2" />
                             Rapor İndir
@@ -256,7 +256,7 @@ export default function DashboardPage() {
             </motion.div>
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
                 {stats.map((stat, i) => (
                     <motion.div
                         key={stat.title}

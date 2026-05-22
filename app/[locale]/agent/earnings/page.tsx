@@ -110,18 +110,18 @@ export default function EarningsPage() {
     ]
 
     return (
-        <div className="p-6 md:p-10 space-y-8">
+        <div className="p-4 sm:p-6 md:p-10 space-y-6 md:space-y-8">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
+                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm"
             >
                 <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
-                <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight relative">Kazançlarım</h1>
-                <p className="text-[#A8B0B8] mt-2 font-medium relative">Komisyon, pasif gelir ve bonusların tam dökümü.</p>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight relative">Kazançlarım</h1>
+                <p className="text-[#A8B0B8] mt-2 font-medium relative text-sm md:text-base">Komisyon, pasif gelir ve bonusların tam dökümü.</p>
             </motion.div>
 
-            <div className="grid gap-5 md:grid-cols-3">
+            <div className="grid gap-3 sm:gap-5 grid-cols-1 sm:grid-cols-3">
                 {stats.map((stat, i) => (
                     <motion.div
                         key={stat.label}
@@ -143,11 +143,11 @@ export default function EarningsPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6"
+                className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 sm:p-6"
             >
                 <h3 className="text-lg font-bold text-[#1F2328] mb-1">Aylık Kazanç Trendi</h3>
                 <p className="text-xs text-[#A8B0B8] mb-6">Son 12 ay — komisyon + pasif gelir</p>
-                <ResponsiveContainer width="100%" height={280}>
+                <ResponsiveContainer width="100%" height={260}>
                     <AreaChart data={data.earningsSeries} margin={{ top: 5, right: 5, bottom: 5, left: -20 }}>
                         <defs>
                             <linearGradient id="earnGold" x1="0" y1="0" x2="0" y2="1">
@@ -178,18 +178,18 @@ export default function EarningsPage() {
                 transition={{ delay: 0.4 }}
                 className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
             >
-                <div className="p-5 border-b border-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="p-4 sm:p-5 border-b border-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
                         <Filter size={16} className="text-[#C1A05E]" />
                         <h3 className="font-bold text-[#1F2328]">Kazanç Geçmişi</h3>
                     </div>
-                    <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-xl">
+                    <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-xl overflow-x-auto">
                         {(["ALL", "SALE", "PASSIVE", "BONUS"] as const).map((key) => (
                             <button
                                 key={key}
                                 onClick={() => setFilter(key)}
                                 className={cn(
-                                    "px-3 py-1.5 text-xs font-bold rounded-lg transition-all",
+                                    "px-3 py-1.5 text-xs font-bold rounded-lg transition-all flex-shrink-0 whitespace-nowrap",
                                     filter === key ? "bg-white text-[#1F2328] shadow-sm" : "text-[#A8B0B8] hover:text-slate-600"
                                 )}
                             >

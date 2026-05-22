@@ -32,15 +32,15 @@ export default function AgentSettingsPage() {
     }, [])
 
     return (
-        <div className="p-6 md:p-10 space-y-8">
+        <div className="p-4 sm:p-6 md:p-10 space-y-6 md:space-y-8">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
+                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm"
             >
                 <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
-                <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight relative">Ayarlar</h1>
-                <p className="text-[#A8B0B8] mt-2 font-medium relative">Profil bilgilerinizi, ödeme bilgilerinizi ve bildirim tercihlerinizi yönetin.</p>
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight relative">Ayarlar</h1>
+                <p className="text-[#A8B0B8] mt-2 font-medium relative text-sm md:text-base">Profil bilgilerinizi, ödeme bilgilerinizi ve bildirim tercihlerinizi yönetin.</p>
             </motion.div>
 
             <Card>
@@ -107,8 +107,8 @@ export default function AgentSettingsPage() {
                         { label: "Komisyon Ödeme Bildirimi", desc: "Komisyon ödemeleri tamamlandığında bilgilendirilin." },
                         { label: "Aylık Performans Raporu", desc: "Her ay başı satış ve kazanç özetinizi alın." },
                     ].map((item) => (
-                        <div key={item.label} className="flex items-center justify-between">
-                            <div className="space-y-0.5">
+                        <div key={item.label} className="flex items-center justify-between gap-4">
+                            <div className="space-y-0.5 min-w-0">
                                 <Label className="text-base">{item.label}</Label>
                                 <p className="text-sm text-muted-foreground">{item.desc}</p>
                             </div>
@@ -127,8 +127,10 @@ export default function AgentSettingsPage() {
                     <CardDescription>Şifre ve oturum güvenliği.</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                    <Button variant="outline" className="rounded-xl">Şifre Değiştir</Button>
-                    <Button variant="outline" className="rounded-xl ml-3">İki Faktörlü Doğrulamayı Etkinleştir</Button>
+                    <div className="flex flex-col sm:flex-row gap-3">
+                        <Button variant="outline" className="rounded-xl">Şifre Değiştir</Button>
+                        <Button variant="outline" className="rounded-xl">İki Faktörlü Doğrulamayı Etkinleştir</Button>
+                    </div>
                 </CardContent>
             </Card>
         </div>

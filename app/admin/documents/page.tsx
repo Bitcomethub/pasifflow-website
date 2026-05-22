@@ -159,11 +159,11 @@ export default function AdminDocumentsPage() {
     }), [documents])
 
     return (
-        <div className="p-8 space-y-8">
-            <div className="flex items-center justify-between">
+        <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8">
+            <div className="flex items-center justify-between gap-3">
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight">Documents</h2>
-                    <p className="text-muted-foreground mt-1">
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Documents</h2>
+                    <p className="text-sm md:text-base text-muted-foreground mt-1">
                         Browse all uploaded documents across properties, LLCs, users, and leases.
                     </p>
                 </div>
@@ -176,7 +176,7 @@ export default function AdminDocumentsPage() {
             )}
 
             {/* Stats */}
-            <div className="grid gap-4 md:grid-cols-4">
+            <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Total</CardTitle>
@@ -216,8 +216,8 @@ export default function AdminDocumentsPage() {
             </div>
 
             {/* Filters */}
-            <div className="flex flex-wrap items-center gap-3">
-                <div className="relative flex-1 min-w-[240px] max-w-md">
+            <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3">
+                <div className="relative w-full sm:flex-1 sm:min-w-[240px] sm:max-w-md">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                     <Input
                         placeholder="Search by title, type, or related entity..."

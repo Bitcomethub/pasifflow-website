@@ -47,7 +47,7 @@ export default function LocationsPage() {
     return (
         <div className="min-h-screen bg-background">
             {/* Hero Section - Premium Design */}
-            <section className="relative py-32 overflow-hidden">
+            <section className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
                 {/* Background gradient */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
 
@@ -82,7 +82,7 @@ export default function LocationsPage() {
                             </Badge>
                         </motion.div>
 
-                        <motion.h1 variants={item} className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-tight">
+                        <motion.h1 variants={item} className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight text-foreground leading-tight">
                             {t("indexTitle")}
                         </motion.h1>
 
@@ -110,7 +110,7 @@ export default function LocationsPage() {
             </section>
 
             {/* Locations Grid - Premium Cards */}
-            <section className="py-24 bg-gradient-to-b from-background to-primary/5">
+            <section className="py-14 sm:py-20 md:py-24 bg-gradient-to-b from-background to-primary/5">
                 <div className="container mx-auto px-4 md:px-6">
                     {Object.entries(locationsByState).map(([state, stateLocations], stateIndex) => (
                         <div key={state} className="mb-20 last:mb-0">
@@ -208,7 +208,7 @@ export default function LocationsPage() {
             </section>
 
             {/* CTA Section - Premium Gradient */}
-            <section className="py-32 relative overflow-hidden">
+            <section className="py-16 sm:py-24 md:py-32 relative overflow-hidden">
                 {/* Background */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-accent" />
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
@@ -237,7 +237,7 @@ export default function LocationsPage() {
                             Premium Yatırım Danışmanlığı
                         </Badge>
 
-                        <h2 className="text-4xl md:text-6xl font-bold text-white leading-tight">
+                        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-white leading-tight">
                             {t("indexCtaTitle")}
                         </h2>
 

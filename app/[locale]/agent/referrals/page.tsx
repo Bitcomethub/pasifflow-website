@@ -87,28 +87,28 @@ export default function ReferralsPage() {
     }
 
     return (
-        <div className="p-6 md:p-10 space-y-8">
+        <div className="p-4 sm:p-6 md:p-10 space-y-6 md:space-y-8">
             <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-6 md:p-8 rounded-3xl border border-slate-100 shadow-sm"
+                className="relative overflow-hidden bg-gradient-to-br from-white via-white to-[#C1A05E]/5 p-5 sm:p-6 md:p-8 rounded-2xl md:rounded-3xl border border-slate-100 shadow-sm"
             >
                 <div className="absolute -top-20 -right-20 w-60 h-60 bg-[#C1A05E]/5 rounded-full blur-3xl" />
                 <div className="relative flex flex-col md:flex-row md:items-end md:justify-between gap-4">
                     <div>
-                        <h1 className="text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">Referanslarım</h1>
-                        <p className="text-[#A8B0B8] mt-2 font-medium">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#1F2328] tracking-tight">Referanslarım</h1>
+                        <p className="text-[#A8B0B8] mt-2 font-medium text-sm md:text-base">
                             Yönlendirdiğiniz tüm yatırımcılar ve mevcut süreçleri.
                         </p>
                     </div>
-                    <Button className="bg-[#1F2328] text-white hover:bg-[#C1A05E] rounded-xl shadow-lg transition-all">
+                    <Button className="bg-[#1F2328] text-white hover:bg-[#C1A05E] rounded-xl shadow-lg transition-all w-full sm:w-auto">
                         <PlusCircle size={16} className="mr-2" />
                         Yeni Referans Ekle
                     </Button>
                 </div>
             </motion.div>
 
-            <div className="grid gap-4 md:grid-cols-4">
+            <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
                 {[
                     { label: "Toplam", value: totals.all, icon: Users, bg: "bg-[#C1A05E]/10", color: "text-[#C1A05E]" },
                     { label: "Aktif", value: totals.active, icon: CheckCircle2, bg: "bg-emerald-50", color: "text-emerald-600" },
@@ -137,7 +137,7 @@ export default function ReferralsPage() {
                 transition={{ delay: 0.3 }}
                 className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden"
             >
-                <div className="p-5 border-b border-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="p-4 sm:p-5 border-b border-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div className="relative w-full sm:max-w-xs">
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                         <Input
@@ -147,13 +147,13 @@ export default function ReferralsPage() {
                             className="pl-10 h-10 bg-slate-50 border-none rounded-xl"
                         />
                     </div>
-                    <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-xl">
+                    <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-xl overflow-x-auto">
                         {(["ALL", "Aktif", "Kapanışta", "Görüşmede"] as const).map((key) => (
                             <button
                                 key={key}
                                 onClick={() => setStatusFilter(key)}
                                 className={cn(
-                                    "px-3 py-1.5 text-xs font-bold rounded-lg transition-all",
+                                    "px-3 py-1.5 text-xs font-bold rounded-lg transition-all flex-shrink-0 whitespace-nowrap",
                                     statusFilter === key ? "bg-white text-[#1F2328] shadow-sm" : "text-[#A8B0B8] hover:text-slate-600"
                                 )}
                             >
@@ -164,7 +164,7 @@ export default function ReferralsPage() {
                 </div>
 
                 <div className="overflow-x-auto">
-                    <table className="w-full text-left">
+                    <table className="w-full text-left min-w-[640px]">
                         <thead>
                             <tr className="bg-slate-50/50 text-[#A8B0B8] text-[10px] font-bold uppercase tracking-widest">
                                 <th className="py-3 px-5">Yatırımcı</th>

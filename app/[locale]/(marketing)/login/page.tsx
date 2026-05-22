@@ -79,7 +79,7 @@ export default function LoginPage() {
     ]
 
     return (
-        <main className="min-h-screen flex">
+        <main className="min-h-[100dvh] flex flex-col lg:flex-row">
             {/* Left Panel — Feature showcase (hidden on mobile) */}
             <div className="hidden lg:flex lg:w-1/2 relative bg-[#1F2328] items-center justify-center p-12 overflow-hidden">
                 <div className="absolute inset-0">
@@ -169,42 +169,47 @@ export default function LoginPage() {
             </div>
 
             {/* Right Panel — Login Form */}
-            <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 py-12 md:py-20 px-4">
+            <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background via-background to-primary/5 px-4 sm:px-6 py-8 sm:py-12 lg:py-20">
                 <div className="w-full max-w-md">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}
                     >
-                        <Card className="p-6 md:p-8 shadow-xl border-border/50">
-                            <div className="text-center mb-8">
+                        <Card className="p-5 sm:p-6 md:p-8 shadow-xl border-border/50 rounded-2xl">
+                            <div className="text-center mb-6 sm:mb-8">
                                 <div className="lg:hidden w-12 h-12 rounded-xl bg-[#C1A05E] flex items-center justify-center mx-auto mb-4">
                                     <Building2 className="w-6 h-6 text-white" />
                                 </div>
-                                <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                                <h1 className="text-2xl sm:text-3xl font-bold text-foreground mb-2 tracking-tight">
                                     {t("title")}
                                 </h1>
-                                <p className="text-muted-foreground">{t("subtitle")}</p>
+                                <p className="text-sm sm:text-base text-muted-foreground">{t("subtitle")}</p>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-5">
+                            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                                 {error && (
                                     <motion.div
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm"
+                                        role="alert"
                                     >
                                         {error}
                                     </motion.div>
                                 )}
                                 <div className="space-y-2">
-                                    <Label htmlFor="email">{t("email")}</Label>
+                                    <Label htmlFor="email" className="text-sm font-medium">{t("email")}</Label>
                                     <div className="relative">
-                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+                                        <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" size={18} />
                                         <Input
                                             id="email"
                                             type="email"
-                                            className="pl-10"
+                                            inputMode="email"
+                                            autoComplete="email"
+                                            autoCapitalize="off"
+                                            spellCheck={false}
+                                            className="h-12 sm:h-11 pl-10 text-base sm:text-sm"
                                             value={email}
                                             onChange={(e) => setEmail(e.target.value)}
                                             placeholder={t("emailPlaceholder")}
@@ -214,13 +219,14 @@ export default function LoginPage() {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <Label htmlFor="password">{t("password")}</Label>
+                                    <Label htmlFor="password" className="text-sm font-medium">{t("password")}</Label>
                                     <div className="relative">
-                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} />
+                                        <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none" size={18} />
                                         <Input
                                             id="password"
                                             type="password"
-                                            className="pl-10"
+                                            autoComplete="current-password"
+                                            className="h-12 sm:h-11 pl-10 text-base sm:text-sm"
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
                                             placeholder={t("passwordPlaceholder")}
@@ -229,20 +235,21 @@ export default function LoginPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex items-center gap-2">
+                                <div className="flex items-center gap-2 py-1">
                                     <Checkbox
                                         id="remember"
                                         checked={rememberMe}
                                         onCheckedChange={(checked) => setRememberMe(checked as boolean)}
+                                        className="h-5 w-5"
                                     />
-                                    <Label htmlFor="remember" className="text-sm text-muted-foreground">
+                                    <Label htmlFor="remember" className="text-sm text-muted-foreground cursor-pointer select-none">
                                         {t("rememberMe")}
                                     </Label>
                                 </div>
 
                                 <Button
                                     type="submit"
-                                    className="w-full h-12 text-base gap-2 bg-[#1F2328] hover:bg-[#2D353F] transition-all"
+                                    className="w-full min-h-[52px] h-12 text-base font-semibold gap-2 bg-[#1F2328] hover:bg-[#2D353F] transition-all"
                                     disabled={loading}
                                 >
                                     {loading ? (
@@ -256,7 +263,7 @@ export default function LoginPage() {
                                 </Button>
                             </form>
 
-                            <div className="mt-6 p-3 bg-muted/50 rounded-lg flex items-start gap-2">
+                            <div className="mt-5 sm:mt-6 p-3 bg-muted/50 rounded-lg flex items-start gap-2">
                                 <Shield className="w-4 h-4 text-muted-foreground mt-0.5 flex-shrink-0" />
                                 <p className="text-xs text-muted-foreground leading-relaxed">
                                     {t("securityNotice")}

@@ -114,15 +114,15 @@ export default function AdminUsersPage() {
     }
 
     return (
-        <div className="p-8 space-y-8">
-            <div className="flex items-center justify-between">
+        <div className="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8">
+            <div className="flex items-start sm:items-center justify-between gap-3 flex-col sm:flex-row">
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight">User Management</h2>
-                    <p className="text-muted-foreground mt-1">Create and manage investor, agent, and admin accounts.</p>
+                    <h2 className="text-2xl md:text-3xl font-bold tracking-tight">User Management</h2>
+                    <p className="text-sm md:text-base text-muted-foreground mt-1">Create and manage investor, agent, and admin accounts.</p>
                 </div>
                 <Button
                     onClick={() => { setShowCreateModal(true); setEditingUser(null); setFormError("") }}
-                    className="bg-[#C1A05E] hover:bg-[#a38d5d] text-white gap-2"
+                    className="bg-[#C1A05E] hover:bg-[#a38d5d] text-white gap-2 w-full sm:w-auto"
                 >
                     <Plus className="w-4 h-4" />
                     Create User
@@ -130,7 +130,7 @@ export default function AdminUsersPage() {
             </div>
 
             {/* Stats */}
-            <div className="grid gap-4 md:grid-cols-4">
+            <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-sm font-medium">Total Users</CardTitle>
@@ -170,7 +170,7 @@ export default function AdminUsersPage() {
             </div>
 
             {/* Search */}
-            <div className="relative max-w-sm">
+            <div className="relative w-full sm:max-w-sm">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                 <Input
                     placeholder="Search by name, email, or role..."
@@ -347,16 +347,16 @@ function UserFormModal({
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md">
-                <div className="flex items-center justify-between p-6 border-b">
-                    <h3 className="text-lg font-bold">{isEditing ? "Edit User" : "Create New User"}</h3>
+        <div className="fixed inset-0 z-[100] flex items-stretch sm:items-center justify-center bg-black/50 sm:p-4 overflow-y-auto">
+            <div className="bg-white sm:rounded-2xl shadow-2xl w-full sm:max-w-md max-h-screen overflow-y-auto">
+                <div className="flex items-center justify-between p-5 sm:p-6 border-b sticky top-0 bg-white z-10">
+                    <h3 className="text-base sm:text-lg font-bold">{isEditing ? "Edit User" : "Create New User"}</h3>
                     <button onClick={onClose} className="p-1 hover:bg-slate-100 rounded-lg transition-colors">
                         <X className="w-5 h-5" />
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4">
                     {error && (
                         <div className="p-3 bg-red-50 border border-red-200 text-red-600 rounded-lg text-sm">
                             {error}

@@ -20,9 +20,14 @@ import {
     Compass
 } from "lucide-react"
 
-export function AdminSidebar() {
+interface AdminSidebarProps {
+    onClose?: () => void
+}
+
+export function AdminSidebar({ onClose }: AdminSidebarProps = {}) {
     const pathname = usePathname()
     const [locale, setLocale] = useState<"tr" | "en">("tr")
+    const handleNavClick = () => onClose?.()
 
     useEffect(() => {
         try {
@@ -99,7 +104,7 @@ export function AdminSidebar() {
     return (
         <div className="space-y-4 py-4 flex flex-col h-full bg-[#1A1A1A] text-white">
             <div className="px-3 py-2 flex-1">
-                <Link href="/admin" className="flex items-center pl-3 mb-14">
+                <Link href="/admin" onClick={handleNavClick} className="flex items-center pl-3 mb-10">
                     <div className="relative w-8 h-8 mr-4">
                         {/* Placeholder for Logo */}
                         <div className="w-8 h-8 bg-[#B8A074] rounded-lg flex items-center justify-center font-bold text-white">
@@ -115,6 +120,7 @@ export function AdminSidebar() {
                         <Link
                             key={route.href}
                             href={route.href}
+                            onClick={handleNavClick}
                             className={cn(
                                 "text-sm group flex p-3 w-full justify-start font-medium cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition",
                                 route.active ? "text-white bg-white/10" : "text-zinc-400"
