@@ -22,6 +22,9 @@ import {
     Wrench,
     Clock,
     Target,
+    Sparkles,
+    ShieldCheck,
+    Lightbulb,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -63,6 +66,44 @@ interface Stats {
     avgPrice: number
     avgCapRate: number
     aScoreCount: number
+}
+
+interface AiAnalysis {
+    renovationLevel: "cosmetic" | "moderate" | "full_gut"
+    renovationCostMin: number
+    renovationCostMax: number
+    renovationItems: string[]
+    section8PassChance: "high" | "medium" | "low"
+    timeToRent: string
+    neighborhoodTier: "A" | "B" | "C" | "D"
+    investmentVerdict: "strong_buy" | "buy" | "hold" | "avoid"
+    verdictReason: string
+    keyRisks: string[]
+    keyOpportunities: string[]
+    allInCostMin: number
+    allInCostMax: number
+    realisticCapRate: number
+}
+
+const AI_CACHE_PREFIX = "pasiflow_ai_detroit_"
+
+function loadCachedAnalysis(zpid: number): AiAnalysis | null {
+    if (typeof window === "undefined" || !zpid) return null
+    try {
+        const raw = window.localStorage.getItem(`${AI_CACHE_PREFIX}${zpid}`)
+        return raw ? (JSON.parse(raw) as AiAnalysis) : null
+    } catch {
+        return null
+    }
+}
+
+function storeCachedAnalysis(zpid: number, analysis: AiAnalysis) {
+    if (typeof window === "undefined" || !zpid) return
+    try {
+        window.localStorage.setItem(`${AI_CACHE_PREFIX}${zpid}`, JSON.stringify(analysis))
+    } catch {
+        /* quota or unavailable — ignore */
+    }
 }
 
 const PRICE_OPTIONS = [50000, 75000, 100000, 125000]
@@ -468,6 +509,52 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
     const hasPhotos = photoCount > 0
     const hasMultiple = photoCount > 1
 
+    const [aiAnalysis, setAiAnalysis] = useState<AiAnalysis | null>(() => loadCachedAnalysis(listing.zpid))
+    const [aiLoading, setAiLoading] = useState(false)
+    const [aiError, setAiError] = useState<string | null>(null)
+
+    useEffect(() => {
+        setAiAnalysis(loadCachedAnalysis(listing.zpid))
+        setAiError(null)
+    }, [listing.zpid])
+
+    const runAnalysis = async () => {
+        if (aiLoading) return
+        setAiLoading(true)
+        setAiError(null)
+        try {
+            const token = typeof window !== "undefined" ? localStorage.getItem("pasiflow_token") || "" : ""
+            const res = await fetch("/api/admin/detroit-analysis", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    address: listing.address,
+                    price: listing.price,
+                    beds: listing.beds,
+                    baths: listing.baths,
+                    livingArea: listing.livingArea,
+                    yearBuilt: listing.yearBuilt,
+                    leadPaintRisk: listing.leadPaintRisk,
+                    rent: listing.rent,
+                    capRate: listing.capRate,
+                }),
+            })
+            const data = await res.json()
+            if (!res.ok) {
+                throw new Error(data?.error || `Request failed (${res.status})`)
+            }
+            setAiAnalysis(data as AiAnalysis)
+            storeCachedAnalysis(listing.zpid, data as AiAnalysis)
+        } catch (err) {
+            setAiError(err instanceof Error ? err.message : "AI analizi başarısız oldu")
+        } finally {
+            setAiLoading(false)
+        }
+    }
+
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
@@ -622,6 +709,13 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                     </div>
 
                     <InsightsPanel listing={listing} />
+
+                    <AiAnalysisSection
+                        analysis={aiAnalysis}
+                        loading={aiLoading}
+                        error={aiError}
+                        onRun={runAnalysis}
+                    />
 
                     <div className="flex flex-col sm:flex-row gap-3">
                         <a
@@ -812,4 +906,243 @@ function rehabLabel(band: Listing["rehabEstimate"]): string {
     if (band === "high") return "yüksek"
     if (band === "medium") return "orta"
     return "düşük"
+}
+
+const VERDICT_STYLES: Record<AiAnalysis["investmentVerdict"], { bg: string; ring: string; label: string }> = {
+    strong_buy: { bg: "bg-emerald-500 text-white", ring: "ring-emerald-200", label: "STRONG BUY" },
+    buy: { bg: "bg-blue-500 text-white", ring: "ring-blue-200", label: "BUY" },
+    hold: { bg: "bg-amber-500 text-white", ring: "ring-amber-200", label: "HOLD" },
+    avoid: { bg: "bg-red-500 text-white", ring: "ring-red-200", label: "AVOID" },
+}
+
+const RENOVATION_LABEL: Record<AiAnalysis["renovationLevel"], string> = {
+    cosmetic: "Kozmetik",
+    moderate: "Orta düzey",
+    full_gut: "Komple yenileme",
+}
+
+const RENOVATION_STYLES: Record<AiAnalysis["renovationLevel"], string> = {
+    cosmetic: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    moderate: "bg-amber-50 text-amber-700 border-amber-200",
+    full_gut: "bg-red-50 text-red-700 border-red-200",
+}
+
+const SECTION8_LABEL: Record<AiAnalysis["section8PassChance"], string> = {
+    high: "Yüksek",
+    medium: "Orta",
+    low: "Düşük",
+}
+
+const SECTION8_STYLES: Record<AiAnalysis["section8PassChance"], string> = {
+    high: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    medium: "bg-amber-50 text-amber-700 border-amber-200",
+    low: "bg-red-50 text-red-700 border-red-200",
+}
+
+const TIER_STYLES: Record<AiAnalysis["neighborhoodTier"], string> = {
+    A: "bg-emerald-500 text-white border-emerald-600",
+    B: "bg-blue-500 text-white border-blue-600",
+    C: "bg-amber-500 text-white border-amber-600",
+    D: "bg-red-500 text-white border-red-600",
+}
+
+function AiAnalysisSection({
+    analysis,
+    loading,
+    error,
+    onRun,
+}: {
+    analysis: AiAnalysis | null
+    loading: boolean
+    error: string | null
+    onRun: () => void
+}) {
+    if (!analysis && !loading && !error) {
+        return (
+            <div className="rounded-xl border border-dashed border-[#B8A074]/40 bg-gradient-to-br from-[#B8A074]/5 to-transparent p-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-[#B8A074]/10 flex items-center justify-center shrink-0">
+                        <Sparkles className="h-5 w-5 text-[#B8A074]" />
+                    </div>
+                    <div>
+                        <div className="font-semibold">AI Yatırım Analizi</div>
+                        <div className="text-sm text-muted-foreground">
+                            Claude Sonnet 4.5 ile renovasyon tahmini, Section 8 geçiş şansı ve yatırım kararı.
+                        </div>
+                    </div>
+                </div>
+                <Button onClick={onRun} className="gap-2 bg-[#B8A074] hover:bg-[#A08960] text-white">
+                    <Sparkles className="h-4 w-4" /> AI Analizi Yap
+                </Button>
+            </div>
+        )
+    }
+
+    if (loading) {
+        return (
+            <div className="rounded-xl border bg-zinc-50 p-6 flex items-center gap-3 text-muted-foreground">
+                <Loader2 className="h-5 w-5 animate-spin text-[#B8A074]" />
+                AI mülkü analiz ediyor… (~10-15 sn)
+            </div>
+        )
+    }
+
+    if (error && !analysis) {
+        return (
+            <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm">
+                <div className="flex items-start gap-2 text-red-700">
+                    <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0" />
+                    <div className="flex-1">
+                        <div className="font-semibold">AI analizi başarısız</div>
+                        <div className="text-red-600">{error}</div>
+                    </div>
+                </div>
+                <Button onClick={onRun} variant="outline" size="sm" className="mt-3 gap-2">
+                    <RefreshCcw className="h-3.5 w-3.5" /> Tekrar dene
+                </Button>
+            </div>
+        )
+    }
+
+    if (!analysis) return null
+
+    const verdict = VERDICT_STYLES[analysis.investmentVerdict]
+
+    return (
+        <div className="rounded-xl border bg-white overflow-hidden">
+            <div className="px-5 py-3 border-b bg-gradient-to-r from-[#B8A074]/10 to-transparent flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                    <Sparkles className="h-4 w-4 text-[#B8A074]" />
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+                        AI Yatırım Analizi
+                    </h3>
+                </div>
+                <Button onClick={onRun} variant="ghost" size="sm" className="gap-1.5 text-xs">
+                    <RefreshCcw className="h-3 w-3" /> Yeniden analiz et
+                </Button>
+            </div>
+
+            <div className="p-5 space-y-5">
+                {/* Verdict */}
+                <div className="space-y-2">
+                    <div className="flex items-center gap-3">
+                        <div
+                            className={`px-4 py-2 rounded-lg font-bold tracking-wider text-sm ring-4 ${verdict.bg} ${verdict.ring}`}
+                        >
+                            {verdict.label}
+                        </div>
+                        <Badge variant="outline" className={`${TIER_STYLES[analysis.neighborhoodTier]} text-xs font-bold`}>
+                            Mahalle Tier {analysis.neighborhoodTier}
+                        </Badge>
+                    </div>
+                    <p className="text-sm text-foreground leading-relaxed">{analysis.verdictReason}</p>
+                </div>
+
+                {/* Renovation + Section 8 */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="rounded-lg border bg-zinc-50 p-4 space-y-3">
+                        <div className="flex items-center justify-between gap-2">
+                            <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                                <Wrench className="h-3.5 w-3.5" /> Renovasyon
+                            </div>
+                            <Badge variant="outline" className={`text-xs ${RENOVATION_STYLES[analysis.renovationLevel]}`}>
+                                {RENOVATION_LABEL[analysis.renovationLevel]}
+                            </Badge>
+                        </div>
+                        <div>
+                            <div className="text-lg font-bold text-foreground">
+                                {currency(analysis.renovationCostMin)} – {currency(analysis.renovationCostMax)}
+                            </div>
+                            <div className="text-[11px] text-muted-foreground">Tahmini maliyet aralığı</div>
+                        </div>
+                        {analysis.renovationItems?.length > 0 && (
+                            <ul className="space-y-1 text-xs text-foreground/80">
+                                {analysis.renovationItems.map((item, i) => (
+                                    <li key={i} className="flex items-start gap-1.5">
+                                        <span className="text-[#B8A074] mt-1">•</span>
+                                        <span>{item}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        )}
+                    </div>
+
+                    <div className="rounded-lg border bg-zinc-50 p-4 space-y-3">
+                        <div className="flex items-center justify-between gap-2">
+                            <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-1.5">
+                                <ShieldCheck className="h-3.5 w-3.5" /> Section 8
+                            </div>
+                            <Badge variant="outline" className={`text-xs ${SECTION8_STYLES[analysis.section8PassChance]}`}>
+                                {SECTION8_LABEL[analysis.section8PassChance]}
+                            </Badge>
+                        </div>
+                        <div className="grid grid-cols-2 gap-3">
+                            <div>
+                                <div className="text-[11px] uppercase tracking-wider text-muted-foreground">Geçiş şansı</div>
+                                <div className="text-sm font-semibold">{SECTION8_LABEL[analysis.section8PassChance]}</div>
+                            </div>
+                            <div>
+                                <div className="text-[11px] uppercase tracking-wider text-muted-foreground flex items-center gap-1">
+                                    <Clock className="h-3 w-3" /> Kiraya verilme
+                                </div>
+                                <div className="text-sm font-semibold">{analysis.timeToRent}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {/* All-in cost + realistic cap rate */}
+                <div className="rounded-lg border bg-gradient-to-br from-[#B8A074]/5 to-transparent p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                            Toplam maliyet (all-in)
+                        </div>
+                        <div className="text-xl font-bold">
+                            {currency(analysis.allInCostMin)} – {currency(analysis.allInCostMax)}
+                        </div>
+                        <div className="text-[11px] text-muted-foreground">Liste fiyatı + renovasyon</div>
+                    </div>
+                    <div>
+                        <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                            Gerçekçi cap rate
+                        </div>
+                        <div className="text-xl font-bold text-emerald-600">
+                            {analysis.realisticCapRate.toFixed(2)}%
+                        </div>
+                        <div className="text-[11px] text-muted-foreground">Tüm maliyetler dahil</div>
+                    </div>
+                </div>
+
+                {/* Risks + Opportunities */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="rounded-lg border border-red-200 bg-red-50/50 p-4">
+                        <div className="text-xs font-semibold uppercase tracking-wider text-red-700 mb-2 flex items-center gap-1.5">
+                            <AlertTriangle className="h-3.5 w-3.5" /> Riskler
+                        </div>
+                        <ul className="space-y-1.5">
+                            {(analysis.keyRisks || []).map((risk, i) => (
+                                <li key={i} className="flex items-start gap-2 text-sm text-red-900">
+                                    <span className="text-red-500 mt-0.5">•</span>
+                                    <span>{risk}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-4">
+                        <div className="text-xs font-semibold uppercase tracking-wider text-emerald-700 mb-2 flex items-center gap-1.5">
+                            <Lightbulb className="h-3.5 w-3.5" /> Fırsatlar
+                        </div>
+                        <ul className="space-y-1.5">
+                            {(analysis.keyOpportunities || []).map((opp, i) => (
+                                <li key={i} className="flex items-start gap-2 text-sm text-emerald-900">
+                                    <span className="text-emerald-500 mt-0.5">•</span>
+                                    <span>{opp}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }

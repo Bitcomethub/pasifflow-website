@@ -49,3 +49,4 @@ ipad_mock_*
 veriler/
 pasiflow-app/
 pasiflow-app-standalone/
+.env*
