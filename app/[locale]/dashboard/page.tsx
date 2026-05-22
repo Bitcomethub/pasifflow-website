@@ -117,6 +117,7 @@ export default function DashboardPage() {
     const [userName, setUserName] = useState("Investor")
     const [properties, setProperties] = useState<ApiProperty[]>([])
     const [payments, setPayments] = useState<ApiPayment[]>([])
+    const [monthlySeries, setMonthlySeries] = useState<{ month: string; revenue: number; expenses: number }[]>([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
@@ -135,12 +136,14 @@ export default function DashboardPage() {
         Promise.all([
             fetch("/api/properties", { headers }).then((r) => (r.ok ? r.json() as Promise<{ properties: ApiProperty[] }> : { properties: [] })),
             fetch("/api/mobile/payments", { headers }).then((r) => (r.ok ? r.json() as Promise<ApiPayment[]> : [])),
+            fetch("/api/mobile/financials", { headers }).then((r) => (r.ok ? r.json() as Promise<{ monthlyData: { month: string; revenue: number; expenses: number }[] }> : { monthlyData: [] })),
         ])
-            .then(([propRes, payRes]) => {
+            .then(([propRes, payRes, finRes]) => {
                 setProperties(propRes.properties ?? [])
                 setPayments(Array.isArray(payRes) ? payRes : [])
+                setMonthlySeries(finRes.monthlyData ?? [])
             })
-            .catch(() => { setProperties([]); setPayments([]) })
+            .catch(() => { setProperties([]); setPayments([]); setMonthlySeries([]) })
             .finally(() => setLoading(false))
     }, [])
 
@@ -176,12 +179,11 @@ export default function DashboardPage() {
         { title: "Aktif Mülkler", value: properties.length, icon: FileText, subtitle: "Tümü kiralı" },
     ]
 
-    // 7-month income/expense series anchored to current monthlyRent (Pasiflow founded Nov 2025)
-    const monthLabels = ["Kas", "Ara", "Oca", "Şub", "Mar", "Nis", "May"]
-    const revenueData = monthLabels.map((m, i) => ({
-        month: m,
-        gelir: Math.round(totalMonthlyRent * (0.5 + 0.08 * i)),
-        gider: Math.round(totalMonthlyRent * (0.1 + 0.02 * i)),
+    // Real 12-month income/expense series from the financials API (last 7 months for compact display)
+    const revenueData = (monthlySeries.length > 0 ? monthlySeries.slice(-7) : []).map((m) => ({
+        month: m.month,
+        gelir: m.revenue,
+        gider: m.expenses,
     }))
 
     // Recent transactions from /api/mobile/payments (latest first, top 5)
@@ -611,9 +613,14 @@ export default function DashboardPage() {
                 className="flex flex-wrap items-center justify-center gap-4"
             >
                 {[
-                    { icon: Shield, label: "Section 8 Garantili", active: true },
-                    { icon: Building2, label: "3 Mülk Sahibi", active: true },
-                    { icon: Target, label: "Portföy $500K", active: false, progress: "85%" },
+                    { icon: Shield, label: "Section 8 Garantili", active: properties.length > 0 },
+                    { icon: Building2, label: `${properties.length} Mülk Sahibi`, active: properties.length > 0 },
+                    {
+                        icon: Target,
+                        label: "Portföy $500K",
+                        active: totalValue >= 500_000,
+                        progress: `${Math.min(100, Math.round((totalValue / 500_000) * 100))}%`,
+                    },
                 ].map((badge, i) => (
                     <motion.div
                         key={i}

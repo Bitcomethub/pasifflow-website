@@ -70,6 +70,29 @@ export async function GET(request: Request) {
         // Sort by date
         allTransactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
+        // Build a 12-month income/expense series from the actual ledgers
+        const MONTH_LABELS_TR = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
+        const now = new Date();
+        const monthBuckets = new Map<string, { month: string; revenue: number; expenses: number }>();
+        for (let i = 11; i >= 0; i--) {
+            const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
+            const key = `${d.getUTCFullYear()}-${d.getUTCMonth()}`;
+            monthBuckets.set(key, { month: MONTH_LABELS_TR[d.getUTCMonth()], revenue: 0, expenses: 0 });
+        }
+        for (const t of allTransactions) {
+            const td = new Date(t.date);
+            const key = `${td.getUTCFullYear()}-${td.getUTCMonth()}`;
+            const bucket = monthBuckets.get(key);
+            if (!bucket) continue;
+            if (t.type === 'INCOME') bucket.revenue += t.amount;
+            else bucket.expenses += Math.abs(t.amount);
+        }
+        const monthlyData = Array.from(monthBuckets.values()).map((b) => ({
+            month: b.month,
+            revenue: Math.round(b.revenue),
+            expenses: Math.round(b.expenses),
+        }));
+
         return NextResponse.json({
             summary: {
                 totalIncome,
@@ -77,20 +100,7 @@ export async function GET(request: Request) {
                 netOperatingIncome
             },
             transactions: allTransactions,
-            monthlyData: [
-                { month: 'Oca', revenue: 4200, expenses: 1680 },
-                { month: 'Şub', revenue: 4200, expenses: 1720 },
-                { month: 'Mar', revenue: 4500, expenses: 1650 },
-                { month: 'Nis', revenue: 4500, expenses: 1900 },
-                { month: 'May', revenue: 4800, expenses: 1750 },
-                { month: 'Haz', revenue: 4800, expenses: 1680 },
-                { month: 'Tem', revenue: 5100, expenses: 1820 },
-                { month: 'Ağu', revenue: 5100, expenses: 1750 },
-                { month: 'Eyl', revenue: 5400, expenses: 1900 },
-                { month: 'Eki', revenue: 5400, expenses: 1850 },
-                { month: 'Kas', revenue: 5700, expenses: 1780 },
-                { month: 'Ara', revenue: 5700, expenses: 1950 },
-            ]
+            monthlyData
         });
     } catch (error) {
         console.error('Failed to fetch financial ledger:', error);

@@ -1,25 +1,65 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Building2, Users, Wallet, Wrench } from "lucide-react"
 import { db } from "@/lib/db"
+import { RevenueChart, type RevenuePoint } from "@/components/admin/revenue-chart"
+
+export const dynamic = "force-dynamic"
 
 const fmtUsd = (n: number) => new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 }).format(n)
 
+const MONTH_LABELS_TR = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"]
+
 export default async function AdminDashboardPage() {
-    const [propertyCount, valueAgg, occupiedCount, rentAgg, recentPayments] = await Promise.all([
+    // 6-month revenue window starts from the first day of (currentMonth - 5)
+    const now = new Date()
+    const windowStart = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - 5, 1))
+
+    const [
+        propertyCount,
+        valueAgg,
+        occupiedCount,
+        rentAgg,
+        activeMaintenanceCount,
+        recentPayments,
+        revenuePayments,
+    ] = await Promise.all([
         db.property.count(),
         db.property.aggregate({ _sum: { purchasePrice: true } }),
         db.property.count({ where: { status: "OCCUPIED" } }),
         db.property.aggregate({ _sum: { monthlyRent: true } }),
+        db.maintenanceRequest.count({
+            where: { status: { in: ["PENDING", "SCHEDULED", "IN_PROGRESS"] } },
+        }),
         db.payment.findMany({
             orderBy: { date: "desc" },
             take: 5,
             include: { property: { select: { address: true } } },
+        }),
+        db.payment.findMany({
+            where: { date: { gte: windowStart }, status: "PAID" },
+            select: { amount: true, date: true },
         }),
     ])
 
     const totalValue = valueAgg._sum.purchasePrice ?? 0
     const totalRent = rentAgg._sum.monthlyRent ?? 0
     const occupancyRate = propertyCount > 0 ? Math.round((occupiedCount / propertyCount) * 100) : 0
+
+    // Build 6-month series: for each month in the window, sum PAID payments
+    const buckets = new Map<string, number>()
+    for (let i = 0; i < 6; i++) {
+        const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - (5 - i), 1))
+        const key = `${d.getUTCFullYear()}-${d.getUTCMonth()}`
+        buckets.set(key, 0)
+    }
+    for (const p of revenuePayments) {
+        const key = `${p.date.getUTCFullYear()}-${p.date.getUTCMonth()}`
+        if (buckets.has(key)) buckets.set(key, (buckets.get(key) ?? 0) + p.amount)
+    }
+    const revenueSeries: RevenuePoint[] = Array.from(buckets.entries()).map(([key, revenue]) => {
+        const [, monthStr] = key.split("-")
+        return { month: MONTH_LABELS_TR[Number(monthStr)], revenue: Math.round(revenue) }
+    })
 
     return (
         <div className="p-8 space-y-8">
@@ -53,9 +93,9 @@ export default async function AdminDashboardPage() {
                         <Wrench className="h-4 w-4 text-muted-foreground" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">0</div>
+                        <div className="text-2xl font-bold">{activeMaintenanceCount}</div>
                         <p className="text-xs text-muted-foreground">
-                            Aktif talep yok
+                            {activeMaintenanceCount === 0 ? "Aktif talep yok" : "Beklemede veya devam ediyor"}
                         </p>
                     </CardContent>
                 </Card>
@@ -92,12 +132,11 @@ export default async function AdminDashboardPage() {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
                 <Card className="col-span-4">
                     <CardHeader>
-                        <CardTitle>Genel Bakış</CardTitle>
+                        <CardTitle>Gelir Grafiği</CardTitle>
+                        <p className="text-xs text-muted-foreground">Son 6 ay — ödenmiş kira toplamı</p>
                     </CardHeader>
                     <CardContent className="pl-2">
-                        <div className="h-[200px] flex items-center justify-center text-muted-foreground border-2 border-dashed rounded-md">
-                            Gelir Grafiği Buraya Gelecek
-                        </div>
+                        <RevenueChart data={revenueSeries} />
                     </CardContent>
                 </Card>
                 <Card className="col-span-3">

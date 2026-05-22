@@ -20,6 +20,7 @@ import {
     FileCheck,
     HandCoins,
     CheckCircle2,
+    Loader2,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -76,34 +77,46 @@ function Sparkline({ data, color = "#C1A05E", height = 32, width = 80 }: { data:
     )
 }
 
-// Monthly earnings chart data
-const earningsData = [
-    { month: "Oca", komisyon: 4500, pasif: 800 },
-    { month: "Şub", komisyon: 6000, pasif: 850 },
-    { month: "Mar", komisyon: 3000, pasif: 900 },
-    { month: "Nis", komisyon: 7500, pasif: 950 },
-    { month: "May", komisyon: 4500, pasif: 1000 },
-    { month: "Haz", komisyon: 9000, pasif: 1050 },
-    { month: "Tem", komisyon: 6000, pasif: 1100 },
-    { month: "Ağu", komisyon: 7500, pasif: 1150 },
-    { month: "Eyl", komisyon: 10500, pasif: 1200 },
-    { month: "Eki", komisyon: 9000, pasif: 1300 },
-    { month: "Kas", komisyon: 12000, pasif: 1350 },
-    { month: "Ara", komisyon: 10500, pasif: 1458 },
-]
+type AgentDashboard = {
+    name: string | null
+    level: string
+    stats: {
+        totalReferrals: number
+        totalEarnings: number
+        monthlyPassive: number
+        annualPassive: number
+        completedSales: number
+    }
+    earningsSeries: { month: string; komisyon: number; pasif: number }[]
+    pipeline: {
+        contact: number
+        meeting: number
+        dueDiligence: number
+        closing: number
+        completed: number
+    }
+    referrals: { name: string; properties: number; status: string; monthlyPassive: number; date: string }[]
+    monthlyGoal: { target: number; actual: number }
+}
 
-// Referral pipeline stages
-const pipelineStages = [
-    { label: "İletişim", count: 12, icon: UserPlus, color: "#A8B0B8" },
-    { label: "Görüşme", count: 8, icon: Eye, color: "#1F2328" },
-    { label: "Due Diligence", count: 5, icon: FileCheck, color: "#C1A05E" },
-    { label: "Kapanış", count: 3, icon: HandCoins, color: "#C1A05E" },
-    { label: "Tamamlandı", count: 54, icon: CheckCircle2, color: "#22c55e" },
-]
+function formatTrDate(iso: string): string {
+    const d = new Date(iso)
+    if (Number.isNaN(d.getTime())) return iso
+    return d.toLocaleDateString("tr-TR", { day: "numeric", month: "short", year: "numeric" })
+}
+
+function buildSpark(series: number[]): number[] {
+    // Take the last 7 points; pad with zeros if shorter so the sparkline stays consistent.
+    const last = series.slice(-7)
+    while (last.length < 7) last.unshift(0)
+    return last
+}
 
 export default function AgentDashboard() {
     const [agentName, setAgentName] = useState("Agent")
     const [agentInitials, setAgentInitials] = useState("PA")
+    const [data, setData] = useState<AgentDashboard | null>(null)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const stored = localStorage.getItem("pasiflow_user")
@@ -118,27 +131,86 @@ export default function AgentDashboard() {
                 }
             } catch { /* ignore */ }
         }
+
+        const token = typeof window !== "undefined" ? localStorage.getItem("pasiflow_token") : null
+        if (!token) { setLoading(false); return }
+
+        fetch("/api/agent/dashboard", { headers: { Authorization: `Bearer ${token}` } })
+            .then((r) => (r.ok ? r.json() as Promise<AgentDashboard> : null))
+            .then((d) => setData(d))
+            .catch(() => setData(null))
+            .finally(() => setLoading(false))
     }, [])
 
+    const earningsData = data?.earningsSeries ?? []
+    const komisyonSeries = earningsData.map((e) => e.komisyon)
+    const pasifSeries = earningsData.map((e) => e.pasif)
+    const referralsTrendSeries = earningsData.map((_, idx) => Math.round((data?.stats.totalReferrals ?? 0) * (idx + 1) / earningsData.length))
+    const totalEarningsSeries = earningsData.map((_, idx) => {
+        const slice = earningsData.slice(0, idx + 1)
+        return Math.round(slice.reduce((s, x) => s + x.komisyon + x.pasif, 0))
+    })
+
     const stats = [
-        { title: "Toplam Referans", value: 54, icon: Users, trend: "+12%", trendUp: true, spark: [30, 34, 38, 40, 44, 48, 54] },
-        { title: "Toplam Kazanç", value: 108000, prefix: "$", icon: DollarSign, spark: [45000, 55000, 65000, 75000, 85000, 95000, 108000] },
-        { title: "Aylık Pasif Gelir", value: 1458, prefix: "$", icon: TrendingUp, trend: "+$210", trendUp: true, subtitle: "Canlı (Mgmt %)", spark: [800, 900, 1000, 1050, 1200, 1350, 1458] },
-        { title: "Yıllık Pasif Gelir", value: 17496, prefix: "$", icon: Calendar, subtitle: "Projeksiyon", spark: [9600, 10800, 12000, 13200, 15600, 16200, 17496] },
+        {
+            title: "Toplam Referans",
+            value: data?.stats.totalReferrals ?? 0,
+            icon: Users,
+            spark: buildSpark(referralsTrendSeries),
+        },
+        {
+            title: "Toplam Kazanç",
+            value: data?.stats.totalEarnings ?? 0,
+            prefix: "$",
+            icon: DollarSign,
+            spark: buildSpark(totalEarningsSeries),
+        },
+        {
+            title: "Aylık Pasif Gelir",
+            value: data?.stats.monthlyPassive ?? 0,
+            prefix: "$",
+            icon: TrendingUp,
+            subtitle: "Mgmt % gelirinden",
+            spark: buildSpark(pasifSeries),
+        },
+        {
+            title: "Yıllık Pasif Gelir",
+            value: data?.stats.annualPassive ?? 0,
+            prefix: "$",
+            icon: Calendar,
+            subtitle: "Projeksiyon",
+            spark: buildSpark(pasifSeries.map((v) => v * 12)),
+        },
     ]
 
-    const referrals = [
-        { name: "Mustafa Kılıç", properties: 3, status: "Aktif", income: "$40.50/ay", date: "12 Oca 2025" },
-        { name: "Selin Yılmaz", properties: 1, status: "Kapanışta", income: "$13.50/ay", date: "3 Şub 2025" },
-        { name: "Ahmet Bakır", properties: 5, status: "Aktif", income: "$67.50/ay", date: "28 Ara 2024" },
-        { name: "Deniz Toprak", properties: 2, status: "Görüşmede", income: "-", date: "8 Şub 2025" },
-        { name: "Elif Şahin", properties: 4, status: "Aktif", income: "$54.00/ay", date: "15 Kas 2024" },
+    const referrals = (data?.referrals ?? []).slice(0, 5).map((r) => ({
+        name: r.name,
+        properties: r.properties,
+        status: r.status,
+        income: r.monthlyPassive > 0 ? `$${r.monthlyPassive.toFixed(2)}/ay` : "-",
+        date: formatTrDate(r.date),
+    }))
+
+    const pipelineStages = [
+        { label: "İletişim", count: data?.pipeline.contact ?? 0, icon: UserPlus, color: "#A8B0B8" },
+        { label: "Görüşme", count: data?.pipeline.meeting ?? 0, icon: Eye, color: "#1F2328" },
+        { label: "Due Diligence", count: data?.pipeline.dueDiligence ?? 0, icon: FileCheck, color: "#C1A05E" },
+        { label: "Kapanış", count: data?.pipeline.closing ?? 0, icon: HandCoins, color: "#C1A05E" },
+        { label: "Tamamlandı", count: data?.pipeline.completed ?? 0, icon: CheckCircle2, color: "#22c55e" },
     ]
 
-    // Monthly goal
-    const monthlyGoal = 8
-    const monthlyActual = 6
-    const goalPercent = Math.round((monthlyActual / monthlyGoal) * 100)
+    const monthlyGoal = data?.monthlyGoal.target ?? 8
+    const monthlyActual = data?.monthlyGoal.actual ?? 0
+    const goalPercent = monthlyGoal > 0 ? Math.round((monthlyActual / monthlyGoal) * 100) : 0
+    const totalMonthlyPassiveLabel = `$${(data?.stats.monthlyPassive ?? 0).toLocaleString()}/ay`
+
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-[60vh]">
+                <Loader2 className="w-8 h-8 text-[#C1A05E] animate-spin" />
+            </div>
+        )
+    }
 
     return (
         <>
@@ -174,7 +246,7 @@ export default function AgentDashboard() {
                     <div className="flex items-center gap-3 pl-6 border-l border-slate-100">
                         <div className="text-right hidden sm:block">
                             <p className="text-sm font-bold text-slate-900">{agentName}</p>
-                            <p className="text-xs text-[#C1A05E] font-bold">Elite Agent</p>
+                            <p className="text-xs text-[#C1A05E] font-bold capitalize">{(data?.level ?? "Starter").toLowerCase()} Agent</p>
                         </div>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
@@ -251,21 +323,12 @@ export default function AgentDashboard() {
                                 <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#C1A05E]/10 to-[#C1A05E]/20 flex items-center justify-center">
                                     <stat.icon size={20} className="text-[#C1A05E]" />
                                 </div>
-                                {stat.trend && (
-                                    <span className={cn(
-                                        "text-xs font-bold px-2 py-1 rounded-lg flex items-center gap-0.5",
-                                        stat.trendUp ? "bg-emerald-50 text-emerald-600" : "bg-red-50 text-red-500"
-                                    )}>
-                                        <TrendingUp size={11} />
-                                        {stat.trend}
-                                    </span>
-                                )}
                             </div>
                             <p className="text-xs text-[#A8B0B8] font-semibold uppercase tracking-wider mb-1">{stat.title}</p>
                             <p className="text-2xl font-extrabold text-[#1F2328] tracking-tight">
-                                <AnimatedValue value={stat.value} prefix={stat.prefix || ""} />
+                                <AnimatedValue value={stat.value} prefix={"prefix" in stat ? stat.prefix : ""} />
                             </p>
-                            {stat.subtitle && <p className="text-xs text-[#A8B0B8] mt-1">{stat.subtitle}</p>}
+                            {"subtitle" in stat && stat.subtitle && <p className="text-xs text-[#A8B0B8] mt-1">{stat.subtitle}</p>}
                             {stat.spark && (
                                 <div className="mt-3 -mx-1">
                                     <Sparkline data={stat.spark} />
@@ -454,7 +517,7 @@ export default function AgentDashboard() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.5 }}
                     >
-                        <AgentTierProgress currentSales={54} />
+                        <AgentTierProgress currentSales={data?.stats.completedSales ?? 0} />
                     </motion.div>
 
                     {/* Recent Referrals Table */}
@@ -485,6 +548,13 @@ export default function AgentDashboard() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-50">
+                                    {referrals.length === 0 && (
+                                        <tr>
+                                            <td colSpan={5} className="py-10 text-center text-sm text-[#A8B0B8]">
+                                                Henüz referans kaydı yok.
+                                            </td>
+                                        </tr>
+                                    )}
                                     {referrals.map((ref, i) => (
                                         <motion.tr
                                             key={i}
@@ -535,7 +605,7 @@ export default function AgentDashboard() {
                         <div className="p-4 bg-[#C1A05E]/5 border-t border-[#C1A05E]/10">
                             <div className="flex items-center justify-between text-sm">
                                 <span className="text-[#A8B0B8] font-medium">Toplam Aylık Pasif Gelir</span>
-                                <span className="font-bold text-[#C1A05E]">$175.50/ay</span>
+                                <span className="font-bold text-[#C1A05E]">{totalMonthlyPassiveLabel}</span>
                             </div>
                         </div>
                     </motion.div>
