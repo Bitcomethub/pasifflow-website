@@ -71,6 +71,11 @@ export async function GET(req: NextRequest) {
         const p = item?.property
         if (!p) return null
 
+        // Only active "For Sale" listings — drop withdrawn/pasif rows upstream
+        const listingStatus = p.listing?.listingStatus
+        const marketingStatus = p.listing?.marketingStatus
+        if (listingStatus !== "forSale" || marketingStatus !== "active") return null
+
         // PRICE — p.price bir object: {value: 209900, pricePerSquareFoot: 161}
         const price = Number(
           p.price?.value ?? p.price ?? p.listingPrice ?? p.unformattedPrice ?? 0
@@ -84,6 +89,16 @@ export async function GET(req: NextRequest) {
         // DETAIL URL — zpid ile doğrudan Zillow detayfsayfası kanonik URL
         const detailUrl = `https://www.zillow.com/homedetails/${p.zpid}_zpid/`
 
+        // PHOTOS — prefer highResolution gallery; fall back to medium, then single thumb
+        const highRes: string[] = Array.isArray(p.media?.allPropertyPhotos?.highResolution)
+          ? p.media.allPropertyPhotos.highResolution.slice(0, 10)
+          : []
+        const medium: string[] = Array.isArray(p.media?.allPropertyPhotos?.medium)
+          ? p.media.allPropertyPhotos.medium.slice(0, 10)
+          : []
+        const fallback = [p.media?.propertyPhotoLinks?.mediumSizeLink].filter(Boolean) as string[]
+        const photos = highRes.length > 0 ? highRes : medium.length > 0 ? medium : fallback
+
         return {
           zpid: p.zpid,
           price,
@@ -94,7 +109,8 @@ export async function GET(req: NextRequest) {
           address: p.address?.streetAddress
             ? `${p.address.streetAddress}, ${p.address.city}, ${p.address.state}`
             : "Detroit, MI",
-          imageUrl: p.media?.propertyPhotoLinks?.mediumSizeLink || "",
+          imageUrl: p.media?.propertyPhotoLinks?.mediumSizeLink || photos[0] || "",
+          photos,
           detailUrl,
           lat: p.location?.latitude || 0,
           lng: p.location?.longitude || 0,

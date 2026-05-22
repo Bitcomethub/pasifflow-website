@@ -16,6 +16,8 @@ import {
     Calendar,
     X,
     ExternalLink,
+    ChevronLeft,
+    ChevronRight,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -31,6 +33,7 @@ interface Listing {
     yearBuilt: number | null
     livingArea: number
     imageUrl: string | null
+    photos: string[]
     lat: number
     lng: number
     detailUrl: string
@@ -413,13 +416,36 @@ function Metric({ label, value, accent }: { label: string; value: string; accent
 }
 
 function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => void }) {
+    const photos = useMemo(() => {
+        const arr = (listing.photos || []).filter(Boolean)
+        if (arr.length > 0) return arr
+        return listing.imageUrl ? [listing.imageUrl] : []
+    }, [listing])
+
+    const [activePhotoIdx, setActivePhotoIdx] = useState(0)
+    const photoCount = photos.length
+    const hasPhotos = photoCount > 0
+    const hasMultiple = photoCount > 1
+
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
-            if (e.key === "Escape") onClose()
+            if (e.key === "Escape") {
+                onClose()
+                return
+            }
+            if (!hasMultiple) return
+            if (e.key === "ArrowLeft") {
+                setActivePhotoIdx((i) => (i - 1 + photoCount) % photoCount)
+            } else if (e.key === "ArrowRight") {
+                setActivePhotoIdx((i) => (i + 1) % photoCount)
+            }
         }
         window.addEventListener("keydown", handler)
         return () => window.removeEventListener("keydown", handler)
-    }, [onClose])
+    }, [onClose, photoCount, hasMultiple])
+
+    const goPrev = () => setActivePhotoIdx((i) => (i - 1 + photoCount) % photoCount)
+    const goNext = () => setActivePhotoIdx((i) => (i + 1) % photoCount)
 
     return (
         <div
@@ -430,19 +456,41 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                 className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
-                <div className="relative">
-                    {listing.imageUrl ? (
+                <div className="relative bg-zinc-900">
+                    {hasPhotos ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
-                            src={listing.imageUrl}
-                            alt={listing.address}
-                            className="w-full h-64 object-cover rounded-t-xl"
+                            src={photos[activePhotoIdx]}
+                            alt={`${listing.address} — photo ${activePhotoIdx + 1}`}
+                            className="w-full h-72 object-cover object-center rounded-t-xl"
                         />
                     ) : (
-                        <div className="w-full h-64 bg-zinc-100 rounded-t-2xl flex items-center justify-center text-zinc-400">
+                        <div className="w-full h-72 bg-zinc-100 rounded-t-2xl flex items-center justify-center text-zinc-400">
                             <Building2 className="h-16 w-16" />
                         </div>
                     )}
+
+                    {hasMultiple && (
+                        <>
+                            <button
+                                type="button"
+                                onClick={goPrev}
+                                aria-label="Previous photo"
+                                className="absolute top-1/2 left-3 -translate-y-1/2 p-2 bg-white/90 hover:bg-white rounded-full shadow"
+                            >
+                                <ChevronLeft className="h-5 w-5" />
+                            </button>
+                            <button
+                                type="button"
+                                onClick={goNext}
+                                aria-label="Next photo"
+                                className="absolute top-1/2 right-3 -translate-y-1/2 p-2 bg-white/90 hover:bg-white rounded-full shadow"
+                            >
+                                <ChevronRight className="h-5 w-5" />
+                            </button>
+                        </>
+                    )}
+
                     <button
                         onClick={onClose}
                         className="absolute top-3 right-3 p-2 bg-white/95 hover:bg-white rounded-full shadow"
@@ -450,12 +498,40 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                     >
                         <X className="h-4 w-4" />
                     </button>
+
                     <Badge
                         className={`absolute top-3 left-3 ${SCORE_STYLES[listing.score]} text-sm font-bold`}
                     >
                         Section 8 Score: {listing.score}
                     </Badge>
+
+                    {hasMultiple && (
+                        <div className="absolute top-12 right-3 px-2 py-1 rounded-md bg-black/60 text-white text-xs font-medium">
+                            {activePhotoIdx + 1}/{photoCount}
+                        </div>
+                    )}
                 </div>
+
+                {hasMultiple && (
+                    <div className="flex gap-2 overflow-x-auto px-4 py-3 border-b bg-zinc-50">
+                        {photos.map((src, idx) => (
+                            <button
+                                key={`${src}-${idx}`}
+                                type="button"
+                                onClick={() => setActivePhotoIdx(idx)}
+                                className={`shrink-0 w-20 h-[60px] rounded-md overflow-hidden border-2 transition-all ${
+                                    idx === activePhotoIdx
+                                        ? "border-[#B8A074] ring-2 ring-[#B8A074]/30"
+                                        : "border-transparent opacity-70 hover:opacity-100"
+                                }`}
+                                aria-label={`Show photo ${idx + 1}`}
+                            >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                            </button>
+                        ))}
+                    </div>
+                )}
 
                 <div className="p-6 space-y-6">
                     <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
@@ -511,7 +587,7 @@ function ListingModal({ listing, onClose }: { listing: Listing; onClose: () => v
                             rel="noopener noreferrer"
                             className="inline-flex items-center justify-center gap-2 flex-1 h-10 px-4 py-2 rounded-md text-sm font-medium bg-[#006AFF] hover:bg-[#0055d4] text-white transition-colors"
                         >
-                            <ExternalLink className="h-4 w-4" /> View on Zillow
+                            <ExternalLink className="h-4 w-4" /> Zillow&apos;da Gör
                         </a>
                         <Button variant="outline" onClick={onClose} className="sm:w-32">Close</Button>
                     </div>
